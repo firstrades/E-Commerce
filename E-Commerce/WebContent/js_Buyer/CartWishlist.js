@@ -1,0 +1,69 @@
+$(function() {
+	
+		$('.remove').click(function() {
+			
+				var tr             = $(this).closest('.item-row');          // find parent with specific class			
+				var cartOrWishlist = $(this).attr('class').split(' ')[1];   // take the other class name 'cart or wishlist'			
+				var productId      = $(this).attr('class').split(' ')[2];   // take the other class name 'productId'		
+			
+				$.getJSON('DeleteFromCartWishlistTable', {cartOrWishlist: cartOrWishlist, productId: productId}, function(object) {
+					
+						if (object.status == true) {   
+							
+							tr.remove();
+							$('#amount').html('CART INR ' + object.totalSum);
+							$('#qty').html(object.totalQty);
+							$('#totalsun').html('Rs. ' + object.totalSum);
+						}						
+					
+				});  // $.getJSON close			
+			
+		});  // $('.remove') close
+		
+		//----------------------------------------------------------------------------------------
+		
+		$('.qty').click(function() {
+			
+				var td = $(this).closest('td.carty-changeQuantity');  // find parent
+				$('.save').hide();                                    // hide all save
+				td.find('.save').show();                              // show this save
+		});
+		
+		$('.save').click(function() {
+			
+				var td    = $(this).closest('td.carty-changeQuantity');             // find parent
+				var qty   = td.find('input.qty').val();                             // find value of sibling 
+				var salePriceElement = td.find('input.salePriceChange');
+				var salePrice = salePriceElement.val();                     // find value of sibling				
+				
+				var tr         = $(this).closest('.item-row');          // find parent with specific class	
+				var tdSubTotal = tr.find('.bd');
+				var productId  = tr.find('.remove').attr('class').split(' ')[2];  
+				
+				tr.find('span.stock').html('');
+				
+				$.getJSON('InsertQtyToCart', {qty: qty, productId: productId}, function(object) {
+						td.find('input.qty').val(object.qty);
+						
+						if (object.stock) {
+							tr.find('span.stock').html(object.stock);
+						}
+						
+						if (object.qty == 0) {							
+							tr.find('span.stock').html('OUT OF STOCK');
+						}
+						td.find('.save').hide();
+						$('#amount').html('CART INR ' + object.totalSum);
+						$('#qty').html(object.totalQty);
+						$('#totalsun').html('Rs. ' + object.totalSum);
+						
+						var subTotal = object.qty * parseFloat(salePrice); 
+						tdSubTotal.html('Rs. ' + subTotal);
+				});
+		});
+		
+		
+		
+		
+		
+});  // $(function() close
