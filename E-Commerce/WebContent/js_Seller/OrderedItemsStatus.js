@@ -16,7 +16,7 @@ application.controller('LoopController', function($scope, $http, $window) {
                 headers : {
                     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
                 }
-            }
+        }
 		
 		$http.post('GenerateTrackNumberCOD', data, config).success(function(data) {			
 			
@@ -40,9 +40,9 @@ application.controller('LoopController', function($scope, $http, $window) {
 		
 		var config = {
                 headers : {
-                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8;'
                 }
-            }
+        }
 		
 		$http.post('GenerateTrackNumberBANK', data, config).success(function(data) {
 			
@@ -56,12 +56,43 @@ application.controller('LoopController', function($scope, $http, $window) {
 	};
 	
 	
+	$scope.date = '12-02-2016';	
+	$scope.changeStateToPicked = function(orderTableId, element) {		
+
+		var date = $scope.date;
+		
+		var data = $.param ({
+			orderTableId: orderTableId,
+			date        : date
+		});
+		
+		var config = {
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8;'
+                }
+        }
+		
+		$http.post('', data, config).success(function(data) {
+			
+			if (data.pickup) {				
+				
+				
+			}
+		});	
+		
+		
+	};
 	
 	//$window.alert(orderTableId);
-	
 	
 	
 	
 		
 	
 });
+
+
+
+
+
+

@@ -9,7 +9,7 @@
 		<div class="header_top">
 			<div class="top_right">
 				<ul>
-					<li><a href="SellerLogin">Sell</a></li>|
+					<li><a href="SellerLogin">Stockist</a></li>|
 					<li><a href="#" data-toggle="modal" data-target="#myModal">Administration</a></li>|
 					<li><a href="#">24X7 Customer Care </a></li> |
 					<li><a href="#">Track Order</a></li>

@@ -15,7 +15,11 @@
 	<link type="text/css" href="css/bootstrap.css" rel="stylesheet">
 	<link  rel="stylesheet" href="<%=FrequentUse.style %>" type="text/css" />
 	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<script src="js/bootstrap.min.js"></script>
 	
+	 <link rel="stylesheet" href="css/reset.css" type="text/css"/>
+<link rel="stylesheet" href="css/default.css" type="text/css"/>
+
 	
 <style type="text/css">
 
@@ -68,6 +72,7 @@ clear: both;
 
 
 <% 
+	int i = 0;
 	for (OrderTable orderTable : orderTables) { 
 	    System.out.println(orderTable.getPaymentType());
 %>
@@ -152,9 +157,9 @@ clear: both;
 				<% } %>
 				
 				<div class="col-md-3" style="margin-top:58px;" data-ng-show="pickupLabelCOD">
-					<a href="" style="padding: 9px 20px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Pickup Req</a> 
-					<a href="" style="padding: 9px 20px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Pirnt Label</a>  <br><br>
-					<a href="" style="padding: 9px 39px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Delete Shipment (COD)</a>					
+					<a href="#" data-toggle="modal" data-target="#myModal<%=i%>" style="padding: 9px 20px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Pickup Req</a> 
+					<a href="#" style="padding: 9px 20px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Pirnt Label</a>  <br><br>
+					<a href="#" style="padding: 9px 39px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Delete Shipment (COD)</a>					
 				</div>
 				
 				
@@ -167,18 +172,47 @@ clear: both;
 				<% } %>
 				
 				<div class="col-md-3" style="margin-top:58px;" data-ng-show="pickupLabelBANK">
-					<a href="" style="padding: 9px 20px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Pickup Req</a> 
-					<a href="" style="padding: 9px 20px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Pirnt Label</a>  <br><br>
-					<a href="" style="padding: 9px 35px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Delete Shipment (BANK)</a>					
+					<a href="#" data-toggle="modal" data-target="#myModal<%=i%>" 
+						style="padding: 9px 20px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Pickup Req</a> 
+					<a href="#" style="padding: 9px 20px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Pirnt Label</a>  <br><br>
+					<a href="#" style="padding: 9px 35px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Delete Shipment (BANK)</a>					
 				</div>
 				
 				
-				<!-- ------------------------------------------------------------------------------------------------------ -->			
+				<!-- ---------------------------- Pick Up ===== Pop Up ---------------------------------------------------- -->			
 				
 				
+				<%-- <div id="orderTableId" style="display: none;"><%=orderTable.getId() %></div> --%>
+				
+				<div class="modal fade pickpop" id="myModal<%=i%>">
+			    	<div class="modal-dialog">    
+			      		<!-- Modal content-->
+			      		<div class="modal-content" style="width: 65%; margin-left: 15%;">
+			        		<div class="modal-header">
+			          			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			          			<h4 class="modal-title" style="text-align: center; color: #FF6978">Pickup Complete</h4>
+			        		</div>
+			        		<!-- -------------------------------------------------------------- -->
+			        		
+			        		<div class="modal-body">
+			       				<div class="new-login-form">  			            			
+			            			<div class="tmargin20 login-btn-wrap" style="margin-left: 20%;">
+			                			<input type="text"  data-ng-model="date"
+			                				class="span1"   placeholder="Pick a date" style="margin-bottom: 25px;"/> 
+			                			<a href="#"  data-dismiss="modal" data-ng-click="changeStateToPicked(<%=orderTable.getId() %>, this)"
+			                				style="padding: 9px 35px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;"> Ok  </a>
+			            			</div>
+			        			</div>			        		
+			      			</div>   
+			      			
+			      			<!-- -------------------------------------------------------------- --> 
+			    		</div>
+			  		</div>  
+				</div>					
+				
 			
 			
-			
+				<!-- ------------------------------------------------------------------------------------------------------ -->	
 		
 			</div>
 	</div>
@@ -186,7 +220,9 @@ clear: both;
 	
 	
 
-<% } %>
+<% 
+	i++;
+	} %>
 
 <!-- ---------------------        End  Loop    ------------------------------------------ -->
 
