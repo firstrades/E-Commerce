@@ -33,6 +33,7 @@
     <url-pattern>/RetrieveOrderedItemsForSeller</url-pattern>
     <url-pattern>/GenerateTrackNumberCOD</url-pattern>
     <url-pattern>/GenerateTrackNumberBANK</url-pattern>
+    <url-pattern>/SetPickedUp</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>RetrieveImageServlet</servlet-name>

@@ -57,9 +57,9 @@ application.controller('LoopController', function($scope, $http, $window) {
 	
 	
 	$scope.date = '12-02-2016';	
-	$scope.changeStateToPicked = function(orderTableId, element) {		
+	$scope.changeStateToPicked = function(orderTableId) {	  	
 
-		var date = $scope.date;
+		var date = $scope.date;      
 		
 		var data = $.param ({
 			orderTableId: orderTableId,
@@ -72,11 +72,15 @@ application.controller('LoopController', function($scope, $http, $window) {
                 }
         }
 		
-		$http.post('', data, config).success(function(data) {
+		$http.post('SetPickedUp', data, config).success(function(data) {
 			
-			if (data.pickup) {				
+			if (data.picked) {				
 				
-				
+				$scope.trackParcel     = true;
+				$scope.trackNumberBANK = false;
+				$scope.trackNumberCOD  = false;
+				$scope.pickupLabelBANK = false;				
+				$scope.pickupLabelCOD  = false;
 			}
 		});	
 		

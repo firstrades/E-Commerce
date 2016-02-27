@@ -179,10 +179,38 @@ clear: both;
 				</div>
 				
 				
-				<!-- ---------------------------- Pick Up ===== Pop Up ---------------------------------------------------- -->			
+				<!-- -------------------------------------------------------------------------------------------- -->
 				
 				
-				<%-- <div id="orderTableId" style="display: none;"><%=orderTable.getId() %></div> --%>
+				
+				
+				
+				
+				
+				<!-- -------------------  Picked Up  (BANK)   ------------------------------ -->		
+				
+				<% if (orderTable.getOrderState().equals("Picked")) { %>
+				<div data-ng-init="trackParcel=true"></div>
+				<% } else { %>
+				<div data-ng-init="trackParcel=false"></div>
+				<% } %>
+				
+				<div class="col-md-3" style="margin-top:58px;" data-ng-show="trackParcel">
+					<a href="#" style="padding: 9px 79px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Track Parcel</a><br><br>
+					<a href="#" style="padding: 9px 35px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Delete Shipment (BANK)</a>					
+				</div>
+				
+				
+				<!-- -------------------------------------------------------------------------------------------- -->
+				
+				
+				
+				
+				
+				
+				
+				<!-- ---------------------------- Pick Up ===== Pop Up ---------------------------------------------------- -->				
+				
 				
 				<div class="modal fade pickpop" id="myModal<%=i%>">
 			    	<div class="modal-dialog">    
@@ -199,7 +227,7 @@ clear: both;
 			            			<div class="tmargin20 login-btn-wrap" style="margin-left: 20%;">
 			                			<input type="text"  data-ng-model="date"
 			                				class="span1"   placeholder="Pick a date" style="margin-bottom: 25px;"/> 
-			                			<a href="#"  data-dismiss="modal" data-ng-click="changeStateToPicked(<%=orderTable.getId() %>, this)"
+			                			<a href="#"  data-dismiss="modal" data-ng-click="changeStateToPicked(<%=orderTable.getId() %>)"
 			                				style="padding: 9px 35px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;"> Ok  </a>
 			            			</div>
 			        			</div>			        		

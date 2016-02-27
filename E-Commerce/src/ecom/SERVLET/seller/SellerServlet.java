@@ -405,7 +405,50 @@ public class SellerServlet extends HttpServlet {
 			
 		} //  /GenerateTrackNumberBANK
 		
+		else if (servletPath.equals("/SetPickedUp")) {
+			
+			System.out.println("Entered SetPickedUp");
+			
+			/********* Get Request **********/
+			
+			long   orderTableId = Long.parseLong(request.getParameter("orderTableId"));
+			String date         = request.getParameter("date");
+			
+			boolean picked = false;
+			
+			/*********** Database *************/
+			
+			SellerDAO dao = SellerDAO.getNewInstance();
+			picked = dao.setPickedUp(orderTableId, date);
+			
+			
+			/************* JSON Data for Next Page ****************/
+			JSONObject jsonObject = new JSONObject();
+			
+			try {
+				jsonObject.put("picked", picked);
+			} catch (JSONException e) {	e.printStackTrace(); }
+			
+			response.setContentType("application/json");
+			response.getWriter().write(jsonObject.toString());
+			
+		} //  /SetPickedUp
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	private boolean callShipTransaction(HttpServletRequest request, String paymentType, boolean pickup) throws SOAPException, IOException, ParserConfigurationException, SAXException, ParseException {
 		

@@ -4,6 +4,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,58 @@ public class SellerDAO {
 	}
 	
 	/*************************************************************/
+	
+	public boolean setPickedUp(long orderTableId, String date) {
+		
+		Connection connection = null;
+        CallableStatement callableStatement = null;        
+        
+        boolean picked = false;   
+        
+        try{
+        	connection = ConnectionFactory.getNewConnection();
+		    connection.setAutoCommit(false);
+		    
+		    callableStatement = connection.prepareCall("{call setPickedUp(?,?,?)}");
+		    callableStatement.setLong  (1, orderTableId);
+		    callableStatement.setString(2, date        );
+		    callableStatement.registerOutParameter(3, Types.BOOLEAN);
+		    
+		    callableStatement.execute(); 		   
+		    	
+		    picked = callableStatement.getBoolean(3);
+		    
+		   
+		    System.out.println("SQL - setPickedUp Executed");
+		    
+		    connection.commit();
+		    return picked;
+
+        }catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {				
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				callableStatement.close();
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}
+			try {
+				connection.close();
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}
+		}   
+        
+		return picked;
+	} //setPickedUp
+	
 	
 	public List<OrderTable> getOrderTables(User user) {
 		
@@ -92,7 +145,12 @@ public class SellerDAO {
 	} //getOrderTables
 	
 	
-
+	
+	
+	
+	
+	
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
