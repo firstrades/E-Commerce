@@ -189,6 +189,28 @@ public class OrderServlet extends HttpServlet {
 		else if (servletPath.equals("/FailureServlet")) {
 			
 					System.out.println("Entered FailureServlet");
+					
+					String trnxId =  request.getParameter("txnid");     //"J20160212160056256";   
+					
+					/******** Get User from Database and Set Session ***************/
+					UserDAO dao = new UserDAO();
+					User user = dao.getUserByTranxId(trnxId);  
+					session.setAttribute("user", user);
+					
+					
+					//create order object again
+					Order order = null;
+					
+					/********** Process Return Commission ***************/
+					
+					//Get Object
+					OrderInterface orderInterface = OrderImpl.getNewInstance();				
+					
+					
+					if (user.getUserInfo().getUserType() == UserType.CUSTOMER)
+						orderInterface.returnFranchiseCommission(user, order);
+					else if (user.getUserInfo().getUserType() == UserType.DISTRIBUTOR)
+						orderInterface.returnDistributorFranchiseCommission(user, order);
 		}
 		
 	}
