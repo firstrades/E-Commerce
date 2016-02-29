@@ -26,10 +26,11 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import ecom.Interface.Courier.TrackByNumberInterface;
 import ecom.common.ConnectionFactory;
 import ecom.common.FrequentUse;
 
-public class TrackByNumber {
+public class TrackByNumber implements TrackByNumberInterface {
 	
 	
 	private long orderTableId;

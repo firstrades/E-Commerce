@@ -196,7 +196,8 @@ clear: both;
 				<% } %>
 				
 				<div class="col-md-3" style="margin-top:58px;" data-ng-show="trackParcel">
-					<a href="#" style="padding: 9px 79px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Track Parcel</a><br><br>
+					<a href="#" data-ng-click="trackingDetails(<%=orderTable.getId() %>)"
+						data-toggle="modal" data-target="#myModal1<%=i%>" style="padding: 9px 79px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Track Parcel</a><br><br>
 					<a href="#" style="padding: 9px 35px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Delete Shipment (BANK)</a>					
 				</div>
 				
@@ -241,6 +242,42 @@ clear: both;
 			
 			
 				<!-- ------------------------------------------------------------------------------------------------------ -->	
+				
+				
+				
+				<!-- ---------------------------------- Pop Up - Track Item -------------------------------------------------------------------- -->
+				
+				
+				<div class="modal fade pickpop" id="myModal1<%=i%>">
+			    	<div class="modal-dialog">    
+			      		<!-- Modal content-->
+			      		<div class="modal-content" style="width: 100%; margin-left: 15%;">
+			        		<div class="modal-header">
+			          			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			          			<h4 class="modal-title" style="text-align: center; color: #FF6978">Tracking Details</h4>
+			        		</div>
+			        		<!-- -------------------------------------------------------------- -->
+			        		
+			        		<div class="modal-body">
+			       				<div class="new-login-form"> 
+			       					<img data-ng-show="loader1" alt="loader" src="images/loader1.gif" style="width: 40px; height: 40px; margin-top: -14px; margin-left: 251px;" /> 			            			
+			            			<p data-ng-bind="trackDetails"></p>
+			            			
+			        			</div>			        		
+			      			</div>   
+			      			
+			      			<!-- -------------------------------------------------------------- --> 
+			    		</div>
+			  		</div>  
+				</div>					
+				
+				
+				
+				
+				
+				
+				
+				<!-- ------------------------------------------------------------------------------------------------------ -->
 		
 			</div>
 	</div>

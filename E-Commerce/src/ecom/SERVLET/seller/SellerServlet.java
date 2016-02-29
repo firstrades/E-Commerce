@@ -26,7 +26,9 @@ import org.xml.sax.SAXException;
 
 import ecom.DAO.Seller.ProductDAO;
 import ecom.DAO.Seller.SellerDAO;
+import ecom.Implementation.Courier.SOAP.TrackByNumber;
 import ecom.Implementation.Courier.SOAP.TrackingIdGeneration;
+import ecom.Interface.Courier.TrackByNumberInterface;
 import ecom.Interface.Courier.TrackingIdGenerationInterface;
 import ecom.beans.TransientData;
 import ecom.model.OrderTable;
@@ -433,6 +435,53 @@ public class SellerServlet extends HttpServlet {
 			response.getWriter().write(jsonObject.toString());
 			
 		} //  /SetPickedUp
+		
+		else if (servletPath.equals("/GetTrackingDetails")) {
+			
+			System.out.println("Entered GetTrackingDetails");
+			
+			/********* Get Request **********/
+			
+			long orderTableId = Long.parseLong(request.getParameter("orderTableId"));		
+			
+			/*********** Database *************/
+			
+			TrackByNumberInterface trackByNumberInterface = TrackByNumber.getNewInstance();
+			
+			try {
+				
+				trackByNumberInterface.getTrackingStatus(orderTableId);
+				
+			} catch (UnsupportedOperationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SOAPException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SAXException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			
+			/************* JSON Data for Next Page ****************/
+			JSONObject jsonObject = new JSONObject();
+			
+			try {
+				jsonObject.put("picked", true);
+			} catch (JSONException e) {	e.printStackTrace(); }
+			
+			response.setContentType("application/json");
+			response.getWriter().write(jsonObject.toString());
+			
+		} //  /GetTrackingDetails
 	}
 	
 	

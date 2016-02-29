@@ -34,6 +34,7 @@
     <url-pattern>/GenerateTrackNumberCOD</url-pattern>
     <url-pattern>/GenerateTrackNumberBANK</url-pattern>
     <url-pattern>/SetPickedUp</url-pattern>
+    <url-pattern>/GetTrackingDetails</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>RetrieveImageServlet</servlet-name>

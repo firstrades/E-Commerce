@@ -87,6 +87,34 @@ application.controller('LoopController', function($scope, $http, $window) {
 		
 	};
 	
+	
+	$scope.trackingDetails = function(orderTableId) {		
+		
+		$scope.loader1 = true;
+		$scope.trackDetails = "";
+		
+		var data = $.param ({
+			orderTableId: orderTableId			
+		});
+		
+		var config = {
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8;'
+                }
+        }
+		
+		$http.post('GetTrackingDetails', data, config).success(function(data) {
+			
+			if (data.picked) {				
+				
+				$scope.trackDetails = "Hai, no details yet....";
+				
+				$scope.loader1 = false;
+			}
+		});	
+	};
+	
+	
 	//$window.alert(orderTableId);
 	
 	
