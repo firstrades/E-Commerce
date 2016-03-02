@@ -51,8 +51,5 @@ public class Order implements Serializable {
 	public void setTotalSellPrice(double totalSellPrice) {
 		this.totalSellPrice = totalSellPrice;
 	}
-	
-	
-	
-	
+
 }

@@ -46,7 +46,7 @@
 						             <ul class="dropdown">
 						                <li><a href="#">Account</a></li>
 						                <li><a href="AddToCartOrWishlist?cartOrWishlist=cart&size=0">Cart</a></li>
-						                <li><a href="#">Orders</a></li>
+						                <li><a href="OrderHistroy">Orders</a></li>
 						                <li><a href="#">Wallet</a></li>
 						                <li><a href="AddToCartOrWishlist?cartOrWishlist=wishlist&size=0">Wishlist</a></li>                
 						                <li><a href="index.jsp">Log Out</a></li>

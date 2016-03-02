@@ -489,8 +489,6 @@ public class BuyerServlet extends HttpServlet {
 			
 			PrintWriter out = response.getWriter();
 			
-			
-			
 			String User_Id = request.getParameter("user_id").trim();
 			String msg = "";
 			
@@ -516,6 +514,22 @@ public class BuyerServlet extends HttpServlet {
 			
 		 }
 		
+		else if(servletPath.equals("/OrderHistroy")) {
+			System.out.println("Enter OrderHistroy");
+			
+			/******* Get Session ******/
+			User user = (User) session.getAttribute("user");
+			
+			/******* DataBase *******/
+			
+			BuyerSearchDAO dao = new BuyerSearchDAO();
+			dao.getOrderIdForCustomer(user);		
+			dao.getCustomerOrderHistroy(user);
+			
+			/****** NextPage ******/
+			request.getRequestDispatcher("jsp_Buyer/Orderhistory.jsp").forward(request, response);
+
+		}
 		
 	}
 }

@@ -10,6 +10,7 @@ import java.util.List;
 
 import ecom.common.ConnectionFactory;
 import ecom.model.CartWishlist;
+import ecom.model.CustomerOrderHistroy;
 import ecom.model.KeyFeatures;
 import ecom.model.Order;
 import ecom.model.Price;
@@ -1143,4 +1144,156 @@ public class BuyerSearchDAO {
 		
 	} //getSizeGarmentModel
 	
+	
+	public List<CustomerOrderHistroy> getCustomerOrderHistroy(User user) {
+		
+		Connection connection               = null;
+		CallableStatement callableStatement = null;		
+		ResultSet resultSet                 = null;
+	    List<CustomerOrderHistroy> list = new ArrayList<CustomerOrderHistroy>();
+		String sql = "{call getCustomerOrderHistroy(?)}";		
+		
+		try {
+				connection = ConnectionFactory.getNewConnection();
+				connection.setAutoCommit(false);
+				
+				callableStatement = connection.prepareCall(sql);
+				
+				callableStatement.setLong(1, user.getUserInfo().getId());							
+				 			
+				resultSet = callableStatement.executeQuery();						
+				
+				while (resultSet.next()) {
+					
+					CustomerOrderHistroy customerOrderHistroy = new CustomerOrderHistroy();
+					
+					customerOrderHistroy.setCalcellationAfterBooked(resultSet.getInt   ("calcellationAfterBooked"));
+					customerOrderHistroy.setCompanyName            (resultSet.getString("companyName"            ));
+					customerOrderHistroy.setDeliveredDate          (resultSet.getString("deliveredDate"          ));
+					customerOrderHistroy.setId                     (resultSet.getInt   ("id"                     ));
+					customerOrderHistroy.setOrderId                (resultSet.getString("orderId"                ));
+					customerOrderHistroy.setOrderState             (resultSet.getString("orderState"             ));
+					customerOrderHistroy.setOrderTableId           (resultSet.getLong  ("orderTableId"           ));
+					customerOrderHistroy.setPaymentType            (resultSet.getString("paymentType"            ));
+					customerOrderHistroy.setProductId              (resultSet.getLong  ("productId"              ));
+					customerOrderHistroy.setProductName            (resultSet.getString("productName"            ));
+					customerOrderHistroy.setQty                    (resultSet.getInt   ("qty"                    ));
+					customerOrderHistroy.setSellerCompany          (resultSet.getString("sellerCompany"          ));
+					customerOrderHistroy.setSellPrice              (resultSet.getDouble("sellPrice"              ));
+					customerOrderHistroy.setShippingCost           (resultSet.getDouble("shippingCost"           ));
+					customerOrderHistroy.setSize                   (resultSet.getInt   ("size"                   ));
+					customerOrderHistroy.setStatus                 (resultSet.getString("status"                 ));
+					customerOrderHistroy.setWarranty               (resultSet.getString("warranty"               ));
+		
+					list.add(customerOrderHistroy);
+					
+				}
+				
+				connection.commit();
+				callableStatement.close();
+				
+				System.out.println("SQL - Select getCustomerOrderHistroy() successfull.");
+				
+				return list;
+				
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e) {	
+			
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {					
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {	
+			
+			try {
+				resultSet.close();
+			} catch (SQLException e1) {			
+				e1.printStackTrace();
+			}			
+			try {
+				callableStatement.close();
+			} catch (SQLException e1) {			
+				e1.printStackTrace();
+			}
+			try {
+				connection.close();
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}
+		}		
+		
+		return null;
+		
+	} //getCustomerOrderHistroy
+	
+	public List<String> getOrderIdForCustomer(User user) {
+		
+		Connection connection               = null;
+		CallableStatement callableStatement = null;		
+		ResultSet resultSet                 = null;
+	    List<String> list = new ArrayList<String>();
+	    
+		String sql = "{call getOrderIdForCustomer(?)}";		
+		
+		try {
+				connection = ConnectionFactory.getNewConnection();
+				connection.setAutoCommit(false);
+				
+				callableStatement = connection.prepareCall(sql);
+				
+				callableStatement.setLong(1, user.getUserInfo().getId());							
+				 			
+				resultSet = callableStatement.executeQuery();						
+				
+				while (resultSet.next()) {
+					
+					
+					String orderId = resultSet.getString("order_id");
+		
+					list.add(orderId);
+					
+				}
+				
+				connection.commit();
+				callableStatement.close();
+				
+				System.out.println("SQL - Select getOrderIdForCustomer() successfull.");
+				
+				return list;
+				
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e) {	
+			
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {					
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {	
+			
+			try {
+				resultSet.close();
+			} catch (SQLException e1) {			
+				e1.printStackTrace();
+			}			
+			try {
+				callableStatement.close();
+			} catch (SQLException e1) {			
+				e1.printStackTrace();
+			}
+			try {
+				connection.close();
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}
+		}		
+		
+		return null;
+		
+	} //getOrderIdForCustomer
 }
