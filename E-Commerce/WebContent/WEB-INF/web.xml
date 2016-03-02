@@ -77,6 +77,8 @@
     <url-pattern>/CallRegistrationPage</url-pattern>
     <url-pattern>/Registration</url-pattern>   
     <url-pattern>/CheckUserId</url-pattern>
+    <url-pattern>/OrderHistroy</url-pattern>   
+    
   </servlet-mapping>
   <servlet>
     <servlet-name>OrderReviewAndSubmit</servlet-name>
