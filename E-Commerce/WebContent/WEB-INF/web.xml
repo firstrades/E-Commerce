@@ -111,6 +111,8 @@
     <url-pattern>/SetCommission</url-pattern>
     <url-pattern>/FranchiseAdditionalBalance</url-pattern>
     <url-pattern>/RetrieveOrderedItemsForAdmin</url-pattern>
+    <url-pattern>/RetrieveAllSellerForApprovalRegistration</url-pattern>    
+    <url-pattern>/ApproveSellerRegistrationPage</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>FranchiseServlet</servlet-name>

@@ -15,6 +15,8 @@ import ecom.model.KeyFeatures;
 import ecom.model.OrderTable;
 import ecom.model.Price;
 import ecom.model.ProductBean;
+import ecom.model.User;
+import ecom.model.UserAndPickupAddress;
 
 public class AdminDAO {
 
@@ -171,33 +173,15 @@ public class AdminDAO {
 				
 			} catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | SQLException e) {
-				try {
-					connection.rollback();
-				} catch (SQLException e1) {					
-					e1.printStackTrace();
-				}
+				try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 				e.printStackTrace();
-			} finally {
 				
-				try {
-					resultSet.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				try {
-					callableStatement.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				try {
-					connection.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			} finally {
+				try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
+				try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+				try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+				
+			}  
 		
 			return null;
 			
@@ -241,26 +225,15 @@ public class AdminDAO {
 				
 			} catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | SQLException e) {
-				try {
-					connection.rollback();
-				} catch (SQLException e1) {					
-					e1.printStackTrace();
-				}
+				try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 				e.printStackTrace();
+				
 			} finally {
 				
-				try {
-					callableStatement.close();
-				} catch (SQLException e) {					
-					e.printStackTrace();
-				}
-				try {
-					connection.close();
-				} catch (SQLException e) {					
-					e.printStackTrace();
-				}
-			
-			}
+				try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+				try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+				
+			}  
 			
 			return false;
 			
@@ -295,26 +268,15 @@ public class AdminDAO {
 			
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | SQLException e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {					
-				e1.printStackTrace();
-			}
+			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 			e.printStackTrace();
+			
 		} finally {
 			
-			try {
-				preparedStatement.close();
-			} catch (SQLException e) {				
-				e.printStackTrace();
-			}
-			try {
-				connection.close();
-			} catch (SQLException e) {				
-				e.printStackTrace();
-			}
-		
-		}
+			try { preparedStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+			
+		}   
 		
 		
 		return false;
@@ -351,26 +313,15 @@ public class AdminDAO {
 				
 			} catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | SQLException e) {
-				try {
-					connection.rollback();
-				} catch (SQLException e1) {					
-					e1.printStackTrace();
-				}
+				try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 				e.printStackTrace();
+				
 			} finally {
 				
-				try {
-					callableStatement.close();
-				} catch (SQLException e) {					
-					e.printStackTrace();
-				}
-				try {
-					connection.close();
-				} catch (SQLException e) {					
-					e.printStackTrace();
-				}
-			
-			}
+				try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+				try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+				
+			}   
 			
 			return balance;
 		
@@ -379,9 +330,7 @@ public class AdminDAO {
 	
 	public List<OrderTable> getOrderTablesForAdmin() {
 		
-		Connection connection = null;
-        CallableStatement callableStatement = null;
-        ResultSet resultSet = null;
+		Connection connection = null; CallableStatement callableStatement = null; ResultSet resultSet = null;
         
         List<OrderTable> list = new ArrayList<OrderTable>();
    
@@ -421,36 +370,152 @@ public class AdminDAO {
 		    connection.commit();
 		    return list;
 
-        }catch (InstantiationException | IllegalAccessException
+        } catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | SQLException e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {				
-				e1.printStackTrace();
-			}
+			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 			e.printStackTrace();
 			
 		} finally {
-			try {
-				callableStatement.close();
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
-			try {
-				connection.close();
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
+			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
+			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+			
 		}   
         
 		return null;
 	} //getOrderTablesForAdmin
 	
 	
+	public List<User> getAllSellerForApprovalRegistration() {
+		
+		Connection connection = null; CallableStatement callableStatement = null; ResultSet resultSet = null;
+        
+        List<User> list = new ArrayList<User>();   
+        
+        try{
+        	connection = ConnectionFactory.getNewConnection();
+		    connection.setAutoCommit(false);
+		    
+		    callableStatement = connection.prepareCall("{call getAllSellerForApprovalRegistration()}");		    	    
+		    
+		    resultSet = callableStatement.executeQuery() ; 
+		    
+		    while (resultSet.next()) {
+		    	
+		    	User user = new User();
+		    	
+		    	user.getUserInfo().setId       (resultSet.getLong  ("id"        ));
+		    	user.getLogin()   .setUserId   (resultSet.getString("user_id"   ));
+		    	user.getPerson()  .setFirstName(resultSet.getString("first_name"));
+		    	user.getPerson()  .setLastName (resultSet.getString("last_name" ));
+		    	user.getUserInfo().setCompany  (resultSet.getString("company"   ));
+		    	user.getContact() .setMobile1  (resultSet.getString("mobile1"   ));
+		    	user.getContact() .setPhone1   (resultSet.getString("phone1"    ));
+		    	user.getContact() .setEmail1   (resultSet.getString("email1"    ));
+		    	
+		    	list.add(user);
+		    }
+		   
+		    System.out.println("SQL - getAllSellerForApprovalRegistration Executed");
+		    
+		    connection.commit();
+		    return list;
+
+        } catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e) {
+			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
+			e.printStackTrace();
+			
+		} finally {
+			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
+			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+			
+		}   
+        
+		return null;
+	} //getAllSellerForApprovalRegistration
 	
 	
-	
-	
+	public UserAndPickupAddress getUserAndPicupAddress(long id) {
+		
+		Connection connection = null; CallableStatement callableStatement = null; ResultSet resultSet = null;
+        
+		UserAndPickupAddress u = new UserAndPickupAddress(); 
+        
+        try{
+        	connection = ConnectionFactory.getNewConnection();
+		    connection.setAutoCommit(false);
+		    
+		    callableStatement = connection.prepareCall("{call getUserAndPicupAddress(?)}");		    	    
+		    
+		    resultSet = callableStatement.executeQuery() ; 
+		    
+		    while (resultSet.next()) {
+		    	
+		    	u.getUser().getUserInfo().setId       (resultSet.getLong("id"          ));
+		    	u.getUser().getLogin()   .setUserId   (resultSet.getString("user_id"   ));
+		    	u.getUser().getUserInfo().setUserType (Conversions.getEnumUserType(resultSet.getString("user_type")));
+		    	u.getUser().getPerson()  .setFirstName(resultSet.getString("first_name"));
+		    	u.getUser().getPerson()  .setLastName (resultSet.getString("last_name" ));
+		    	u.getUser().getUserInfo().setCompany  (resultSet.getString("company"   ));
+		    	u.getUser().getAddress() .setAddress  (resultSet.getString("address"   ));
+		    	u.getUser().getAddress() .setAddress1 (resultSet.getString("address1"  ));
+		    	u.getUser().getAddress() .setPin      (resultSet.getString("pin"       ));
+		    	u.getUser().getAddress() .setCity     (resultSet.getString("city"      ));
+		    	u.getUser().getAddress() .setState    (resultSet.getString("state"     ));
+		    	u.getUser().getAddress() .setCountry  (resultSet.getString("country"   ));
+		    	u.getUser().getPerson()  .setSex      (resultSet.getString("sex"       ));
+		    	u.getUser().getContact() .setMobile1  (resultSet.getString("mobile1"   ));
+		    	u.getUser().getContact() .setMobile2  (resultSet.getString("mobile2"   ));
+		    	u.getUser().getContact() .setEmail1   (resultSet.getString("email1"    ));
+		    	u.getUser().getContact() .setEmail2   (resultSet.getString("email2"    ));
+		    	u.getUser().getContact() .setPhone1   (resultSet.getString("phone1"    ));
+		    	u.getUser().getContact() .setPhone2   (resultSet.getString("phone2"    ));
+		    	u.getUser().getContact() .setFax1     (resultSet.getString("fax1"      ));
+		    	u.getUser().getContact() .setFax2     (resultSet.getString("fax2"      ));
+		    	u.getUser().getUserInfo().setPan      (resultSet.getString("pan"       ));
+		    	u.getUser().getUserInfo().setVoterId  (resultSet.getString("voter_id"  ));
+		    	
+		    	
+		    	u.getDeliveryAddress().setId          (resultSet.getLong("da_id"       ));
+		    	u.getDeliveryAddress().setUserId      (resultSet.getLong("userId"      ));
+		    	u.getDeliveryAddress().setfName       (resultSet.getString("firstName" ));
+		    	u.getDeliveryAddress().setlName       (resultSet.getString("lastName"  ));
+		    	u.getDeliveryAddress().setCompany     (resultSet.getString("company1"  ));
+		    	u.getDeliveryAddress().setAddress     (resultSet.getString("address1"  ));
+		    	u.getDeliveryAddress().setAddress1    (resultSet.getString("address2"  ));
+		    	u.getDeliveryAddress().setCity        (resultSet.getString("city1"     ));
+		    	u.getDeliveryAddress().setPin         (resultSet.getString("pin1"      ));
+		    	u.getDeliveryAddress().setState       (resultSet.getString("state1"    ));
+		    	u.getDeliveryAddress().setContact     (resultSet.getString("mobile"    ));
+		    	u.getDeliveryAddress().setEmail       (resultSet.getString("email1"    ));
+		    	u.getDeliveryAddress().setCountry     (resultSet.getString("country1"  ));
+		    	
+		    	
+		    	
+		    	
+		    }
+		   
+		    System.out.println("SQL - getUserAndPicupAddress Executed");
+		    
+		    connection.commit();
+		    return u;
+
+        } catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e) {
+			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
+			e.printStackTrace();
+			
+		} finally {
+			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
+			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+			
+		}   
+        
+		return null;
+	} //getUserAndPicupAddress
 	
 	
 	

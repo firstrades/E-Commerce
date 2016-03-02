@@ -6,11 +6,30 @@ public class Address implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String address;
+	private String address1;
 	private String city;
 	private String state;	
 	private String pin;
+	private String country;
 	
 	
+	
+	
+	public String getAddress1() {
+		return address1;
+	}
+	public void setAddress1(String address1) {
+		this.address1 = address1;
+	}
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	public String getAddress() {
 		return address;
 	}
