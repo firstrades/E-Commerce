@@ -407,7 +407,7 @@ public class BuyerServlet extends HttpServlet {
 		
 		else if(servletPath.equals("/Registration")) {
 				
-				System.out.println("Enter Registration - Soumya");
+				System.out.println("Entered Registration - Soumya");
 				
 				/*************** Get Request ***************/
 	            String User_Id        = request.getParameter("user_id").trim();

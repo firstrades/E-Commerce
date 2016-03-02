@@ -179,9 +179,71 @@ public class Controller extends HttpServlet {
 		
 		else if (servletPath.equals("/RegisterSeller")) {                 
 			
-			System.out.println("Entered RegisterSeller");			
+			System.out.println("Entered RegisterSeller");	
 			
-			/************** Ajax - Next Page *******************/
+			/*************** Get Request ***************/		
+			String UserId         = request.getParameter("user_id")   .trim();
+			String Password       = request.getParameter("password")  .trim();
+			String First_Name     = request.getParameter("first_name").trim();
+			String Last_Name      = request.getParameter("last_name") .trim();
+			String Gender         = request.getParameter("sex")       .trim();
+			String Company        = request.getParameter("company")   .trim();
+			String Mobile_Number1 = request.getParameter("mobile1")   .trim();
+			String Mobile_Number2 = request.getParameter("mobile2")   .trim();
+			String Email1         = request.getParameter("email1")    .trim();
+			String Email2         = request.getParameter("email2")    .trim();
+			String Landphone1     = request.getParameter("landphone1").trim();
+			String Landphone2     = request.getParameter("landphone2").trim();
+			String Fax1           = request.getParameter("fax1")      .trim();
+			String Fax2           = request.getParameter("fax2")      .trim();
+			String Address_Line1  = request.getParameter("address1")  .trim();
+			String Address_Line2  = request.getParameter("address2")  .trim();
+			String City           = request.getParameter("city")      .trim();
+			String State          = request.getParameter("state1")    .trim();
+			String Pin            = request.getParameter("pin")       .trim();
+			String Country        = request.getParameter("country1")  .trim();
+			String Pancard        = request.getParameter("pancard")   .trim();
+			String VoterId        = request.getParameter("voterId")   .trim();
+
+			String First_Name2    = "";
+			String Last_Name2     = "";
+			String Company2       = "";
+			String Mobile_Number3 = "";
+			String Address_Line3  = "";
+			String Address_Line4  = "";
+			String City2          = "";
+			String Pin2           = "";
+			String State2         = "";
+			String Country2       = "";
+			String Email3         = "";
+			
+			if(request.getParameter("checkbox")!=null) {			   
+				
+			   First_Name2    = request.getParameter("first_name2").trim();
+			   Last_Name2     = request.getParameter("last_name2") .trim();
+			   Company2       = request.getParameter("company2")   .trim();
+			   Mobile_Number3 = request.getParameter("mobile3")    .trim();
+			   Address_Line3  = request.getParameter("address3")   .trim();
+			   Address_Line4  = request.getParameter("address4")   .trim();
+			   City2          = request.getParameter("city2")      .trim();
+			   Pin2           = request.getParameter("pin2")       .trim();
+			   State2         = request.getParameter("state2")     .trim();
+			   Country2       = request.getParameter("country2")   .trim();
+			   Email3         = request.getParameter("email3")     .trim();
+
+			   
+			   
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			
 		} //SellerRegistrationPage
