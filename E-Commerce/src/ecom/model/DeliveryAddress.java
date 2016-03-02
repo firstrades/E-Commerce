@@ -11,14 +11,37 @@ public class DeliveryAddress implements Serializable {
 	private String lName;
 	private String contact;
 	private String address;
+	private String address1;
 	private String city;
 	private String state;
 	private String pin;
 	private String email;
+	private String company;
+	private String country;
+	
 	
 	private boolean exits;
 	
 	
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	
+	public String getAddress1() {
+		return address1;
+	}
+	public void setAddress1(String address1) {
+		this.address1 = address1;
+	}
+	public String getCompany() {
+		return company;
+	}
+	public void setCompany(String company) {
+		this.company = company;
+	}
 	public long getId() {
 		return id;
 	}

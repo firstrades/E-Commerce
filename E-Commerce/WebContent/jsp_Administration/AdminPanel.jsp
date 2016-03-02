@@ -83,196 +83,8 @@ margin-right: 24px;
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-messages">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>Read All Messages</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-messages -->
-                </li>
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-tasks fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-tasks">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 1</strong>
-                                        <span class="pull-right text-muted">40% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                            <span class="sr-only">40% Complete (success)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 2</strong>
-                                        <span class="pull-right text-muted">20% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                                            <span class="sr-only">20% Complete</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 3</strong>
-                                        <span class="pull-right text-muted">60% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                            <span class="sr-only">60% Complete (warning)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 4</strong>
-                                        <span class="pull-right text-muted">80% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                            <span class="sr-only">80% Complete (danger)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>See All Tasks</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-tasks -->
-                </li>
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-alerts">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-comment fa-fw"></i> New Comment
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                    <span class="pull-right text-muted small">12 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-tasks fa-fw"></i> New Task
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>See All Alerts</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-alerts -->
-                </li>
-                <!-- /.dropdown -->
+                
+                
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
@@ -290,7 +102,7 @@ margin-right: 24px;
                 </li>
                 <!-- /.dropdown -->
             </ul>
-            <!-- /.navbar-top-links -->
+            
             
             
             <!-- -------------------------------------------------------------------------------------------- -->
@@ -318,7 +130,13 @@ margin-right: 24px;
                         <li>
                             <a href="#" data-ng-click="statusForBookedProducts()">
                             	<i class="fa fa-dashboard fa-fw"></i>
-                            	Status For Booked Products
+                            	STATUS FOR BOOKED PRODUCTS
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-ng-click="newSellerApproval()">
+                            	<i class="fa fa-dashboard fa-fw"></i>
+                            	NEW SELLER APPROVAL
                             </a>
                         </li>
                         <li>
@@ -802,7 +620,100 @@ margin-right: 24px;
 			
 			
 </div> <!-- Main -->
-		<!-- -------------- End Status for booked products ---------------------- -->
+		<!-- -------------- End Status for booked products ---------------------- -->	
+		
+		
+		
+		
+		<!-- -------------- Approve Seller ---------------------- -->
+		
+		<div data-ng-show="approveSeller" style="position:absolute;top:8%;left:16%;width:83%;max-height: 700px;border:1px solid #ccc; overflow: auto; overflow-x: none;">
+		
+			<h1 style="margin-left: 1%;background-color: #eee;padding: 8px 14px; font-size: 23px;width: 98%;"> Approve Seller </h1>
+			
+		
+			<div class="container" style="width: 96%;border: 1px solid #ccc; float: left;" data-ng-repeat="item in items">
+				<div class="row">
+					<div class="col-md-12">
+					
+						<div class="col-md-12">
+							<div class="row">
+								<div class="col-md-11"> <h1 style="font-size: 18px; margin-top: 9px;margin-top: 6px;">  Company: {{item.company}} </h1>
+								</div> 
+							</div>
+			
+							<div class="row">
+								<div class="col-md-4">
+									<div class="row">
+										<div class="col-md-12"> 
+											<span style="font-size: 13px;margin-top: 5px;color: #f0ad4e;">  Id : {{item.id}} </span>
+										</div> 
+									</div>
+									<div class="row">
+										<div class="col-md-12"> 
+											<span style="font-size: 13px;margin-top: 5px;color: #337AB7;">  User Id : {{item.userId}}</span>
+										</div>
+									</div> 
+									<div class="row">
+										<div class="col-md-12"> 
+											<span style="font-size: 13px;margin-top: 5px;color: #337AB7;">  Owner Name :  {{item.firstName + " " + item.lastName}}</span>
+										</div> 
+									</div>
+									<!-- <div class="row">
+										<div class="col-md-12"> 
+											<span style="font-size: 13px;margin-top: 5px;color: #337AB7;">  Demo :  </span>
+										</div> 
+									</div> -->
+								</div>
+								
+								<div class="col-md-4">
+									<div class="row">
+										<div class="col-md-12"> 
+											<span style="font-size: 13px; color: #3389CB;">  Mobile :   {{item.mobile1}}</span>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12"> <span style="font-size: 13px; color: #3389CB;">  Land Phone :  {{item.phone1}} </span>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12"> 
+											<span style="font-size: 13px; color: #3389CB;">  Email :   {{item.email1}} </span>
+										</div>
+									</div>
+									
+								</div>
+								
+							
+			
+								<div class="col-md-4" style="margin-top: 30px;">
+				
+									<ul>
+										<li class="dots" style="list-style: none;"> 
+											<a href="#" style="font-size: 13px;" data-ng-click="approveSellerRegistrationPage(item.id)"> EDIT </a> 
+										</li> 
+										<li class="dots"> 
+											<a href="#" style="font-size: 13px;">Cancel </a> 
+										</li> 
+										<li class="dots">  
+											<a href="#" style="font-size: 13px;"> Remove </a> 
+										</li> 
+										<li class="dots">  
+											<a href="#" style="font-size: 13px;"> Delete </a> 
+										</li> 
+									</ul>  
+				
+								</div>								
+							</div>	
+						</div>		
+					</div>
+				</div>		
+			</div>		
+			
+			
+			
+    	</div>   <!-- End -->
+		<!-- -------------- End Approve Seller ---------------------- -->
 		
 		
 		
@@ -814,23 +725,6 @@ margin-right: 24px;
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		<!-- -------------- Spare ---------------------- -->
-		
-		<!-- <div data-ng-show="editFranchise" style="position:absolute;top:8%;left:16%;width:83%;max-height: 700px;border:1px solid #ccc; overflow: auto; overflow-x: none;">
-		
-		sdkjfcscvjksdjds
-		</div> -->
-		<!-- -------------- End Spare ---------------------- -->
 		
 		<!-- -------------- Spare ---------------------- -->
 		

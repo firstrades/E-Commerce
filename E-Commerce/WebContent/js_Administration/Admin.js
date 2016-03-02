@@ -51,12 +51,36 @@ admin.controller('ViewController', function($scope, $http, $window) {
 		
 	};	
 	
-	$scope.hideAll = function() {   
+	
+	$scope.newSellerApproval = function() {
 		
+		$scope.hideAll();
+		$scope.approveSeller = true;
+		
+		$http.post('RetrieveAllSellerForApprovalRegistration', {}).success(function(data) {
+			
+			$scope.items = data.items;
+		});
+	};
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+								/***************************************************************************/
+	
+	$scope.hideAll = function() {   		
 		$scope.productApproval = false;
 		$scope.dashboard = false;
 		$scope.editFranchise = false;
 		$scope.bookedProductsStatus = false;
+		$scope.approveSeller = false;
 	};
 	
 	$scope.redirectToUserRegistration = function() {
@@ -64,7 +88,10 @@ admin.controller('ViewController', function($scope, $http, $window) {
 		$window.open('FranchiseRegistration', '_blank');
 	};
 	
-	
+	$scope.approveSellerRegistrationPage = function(id) {   
+		
+		$window.open('ApproveSellerRegistrationPage?id=' + id);  //jsp_Administration/ApproveSellerRegistration.jsp
+	};
 	
 }) ;
 

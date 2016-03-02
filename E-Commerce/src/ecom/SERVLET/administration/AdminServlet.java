@@ -21,6 +21,7 @@ import ecom.model.ExtractFranchiseDetails;
 import ecom.model.OrderTable;
 import ecom.model.ProductBean;
 import ecom.model.User;
+import ecom.model.UserAndPickupAddress;
 
 public class AdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -564,6 +565,74 @@ public class AdminServlet extends HttpServlet {
 				
 				
 			} // /RetrieveOrderedItemsForAdmin
+			
+			
+			else if (servletPath.equals("/RetrieveAllSellerForApprovalRegistration")) {
+				
+				System.out.println("Entered RetrieveAllSellerForApprovalRegistration");
+				
+				/************ Database *******************/
+				AdminDAO dao = new AdminDAO();
+				List<User> userList = dao.getAllSellerForApprovalRegistration();
+				
+				/********* JSON for Next Page **********/
+				
+				JSONObject jsonObject = new JSONObject();
+				JSONArray  jsonArray  = new JSONArray();
+				
+				JSONObject jsonObject2 = null;
+				
+				try {
+				
+					for (User user : userList) {
+						
+						jsonObject2 = new JSONObject();						
+						
+						jsonObject2.put("id",         user.getUserInfo().getId());
+						jsonObject2.put("userId",     user.getLogin().getUserId());
+						jsonObject2.put("firstName",  user.getPerson().getFirstName());
+						jsonObject2.put("lastName",   user.getPerson().getLastName());
+						jsonObject2.put("company",    user.getUserInfo().getCompany());
+						jsonObject2.put("mobile1",    user.getContact().getMobile1());
+						jsonObject2.put("phone1",     user.getContact().getPhone1());
+						jsonObject2.put("email1",     user.getContact().getEmail1());													
+						
+						jsonArray.put(jsonObject2);					
+						
+					} // for 
+					
+					jsonObject.put("items", jsonArray);
+				
+				
+				} catch (JSONException e) {
+					
+					e.printStackTrace();
+				}
+				
+				
+				response.setContentType("application/json");
+				response.getWriter().write(jsonObject.toString());
+				
+			} // /RetrieveAllSellerForApprovalRegistration
+			
+			
+			else if (servletPath.equals("/ApproveSellerRegistrationPage")) {
+				
+				System.out.println("Entered ApproveSellerRegistrationPage");
+				
+				/***************  Get Request  *****************/
+				long id = new Long(request.getParameter("id"));   
+				
+				/***************  Database  *****************/
+				AdminDAO dao = new AdminDAO();
+				UserAndPickupAddress userAndPickupAddress = dao.getUserAndPicupAddress(id);
+				
+				/********** Set Request ****************/
+				request.setAttribute("userAndPickupAddress", userAndPickupAddress);
+				
+				/***************  Next Page  *****************/
+				request.getRequestDispatcher("jsp_Administration/ApproveSellerRegistration.jsp").forward(request, response);
+			}
 			
 	}
 }
