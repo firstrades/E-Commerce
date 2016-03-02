@@ -15,9 +15,13 @@
     <url-pattern>/SellerMainPanel</url-pattern>
     <url-pattern>/BuyerMainPanel</url-pattern>
     <url-pattern>/CustomerLogin</url-pattern>
-    <url-pattern>/SellerLogin</url-pattern>
+    <url-pattern>/SellerLoginPage</url-pattern>
     <url-pattern>/InitialDashBoard</url-pattern>
     <url-pattern>/Administration</url-pattern>
+    <url-pattern>/SellerRegistrationPage</url-pattern>
+    <url-pattern>/RegisterSeller</url-pattern>
+    <url-pattern>/CustomerRegistrationPage</url-pattern>
+    <url-pattern>/RegisterCustomer</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>SellerServlet</servlet-name>
@@ -77,6 +81,7 @@
     <url-pattern>/CallRegistrationPage</url-pattern>
     <url-pattern>/Registration</url-pattern>   
     <url-pattern>/CheckUserId</url-pattern>
+    
   </servlet-mapping>
   <servlet>
     <servlet-name>OrderReviewAndSubmit</servlet-name>

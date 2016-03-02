@@ -189,7 +189,10 @@ public class TrackByNumber implements TrackByNumberInterface {
             		
             		SOAPElement	CountryCode = Destination.addChildElement("CountryCode", xlns);
             		CountryCode.addTextNode("IN");
-            	
+            		
+    		//ProcessingOptions
+        	SOAPElement ProcessingOptions = TrackRequest.addChildElement("ProcessingOptions", xlns);
+        	ProcessingOptions.addTextNode("INCLUDE_DETAILED_SCANS");
             	
 		soapMessage.saveChanges();
 	       

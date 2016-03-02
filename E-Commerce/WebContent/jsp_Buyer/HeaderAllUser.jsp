@@ -9,7 +9,7 @@
 		<div class="header_top">
 			<div class="top_right">
 				<ul>
-					<li><a href="SellerLogin">Stockist</a></li>|
+					<li><a href="SellerLoginPage">Stockist</a></li>|
 					<li><a href="#" data-toggle="modal" data-target="#myModal">Administration</a></li>|
 					<li><a href="#">24X7 Customer Care </a></li> |
 					<li><a href="#">Track Order</a></li>
@@ -60,7 +60,7 @@
 						</div>
 						<div class="reg">
 							
-							<div id="loginContainer"><a href="CallRegistrationPage" id="loginButton" style="background-color: #099C0C;color: #fff;padding: 1px 0px;"><span>REGISTER</span></a> </div>
+							<div id="loginContainer"><a href="CustomerRegistrationPage" id="loginButton" style="background-color: #099C0C;color: #fff;padding: 1px 0px;"><span>REGISTER</span></a> </div>
 						</div>
 						<div class="cart box_1">
 							<h3><a href="#">

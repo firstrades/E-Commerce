@@ -123,7 +123,7 @@ clear: both;
 				<% } %>
 				<% if (orderTable.getOrderState().equals("Booked") && orderTable.getPaymentType().equals("COD")) { %>
 				<div class="col-md-3" style="margin-top:58px;" data-ng-show="trackNumberCOD">
-					<a data-ng-click="generateTrackNumberCOD(<%=orderTable.getId() %>)" style="width: 50% !important;  padding: 9px 10px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">Generate Track ID (COD)</a>
+					<a data-ng-click="generateTrackNumberCOD(<%=orderTable.getId() %>)" style="width: 50% !important;  padding: 9px 10px;background: linear-gradient(#5cb85c, #5cb85c 60%, #5cb85c);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">Generate Track ID (COD)</a>
 				</div>
 				<% } %>
 								
@@ -136,7 +136,7 @@ clear: both;
 				<% } %>
 				<% if (orderTable.getOrderState().equals("Booked") && orderTable.getPaymentType().equals("BANK")) { %>
 				<div class="col-md-3" style="margin-top:58px;" data-ng-show="trackNumberBANK">
-					<a data-ng-click="generateTrackNumberBANK(<%=orderTable.getId() %>)" style="width: 50% !important;  padding: 9px 7px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">Generate Track ID (BANK)</a>
+					<a data-ng-click="generateTrackNumberBANK(<%=orderTable.getId() %>)" style="width: 50% !important;  padding: 9px 7px;background: linear-gradient(#5cb85c, #5cb85c 60%, #5cb85c);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">Generate Track ID (BANK)</a>
 				</div>
 				<% } %>
 				
@@ -159,7 +159,7 @@ clear: both;
 				<div class="col-md-3" style="margin-top:58px;" data-ng-show="pickupLabelCOD">
 					<a href="#" data-toggle="modal" data-target="#myModal<%=i%>" style="padding: 9px 20px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Pickup Req</a> 
 					<a href="#" style="padding: 9px 20px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Pirnt Label</a>  <br><br>
-					<a href="#" style="padding: 9px 39px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Delete Shipment (COD)</a>					
+					<a href="#" style="padding: 9px 39px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Cancel Shipment (COD)</a>					
 				</div>
 				
 				
@@ -175,7 +175,7 @@ clear: both;
 					<a href="#" data-toggle="modal" data-target="#myModal<%=i%>" 
 						style="padding: 9px 20px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Pickup Req</a> 
 					<a href="#" style="padding: 9px 20px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Pirnt Label</a>  <br><br>
-					<a href="#" style="padding: 9px 35px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Delete Shipment (BANK)</a>					
+					<a href="#" style="padding: 9px 35px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Cancel Shipment (BANK)</a>					
 				</div>
 				
 				
@@ -187,7 +187,7 @@ clear: both;
 				
 				
 				
-				<!-- -------------------  Picked Up  (BANK)   ------------------------------ -->		
+				<!-- -------------------  Picked Up    ------------------------------ -->		
 				
 				<% if (orderTable.getOrderState().equals("Picked")) { %>
 				<div data-ng-init="trackParcel=true"></div>
@@ -269,15 +269,45 @@ clear: both;
 			      			<!-- -------------------------------------------------------------- --> 
 			    		</div>
 			  		</div>  
-				</div>					
-				
-				
-				
-				
-				
-				
+				</div>				
 				
 				<!-- ------------------------------------------------------------------------------------------------------ -->
+				
+				
+				
+				
+				
+				<!-- -------------------  Cancel (COD)    ------------------------------ -->		
+				
+				<% if (orderTable.getOrderState().equals("Cancel") && orderTable.getPaymentType().equals("COD")) { %>
+				<div data-ng-init="cancelParcelCOD=true"></div>
+				<% } else { %>
+				<div data-ng-init="cancelParcelCOD=false"></div>
+				<% } %>
+				
+				<div class="col-md-3" style="margin-top:58px;" data-ng-show="cancelParcelCOD">
+					<a href="#" 
+						 style="padding: 9px 42px;background: linear-gradient(#d9534f, #d9534f 60%, #d9534f);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Cancel Shipment (COD)</a><br><br>
+										
+				</div>				
+				
+				<!-- -------------------------------------------------------------------------------------------- -->
+				
+				<!-- -------------------  Cancel (BANK)    ------------------------------------------------------ -->		
+				
+				<% if (orderTable.getOrderState().equals("Cancel") && orderTable.getPaymentType().equals("BANK")) { %>
+				<div data-ng-init="cancelParcelBANK=true"></div>
+				<% } else { %>
+				<div data-ng-init="cancelParcelBANK=false"></div>
+				<% } %>
+				
+				<div class="col-md-3" style="margin-top:58px;" data-ng-show="cancelParcelBANK">
+					<a href="#" 
+						 style="padding: 9px 42px;background: linear-gradient(#d9534f, #d9534f 60%, #d9534f);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Cancel Shipment (BANK)</a><br><br>
+										
+				</div>				
+				
+				<!-- -------------------------------------------------------------------------------------------- -->
 		
 			</div>
 	</div>

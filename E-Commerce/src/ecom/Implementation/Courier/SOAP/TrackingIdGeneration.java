@@ -188,7 +188,7 @@ public class TrackingIdGeneration implements TrackingIdGenerationInterface {
         		Calendar calendar = Calendar.getInstance();
         		int    YEAR  = calendar.get(Calendar.YEAR);
         		Object MONTH = (  calendar.get(Calendar.MONTH)+1 < 10 ? "0" + (calendar.get(Calendar.MONTH)+1) : calendar.get(Calendar.MONTH)   );
-        		Object DATE  = (  calendar.get(Calendar.DATE)+2 < 10 ? "0" + (calendar.get(Calendar.DATE)+2) : (calendar.get(Calendar.DATE)+2)  );
+        		Object DATE  = (  calendar.get(Calendar.DATE) < 10 ? "0" + (calendar.get(Calendar.DATE)) : (calendar.get(Calendar.DATE))  );
         		ShipTimestamp.addTextNode(YEAR + "-" + MONTH.toString() + "-" + DATE.toString() + "T12:34:56-06:00");
         		
         		SOAPElement DropoffType = RequestedShipment.addChildElement("DropoffType", xlns);

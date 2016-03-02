@@ -104,14 +104,15 @@ public class Controller extends HttpServlet {
 				}
 			
 		}
-		else if (servletPath.equals("/SellerLogin")) {                  //  Buyer Entry
+		else if (servletPath.equals("/SellerLoginPage")) {                  //  Buyer Entry
 			
-				System.out.println("Entered CustomerLogin");
+				System.out.println("Entered SellerLoginPage");
 				
 				/********** Next Page **************/
 				
-				request.getRequestDispatcher("jsp_Seller/Sell.jsp").forward(request, response);
-		}
+				request.getRequestDispatcher("jsp_Seller/SellerLoginPage.jsp").forward(request, response);
+				
+		} //SellerLoginPage
 		
 		else if (servletPath.equals("/InitialDashBoard")) {                  //  Buyer Entry
 			
@@ -165,6 +166,45 @@ public class Controller extends HttpServlet {
 				
 				request.getRequestDispatcher("jsp_Administration/DistributorPanel.jsp").forward(request, response);
 		}
+		
+		
+		else if (servletPath.equals("/SellerRegistrationPage")) {                 
+			
+			System.out.println("Entered SellerRegistrationPage");			
+			
+			/************** Next Page *******************/
+			request.getRequestDispatcher("jsp_Seller/SellerRegistration.jsp").forward(request, response);
+			
+		} //SellerRegistrationPage
+		
+		else if (servletPath.equals("/RegisterSeller")) {                 
+			
+			System.out.println("Entered RegisterSeller");			
+			
+			/************** Ajax - Next Page *******************/
+			
+			
+		} //SellerRegistrationPage
+		
+		
+		else if (servletPath.equals("/CustomerRegistrationPage")) {                 
+			
+			System.out.println("Entered CustomerRegistrationPage");			
+			
+			/************** Next Page *******************/
+			request.getRequestDispatcher("jsp_Buyer/CustomerRegistration.jsp").forward(request, response);
+			
+		} //CustomerRegistrationPage
+		
+		else if (servletPath.equals("/RegisterCustomer")) {                 
+			
+			System.out.println("Entered RegisterCustomer");			
+			
+			/************** Next Page *******************/
+			request.getRequestDispatcher("jsp_Buyer/BuyerMainPanel.jsp").forward(request, response);
+			
+			
+		} //RegisterCustomer
 		
 	}
 }

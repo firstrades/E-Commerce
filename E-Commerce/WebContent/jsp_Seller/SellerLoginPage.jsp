@@ -3,7 +3,7 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
-<title>Seller</title>
+<title>Seller Login</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="First Trades" />
@@ -65,7 +65,10 @@
                     <div class="control-group">
                       <div class="controls">
                         <button id="forgotPasswordButton" type="submit" class="btn btn-primary fixed-width-btn">Submit</button>
+                        
                       </div>
+                     
+                      
                     </div>
                   </form>
                   
@@ -89,6 +92,8 @@
                   <input id="userpass" type="password" placeholder="Password" name="password" class="form-control form-text required" value="12345">
                 </div>
                 <button id="edit-submit" type="submit"  class="btn btn-default form-submit">Log in</button>
+                
+                 <a href="SellerRegistrationPage" > Register  </a>
               
               </div>
             </form>
