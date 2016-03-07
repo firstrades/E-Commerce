@@ -1144,13 +1144,15 @@ public class BuyerSearchDAO {
 		
 	} //getSizeGarmentModel
 	
-	
+	//Soumya
 	public List<CustomerOrderHistroy> getCustomerOrderHistroy(User user) {
 		
 		Connection connection               = null;
 		CallableStatement callableStatement = null;		
 		ResultSet resultSet                 = null;
+		
 	    List<CustomerOrderHistroy> list = new ArrayList<CustomerOrderHistroy>();
+	    
 		String sql = "{call getCustomerOrderHistroy(?)}";		
 		
 		try {
@@ -1229,11 +1231,13 @@ public class BuyerSearchDAO {
 		
 	} //getCustomerOrderHistroy
 	
+	//Soumya
 	public List<String> getOrderIdForCustomer(User user) {
 		
 		Connection connection               = null;
 		CallableStatement callableStatement = null;		
 		ResultSet resultSet                 = null;
+		
 	    List<String> list = new ArrayList<String>();
 	    
 		String sql = "{call getOrderIdForCustomer(?)}";		

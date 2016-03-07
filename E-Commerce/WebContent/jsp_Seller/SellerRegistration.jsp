@@ -427,7 +427,7 @@
 							<input type="text" name="city2" class="form-control"  placeholder="Enter City" required />
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
-							<label>	*Pin</label>
+							<label>*Pin </label>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
 							<input type="text" name="pin2" class="form-control" placeholder="Enter Pin"  required  />
