@@ -186,9 +186,9 @@ float: left;
 	                     	<hr>
 							<div class="price">								
 	                            <span class="price-old">Rs <%=productBean.getPrice().getListPrice() %></span> <br>
-								<span class="price-tax">Discount: <%=productBean.getPrice().getMarkedupDiscount() %>%</span><br>
+								<span class="price-tax">Discount: <%=productBean.getPrice().getDiscount() %>%</span><br>
 	                            <span class="text">Price:</span>
-								<span class="price-new">Rs <%=productBean.getPrice().getMarkedupSellPrice() %></span> <br>
+								<span class="price-new">Rs <%=productBean.getPrice().getSalePriceCustomer() %></span> <br>
 								<% if (stock == 0) { %>	         
 									<span style="color:red;float:right;text-transform: uppercase;font-size: 23px;">Out Of Stock</span>
 								<% } %>                   

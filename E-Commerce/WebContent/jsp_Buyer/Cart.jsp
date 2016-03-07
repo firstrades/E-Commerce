@@ -114,7 +114,7 @@ float: left;
 						UserDAO userDAO = new UserDAO();
 						String sellerCompany = userDAO.getSellerCompany(productBeanAndQty.getObj1().getSellerId());
 						int    stock         = TransientData.getStock(productBeanAndQty.getObj1().getProductId());    
-						double subtotal      = productBeanAndQty.getObj1().getPrice().getMarkedupSellPrice() * productBeanAndQty.getObj2();    
+						double subtotal      = productBeanAndQty.getObj1().getPrice().getSalePriceCustomer() * productBeanAndQty.getObj2();    
 						
 						TwoObjects<BigDecimal, String> apiData = apiDataList.get(i);
 						i++;
@@ -142,11 +142,11 @@ float: left;
  						<td class="cell qty-cell carty-changeQuantity" style="width: 4.50%;">
  						
  							<input type="text" class="qty" value="<%=productBeanAndQty.getObj2() %>" style="width: 100%; padding: 0px 5px;"/>
- 							<input type="hidden" value="<%=productBeanAndQty.getObj1().getPrice().getMarkedupSellPrice() %>" class="salePriceChange"/>
+ 							<input type="hidden" value="<%=productBeanAndQty.getObj1().getPrice().getSalePriceCustomer() %>" class="salePriceChange"/>
  							<a style="font-size: 12px;display: none; cursor: pointer;" class="save">save </a>
  						</td>
  						<td class="cell price-cell">			 				
-							Rs. <%=productBeanAndQty.getObj1().getPrice().getMarkedupSellPrice() %>	
+							Rs. <%=productBeanAndQty.getObj1().getPrice().getSalePriceCustomer() %>	
 	 					</td>
  						<td class="cell delivery-cell">
  							<div class="fk-fontlight">

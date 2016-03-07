@@ -52,8 +52,7 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 	private String     delivery;
 	
 	// RateService Data
-	private double  salePrice;  
-	private double  markup;
+	private double  salePriceToCustomer;	
 	private double  weight;
 	private Address shipper;
 	private Address recipient;
@@ -97,9 +96,7 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 		}
 	}	
 	
-	private double getMarkupedSalePrice() {		       
-		return this.salePrice + this.markup;
-	}
+	
 
 	/************************************  New Instance  ******************************************************************/
 
@@ -129,8 +126,7 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 			while (resultSet.next()) {
 				
 				this.weight    = resultSet.getDouble("weight");
-				this.salePrice = resultSet.getDouble("sale_price");
-				this.markup    = resultSet.getDouble("markup");
+				this.salePriceToCustomer = resultSet.getDouble("salePriceCustomer");				
 				// seller
 				this.shipper.setAddress  (resultSet.getString("address1"));  
 				this.shipper.setCity     (resultSet.getString("city1"   ));
@@ -345,7 +341,7 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
         					Currency1.addTextNode("INR");
         					
         					SOAPElement Amount1 = CodCollectionAmount.addChildElement("Amount", "v18");
-        					Amount1.addTextNode(String.valueOf(getMarkupedSalePrice()));                                                       
+        					Amount1.addTextNode(String.valueOf(this.salePriceToCustomer));                                                       
         					
         				/*SOAPElement AddTransportationChargesDetail = CodDetail.addChildElement("AddTransportationChargesDetail");
         				

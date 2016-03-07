@@ -129,7 +129,7 @@
  						
  						<td class="cell price-cell">
  							<!-- Printing all delivery details here -->
-							Rs. <%=productBeanAndQty.getObj1().getPrice().getMarkedupSellPrice() %>	
+							Rs. <%=productBeanAndQty.getObj1().getPrice().getSalePriceCustomer() %>	
  						</td>
  						<td class="cell delivery-cell">
  							<div class="fk-fontlight">
@@ -138,7 +138,7 @@
  							<p class="fk-font-11 fk-fontlight tmargin5">Delivered in 4-5 business days.</p> 
  						</td>
  						<td>
- 							Rs. <%=productBeanAndQty.getObj1().getPrice().getMarkedupSellPrice() %> <br>
+ 							Rs. <%=productBeanAndQty.getObj1().getPrice().getSalePriceCustomer() %> <br>
  							<div class="place_order" style="margin-top:39px;"> 
  							
  								<form action="AddToCartOrWishlist" method="post">

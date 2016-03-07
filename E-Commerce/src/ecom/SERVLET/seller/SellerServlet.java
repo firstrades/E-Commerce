@@ -105,9 +105,8 @@ public class SellerServlet extends HttpServlet {
 			
 			/*******************************************************
 			 	*  Database - Insert & Generate Product Code  *
-			*******************************************************/
-			ProductDAO productDAO = new ProductDAO();
-			boolean status = productDAO.addProduct(user, inputStream1, inputStream2, inputStream3, productBean);
+			*******************************************************/			
+			boolean status = ProductDAO.addProduct(user, inputStream1, inputStream2, inputStream3, productBean);
 			
 			if (status == true)
 				System.out.println("Database Updated");

@@ -148,7 +148,7 @@ public ProductBean getBasicFeatures(long productId) {
 				productBean.setCompanyName               (resultSet.getString("company_name"));
 				productBean.getPrice().setListPrice      (resultSet.getDouble("list_price"));
 				productBean.getPrice().setDiscount       (resultSet.getDouble("discount"));
-				productBean.getPrice().setSalePrice      (resultSet.getDouble("sale_price"));
+				productBean.getPrice().setSalePriceCustomer(resultSet.getDouble("salePriceCustomer"));
 				productBean.getPrice().setMarkup         (resultSet.getDouble("markup"));
 				productBean.getKeyFeatures().setKf1      (resultSet.getString("kf_1"));
 				productBean.getKeyFeatures().setKf2      (resultSet.getString("kf_2"));

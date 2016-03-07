@@ -204,8 +204,8 @@ public class BuyerSearchDAO {
 							if (resultSet.next()) {
 							
 									productBean = new ProductBean();
-									productBean.setKeyFeatures(new KeyFeatures());
-									productBean.setPrice(new Price());
+									//productBean.setKeyFeatures(new KeyFeatures());
+									//productBean.setPrice(new Price());
 									
 									TwoObjects<ProductBean, Integer> twoObjects2 = new TwoObjects<>();
 									
@@ -219,7 +219,7 @@ public class BuyerSearchDAO {
 									
 									productBean.getPrice().setListPrice      (resultSet.getDouble("list_price"  ));
 									productBean.getPrice().setDiscount       (resultSet.getDouble("discount"    ));
-									productBean.getPrice().setSalePrice      (resultSet.getDouble("sale_price"  ));
+									productBean.getPrice().setSalePriceCustomer(resultSet.getDouble("salePriceCustomer"));
 									productBean.getPrice().setMarkup         (resultSet.getDouble("markup"      ));
 									
 									productBean.getKeyFeatures().setKf1      (resultSet.getString("kf_1"));
@@ -457,7 +457,7 @@ public class BuyerSearchDAO {
 										
 										productBean.getPrice().setListPrice      (resultSet.getDouble("list_price"  ));
 										productBean.getPrice().setDiscount       (resultSet.getDouble("discount"    ));
-										productBean.getPrice().setSalePrice      (resultSet.getDouble("sale_price"  ));
+										productBean.getPrice().setSalePriceCustomer(resultSet.getDouble("salePriceCustomer"));
 										productBean.getPrice().setMarkup         (resultSet.getDouble("markup"  ));
 										
 										productBean.getKeyFeatures().setKf1      (resultSet.getString("kf_1"));

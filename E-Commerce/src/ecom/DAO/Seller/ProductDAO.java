@@ -18,7 +18,7 @@ import ecom.common.Conversions;
 
 public class ProductDAO {
 
-	public boolean addProduct(User user, InputStream inputStream1, InputStream inputStream2, InputStream inputStream3, 
+	public static synchronized boolean addProduct(User user, InputStream inputStream1, InputStream inputStream2, InputStream inputStream3, 
 			ProductBean productBean) {		
 		
 		Connection connection = null; CallableStatement callableStatement = null;	
