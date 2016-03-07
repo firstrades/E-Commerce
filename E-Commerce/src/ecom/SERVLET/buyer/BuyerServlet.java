@@ -17,7 +17,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import ecom.DAO.Buyer.BuyerSearchDAO;
-import ecom.DAO.User.CreateUserDAO;
 import ecom.DAO.User.UserDAO;
 import ecom.beans.CartAttributesBean;
 import ecom.beans.ApiDataMultiThreadBean;
@@ -405,83 +404,7 @@ public class BuyerServlet extends HttpServlet {
 			request.getRequestDispatcher("jsp_Buyer/Registration.jsp").forward(request, response);
 		}
 		
-		else if(servletPath.equals("/Registration")) {
-				
-				System.out.println("Entered Registration - Soumya");
-				
-				/*************** Get Request ***************/
-	            String User_Id        = request.getParameter("user_id").trim();
-	            String Password       = request.getParameter("password").trim();
-	            String First_Name     = request.getParameter("first_name").trim();
-	            String Last_Name      = request.getParameter("last_name").trim();
-	            String Gender         = request.getParameter("sex").trim();
-	            String Email          = request.getParameter("email1").trim();
-	            String Contact_Number = request.getParameter("mobile1").trim();
-	            String Address        = request.getParameter("address").trim();
-	       		String Pin            = request.getParameter("pin").trim();
-	       		String City           = request.getParameter("city").trim();
-	       		String State          = request.getParameter("state").trim();
-	       		
-	       		String First_Name2     = "";
-	       		String Last_Name2      = "";
-	       		String Email2          = "";
-	       		String Contact_Number2 = "";
-	       		String Address2        = "";
-	       		String Pin2            = "";
-	       		String City2           = "";
-	       		String State2          = "";	       			       		
-	       		
-	       		if(request.getParameter("checkbox")!=null) {
-	       		
-	       		First_Name2      = request.getParameter("first_name2").trim();
-	       		Last_Name2       = request.getParameter("last_name2").trim();
-	       		Email2           = request.getParameter("email2").trim();
-	       		Contact_Number2  = request.getParameter("mobile2").trim();
-	       		Address2         = request.getParameter("address2").trim();
-	       		Pin2             = request.getParameter("pin2").trim();
-	       		City2            = request.getParameter("city2").trim();
-	       		State2           = request.getParameter("state2").trim();
-	       	 
-	         } else {
-	        	 
-	        	 First_Name2 = First_Name;
-	        	 Last_Name2 = Last_Name;
-	        	 Email2 = Email;
-	        	 Contact_Number2 = Contact_Number;
-	        	 Address2 = Address;
-	        	 Pin2 = Pin;
-	        	 City2 = City;
-	        	 State2 = State;
-	        	 
-	         }
-				 
-	       		
-	       		/********* Database Check ***********/
-	       		
-	       		CreateUserDAO createUserDAO = new CreateUserDAO();
-	       		boolean status = createUserDAO.setUserRegistration
-	       				(User_Id, Password, First_Name, Last_Name, Gender, Email, Contact_Number, Address, Pin, City, State, 
-	       						First_Name2, Last_Name2, Email2, Contact_Number2, Address2, Pin2, City2, State2);       		
-	       		
-				
-				UserDAO userDAO = new UserDAO();
-				User user       = userDAO.getUser(User_Id, Password);
-				
-				
-				/******* Set Session **********/				
-				session.setAttribute("user", user);
-	       		
-	       		if (status == true) {
-	       			
-	       			System.out.println("Database Updated"); 
-					request.getRequestDispatcher("jsp_Buyer/BuyerMainPanel.jsp").forward(request, response);
-	       		}else {
-					System.out.println("Database Not Updated");
-					response.sendRedirect("jsp_Buyer/Registration.jsp");
-	       	}
-	       		
-		} // /Registration
-		
+	
 		
 		else if (servletPath.equals("/CheckUserId")) {
 			

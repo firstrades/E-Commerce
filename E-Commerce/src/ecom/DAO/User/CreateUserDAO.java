@@ -4,6 +4,8 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Types;
+
+import ecom.DAO.Seller.SellerDAO;
 import ecom.common.ConnectionFactory;
 import ecom.common.UserType;
 
@@ -215,7 +217,7 @@ public class CreateUserDAO {
 				 connection = ConnectionFactory.getNewConnection();
 				 connection.setAutoCommit(false);
 				 
-				 callableStatement = connection.prepareCall("{call registerUser(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+				 callableStatement = connection.prepareCall("{call registerCustomer(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
 				 
 				 callableStatement.setString(1, User_Id);
 				 callableStatement.setString(2, Password);
@@ -240,11 +242,11 @@ public class CreateUserDAO {
 				 
 				 callableStatement.registerOutParameter(21, Types.BOOLEAN);
 				 
-			    callableStatement.execute() ; 
+			     callableStatement.execute() ; 
 				 
 				 exist = callableStatement.getBoolean(21);
 				 
-				 System.out.println("SQL - setUserRegistration");
+				 System.out.println("SQL - setregisterCustomer");
 				 
 				 connection.commit();
 				 
@@ -273,4 +275,105 @@ public class CreateUserDAO {
 			 return false;
 	}
 
+	
+	//Soumya
+	public boolean setSellerRegistration (String User_Id, String Password, String First_Name, String Last_Name,
+		   String Gender, String Company, String Mobile_Number1, String Mobile_Number2, String Email1, String Email2, 
+		   String Landphone1, String Landphone2, String Fax1, String Fax2, String Address_Line1, String Address_Line2, 
+		   String City, String State, String Pin, String Country, String Pancard, String VoterId, 
+		   String First_Name2, String Last_Name2, String Company2, String Mobile_Number3, String Address_Line3, 
+		   String Address_Line4, String City2, String Pin2, String State2, String Country2, String Email3) {
+		
+		Connection connection = null;
+		CallableStatement callableStatement = null;
+		boolean exist = false;
+		String User_type = "seller";
+		
+		try {
+			 
+			connection = ConnectionFactory.getNewConnection();
+			connection.setAutoCommit(false);
+			
+			callableStatement = connection.prepareCall 
+					         ("{call registerSeller(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+			
+			callableStatement.setString(1, User_Id        );
+			callableStatement.setString(2, Password       );
+			callableStatement.setString(3, First_Name     );
+			callableStatement.setString(4, Last_Name      );
+			callableStatement.setString(5, Gender         );
+			callableStatement.setString(6, Company        );
+			callableStatement.setString(7, Mobile_Number1 );
+			callableStatement.setString(8, Mobile_Number2 );
+			callableStatement.setString(9, Email1         );
+			callableStatement.setString(10, Email2        );
+			callableStatement.setString(11, Landphone1    );
+			callableStatement.setString(12, Landphone2    );
+			callableStatement.setString(13, Fax1          );
+			callableStatement.setString(14, Fax2          );
+			callableStatement.setString(15, Address_Line1 );
+			callableStatement.setString(16, Address_Line2 );
+			callableStatement.setString(17, City          );
+			callableStatement.setString(18, State         );
+			callableStatement.setString(19, Pin           );
+			callableStatement.setString(20, Country       );
+			callableStatement.setString(21, Pancard       );
+			callableStatement.setString(22, VoterId       );
+			callableStatement.setString(23, User_type     );
+			callableStatement.setString(24, First_Name2   );
+			callableStatement.setString(25, Last_Name2    );
+			callableStatement.setString(26, Company2      );
+			callableStatement.setString(27, Mobile_Number3);
+			callableStatement.setString(28, Address_Line3 );
+			callableStatement.setString(29, Address_Line4 );
+			callableStatement.setString(30, City2         );
+			callableStatement.setString(31, Pin2          );
+			callableStatement.setString(32, State2        );
+			callableStatement.setString(33, Country2      );
+			callableStatement.setString(34, Email3        );
+			
+		    callableStatement.registerOutParameter(35, Types.BOOLEAN);
+
+			callableStatement.execute();
+			
+			exist = callableStatement.getBoolean(35);
+			
+			System.out.println("SQL - setregisterSeller UPDATED");
+			
+			 connection.commit();
+
+			 return exist;
+
+		}catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {				
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				callableStatement.close();
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}
+			try {
+				connection.close();
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}
+		}
+		 return false;
+	}
+		
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		CreateUserDAO createUserDAO = new CreateUserDAO();
+    boolean sellerDAOSSS = createUserDAO.setSellerRegistration("HHH55", "HHH55", "HHH55", "HHH55", "FEMALE", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55");
+    System.out.println("sellerDAOSSS");
+	}
+	
+	
 }
