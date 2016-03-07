@@ -11,7 +11,7 @@ import ecom.model.User;
 
 public class UserDAO {
 
-	public User getUser(String userId, String password) {		
+	public User getUser(String userId, String password) {		//4-3-16
 		
 		User user = null;
 		
@@ -23,7 +23,7 @@ public class UserDAO {
 		try {
 			connection = ConnectionFactory.getNewConnection();  
 			
-			sql = "SELECT * FROM user WHERE user_id = ? AND password1 = ?";
+			sql = "SELECT * FROM user WHERE user_id = ? AND password1 = ? AND status = 'active'";
 			
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, userId);

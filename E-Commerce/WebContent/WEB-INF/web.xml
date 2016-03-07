@@ -113,6 +113,7 @@
     <url-pattern>/RetrieveOrderedItemsForAdmin</url-pattern>
     <url-pattern>/RetrieveAllSellerForApprovalRegistration</url-pattern>    
     <url-pattern>/ApproveSellerRegistrationPage</url-pattern>
+    <url-pattern>/ApproveSeller</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>FranchiseServlet</servlet-name>

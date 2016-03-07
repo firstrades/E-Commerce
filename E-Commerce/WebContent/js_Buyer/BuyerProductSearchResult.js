@@ -5,9 +5,9 @@ $(function() {
 		//document.getElementById('a').style.color = "red";
 		$('#a').css('color','red').html('Loading...');
 		
-		var max = $('#max').html();
+		var max    = $('#max').html();
 		var subCat = $('#subCat').html();		
-		var MAX = $('#a').data('max');      
+		var MAX    = $('#a').data('max');      
 				
 				
 		$.getJSON('SearchBySubCategory_Ajax', {subCategory: subCat, MAX1: MAX} , function(object) {			
@@ -52,7 +52,7 @@ $(function() {
 													"<li> "+ object.list[k+j].kf4 +" </li>"+
 												"</ul>"+
 											"</div>"+
-										"<div class='item_add'><h6><span class='item_price'> <small class='over_flow'> Rs."+ object.list[k+j].listPrice +" </small> &nbsp; <small class='item_price'> ("+ object.list[k+j].discount +"% Off) </small> <br> <strong class='main_value'>Rs "+ object.list[k+j].salePrice +"</strong> </span></h6></div>"+
+										"<div class='item_add'><h6><span class='item_price'> <small class='over_flow'> Rs."+ object.list[k+j].listPrice +" </small> &nbsp; <small class='item_price'> ("+ object.list[k+j].discount +"% Off) </small> <br> <strong class='main_value'>Rs "+ object.list[k+j].salePriceCustomer +"</strong> </span></h6></div>"+
 										"<div class='item_add'><span class='item_price'><a href='CompleteProductDetails?subCategory=" + object.list[k+j].subCategory + "&productId=" + object.list[k+j].productId + "'>More Details</a></span></div>"+
 									"</div>"+
 								"</div>"+

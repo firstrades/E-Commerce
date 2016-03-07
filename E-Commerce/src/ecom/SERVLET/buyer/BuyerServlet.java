@@ -171,9 +171,9 @@ public class BuyerServlet extends HttpServlet {
 					jsonObject.put("kf2",          bean.getKeyFeatures().getKf2());
 					jsonObject.put("kf3",          bean.getKeyFeatures().getKf3());
 					jsonObject.put("kf4",          bean.getKeyFeatures().getKf4());
-					jsonObject.put("discount",     bean.getPrice().getMarkedupDiscount());
+					jsonObject.put("discount",     bean.getPrice().getDiscount());
 					jsonObject.put("listPrice",    bean.getPrice().getListPrice());
-					jsonObject.put("salePrice",    bean.getPrice().getMarkedupSellPrice());
+					jsonObject.put("salePriceCustomer",    bean.getPrice().getSalePriceCustomer());
 					jsonObject.put("productName",  bean.getProductName());
 					jsonObject.put("sellerCode",   bean.getSellerId());
 					jsonObject.put("subCategory",  bean.getSubCategory());

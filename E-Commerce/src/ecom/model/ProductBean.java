@@ -7,26 +7,84 @@ import ecom.common.Status;
 public class ProductBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private long   productId;
-	private long   sellerId;
-	private String sellerCompany;
+	private long        productId;
+	private long        sellerId;
+	private String      sellerCompany;  
 	
-	private String category;
-	private String subCategory;
-	private String productName;
-	private String companyName;
+	private String      category;
+	private String      subCategory;
+	private String      productName;
+	private String      companyName;
 	
 	private KeyFeatures keyFeatures;
-	private Price price;
+	private Price       price;
 	
-	private int    stock;
-	private String warranty;
-	private Status status;
+	private int         stock;
+	private double      weight;
+	private String      warranty;	
+	private int         cancellationAfterBooked;
+	
+	private Status      status;	                         // Enum
+	private Commission  commission;
+	private String      productAdditionDate;
+	
+	
+	public ProductBean() {
+		keyFeatures = new KeyFeatures();
+		price       = new Price();
+		commission  = new Commission();
+	}
+	
+	
 	
 	// Getter & Setter
-
+	
+	
+	
+	
+	
 	public long getProductId() {
 		return productId;
+	}
+
+	public String getProductAdditionDate() {
+		return productAdditionDate;
+	}
+
+	public void setProductAdditionDate(String productAdditionDate) {
+		this.productAdditionDate = productAdditionDate;
+	}
+
+	public Commission getCommission() {
+		return commission;
+	}
+
+	public void setCommission(Commission commission) {
+		this.commission = commission;
+	}	
+
+	public double getWeight() {
+		return weight;
+	}
+
+	public void setWeight(double weight) {
+		this.weight = weight;
+	}	
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public int getCancellationAfterBooked() {
+		return cancellationAfterBooked;
+	}
+
+	public void setCancellationAfterBooked(int cancellationAfterBooked) {
+		this.cancellationAfterBooked = cancellationAfterBooked;
 	}
 
 	public void setProductId(long productId) {
@@ -107,15 +165,7 @@ public class ProductBean implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}
-
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
+	}	
 
 	public String getSellerCompany() {
 		return sellerCompany;

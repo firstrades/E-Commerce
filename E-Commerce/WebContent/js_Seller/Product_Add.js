@@ -66,20 +66,54 @@ $(function() {
 	
 	
 	
-	/*************************** List Price Numeric  *****************************************************************/	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*************************** Discount - Calculation  *****************************************************************/	
 	
 	$('#ListPrice').keyup(function(e) {  
 		
 		var listPrice = $(this).val();		
 		var numeric = $.isNumeric( listPrice );  
-		var discount  = $('#discount').val();
-		var salePrice = listPrice * (1 - discount / 100);
+		var salePriceToAdmin  = $('#salePriceToAdmin').val();			
+		var discount = ((parseInt(listPrice) - parseInt(salePriceToAdmin)) / parseInt(listPrice)) * 100;
+		
+		if (numeric == true) {
+		
+			$(this).css({"background-color": "#9EE69E"});
+			$('#discount').val(discount);
+			
+		} else {
+			
+			$(this).css({"background-color": "#E89D9D"});
+		}
+	});
+	
+	
+	
+	/*************************** Profit Margin  And Sale Price to Admin - Calculation *****************************************************************/	
+	
+	$('#profitMarginPercentage').keyup(function(e) { 
+		
+		var profitMarginPercentage = $(this).val();		
+		var numeric = $.isNumeric( profitMarginPercentage );  
+		var manufacturingCost  = $('#manufacturingCost').val();
+		var salePriceToAdmin = parseInt(manufacturingCost) + (parseInt(manufacturingCost) * (parseInt(profitMarginPercentage) / 100));
+		var profitMargin = parseInt(manufacturingCost) * (parseInt(profitMarginPercentage) / 100);
 		
 		
 		if (numeric == true) {
 		
 			$(this).css({"background-color": "#9EE69E"});
-			$('#salePrice').val(salePrice);
+			$('#profitMargin').val(profitMargin);
+			$('#salePriceToAdmin').val(salePriceToAdmin);
 			
 		} else {
 			
@@ -89,25 +123,5 @@ $(function() {
 	
 	
 	
-	/*************************** Calculate Sale Price  *****************************************************************/	
-	
-	$('#discount').keyup(function(e) {  
-		
-		var listPrice = $('#ListPrice').val();
-		var discount  = $(this).val();		
-		var numeric   = $.isNumeric( discount );  
-		var salePrice = listPrice * (1 - discount / 100);
-		
-		
-		if (numeric == true) {
-		
-			$(this).css({"background-color": "#9EE69E"});			
-			$('#salePrice').val(salePrice);
-			
-		} else {
-			
-			$(this).css({"background-color": "#E89D9D"});
-		}
-	});
 	
 });

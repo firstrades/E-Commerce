@@ -1,6 +1,7 @@
 package ecom.DAO.Seller;
 
 import java.io.InputStream;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,85 +12,81 @@ import java.util.List;
 import ecom.model.KeyFeatures;
 import ecom.model.Price;
 import ecom.model.ProductBean;
+import ecom.model.User;
 import ecom.common.ConnectionFactory;
 import ecom.common.Conversions;
 
 public class ProductDAO {
 
-	public boolean addProduct(long userId, String userCompanyName, String category, String subCategory, String company, String product, Double listPrice, 
-			Double discount, Double salePrice, String kf1, String kf2, String kf3, String kf4, InputStream inputStream1, 
-			InputStream inputStream2, InputStream inputStream3, int stock, String warranty, double weight) {		
+	public boolean addProduct(User user, InputStream inputStream1, InputStream inputStream2, InputStream inputStream3, 
+			ProductBean productBean) {		
 		
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		String sql = null;
+		Connection connection = null; CallableStatement callableStatement = null;	
 		
-		
+		String sql = "{call addProduct(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";			
+		boolean status = false;
+	
 		try {
+			
 			connection = ConnectionFactory.getNewConnection();
 			connection.setAutoCommit(false);
 			
-			sql = "INSERT INTO product ("
-				+ "seller_id, category, sub_category, product_name, company_name, kf_1, kf_2, kf_3, kf_4, "
-				+ "list_price, discount, sale_price, icon_image, image1, image2, stock, warranty, status, seller_company, weight"			
-				+ ") " 
-				+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, 'awaiting',?,?)";
+			callableStatement = connection.prepareCall(sql); 			
 			
-			preparedStatement = connection.prepareStatement(sql);
+			callableStatement.registerOutParameter(1, java.sql.Types.BOOLEAN);
 			
-			preparedStatement.setLong   (1,  userId);
-			preparedStatement.setString (2,  category);
-			preparedStatement.setString (3,  subCategory);
-			preparedStatement.setString (4,  product);
-			preparedStatement.setString (5,  company);
-			preparedStatement.setString (6,  kf1);
-			preparedStatement.setString (7,  kf2);
-			preparedStatement.setString (8,  kf3);
-			preparedStatement.setString (9,  kf4);
-			preparedStatement.setDouble (10, listPrice);
-			preparedStatement.setDouble (11, discount);
-			preparedStatement.setDouble (12, salePrice);										
-			preparedStatement.setBlob   (13, inputStream1);
-			preparedStatement.setBlob   (14, inputStream2);
-			preparedStatement.setBlob   (15, inputStream3);
-			preparedStatement.setInt    (16, stock);
-			preparedStatement.setString (17, warranty);
-			preparedStatement.setString (18, userCompanyName);
-			preparedStatement.setDouble (19, weight);
+			callableStatement.setLong  (2, user.getUserInfo().getId()     );
+			callableStatement.setString(3, user.getUserInfo().getCompany());
 			
-		
-			preparedStatement.executeUpdate();
+			callableStatement.setBlob  (4, inputStream1);
+			callableStatement.setBlob  (5, inputStream2);
+			callableStatement.setBlob  (6, inputStream3);
 			
+			callableStatement.setString(7, productBean.getCategory());
+			callableStatement.setString(8, productBean.getSubCategory());
+			callableStatement.setString(9, productBean.getCompanyName());
+			callableStatement.setString(10, productBean.getProductName());
 			
-			connection.commit();
+			callableStatement.setString(11, productBean.getKeyFeatures().getKf1());
+			callableStatement.setString(12, productBean.getKeyFeatures().getKf2());
+			callableStatement.setString(13, productBean.getKeyFeatures().getKf3());
+			callableStatement.setString(14, productBean.getKeyFeatures().getKf4());
 			
-			return true;
+			callableStatement.setDouble(15, productBean.getPrice().getManufacturingCost()     );
+			callableStatement.setDouble(16, productBean.getPrice().getProfitMarginPercentage());
+			callableStatement.setDouble(17, productBean.getPrice().getSalePriceToAdmin()      );
+			callableStatement.setDouble(18, productBean.getPrice().getListPrice()             );
+			callableStatement.setDouble(19, productBean.getPrice().getDiscount()              );
+			
+			callableStatement.setInt   (20, productBean.getStock()                  );
+			callableStatement.setDouble(21, productBean.getWeight()                 );
+			callableStatement.setString(22, productBean.getWarranty()               );
+			callableStatement.setInt   (23, productBean.getCancellationAfterBooked());
+			
+			callableStatement.execute();
+			
+			status = callableStatement.getBoolean(1);  
+			
+			connection.commit();					
+			System.out.println("SQL - addProduct executed");
+			
+			return status;
 			
 			
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | SQLException e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {				
-				e1.printStackTrace();
-			}
+			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 			e.printStackTrace();
+			
 		} finally {
-			try {
-				preparedStatement.close();
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
-			try {
-				connection.close();
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
-		}
+			
+			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+			
+		}  
 		
-		
-		return false;
-	}
+		return status;
+	} //addProduct
 	
 	public List<ProductBean> getProducts(String category, String subCategory, long sellerId) {		
 		
@@ -128,7 +125,7 @@ public class ProductDAO {
 				
 				productBean.getPrice().setListPrice      (resultSet.getDouble("list_price"  ));
 				productBean.getPrice().setDiscount       (resultSet.getDouble("discount"    ));
-				productBean.getPrice().setSalePrice      (resultSet.getDouble("sale_price"  ));
+				productBean.getPrice().setSalePriceToAdmin(resultSet.getDouble("sale_price"  ));
 				productBean.getPrice().setMarkup         (resultSet.getDouble("markup"      ));
 				
 				productBean.getKeyFeatures().setKf1      (resultSet.getString("kf_1"));

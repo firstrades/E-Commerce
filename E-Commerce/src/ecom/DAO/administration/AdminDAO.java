@@ -11,9 +11,7 @@ import java.util.List;
 import ecom.common.ConnectionFactory;
 import ecom.common.Conversions;
 import ecom.model.ExtractFranchiseDetails;
-import ecom.model.KeyFeatures;
 import ecom.model.OrderTable;
-import ecom.model.Price;
 import ecom.model.ProductBean;
 import ecom.model.User;
 import ecom.model.UserAndPickupAddress;
@@ -36,28 +34,33 @@ public class AdminDAO {
 				
 				while (resultSet.next()) {
 					
-					ProductBean productBean = new ProductBean();   
-					productBean.setKeyFeatures(new KeyFeatures());
-					productBean.setPrice(new Price());
+					ProductBean productBean = new ProductBean(); 					
 					
-					productBean.setCompanyName         (resultSet.getString("company_name"  ));
-					productBean.setCategory            (resultSet.getString("category"      ));
-					productBean.getKeyFeatures().setKf1(resultSet.getString("kf_1"          ));
-					productBean.getKeyFeatures().setKf2(resultSet.getString("kf_2"          ));
-					productBean.getKeyFeatures().setKf3(resultSet.getString("kf_3"          ));
-					productBean.getKeyFeatures().setKf4(resultSet.getString("kf_4"          ));
-					productBean.getPrice().setDiscount (resultSet.getDouble("discount"      ));
-					productBean.getPrice().setListPrice(resultSet.getDouble("list_price"    ));
-					productBean.getPrice().setMarkup   (resultSet.getDouble("markup"        ));
-					productBean.getPrice().setSalePrice(resultSet.getDouble("sale_price"    ));
 					productBean.setProductId           (resultSet.getLong  ("product_id"    ));
-					productBean.setProductName         (resultSet.getString("product_name"  ));
 					productBean.setSellerId            (resultSet.getLong  ("seller_id"     ));
-					productBean.setStatus              (Conversions.getEnumStatus(resultSet.getString("status")));
-					productBean.setStock               (resultSet.getInt   ("stock"         ));
-					productBean.setSubCategory         (resultSet.getString("sub_category"  ));
-					productBean.setWarranty            (resultSet.getString("warranty"      ));
 					productBean.setSellerCompany       (resultSet.getString("seller_company"));
+					
+					productBean.setCategory            (resultSet.getString("category"      ));
+					productBean.setSubCategory         (resultSet.getString("sub_category"  ));
+					productBean.setProductName         (resultSet.getString("product_name"  ));					
+					productBean.setCompanyName         (resultSet.getString("company_name"  ));					
+					
+					productBean.getPrice().setListPrice             (resultSet.getDouble("list_price"            ));					
+					productBean.getPrice().setDiscount              (resultSet.getDouble("discount"              ));
+					productBean.getPrice().setSalePriceCustomer     (resultSet.getDouble("salePriceCustomer"     ));					
+					productBean.getPrice().setMarkup                (resultSet.getDouble("markup"                ));
+					productBean.getPrice().setSalePriceToAdmin      (resultSet.getDouble("sale_price"            ));  // to Admin
+					productBean.getPrice().setManufacturingCost     (resultSet.getDouble("manufacturingCost"     ));
+					productBean.getPrice().setProfitMarginPercentage(resultSet.getDouble("profitMarginPercentage"));					
+					
+					productBean.setStock                  (resultSet.getInt   ("stock"                    ));
+					productBean.setWeight                 (resultSet.getDouble("weight"                   ));
+					productBean.setWarranty               (resultSet.getString("warranty"                 ));
+					productBean.setCancellationAfterBooked(resultSet.getInt   ("calcellation_after_booked"));					
+					
+					productBean.getCommission().setFranchiseCommission(resultSet.getDouble("f_commission" ));
+					productBean.getCommission().setFranchiseCommission(resultSet.getDouble("d_commission" ));
+					
 					
 					productBeans.add(productBean);
 					
@@ -84,36 +87,60 @@ public class AdminDAO {
 			
 	}  //  getAwaitingProductList
 	
-	public boolean getApproveProduct(long productId, double markup, double franComm, double drisComm) {		
+	public boolean setProductApprove(ProductBean productBean) {		
 			
-			String sql = "UPDATE product SET markup = ?, f_commission = ?, d_commission = ?, status = 'approved' WHERE product_id = ? ";					
-			
-			try (Connection connection = ConnectionFactory.getNewConnection();
-				 PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-				
-				connection.setAutoCommit(false);				
-				
-				preparedStatement.setDouble(1, markup);
-				preparedStatement.setDouble(2, franComm);
-				preparedStatement.setDouble(3, drisComm);
-				preparedStatement.setLong  (4, productId);
-				int result = preparedStatement.executeUpdate();
-				
-				if (result != 0) {
-					
-					connection.commit();					
-					System.out.println("SQL - getAwaitingProductList()  Executed");
-					
-					return true;
-				}
-				
-			} catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException sqlException) {			
-				sqlException.printStackTrace();
-			} 
-			
-			return false;
+		Connection connection = null; CallableStatement callableStatement = null;			
+		String sql = "{call setApproveProduct(?,?,?,?,?,?,?,?,?,?,?,?)}";			
+		boolean status = false;
 	
-	}  // getApproveProduct
+		try {
+			
+			connection = ConnectionFactory.getNewConnection();
+			connection.setAutoCommit(false);
+			
+			callableStatement = connection.prepareCall(sql);    
+			
+			callableStatement.registerOutParameter(1, java.sql.Types.BOOLEAN);
+			
+			callableStatement.setLong  (2, productBean.getProductId());
+			
+			callableStatement.setDouble(3,  productBean.getPrice().getDiscount()                  );
+			callableStatement.setDouble(4,  productBean.getPrice().getSalePriceCustomer()         );
+			callableStatement.setDouble(5,  productBean.getPrice().getMarkup());
+			callableStatement.setDouble(6,  productBean.getPrice().getSalePriceToAdmin()          );
+			callableStatement.setDouble(7,  productBean.getPrice().getProfitMarginPercentage()    );
+			
+			callableStatement.setDouble(8,  productBean.getCommission().getFranchiseCommission()  );
+			callableStatement.setDouble(9,  productBean.getCommission().getDistributorCommission());
+			
+			callableStatement.setDouble(10, productBean.getWeight()                               );
+			callableStatement.setString(11, productBean.getWarranty()                             );
+			callableStatement.setInt   (12, productBean.getCancellationAfterBooked()              );
+			
+			callableStatement.execute();
+			
+			status = callableStatement.getBoolean(1);  
+			
+			connection.commit();					
+			System.out.println("SQL - setProductApprove executed");
+			
+			return status;			
+			
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e) {
+			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
+			e.printStackTrace();
+			
+		} finally {
+			
+			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+			
+		}   
+			
+			return status;
+	
+	}  // setProductApprove
 	
 	public List<ExtractFranchiseDetails> getFranchiseDetails() {
 		
@@ -144,7 +171,7 @@ public class AdminDAO {
 					extractFranchiseDetails.getUser().getPerson().setLastName  (resultSet.getString("last_name" ));
 					extractFranchiseDetails.getUser().getUserInfo().setBalance (resultSet.getDouble("balance"   ));
 					
-					extractFranchiseDetails.getCommission().setCommission      (resultSet.getDouble("commission"));
+					//extractFranchiseDetails.getCommission().setCommission      (resultSet.getDouble("commission"));
 					// pin1
 					extractFranchiseDetails.getFranchisePins().setPin1         (resultSet.getString("pin"));				
 					// pin2
@@ -447,7 +474,8 @@ public class AdminDAO {
         	connection = ConnectionFactory.getNewConnection();
 		    connection.setAutoCommit(false);
 		    
-		    callableStatement = connection.prepareCall("{call getUserAndPicupAddress(?)}");		    	    
+		    callableStatement = connection.prepareCall("{call getUserAndPicupAddress(?)}");	
+		    callableStatement.setLong(1, id);
 		    
 		    resultSet = callableStatement.executeQuery() ; 
 		    
@@ -483,13 +511,13 @@ public class AdminDAO {
 		    	u.getDeliveryAddress().setfName       (resultSet.getString("firstName" ));
 		    	u.getDeliveryAddress().setlName       (resultSet.getString("lastName"  ));
 		    	u.getDeliveryAddress().setCompany     (resultSet.getString("company1"  ));
-		    	u.getDeliveryAddress().setAddress     (resultSet.getString("address1"  ));
-		    	u.getDeliveryAddress().setAddress1    (resultSet.getString("address2"  ));
+		    	u.getDeliveryAddress().setAddress     (resultSet.getString("daAddress1"));
+		    	u.getDeliveryAddress().setAddress1    (resultSet.getString("daAddress2"));
 		    	u.getDeliveryAddress().setCity        (resultSet.getString("city1"     ));
 		    	u.getDeliveryAddress().setPin         (resultSet.getString("pin1"      ));
 		    	u.getDeliveryAddress().setState       (resultSet.getString("state1"    ));
 		    	u.getDeliveryAddress().setContact     (resultSet.getString("mobile"    ));
-		    	u.getDeliveryAddress().setEmail       (resultSet.getString("email1"    ));
+		    	u.getDeliveryAddress().setEmail       (resultSet.getString("daEmail1"  ));
 		    	u.getDeliveryAddress().setCountry     (resultSet.getString("country1"  ));
 		    	
 		    	
@@ -518,7 +546,82 @@ public class AdminDAO {
 	} //getUserAndPicupAddress
 	
 	
+	public boolean setApproveSeller(UserAndPickupAddress u) {
+		
+		Connection connection = null; CallableStatement callableStatement = null;	
+		
+		String sql = "{call setApproveSeller(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";			
+		boolean status = false;
 	
+		try {
+			
+			connection = ConnectionFactory.getNewConnection();
+			connection.setAutoCommit(false);
+			
+			callableStatement = connection.prepareCall(sql);    
+			
+			callableStatement.setLong  (1, u.getUser().getUserInfo().getId()     );     
+			callableStatement.setString(2, u.getUser().getLogin().getUserId()    );	
+			callableStatement.setString(3, u.getUser().getPerson().getFirstName());
+			callableStatement.setString(4, u.getUser().getPerson().getLastName() );
+			callableStatement.setString(5, u.getUser().getUserInfo().getCompany());
+			callableStatement.setString(6, u.getUser().getAddress().getAddress() );
+			callableStatement.setString(7, u.getUser().getAddress().getAddress1());
+			callableStatement.setString(8, u.getUser().getAddress().getPin()     );
+			callableStatement.setString(9, u.getUser().getAddress().getCity()    );
+			callableStatement.setString(10,u.getUser().getAddress().getState()   );
+			callableStatement.setString(11,u.getUser().getAddress().getCountry() );
+			callableStatement.setString(12,u.getUser().getPerson().getSex()      );
+			callableStatement.setString(13,u.getUser().getContact().getMobile1() );
+			callableStatement.setString(14,u.getUser().getContact().getMobile2() );
+			callableStatement.setString(15,u.getUser().getContact().getEmail1()  );
+			callableStatement.setString(16,u.getUser().getContact().getEmail2()  );
+			callableStatement.setString(17,u.getUser().getContact().getPhone1()  );
+			callableStatement.setString(18,u.getUser().getContact().getPhone2()  );
+			callableStatement.setString(19,u.getUser().getContact().getFax1()    );
+			callableStatement.setString(20,u.getUser().getContact() .getFax2()   );
+			callableStatement.setString(21,u.getUser().getUserInfo().getPan()    );
+			callableStatement.setString(22,u.getUser().getUserInfo().getVoterId());
+			
+			callableStatement.setString(23, u.getDeliveryAddress().getfName()    );
+			callableStatement.setString(24, u.getDeliveryAddress().getlName()    );
+			callableStatement.setString(25, u.getDeliveryAddress().getCompany()  );
+			callableStatement.setString(26, u.getDeliveryAddress().getAddress()  );
+			callableStatement.setString(27, u.getDeliveryAddress().getAddress1() );
+			callableStatement.setString(28, u.getDeliveryAddress().getCity()     );
+			callableStatement.setString(29, u.getDeliveryAddress().getPin()      );
+			callableStatement.setString(30, u.getDeliveryAddress().getState()    );
+			callableStatement.setString(31, u.getDeliveryAddress().getContact()  );
+			callableStatement.setString(32, u.getDeliveryAddress().getEmail()    );
+			callableStatement.setString(33, u.getDeliveryAddress().getCountry()  );			
+			
+			callableStatement.registerOutParameter(34, java.sql.Types.BOOLEAN);
+			
+			callableStatement.execute();
+			
+			status = callableStatement.getBoolean(34);  
+			
+			connection.commit();					
+			System.out.println("SQL - setApproveSeller executed");
+			
+			return status;
+			
+			
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e) {
+			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
+			e.printStackTrace();
+			
+		} finally {
+			
+			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+			
+		}  
+		
+		return status;
+		
+	} // setApproveSeller
 	
 	
 	
@@ -533,7 +636,7 @@ public class AdminDAO {
 		
 		for (ExtractFranchiseDetails c: list) {
 			
-			System.out.println(c.getCommission().getCommission());
+			//System.out.println(c.getCommission().getCommission());
 			System.out.println(c.getFranchisePins().getPin1());
 			System.out.println(c.getFranchisePins().getPin2());
 			System.out.println(c.getFranchisePins().getPin3());

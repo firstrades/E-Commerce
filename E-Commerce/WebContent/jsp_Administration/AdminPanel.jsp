@@ -340,102 +340,160 @@ margin-right: 24px;
 						<div class="col-md-1" style="padding: 0px;">
 							<img src="IconImageFromProduct?productId={{item.productId}}" style="width:100%; height: 124px;"/>		
 						</div>
+						
+							<!-- ------------------------------------------------------------------------------------------------ -->
+						
 						<div class="col-md-11">
+						
 							<div class="row">
-								<div class="col-md-11"> <h1 style="font-size: 18px; margin-top: 9px;margin-top: 6px;">  Product Name: {{item.productName}} </h1>
+								<div class="col-md-11"> <h1 style="font-size: 18px; margin-top: 9px;margin-top: 6px;">  {{item.productName}} ({{item.companyName}})</h1>
 								</div> 
 							</div>
+							
+							<!-- ------------------------------------------------------------------------------------------------ -->
 			
 							<div class="row">
 								<div class="col-md-2">
-									<div class="row">
+								<div class="row" >
+									<div class="row" style="margin-bottom: 10px;">
 										<div class="col-md-12"> 
 											<span style="font-size: 12px;margin-top: 5px;color: #337AB7;">  Product Id : {{item.productId}} </span>
 										</div> 
 									</div>
-									<div class="row">
+									<div class="row" style="margin-bottom: 10px;">
 										<div class="col-md-12"> 
-											<span style="font-size: 12px;margin-top: 5px;color: #337AB7;">  Company : {{item.companyName}} </span>
+											<span style="font-size: 12px;margin-top: 5px;color: #337AB7;">  Stock : {{item.stock}} </span>
 										</div>
 									</div> 
-									<div class="row">
+									<div class="row" style="margin-bottom: 10px;">
 										<div class="col-md-12"> 
 											<span style="font-size: 12px;margin-top: 5px;color: #337AB7;">  Category : {{item.category}} </span>
 										</div> 
 									</div>
-									<div class="row">
+									<div class="row" style="margin-bottom: 10px;">
 										<div class="col-md-12"> 
 											<span style="font-size: 12px;margin-top: 5px;color: #337AB7;">  SubCategory : {{item.sub_category}} </span>
 										</div> 
 									</div>
+									</div>
 								</div>
+								
+								<!-- ------------------------------------------------------------------------------------------------ -->
+								
 								<div class="col-md-3">
-									<div class="row">
+								<div class="row" >
+									<div class="row" style="margin-bottom: 10px;">
 										<div class="col-md-12"> 
-											<span style="font-size: 12px;">  Seller : {{item.seller}}  </span>
+											<span style="font-size: 12px;">  Stockist : {{item.sellerCompany}} (Id: {{item.sellerId}}) </span>
 										</div> 
 									</div>
-									<div class="row">
+									<div class="row" style="margin-bottom: 10px;">
 										<div class="col-md-12"> 
-											<span style="font-size: 12px;">  Franchise :  Skypoint india E Services PVT LTD  (Jewel Saha)  </span>
-										</div> 
-									</div>
-									<div class="row">
-										<div class="col-md-12"> 
-											<span style="font-size: 12px;">  Distributor :  Skypoint india E Services PVT LTD  (Jewel Saha)  </span>
+											<span style="font-size: 12px; color: #d9534f;">  Weight : <input type="text" data-ng-model="item.weight"  size="3" style="margin-left: 17px;padding: 3px 5px;"/>  </span>
 										</div>
+									</div> 
+									<div class="row" style="margin-bottom: 10px;">
+										<div class="col-md-12"> 
+											<span style="font-size: 12px; color: #d9534f;">  Warranty : <input type="text" data-ng-model="item.warranty"  size="25" style="margin-left: 6px;padding: 3px 5px;"/>  </span>
+										</div> 
+									</div>
+									<div class="row" style="margin-bottom: 10px;">
+										<div class="col-md-12"> 
+											<span style="font-size: 12px; color: #d9534f;">  Cancellation After Booking In DAYS  : <input type="text" data-ng-model="item.calcellationAfterBookedInDays"  size="2" style="margin-left: 17px;padding: 3px 5px;"/>  </span>
+										</div> 
+									</div>
 									</div>
 								</div>
-								<div class="col-md-2" style="width: 13%;">
-									<div class="row">
+								
+								<!-- ------------------------------------------------------------------------------------------------ -->
+								
+								<div class="col-md-2">
+								<div class="row" >
+									<div class="row" style="margin-bottom: 10px;">
 										<div class="col-md-12"> 
 											<span style="font-size: 12px; color: #d9534f;">  List Price : {{item.listPrice}}  </span>
 										</div>
 									</div>
-									<div class="row">
-										<div class="col-md-12"> <span style="font-size: 12px; color: #d9534f;">  Discount :  {{item.discount}}  </span>
-										</div>
-									</div>
-									<div class="row">
+									<div class="row" style="margin-bottom: 10px;">
 										<div class="col-md-12"> 
-											<span style="font-size: 12px; color: #d9534f;">  Sell price :  {{item.salePrice}}  </span>
+											<span style="font-size: 12px; color: #d9534f;"> Discount :  <input type="text" data-ng-model="item.discount"  size="3" readonly style="padding: 3px 5px;"/>  </span>
 										</div>
 									</div>
-									
+									<div class="row" style="margin-bottom: 10px;">
+										<div class="col-md-12"> 
+											<span style="font-size: 12px; color: #d9534f;">  Price To Customer :  <input type="text" data-ng-model="item.salePriceCustomer"  size="3" readonly style="padding: 3px 5px;"/> </span>
+										</div>
+									</div>
+									<div class="row" style="margin-bottom: 10px;">
+										<div class="col-md-12"> 
+											<span style="font-size: 12px; color: #d9534f;">  
+												Markup : 
+												<input type="text" data-ng-model="item.markupPercentage" 
+													data-ng-keyup="markup = item.salePriceToAdmin * item.markupPercentage / 100; item.salePriceCustomer = markup + item.salePriceToAdmin; item.discount = (item.listPrice - item.salePriceCustomer) / item.listPrice * 100;" size="3" style="margin-left: 17px;padding: 3px 5px;">%  
+													<input type="text" data-ng-model="markup"  size="3"  readonly/>
+											</span>
+											
+										</div>
+									</div>
+									<div class="row" style="margin-bottom: 10px;">
+										<div class="col-md-12"> 
+											<span style="font-size: 12px; color: #d9534f;">  Price To Admin :  <input type="text" data-ng-model="item.salePriceToAdmin"  size="3" readonly style="padding: 3px 5px;"/>  </span>
+										</div>
+									</div>
+									</div>
 								</div>
 								
-								<div class="col-md-1" style="width: 11%;">
-								<div class="row">
-								<div class="row">
-										<div class="col-md-12"> 
-											<span style="font-size: 12px; color: #d9534f;">  Markup : <input type="text" data-ng-model="markup" value="{{item.markup}}" size="3" style="margin-left: 17px;">  </span>
-										</div>
-									</div>
-										<div class="row">
-										<div class="col-md-12"> 
-											<span style="font-size: 12px; color: #d9534f;">  FranComm : <input type="text" data-ng-model="franComm" value="" size="3">  </span>
-										</div>
-									</div>
-									
-									
-									<div class="row">
-										<div class="col-md-12"> 
-											<span style="font-size: 12px; color: #d9534f;">  DrisComm : <input type="text" data-ng-model="drisComm" value="" size="3" style="margin-left: 3px;">  </span>
-										</div>
-									</div>
-									
-								</div>
+								<!-- ------------------------------------------------------------------------------------------ -->
 								
-								</div>
+							<div class="col-md-2">
+								<div class="row" >
+									
+									<div class="row" style="margin-bottom: 10px;">
+										<div class="col-md-12"> 
+											<span style="font-size: 12px; color: #d9534f;">  Manf Cost :  <span>{{item.manufacturingCost}}</span>  </span>
+										</div>
+									</div>									
+									<div class="row" style="margin-bottom: 10px;">
+										<div class="col-md-12"> 
+											<span style="font-size: 12px; color: #d9534f;">  
+												Profit Margin % :  
+												<input type="text" data-ng-model="item.profitMarginPercentage" 
+													data-ng-keyup="profitMargin = item.manufacturingCost * item.profitMarginPercentage / 100; item.salePriceToAdmin = item.manufacturingCost + profitMargin; item.salePriceCustomer = item.markup + item.salePriceToAdmin; item.discount = (item.listPrice - item.salePriceCustomer) / item.listPrice * 100;" size="2"  style="padding: 3px 3px; width: 14%;"/>  
+											</span>
+										</div>
+									</div>
+									<div class="row" style="margin-bottom: 10px;">
+										<div class="col-md-12"> 
+											<div style="display:none;" data-ng-init="profitMargin = item.manufacturingCost + item.profitMarginPercentage"></div>											
+											<span style="font-size: 12px; color: #d9534f;">  Profit Margin  :  <input type="text" data-ng-model="profitMargin"  size="2" readonly style="padding: 3px 3px;"/>  </span>
+										</div>
+									</div>	
+									<div class="row" style="margin-bottom: 10px;">
+										<div class="col-md-12"> 
+											<span style="font-size: 12px; color: #d9534f;">  FranComm : <input type="text" data-ng-model="item.fCommissionPercentage" data-ng-keyup="fCommission = item.salePriceCustomer * item.fCommissionPercentage / 100" size="3" style="margin-left: 0px;padding: 3px 3px; width: 14%;"/>%
+												<input type="text" data-ng-model="fCommission"  size="3" style="margin-left: 0px;" readonly style="padding: 3px 3px; width: 14%;"/>  </span>
+										</div>
+									</div>
+									<div class="row" style="margin-bottom: 10px;">
+										<div class="col-md-12"> 
+											<span style="font-size: 12px; color: #d9534f;">  DrisComm : <input type="text" data-ng-model="item.dCommissionPercentage" data-ng-keyup="dCommission = item.salePriceCustomer * item.dCommissionPercentage / 100" size="3" style="margin-left: 3px;padding: 3px 3px; width: 14%;"/>%
+												<input type="text" data-ng-model="dCommission"  size="3" style="margin-left: 3px;" readonly style="padding: 3px 3px; width: 14%;"/>  </span>
+										</div>
+									</div>									
+								</div>								
+							</div>
+								
+								
+								<!-- --------------------------------------------------------------------------------------------- -->
 			
-								<div class="col-md-4" style="margin-top: 60px;">
+								<div class="col-md-1" style="margin-top: 60px;    margin-left: 80px;">
 				
 									<ul>
-										<li class="dots" style="list-style: none;"> 
+										<li class="dots"> 
 											<a href="#" style="font-size: 12px;" data-ng-click="approveProduct()"> Approve </a> 
 										</li> 
 										<li class="dots"> 
-											<a href="#" style="font-size: 12px;">Cancel </a> 
+											<a href="#" style="font-size: 12px;">Revice </a> 
 										</li> 
 										<li class="dots">  
 											<a href="#" style="font-size: 12px;"> Remove </a> 

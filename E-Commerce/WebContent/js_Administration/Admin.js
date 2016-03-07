@@ -13,7 +13,8 @@ admin.controller('ViewController', function($scope, $http, $window) {
 		
 		$http.post('RetrieveProductForApproval', {}).success(function(data) {
 			
-			$scope.items = data.items;
+			$scope.items = data.items;   
+			
 		});
 		
 		
@@ -188,12 +189,25 @@ admin.directive('ngRemoveItem', function($http, $window) {
 				
 				if (r == true) { 
 				
-					var productId = scope.item.productId;
-					var markup    = scope.markup;
-					var franComm  = scope.franComm;
-					var drisComm  = scope.drisComm;
+					var productId              = scope.item.productId;
 					
-					var keyValue = JSON.stringify({productId: productId, markup: markup, franComm: franComm, drisComm: drisComm});
+					var discount               = scope.item.discount;
+					var salePriceToCustomer    = scope.item.salePriceCustomer;					
+					var markupPercentage       = scope.item.markupPercentage;
+					var salePriceToAdmin       = scope.item.salePriceToAdmin
+					var profitMarginPercentage = scope.item.profitMarginPercentage;	
+					
+					var franComm               = scope.item.fCommissionPercentage;
+					var drisComm               = scope.item.dCommissionPercentage;
+					
+					var weight                 = scope.item.weight;
+					var warranty               = scope.item.warranty;
+					var cancellationAfterBooked = scope.item.calcellationAfterBookedInDays;
+					
+					var keyValue = JSON.stringify({productId: productId, discount: discount, salePriceToCustomer: salePriceToCustomer,
+						markupPercentage: markupPercentage, salePriceToAdmin: salePriceToAdmin,
+						profitMarginPercentage: profitMarginPercentage, franComm: franComm, drisComm: drisComm,
+						weight: weight, warranty: warranty, cancellationAfterBooked: cancellationAfterBooked});
 					
 					$http.post('ApproveProduct', keyValue, {headers: {'Content-Type': 'application/json'} }).success( function(data) {						
 						
@@ -262,4 +276,52 @@ admin.controller('CreateEditUserController', function($scope, $http, $window) {
 	
 });  // CreateEditUserController
 
+/***************************    jQuery   *******************************/
 
+$(function() {
+	
+	$("form#data").submit(function(event) { 
+		
+		//disable the default form submission
+	  	event.preventDefault();	  	
+	  	
+	  	$('#message').empty();
+	
+		var r = confirm("Alert: Do You Really Want To Approve The Seller !");
+		
+		if (r == true) {  
+	 
+			  //grab all form data  
+			  var formData = new FormData($(this)[0]);   
+			 
+			  $.ajax({
+			    url: 'ApproveSeller',
+			    type: 'POST',
+			    data: formData,
+			    async: false,
+			    cache: false,
+			    contentType: false,
+			    processData: false,
+			    success: function (data) {   
+			    	$('#message').empty();
+			    	
+			    	if (data.status)
+			    		$('#message').append("Seller Approved.");
+			    },
+			  	error: function() {
+			  		$('#message').empty();
+			  		$('#message').append("Seller Not Approved.");
+			  	}
+			  });
+		} 
+	 
+	  return false;
+	
+
+	});
+	
+	
+	
+});
+
+//var discount = ((parseInt(listPrice) - parseInt(salePriceToAdmin)) / parseInt(listPrice)) * 100;

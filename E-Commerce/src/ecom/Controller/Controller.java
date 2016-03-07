@@ -31,7 +31,7 @@ public class Controller extends HttpServlet {
 		
 		String servletPath = request.getServletPath();  
 		
-		if (servletPath.equals("/SellerMainPanel")) {                     //  Seller Entry
+		if (servletPath.equals("/SellerMainPanel")) {                     //  Seller Entry        //4-3-16
 			
 				System.out.println("Entered SellerMainPanel");
 				
@@ -58,7 +58,7 @@ public class Controller extends HttpServlet {
 					
 				} else {
 					
-					response.sendRedirect("SellerLogin");
+					response.sendRedirect("SellerLoginPage");   
 				}
 				
 				

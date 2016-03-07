@@ -61,47 +61,53 @@ public class SellerServlet extends HttpServlet {
 			/*******************************************************
 			 				*  Get Request  *
 			 *******************************************************/
+				
 			
-			String category          = request.getParameter("category").trim();                  
-			String subCategory       = request.getParameter("subCategory").trim(); 
-			String company           = request.getParameter("company").trim(); 
-			String product           = request.getParameter("product").trim();
+			ProductBean productBean = new ProductBean();                              // 1
 			
-			String kf1               = request.getParameter("kf1").trim(); 
-			String kf2               = request.getParameter("kf2").trim();
-			String kf3               = request.getParameter("kf3").trim();
-			String kf4               = request.getParameter("kf4").trim();			
+			productBean.setCategory   (request.getParameter("category")   .trim());
+			productBean.setSubCategory(request.getParameter("subCategory").trim());
+			productBean.setCompanyName(request.getParameter("company")    .trim());
+			productBean.setProductName(request.getParameter("product")    .trim());
 			
-			Double listPrice         = Double.parseDouble  (request.getParameter("listPrice").trim()); 
-			Double discount          = Double.parseDouble  (request.getParameter("discount").trim()); 
-			Double salePrice         = Double.parseDouble  (request.getParameter("salePrice").trim()); 
-			Double weight	         = Double.parseDouble(request.getParameter("weight").trim());
-						
-			Part part1               = request.getPart     ("iconImage");		
+			productBean.getKeyFeatures().setKf1(request.getParameter("kf1").trim());
+			productBean.getKeyFeatures().setKf2(request.getParameter("kf2").trim());
+			productBean.getKeyFeatures().setKf3(request.getParameter("kf3").trim());
+			productBean.getKeyFeatures().setKf4(request.getParameter("kf4").trim());
+			
+			productBean.getPrice().setManufacturingCost     (Double.parseDouble(request.getParameter("manufacturingCost")     .trim()));
+			productBean.getPrice().setProfitMarginPercentage(Double.parseDouble(request.getParameter("profitMarginPercentage").trim()));
+			productBean.getPrice().setSalePriceToAdmin      (Double.parseDouble(request.getParameter("salePriceToAdmin")      .trim()));
+			productBean.getPrice().setListPrice             (Double.parseDouble(request.getParameter("listPrice")             .trim()));
+			productBean.getPrice().setDiscount              (Double.parseDouble(request.getParameter("discount")              .trim()));
+			
+			productBean.setStock                  (Integer.parseInt(request.getParameter("stock")             .trim()));
+			productBean.setWeight                 (Double.parseDouble(request.getParameter("weight")          .trim()));
+			productBean.setWarranty               (request.getParameter("warranty")                           .trim());
+			productBean.setCancellationAfterBooked(Integer.parseInt(request.getParameter("cancellationPeriod").trim()));
+			
+			
+			
+			//Images
+			Part part1               = request.getPart     ("iconImage");	 // 2	
 			InputStream inputStream1 = part1.getInputStream();   
 			
-			Part part2               = request.getPart     ("image1");		
+			Part part2               = request.getPart     ("image1"   );	// 3	
 			InputStream inputStream2 = part2.getInputStream(); 
 			
-			Part part3               = request.getPart     ("image2");		
+			Part part3               = request.getPart     ("image2"   );		// 4
 			InputStream inputStream3 = part3.getInputStream(); 
-			
-			int stock                = Integer.parseInt    (request.getParameter("stock").trim());
-			String warranty          = request.getParameter("warranty").trim();
 			
 			/*******************************************************
 								*  Get Session  *
 			*******************************************************/
-			User user = (User) session.getAttribute("user");			
-			long userId            = user.getUserInfo().getId();
-			String userCompanyName = user.getUserInfo().getCompany();
+			User user = (User) session.getAttribute("user");				
 			
 			/*******************************************************
 			 	*  Database - Insert & Generate Product Code  *
 			*******************************************************/
 			ProductDAO productDAO = new ProductDAO();
-			boolean status = productDAO.addProduct(userId, userCompanyName, category, subCategory, company, product, listPrice, 
-					discount, salePrice, kf1, kf2, kf3, kf4, inputStream1, inputStream2, inputStream3, stock, warranty, weight);
+			boolean status = productDAO.addProduct(user, inputStream1, inputStream2, inputStream3, productBean);
 			
 			if (status == true)
 				System.out.println("Database Updated");
@@ -224,7 +230,7 @@ public class SellerServlet extends HttpServlet {
 							jsonObject.put("productId",   productList.get(i).getProductId());
 							jsonObject.put("listPrice",   productList.get(i).getPrice().getListPrice());
 							jsonObject.put("discount",    productList.get(i).getPrice().getDiscount());
-							jsonObject.put("salePrice",   productList.get(i).getPrice().getSalePrice());
+							jsonObject.put("salePrice",   productList.get(i).getPrice().getSalePriceToAdmin());
 							jsonObject.put("markup",      productList.get(i).getPrice().getMarkup());
 							jsonObject.put("kf1",         productList.get(i).getKeyFeatures().getKf1());
 							jsonObject.put("kf2",         productList.get(i).getKeyFeatures().getKf2());

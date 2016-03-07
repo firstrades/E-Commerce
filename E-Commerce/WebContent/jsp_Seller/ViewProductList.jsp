@@ -112,8 +112,8 @@ clear: both;
 						<hr>					
 						<span style="margin-right:15px;">List Price: <%=productList.get(i).getPrice().getListPrice() %></span><hr>
 						<span style="font-size: 13px; color: #999;">Discount: <%=productList.get(i).getPrice().getDiscount() %>%</span><hr>
-						<span style="font-size: 20px; color: #EF413C;">Price: <%=productList.get(i).getPrice().getSalePrice() %></span>
-						<span style="font-size: 20px; color: blue;margin-left: 34px;">Markup: <%=productList.get(i).getPrice().getMarkup() %></span>
+						<span style="font-size: 20px; color: #EF413C;">Price: <%=productList.get(i).getPrice().getSalePriceToAdmin() %></span>
+						<span style="font-size: 20px; color: blue;margin-left: 34px;">Markup: <%=productList.get(i).getPrice().getMarkup() %>%</span>
 					</div>					
 					<div class="col-md-6" style="margin-top:40px;">
 						<span style="font-size: 18px;color: #4FAA4F;">Key Features</span> <hr>
@@ -173,7 +173,7 @@ clear: both;
 						<span style="margin-right:15px;">List Price: {{item.listPrice}}</span><hr>
 						<span style="font-size: 13px; color: #999;">Discount: {{item.discount}}%</span><hr>
 						<span style="font-size: 20px; color: #EF413C;">Price: {{item.salePrice}}</span>
-						<span style="font-size: 20px; color: blue;margin-left: 34px;">Markup: {{item.markup}}</span>
+						<span style="font-size: 20px; color: blue;margin-left: 34px;">Markup: {{item.markup}}%</span>
 					</div>					
 					<div class="col-md-6" style="margin-top:40px;">
 						<span style="font-size: 18px;color: #4FAA4F;">Key Features</span> <hr>

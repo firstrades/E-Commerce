@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +24,7 @@ import ecom.model.ProductBean;
 import ecom.model.User;
 import ecom.model.UserAndPickupAddress;
 
+@MultipartConfig
 public class AdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -59,27 +61,32 @@ public class AdminServlet extends HttpServlet {
 						
 							for (ProductBean productBean : productBeans) {
 						
-									JSONObject jsonObject = new JSONObject();						
-							
-									jsonObject.put("companyName", productBean.getCompanyName()  );							
-									jsonObject.put("category",    productBean.getCategory()     );
-									jsonObject.put("kf1",         productBean.getKeyFeatures().getKf1());
-									jsonObject.put("kf2",         productBean.getKeyFeatures().getKf2());
-									jsonObject.put("kf3",         productBean.getKeyFeatures().getKf3());
-									jsonObject.put("kf4",         productBean.getKeyFeatures().getKf4());
-									jsonObject.put("discount",    productBean.getPrice().getDiscount());
-									jsonObject.put("listPrice",   productBean.getPrice().getListPrice());
-									jsonObject.put("markup",      productBean.getPrice().getMarkup());
-									jsonObject.put("salePrice",   productBean.getPrice().getSalePrice());
-									jsonObject.put("productId",   productBean.getProductId()    );
-									jsonObject.put("productName", productBean.getProductName()  );
-									jsonObject.put("seller_id",   productBean.getSellerId()     );
-									jsonObject.put("status",      productBean.getStatus()       );
-									jsonObject.put("stock",       productBean.getStock()        );
-									jsonObject.put("sub_category",productBean.getSubCategory()  );
-									jsonObject.put("warranty",    productBean.getWarranty()     );										
-									jsonObject.put("seller",      productBean.getSellerCompany());									
+									JSONObject jsonObject = new JSONObject();
 									
+									jsonObject.put("productId",     productBean.getProductId()    );
+									jsonObject.put("sellerId",     productBean.getSellerId()     );
+									jsonObject.put("sellerCompany", productBean.getSellerCompany());
+									
+									jsonObject.put("category",    productBean.getCategory()     );
+									jsonObject.put("sub_category",productBean.getSubCategory()  );							
+									jsonObject.put("companyName", productBean.getCompanyName()  );	
+									jsonObject.put("productName", productBean.getProductName()  );
+									
+									jsonObject.put("listPrice",              productBean.getPrice().getListPrice()             );
+									jsonObject.put("discount",               productBean.getPrice().getDiscount()              );
+									jsonObject.put("salePriceCustomer",      productBean.getPrice().getSalePriceCustomer()     );
+									jsonObject.put("markupPercentage",       productBean.getPrice().getMarkup()                );
+									jsonObject.put("salePriceToAdmin",       productBean.getPrice().getSalePriceToAdmin()      );
+									jsonObject.put("manufacturingCost",      productBean.getPrice().getManufacturingCost()     );
+									jsonObject.put("profitMarginPercentage", productBean.getPrice().getProfitMarginPercentage());
+									
+									jsonObject.put("stock",                         productBean.getStock()                  );
+									jsonObject.put("weight",                        productBean.getWeight()                 );			
+									jsonObject.put("warranty",                      productBean.getWarranty()               );										
+									jsonObject.put("calcellationAfterBookedInDays", productBean.getCancellationAfterBooked());									
+									
+									jsonObject.put("fCommissionPercentage", productBean.getCommission().getFranchiseCommission()  );
+									jsonObject.put("dCommissionPercentage", productBean.getCommission().getDistributorCommission());
 									
 									jsonArray.put(jsonObject);									
 							
@@ -101,49 +108,47 @@ public class AdminServlet extends HttpServlet {
 			
 			else if (servletPath.equals("/ApproveProduct")) {
 				
-					System.out.println("Entered ApproveProduct");
+					System.out.println("Entered ApproveProduct");								
 					
-					String productId1  = null;	
-					String markup1     = null;
-					String franComm1   = null;
-					String drisComm1   = null;
+					ProductBean productBean = new ProductBean();					
 					
-					if (request.getParameter("productId") == null) {   
-					
-					        BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
-					        
-					        String jsonData = null;
-					        
-					        if (br != null) {
-					        	
-					            jsonData = br.readLine();                               
-					        }
-					        
-					        try {
-					        	
-								JSONObject jsonObject1 = new JSONObject(jsonData);
-								
-								productId1  = jsonObject1.getString("productId");
-								markup1     = jsonObject1.getString("markup");
-								franComm1   = jsonObject1.getString("franComm");
-								drisComm1   = jsonObject1.getString("drisComm");
-								
-							} catch (JSONException e) {				
-								e.printStackTrace();
-							}
+			        BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
 			        
-					} // if close
+			        String jsonData = null;
+			        
+			        if (br != null) {
+			        	
+			            jsonData = br.readLine();                               
+			        }
+			        
+			        try {
+			        	
+						JSONObject jsonObject1 = new JSONObject(jsonData);
+						
+						productBean.setProductId(Long.parseLong(jsonObject1.getString("productId")));          
+						
+						productBean.getPrice().setDiscount(Math.floor(Double.parseDouble(jsonObject1.getString("discount"))));              
+						productBean.getPrice().setSalePriceCustomer(Math.ceil(Double.parseDouble(jsonObject1.getString("salePriceToCustomer"))));
+						productBean.getPrice().setMarkup(Double.parseDouble(jsonObject1.getString("markupPercentage")));
+						productBean.getPrice().setSalePriceToAdmin(Double.parseDouble(jsonObject1.getString("salePriceToAdmin")));     
+						productBean.getPrice().setProfitMarginPercentage(Double.parseDouble(jsonObject1.getString("profitMarginPercentage"))); 
+						
+						productBean.getCommission().setFranchiseCommission(Double.parseDouble(jsonObject1.getString("franComm")));               
+						productBean.getCommission().setDistributorCommission(Double.parseDouble(jsonObject1.getString("drisComm")));             
+						
+						productBean.setWeight(Double.parseDouble(jsonObject1.getString("weight")));               
+						productBean.setWarranty(jsonObject1.getString("warranty"));              
+						productBean.setCancellationAfterBooked(Integer.parseInt(jsonObject1.getString("cancellationAfterBooked"))); 
+						
+						
+					} catch (JSONException e) {				
+						e.printStackTrace();
+					}		
 					
-					
-					/************** Process *****************/					
-					long productId  = Long.parseLong(productId1);
-					double markup   = Double.parseDouble(markup1);
-					double franComm = Double.parseDouble(franComm1);
-					double drisComm = Double.parseDouble(drisComm1);
 				
 					/***************** DataBase ***********************/					
 					AdminDAO adminDAO = new AdminDAO();
-					boolean status = adminDAO.getApproveProduct(productId, markup, franComm, drisComm);
+					boolean status = adminDAO.setProductApprove(productBean);   System.out.println(status);
 					
 					/***************  Send Response  *****************/
 					
@@ -290,8 +295,7 @@ public class AdminServlet extends HttpServlet {
 								jsonObject.put("pin2",        franchiseDetails.getFranchisePins().getPin2()        );
 								jsonObject.put("pin3",        franchiseDetails.getFranchisePins().getPin3()        );
 								jsonObject.put("pin4",        franchiseDetails.getFranchisePins().getPin4()        );
-								jsonObject.put("pin5",        franchiseDetails.getFranchisePins().getPin5()        );
-								jsonObject.put("commission",  franchiseDetails.getCommission().getCommission()     );								
+								jsonObject.put("pin5",        franchiseDetails.getFranchisePins().getPin5()        );																
 								
 								jsonArray.put(jsonObject);									
 						
@@ -632,7 +636,121 @@ public class AdminServlet extends HttpServlet {
 				
 				/***************  Next Page  *****************/
 				request.getRequestDispatcher("jsp_Administration/ApproveSellerRegistration.jsp").forward(request, response);
-			}
+			} //ApproveSellerRegistrationPage
+			
+			
+			else if (servletPath.equals("/ApproveSeller")) {
+				
+				System.out.println("Entered ApproveSeller");
+				
+				UserAndPickupAddress u = new UserAndPickupAddress();
+				
+				/*// Get Request for User
+				long id               = Integer.parseInt(request.getParameter("id"));  
+				String userId         = request.getParameter("userId"        );
+				String firstName      = request.getParameter("firstName"     );
+				String lastName       = request.getParameter("lastName"      );
+				String sex            = request.getParameter("sex"           );
+				String company        = request.getParameter("company"       );
+				String mobile1        = request.getParameter("mobile1"       );
+				String mobile2        = request.getParameter("mobile2"       );				
+				String email1         = request.getParameter("email1"        );
+				String email2         = request.getParameter("email2"        );
+				String phone1         = request.getParameter("phone1"        );
+				String phone2         = request.getParameter("phone2"        );
+				String fax1           = request.getParameter("fax1"          );
+				String fax2           = request.getParameter("fax2"          );
+				String addressLine1   = request.getParameter("addressLine1"  );
+				String addressLine2   = request.getParameter("addressLine2"  );
+				String city           = request.getParameter("city"          );
+				String state          = request.getParameter("state"         );				
+				String pin            = request.getParameter("pin"           );
+				String country        = request.getParameter("country"       );
+				String pan            = request.getParameter("pan"           );
+				String voterId        = request.getParameter("voterId"       );
+				
+				
+				// Get Request for DeliveryAddress
+				String daFirstName    = request.getParameter("daFirstName"   );   
+				String daLastName     = request.getParameter("daLastName"    );
+				String daCompany      = request.getParameter("daCompany"     );
+				String daContact      = request.getParameter("daContact"     );
+				String daAddressLine1 = request.getParameter("daAddressLine1");
+				String daAddressLine2 = request.getParameter("daAddressLine2");
+				String daCity         = request.getParameter("daCity"        );
+				String daPin          = request.getParameter("daPin"         );
+				String daState        = request.getParameter("daState"       );
+				String daCountry      = request.getParameter("daCountry"     );
+				String daEmail        = request.getParameter("daEmail"       );			*/	
+				
+				
+				// Get Request for User
+				u.getUser().getUserInfo().setId       (Integer.parseInt(request.getParameter("id")));
+		    	u.getUser().getLogin()   .setUserId   (request.getParameter("userId"        ));		    	
+		    	u.getUser().getPerson()  .setFirstName(request.getParameter("firstName"     ));
+		    	u.getUser().getPerson()  .setLastName (request.getParameter("lastName"      ));
+		    	u.getUser().getUserInfo().setCompany  (request.getParameter("company"       ));
+		    	u.getUser().getAddress() .setAddress  (request.getParameter("addressLine1"  ));
+		    	u.getUser().getAddress() .setAddress1 (request.getParameter("addressLine2"  ));
+		    	u.getUser().getAddress() .setPin      (request.getParameter("pin"           ));
+		    	u.getUser().getAddress() .setCity     (request.getParameter("city"          ));
+		    	u.getUser().getAddress() .setState    (request.getParameter("state"         ));
+		    	u.getUser().getAddress() .setCountry  (request.getParameter("country"       ));
+		    	u.getUser().getPerson()  .setSex      (request.getParameter("sex"           ));
+		    	u.getUser().getContact() .setMobile1  (request.getParameter("mobile1"       ));
+		    	u.getUser().getContact() .setMobile2  (request.getParameter("mobile2"       ));
+		    	u.getUser().getContact() .setEmail1   (request.getParameter("email1"        ));
+		    	u.getUser().getContact() .setEmail2   (request.getParameter("email2"        ));
+		    	u.getUser().getContact() .setPhone1   (request.getParameter("phone1"        ));
+		    	u.getUser().getContact() .setPhone2   (request.getParameter("phone2"        ));
+		    	u.getUser().getContact() .setFax1     (request.getParameter("fax1"          ));
+		    	u.getUser().getContact() .setFax2     (request.getParameter("fax2"          ));
+		    	u.getUser().getUserInfo().setPan      (request.getParameter("pan"           ));
+		    	u.getUser().getUserInfo().setVoterId  (request.getParameter("voterId"       ));		    	
+		    	
+		    	
+		    	// Get Request for DeliveryAddress
+		    	u.getDeliveryAddress().setfName       (request.getParameter("daFirstName"   ));
+		    	u.getDeliveryAddress().setlName       (request.getParameter("daLastName"    ));
+		    	u.getDeliveryAddress().setCompany     (request.getParameter("daCompany"     ));
+		    	u.getDeliveryAddress().setAddress     (request.getParameter("daAddressLine1"));
+		    	u.getDeliveryAddress().setAddress1    (request.getParameter("daAddressLine2"));
+		    	u.getDeliveryAddress().setCity        (request.getParameter("daCity"        ));
+		    	u.getDeliveryAddress().setPin         (request.getParameter("daPin"         ));
+		    	u.getDeliveryAddress().setState       (request.getParameter("daState"       ));
+		    	u.getDeliveryAddress().setContact     (request.getParameter("daContact"     ));
+		    	u.getDeliveryAddress().setEmail       (request.getParameter("daEmail"       ));
+		    	u.getDeliveryAddress().setCountry     (request.getParameter("daCountry"     ));
+				
+				
+				/********* Database ***********/
+		    	AdminDAO dao = new AdminDAO();
+				boolean status = dao.setApproveSeller(u);   
+				
+				
+				/***************  Send Response  *****************/
+				
+				JSONObject jsonObject = new JSONObject();
+				
+				if (status == true) {					
+					
+					try {
+						jsonObject.put("status", status);  
+						
+					} catch (JSONException e) {					
+						e.printStackTrace();
+					}				
+					
+				} // if close
+				
+				
+				response.setContentType("application/json");
+				response.getWriter().write(jsonObject.toString());;
+				
+			
+			} //ApproveSeller
+			
+			
 			
 	}
 }

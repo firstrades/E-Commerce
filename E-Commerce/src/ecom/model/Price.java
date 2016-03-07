@@ -7,10 +7,32 @@ public class Price implements Serializable {
 	
 	private double listPrice;
 	private double discount;
-	private double salePrice;
+	private double salePriceCustomer;
 	private double markup;
+	private double salePriceToAdmin;
+	private double profitMarginPercentage;
+	private double manufacturingCost;
 	
 	
+	
+	public double getSalePriceCustomer() {
+		return salePriceCustomer;
+	}
+	public void setSalePriceCustomer(double salePriceCustomer) {
+		this.salePriceCustomer = salePriceCustomer;
+	}
+	public double getProfitMarginPercentage() {
+		return profitMarginPercentage;
+	}
+	public void setProfitMarginPercentage(double profitMarginPercentage) {
+		this.profitMarginPercentage = profitMarginPercentage;
+	}
+	public double getManufacturingCost() {
+		return manufacturingCost;
+	}
+	public void setManufacturingCost(double manufacturingCost) {
+		this.manufacturingCost = manufacturingCost;
+	}
 	public double getListPrice() {
 		return listPrice;
 	}
@@ -23,11 +45,11 @@ public class Price implements Serializable {
 	public void setDiscount(double discount) {
 		this.discount = discount;
 	}
-	public double getSalePrice() {
-		return salePrice;
+	public double getSalePriceToAdmin() {
+		return salePriceToAdmin;
 	}
-	public void setSalePrice(double salePrice) {
-		this.salePrice = salePrice;
+	public void setSalePriceToAdmin(double salePriceToAdmin) {
+		this.salePriceToAdmin = salePriceToAdmin;
 	}
 	public double getMarkup() {
 		return markup;
@@ -42,7 +64,7 @@ public class Price implements Serializable {
 	/******************* Process Methods ************************/
 	
 	public double getMarkedupSellPrice() {	
-		double newSalePrice = getMarkup() + getSalePrice();
+		double newSalePrice = getMarkup() + getSalePriceToAdmin();
 		return round(newSalePrice, 2);
 	}
 	
