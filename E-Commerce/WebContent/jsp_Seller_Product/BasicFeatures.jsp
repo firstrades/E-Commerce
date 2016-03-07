@@ -56,19 +56,21 @@
 				
 				<div class="row">
 					<div class="col-md-3 col-sm-6 col-xs-12">
-						<label> Company Name </label>
+						<label> <span style="color:red;">*</span> Company Name </label>
 					</div>
 					<div class="col-md-3 col-sm-6 col-xs-12">
 						<input type="text" name="company" required class="form-control" value="<%=productBean.getCompanyName() %>" />
 					</div>
 					<div class="col-md-3 col-sm-6 col-xs-12">
-						<label>  Product Name </label>
+						<label>  <span style="color:red;">*</span> Product Name </label>
 					</div>
 					<div class="col-md-3 col-sm-6 col-xs-12">		
 						<input type="text" name="product" class="form-control" required value="<%=productBean.getProductName() %>" />
 					</div>					
 				</div>	
-									
+				
+				<hr> <!-- --------------------------------------------------------------------------------------------- -->
+				<br>					
 				<div class="row">
 			    	<div class="col-md-3 col-sm-6 col-xs-12">
 						<label> Key Feature 1 </label>
@@ -98,67 +100,110 @@
 						<input type="text" class="form-control" name="kf4" value="<%=productBean.getKeyFeatures().getKf4() %>" />
 					</div>						
 				</div>
-									
+				
+				<hr> <!-- --------------------------------------------------------------------------------------------- -->
+				<br>
+				
 				<div class="row">
-					<div class="col-md-3 col-sm-6 col-xs-12"> 
-						<label>	List Price </label>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<label>	<span style="color:red;">*</span> Manufacturing Cost </label>
 					</div>
-					<div class="col-md-3 col-sm-6 col-xs-12"> 
-						<input type="text" class="form-control" id="ListPrice" name="listPrice" required value="<%=productBean.getPrice().getListPrice() %>" />
-					</div>			
-					<div class="col-md-3 col-sm-6 col-xs-12"> 
-						<label> Discount </label>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<input type="text" name="manufacturingCost1" id="manufacturingCost1" class="form-control" required value="<%=productBean.getPrice().getManufacturingCost() %>" />
 					</div>
-					<div class="col-md-3 col-sm-6 col-xs-12"> 
-						<input type="text" class="form-control" size="4" id="discount" name="discount" required value="<%=productBean.getPrice().getDiscount() %>" />
-					</div>			
+					
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<label><span style="color:red;">*</span> Profit Margin % </label>
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<input type="text" name="profitMarginPercentage1" id="profitMarginPercentage1" class="form-control" required value="<%=productBean.getPrice().getProfitMarginPercentage() %>"/>
+					</div> 
+				</div>		
+				
+				
+				<div class="row">
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<label>	Sale Price To Admin </label>
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<input type="text" name="salePriceToAdmin1" id="salePriceToAdmin1" class="form-control" readonly value="<%=productBean.getPrice().getSalePriceToAdmin() %>" />
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<label>Profit Margin </label>
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<input type="text" name="profitMargin1" id="profitMargin1" class="form-control" readonly value=""/>
+					</div> 
+				</div>	
+				
+				<div class="row">
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<label>	Sale Price To Customer </label>
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<input type="text" name="salePriceToCustomer1" id="salePriceToCustomer1" class="form-control" readonly value="<%=productBean.getPrice().getSalePriceCustomer() %>" />
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<label>Markup % </label>
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<input type="text" name="markupPercentage1" id="markupPercentage1" class="form-control" readonly value="<%=productBean.getPrice().getMarkup() %>"/>
+					</div> 
+				</div>	
+				
+				
+				<div class="row">
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<label> <span style="color:red;">*</span> List Price </label>
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<input type="text" name="listPrice1" id="ListPrice1" class="form-control" required value="<%=productBean.getPrice().getListPrice() %>" />
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<label> Discount %</label>
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<input type="text" name="discount1" id="discount1" class="form-control" required readonly value="<%=productBean.getPrice().getDiscount() %>"/>
+					</div>					
 				</div>
 				
-				<div class="row">
-					<div class="col-md-3 col-sm-6 col-xs-12"> 
-						<label>	Sale Price </label>
-					</div>
-					<div class="col-md-3 col-sm-6 col-xs-12"> 
-						<input type="text" class="form-control" name="salePrice" id="salePrice" readonly value="<%=productBean.getPrice().getSalePrice() %>" />
-					</div>			
-					<div class="col-md-3 col-sm-6 col-xs-12"> 
-						<label>Stock</label>
-					</div>
-					<div class="col-md-3 col-sm-6 col-xs-12"> 
-						<input type="text" class="form-control" name="stock" required value="<%=productBean.getStock() %>" />
-					</div>		
-				</div>						
 						
-				<div class="row">
-					<div class="col-md-3 col-sm-6 col-xs-12"> 
-						<label>	Warranty </label>
-					</div>
-					<div class="col-md-3 col-sm-6 col-xs-12"> 
-						<input type="text" class="form-control" name="warranty" required value="<%=productBean.getWarranty() %>" />
-					</div>		
-					<div class="col-md-3 col-sm-6 col-xs-12"> 
-						<label>	Demo</label>
-					</div>
-					<div class="col-md-3 col-sm-6 col-xs-12"> 
-						<input type="text" class="form-control" name="salePrice" readonly="readonly" required value="<%=productBean.getPrice().getSalePrice() %>" />
-					</div>		
-				</div>		
 				
+				<hr>	<!-- ----------------------------------------------------------------------------------- -->	
+				<br>
+				<div class="row">				
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<label><span style="color:red;">*</span> Stock </label>
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<input type="text" name="stock" class="form-control" required placeholder="50" value="<%=productBean.getStock() %>"/>
+					</div> 
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<label><span style="color:red;">*</span> Weight In KG</label>
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<input type="text" name="weight" class="form-control" required placeholder="0.2" value="<%=productBean.getWeight() %>" />
+					</div> 
+				</div>			
+							
 				<div class="row">
-					<div class="col-md-3 col-sm-6 col-xs-12"> 
-						<label>	Demo</label>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<label>	<span style="color:red;">*</span> Warranty </label>
 					</div>
-					<div class="col-md-3 col-sm-6 col-xs-12"> 
-						<input type="text" class="form-control" name="salePrice" readonly="readonly" required value="<%=productBean.getPrice().getSalePrice() %>" />
-					</div>		
-					<div class="col-md-3 col-sm-6 col-xs-12"> 
-						<label>	Demo </label>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<input type="text" name="warranty" class="form-control" required placeholder="1 year warranty" value="<%=productBean.getWarranty() %>"/>
 					</div>
-					<div class="col-md-3 col-sm-6 col-xs-12"> 
-						<input type="text" class="form-control" name="salePrice" readonly="readonly" required value="<%=productBean.getPrice().getSalePrice() %>" />
-					</div>	
-				</div>		
-						
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<label>	<span style="color:red;">*</span> Cancellation Period In DAYS</label>
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<input type="text" name="cancellationPeriod" class="form-control" required placeholder="7" value="<%=productBean.getCancellationAfterBooked() %>" />
+					</div>				
+				</div>
+								
+							
+				<hr>	<!-- ----------------------------------------------------------------------------------- -->		
+				<br>	
 				<div class="row">
 					<div class="col-md-12 col-sm-6 col-xs-12"> 
 						<input type="submit" value="Submit" style="padding: 7px 28px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe; color: #ffffff; float: right;" />

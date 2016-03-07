@@ -144,7 +144,7 @@ public class EditProductServlet extends HttpServlet {
 				jsonArray.put(productBean.getKeyFeatures().getKf4());			
 				jsonArray.put(productBean.getPrice().getListPrice());
 				jsonArray.put(productBean.getPrice().getDiscount());
-				jsonArray.put(productBean.getPrice().getSalePrice());
+				jsonArray.put(productBean.getPrice().getSalePriceCustomer());
 				jsonArray.put(productBean.getStock());
 				jsonArray.put(productBean.getWarranty());
 				

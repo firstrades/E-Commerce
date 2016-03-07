@@ -77,7 +77,7 @@ public class EditProductDAO {
 				productBean.getKeyFeatures().setKf4(kf4);
 				productBean.getPrice().setListPrice(listPrice);
 				productBean.getPrice().setDiscount (discount);
-				productBean.getPrice().setSalePrice(salePrice);
+				productBean.getPrice().setSalePriceCustomer(salePrice);
 				productBean.setProductName         (product);
 				productBean.setSubCategory         (subCategory);
 				productBean.setStock               (stock);
@@ -139,23 +139,30 @@ public ProductBean getBasicFeatures(long productId) {
 			
 			while (resultSet.next()) {
 				
-				productBean.setProductId                 (resultSet.getInt   ("product_id"));
-				productBean.setSellerId                  (resultSet.getLong  ("seller_id"));
+				productBean.setProductId                 (resultSet.getInt   ("product_id"));				
 				
-				productBean.setCategory                  (resultSet.getString("category"));
+				productBean.setCategory                  (resultSet.getString("category"    ));
 				productBean.setSubCategory               (resultSet.getString("sub_category"));
-				productBean.setProductName               (resultSet.getString("product_name"));
 				productBean.setCompanyName               (resultSet.getString("company_name"));
-				productBean.getPrice().setListPrice      (resultSet.getDouble("list_price"));
-				productBean.getPrice().setDiscount       (resultSet.getDouble("discount"));
-				productBean.getPrice().setSalePriceCustomer(resultSet.getDouble("salePriceCustomer"));
-				productBean.getPrice().setMarkup         (resultSet.getDouble("markup"));
+				productBean.setProductName               (resultSet.getString("product_name"));
+				
 				productBean.getKeyFeatures().setKf1      (resultSet.getString("kf_1"));
 				productBean.getKeyFeatures().setKf2      (resultSet.getString("kf_2"));
 				productBean.getKeyFeatures().setKf3      (resultSet.getString("kf_3"));
 				productBean.getKeyFeatures().setKf4      (resultSet.getString("kf_4"));	
-				productBean.setStock                     (resultSet.getInt   ("stock"));
-				productBean.setWarranty                  (resultSet.getString("warranty"));
+				
+				productBean.getPrice().setManufacturingCost     (resultSet.getDouble("manufacturingCost"     ));
+				productBean.getPrice().setProfitMarginPercentage(resultSet.getDouble("profitMarginPercentage"));
+				productBean.getPrice().setSalePriceToAdmin      (resultSet.getDouble("sale_price"            ));
+				productBean.getPrice().setSalePriceCustomer     (resultSet.getDouble("salePriceCustomer"     ));
+				productBean.getPrice().setMarkup                (resultSet.getDouble("markup"                ));				
+				productBean.getPrice().setListPrice             (resultSet.getDouble("list_price"            ));
+				productBean.getPrice().setDiscount              (resultSet.getDouble("discount"              ));								
+				
+				productBean.setStock                     (resultSet.getInt   ("stock"                    ));
+				productBean.setWeight                    (resultSet.getDouble("weight"                   ));
+				productBean.setWarranty                  (resultSet.getString("warranty"                 ));
+				productBean.setCancellationAfterBooked   (resultSet.getInt   ("calcellation_after_booked"));
 			}
 			
 			connection.commit();

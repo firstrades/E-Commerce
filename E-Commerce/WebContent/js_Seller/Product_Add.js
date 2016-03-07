@@ -122,6 +122,26 @@ $(function() {
 	});
 	
 	
+	/*************************************************************************************/
+	/**********************************  Basic Features  *********************************/
+	/*************************************************************************************/
 	
+	
+	$('#manufacturingCost1').keyup(function(e) {  
+		
+		var manufacturingCost1 = $(this).val();		
+		var numeric = $.isNumeric( manufacturingCost1 );  
+		
+		
+		if (numeric == true) {
+		
+			$(this).css({"background-color": "#9EE69E"});
+			
+			
+		} else {
+			
+			$(this).css({"background-color": "#E89D9D"});
+		}
+	});
 	
 });

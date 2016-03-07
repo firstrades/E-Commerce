@@ -166,7 +166,7 @@ margin: 0px;
 						<label>	Demo </label>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12"> 
-							<input type="text" class="form-control" name="salePrice" readonly="readonly" required value="<%=productBean.getPrice().getSalePrice() %>" />
+							<input type="text" class="form-control" name="salePrice" readonly="readonly" required value="" />
 							</div>					
 					
 					
@@ -174,7 +174,7 @@ margin: 0px;
 						<label>	Demo</label>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12"> 
-							<input type="text" class="form-control" name="salePrice" readonly="readonly" required value="<%=productBean.getPrice().getSalePrice() %>" />
+							<input type="text" class="form-control" name="salePrice" readonly="readonly" required value="" />
 							</div>
 				
 						</div>		
@@ -183,7 +183,7 @@ margin: 0px;
 						<label>	Demo</label>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12"> 
-							<input type="text" class="form-control" name="salePrice" readonly="readonly" required value="<%=productBean.getPrice().getSalePrice() %>" />
+							<input type="text" class="form-control" name="salePrice" readonly="readonly" required value="" />
 							</div>					
 					
 					
@@ -191,7 +191,7 @@ margin: 0px;
 						<label>	Demo </label>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12"> 
-							<input type="text" class="form-control" name="salePrice" readonly="readonly" required value="<%=productBean.getPrice().getSalePrice() %>" />
+							<input type="text" class="form-control" name="salePrice" readonly="readonly" required value="" />
 							</div>
 				
 						</div>				
