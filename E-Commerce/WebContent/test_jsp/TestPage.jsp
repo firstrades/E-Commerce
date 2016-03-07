@@ -21,7 +21,7 @@
 </div>
 
 <div>
-<input type="checkbox" name="checkbox" id="checkbox" value="1" &nbsp; &nbsp; If The Last Name Is Different />
+<input type="checkbox" name="checkbox" id="checkbox" value="1"> &nbsp<span style="color: red;">If The Last Name Is Different</span>
 </div>
 
 <div>
@@ -39,7 +39,7 @@
 
 </form>
 
-</center>>
+</center>
 
 </body>
 </html>

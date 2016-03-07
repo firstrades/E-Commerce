@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Types;
 
-import ecom.DAO.Seller.SellerDAO;
 import ecom.common.ConnectionFactory;
 import ecom.common.UserType;
 
@@ -203,7 +202,7 @@ public class CreateUserDAO {
 */	
 	
 	//Soumya
-	public boolean setUserRegistration (String User_Id, String Password, String First_Name, String Last_Name, 
+	public synchronized static boolean setUserRegistration (String User_Id, String Password, String First_Name, String Last_Name, 
 			 String Gender, String Email, String Contact_Number, String Address, String Pin, String City, String State, 
 			 String First_Name2, String Last_Name2, String Email2, String Contact_Number2, String Address2, String Pin2, String City2, String State2) {
 			 
@@ -277,7 +276,7 @@ public class CreateUserDAO {
 
 	
 	//Soumya
-	public boolean setSellerRegistration (String User_Id, String Password, String First_Name, String Last_Name,
+	public synchronized static boolean setSellerRegistration (String User_Id, String Password, String First_Name, String Last_Name,
 		   String Gender, String Company, String Mobile_Number1, String Mobile_Number2, String Email1, String Email2, 
 		   String Landphone1, String Landphone2, String Fax1, String Fax2, String Address_Line1, String Address_Line2, 
 		   String City, String State, String Pin, String Country, String Pancard, String VoterId, 
