@@ -157,7 +157,7 @@
 						<label> <span style="color:red;">*</span> List Price </label>
 					</div>
 					<div class="col-md-3 col-sm-6 col-xs-12">
-						<input type="text" name="listPrice1" id="ListPrice1" class="form-control" required value="<%=productBean.getPrice().getListPrice() %>" />
+						<input type="text" name="listPrice1" id="listPrice1" class="form-control" required value="<%=productBean.getPrice().getListPrice() %>" />
 					</div>
 					<div class="col-md-3 col-sm-6 col-xs-12">
 						<label> Discount %</label>
