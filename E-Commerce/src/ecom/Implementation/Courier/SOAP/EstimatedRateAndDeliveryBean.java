@@ -56,6 +56,10 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 	private double  weight;
 	private Address shipper;
 	private Address recipient;
+	private double  outOfDeliveryAreaRate;
+	private double  outOfDeliveryAreaRateAllTaxes;
+	private double  totalOutOfDeliveryAreaRate;
+	private double  octroiPercentage;
 	
 	private EstimatedRateAndDeliveryBean(long productId, User user) throws SOAPException, IOException, ParserConfigurationException, SAXException, ParseException {
 		this.productId = productId;
@@ -478,6 +482,25 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 	    String requiredData = formatter.format(date);	    
 	    
 		return requiredData;
+	}
+	
+	private BigDecimal getOctroiCharge(String shipperState, String recipientState) {
+		
+		BigDecimal rate = null;
+		
+		if (shipperState.equals(recipientState)) 
+			
+			rate = new BigDecimal(this.totalOutOfDeliveryAreaRate);
+		else {
+			
+			if (recipientState.equals("MH") || recipientState.equals("GJ") || recipientState.equals("PB")) {
+				
+				double rateInDouble = this.totalOutOfDeliveryAreaRate + this.salePriceToCustomer * ( 1 + this.octroiPercentage / 100 );
+				rate = new BigDecimal(rateInDouble);
+			}
+		}
+		
+		return rate;
 	}
 	
 	
