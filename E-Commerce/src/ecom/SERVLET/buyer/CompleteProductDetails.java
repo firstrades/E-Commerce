@@ -21,7 +21,6 @@ import org.xml.sax.SAXException;
 import ecom.DAO.Buyer.BuyerSearchDAO;
 import ecom.DAO.Buyer.ProductDetailsDAO;
 import ecom.DAO.Seller.EditProductDAO;
-import ecom.DAO.User.UserDAO;
 import ecom.Implementation.Courier.SOAP.EstimatedRateAndDeliveryBean;
 import ecom.Interface.Courier.EstimatedRateAndDelivery;
 import ecom.beans.TransientData;
@@ -77,13 +76,6 @@ public class CompleteProductDetails extends HttpServlet {
 			 * @Advance Features
 			 */
 			Map<String,String> featureMap = mapFeatures(subCategory, productId);			
-			
-			/**
-			 * @Seller Company Name
-			 */
-			UserDAO userDAO = new UserDAO();
-			String sellerCompany = userDAO.getSellerCompany(productBean.getSellerId());  
-			
 			/**
 			 * @Size
 			 */
@@ -127,8 +119,7 @@ public class CompleteProductDetails extends HttpServlet {
 		 			* Set Request *
 		 ******************************************/
 			request.setAttribute("productBean",   productBean);
-			request.setAttribute("featureMap",    featureMap);
-			request.setAttribute("sellerCompany", sellerCompany);
+			request.setAttribute("featureMap",    featureMap);			
 			request.setAttribute("stock",         stock);
 			request.setAttribute("sizeGarment",   sizeGarment);
 			// API Data

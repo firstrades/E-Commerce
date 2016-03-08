@@ -157,6 +157,8 @@ public class EditProductDAO {
 				productBean.setWeight                    (resultSet.getDouble("weight"                   ));
 				productBean.setWarranty                  (resultSet.getString("warranty"                 ));
 				productBean.setCancellationAfterBooked   (resultSet.getInt   ("calcellation_after_booked"));
+				
+				productBean.setSellerCompany             (resultSet.getString("seller_company"));
 			}
 			
 			connection.commit();

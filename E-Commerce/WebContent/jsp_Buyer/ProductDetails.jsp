@@ -180,7 +180,8 @@ float: left;
 					  	<div class="desc1 span_3_of_2">
 							<h3><%=productBean.getProductName() %></h3>
 							<span class="brand">Brand: <a href="#"> <%=productBean.getCompanyName() %> </a></span> <br>
-						 	<small class="details"> Seller : <%=sellerCompany %> </small> 
+						 	<small class="details"> Seller : <%=productBean.getSellerCompany() %> </small> <br>
+						 	<span>Product ID: <%=productBean.getProductId() %></span>
 						 	<hr>
 						 	<small class="details"> - 1 Year Warranty </small> 	                      	
 	                     	<hr>
