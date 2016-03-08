@@ -7,36 +7,56 @@ public interface FrequentUse {
 	public static final String angular  = "js/angular.js";
 	
 	
+	
+	
+	
+	
+	
+	
 	//PayUMoney Credentials
 	public static final String payUMoneyKey              = "50Z4cW";
 	public static final String payUMoneySalt             = "bpJeeV02";
 	public static final String payUMoneyServiceProvider  = "payu_paisa";
 	
-	//FedEx Credentials - Test
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//FedEx Credentials - Test
+	/*
 	public static final String fedExAccountNumber = "604501202";
 	public static final String fedExMeterNumber   = "100281592";
 	public static final String fedExKey           = "QCDvipuDZR1Knknb";
 	public static final String fedExPassword      = "W9jhqLpT5wrCV9IuCgSqBlkZj";
+	*/
+	
 	
 	
 	//FedEx Credentials - Production
-	/*
+	
 	public static final String fedExAccountNumber = "729620904";
 	public static final String fedExMeterNumber   = "108962648";
 	public static final String fedExKey           = "UqHSsWY9jrGlrk41";
-	public static final String fedExPassword      = "cLjz4E6Sgm4X8IH5dGUnWFLPw";
-	*/
-	
-	//FedEx Account Number:    729620904 
-	//Authentication Key:	   UqHSsWY9jrGlrk41
-	//Meter Number:	           108962648
-	//Production Password:     cLjz4E6Sgm4X8IH5dGUnWFLPw
-	//Supported Web Services:  FedEx Web Services for Shipping
-	//Production URL:          https://ws.fedex.com:443/web-services
-	
+	public static final String fedExPassword      = "cLjz4E6Sgm4X8IH5dGUnWFLPw";	
 	
 	//Amar Ranjan Das  011-47700209   8588864543
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
