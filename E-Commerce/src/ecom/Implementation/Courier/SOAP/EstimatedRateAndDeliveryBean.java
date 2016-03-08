@@ -493,11 +493,13 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 			rate = new BigDecimal(this.totalOutOfDeliveryAreaRate);
 		else {
 			
-			if (recipientState.equals("MH") || recipientState.equals("GJ") || recipientState.equals("PB")) {
+			if (recipientState.equals("MH")) {
 				
 				double rateInDouble = this.totalOutOfDeliveryAreaRate + this.salePriceToCustomer * ( 1 + this.octroiPercentage / 100 );
 				rate = new BigDecimal(rateInDouble);
 			}
+			else
+				rate = new BigDecimal(this.totalOutOfDeliveryAreaRate);
 		}
 		
 		return rate;
