@@ -102,13 +102,13 @@ public class CartAttributesBean {
 					
 					for (TwoObjects<Long, Integer> twoObjects : list) {
 						
-						sql = "SELECT sale_price, markup FROM product WHERE product_id = ? ";
+						sql = "SELECT salePriceCustomer FROM product WHERE product_id = ? ";
 						preparedStatement = connection.prepareStatement(sql);
 						preparedStatement.setLong(1, twoObjects.getObj1());
 						resultSet         = preparedStatement.executeQuery();
 						
 						if (resultSet.next()) {
-							this.totalAmount += (resultSet.getDouble(1) + resultSet.getDouble(2)) * twoObjects.getObj2();
+							this.totalAmount += resultSet.getDouble(1) * twoObjects.getObj2();
 						}
 						
 						resultSet.close();

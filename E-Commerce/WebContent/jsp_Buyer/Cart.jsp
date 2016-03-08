@@ -130,7 +130,8 @@ float: left;
  								<span class="fk-bold"><%=productBeanAndQty.getObj1().getProductName() %>(<%=productBeanAndQty.getObj1().getCompanyName() %>)</span> <br>
  								
  							</a>
- 							<span class="fk-bold"><%=sellerCompany %></span> 
+ 							<span class="fk-bold"><%=sellerCompany %></span><br>
+ 							<span class="fk-bold">Product ID: <%=productBeanAndQty.getObj1().getProductId() %></span> 
  							<% if (stock == 0) { %>
  								<span class="stock" style="position: relative;top: 47px;right: 207px;color: red; font-size: 12px; margin-top: -13px;">OUT OF STOCK </span>
  							<% } else {%>
