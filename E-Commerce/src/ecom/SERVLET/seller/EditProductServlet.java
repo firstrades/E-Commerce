@@ -94,7 +94,7 @@ public class EditProductServlet extends HttpServlet {
 							* Get Request *
 			*********************************************/
 			
-			String productId1 = request.getParameter("productId");  
+			/*String productId1 = request.getParameter("productId");  
 			long productId = Long.parseLong(productId1);
 			
 			String sellerId1 = request.getParameter("sellerId");
@@ -115,7 +115,34 @@ public class EditProductServlet extends HttpServlet {
 			Double salePrice        = Double.parseDouble  (request.getParameter("salePrice").trim()); 	
 			
 			int stock                = Integer.parseInt    (request.getParameter("stock").trim());
-			String warranty          = request.getParameter("warranty").trim();
+			String warranty          = request.getParameter("warranty").trim();*/
+			
+			ProductBean productBean = new ProductBean();
+			
+			productBean.setProductId                 (Long.parseLong(request.getParameter("productId")));				
+			
+			productBean.setCategory                  (request.getParameter("category"           ));
+			productBean.setSubCategory               (request.getParameter("subCategory"        ));
+			productBean.setCompanyName               (request.getParameter("companyOfTheProduct").trim());
+			productBean.setProductName               (request.getParameter("productName"        ).trim());
+			
+			productBean.getKeyFeatures().setKf1      (request.getParameter("kf1").trim());
+			productBean.getKeyFeatures().setKf2      (request.getParameter("kf2").trim());
+			productBean.getKeyFeatures().setKf3      (request.getParameter("kf3").trim());
+			productBean.getKeyFeatures().setKf4      (request.getParameter("kf4").trim());	
+			
+			productBean.getPrice().setManufacturingCost     (Double.parseDouble(request.getParameter("manufacturingCost").trim())     );
+			productBean.getPrice().setProfitMarginPercentage(Double.parseDouble(request.getParameter("profitMarginPercentage").trim()));
+			productBean.getPrice().setSalePriceToAdmin      (Double.parseDouble(request.getParameter("salePriceToAdmin").trim())      );
+			productBean.getPrice().setSalePriceCustomer     (Double.parseDouble(request.getParameter("salePriceToCustomer").trim())   );
+			productBean.getPrice().setMarkup                (Double.parseDouble(request.getParameter("markupPercentage").trim())      );				
+			productBean.getPrice().setListPrice             (Double.parseDouble(request.getParameter("listPrice").trim())             );
+			productBean.getPrice().setDiscount              (Double.parseDouble(request.getParameter("discount").trim())              );								
+			
+			productBean.setStock                     (Integer.parseInt(request.getParameter("stock").trim())             );
+			productBean.setWeight                    (Double.parseDouble(request.getParameter("weight").trim())          );
+			productBean.setWarranty                  (request.getParameter("warranty").trim()                            );
+			productBean.setCancellationAfterBooked   (Integer.parseInt(request.getParameter("cancellationPeriod").trim()));
 			
 			
 			/*******************************************************
@@ -123,8 +150,7 @@ public class EditProductServlet extends HttpServlet {
 			*******************************************************/
 			EditProductDAO editProductDAO = new EditProductDAO();			
 			
-			ProductBean productBean = editProductDAO.editProduct(productId, sellerId, category, subCategory, company, product, listPrice, 
-					discount, salePrice, kf1, kf2, kf3, kf4, stock, warranty);
+			productBean = editProductDAO.editProduct(productBean);
 			
 			/*********************************************
 						* JSON Response *

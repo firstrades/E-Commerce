@@ -136,24 +136,83 @@ $(function() {
 		
 		var numeric = $.isNumeric( manufacturingCost1 );  
 		
-		var profitMargin = Math.ceil( manufacturingCost1 * ( profitMarginPercentage1 / 100 ) );
-		var salePriceToAdmin1 = manufacturingCost1 + profitMargin;
+		var profitMargin         = Math.ceil( manufacturingCost1 * ( profitMarginPercentage1 / 100 ) );
+		var salePriceToAdmin1    = manufacturingCost1 + profitMargin;
 		var salePriceToCustomer1 = Math.ceil( salePriceToAdmin1 * ( 1 + markupPercentage1 / 100 ) );
-		var discount1 = ( ( listPrice1 - salePriceToAdmin1 ) / listPrice1 ) * 100;
+		var discount1            = ( ( listPrice1 - salePriceToAdmin1 ) / listPrice1 ) * 100;
 		
 		
 		if (numeric == true) {
 		
 			$(this).css({"background-color": "#9EE69E"});
+			
 			$('#profitMargin1').val(profitMargin);
 			$('#salePriceToAdmin1').val(salePriceToAdmin1);
 			$('#salePriceToCustomer1').val(salePriceToCustomer1);
-			$('#discount1').val(discount1);
+			$('#discount1').val(Math.floor(discount1));
 			
 		} else {
 			
 			$(this).css({"background-color": "#E89D9D"});
 		}
+	});
+	
+	
+	$('#profitMarginPercentage1').keyup(function(e) {  
+		
+		var profitMarginPercentage1 = parseInt( $(this).val() );
+		var manufacturingCost1      = parseInt( $('#manufacturingCost1').val() );
+		var markupPercentage1       = parseInt( $('#markupPercentage1').val() );
+		var listPrice1              = parseInt( $('#listPrice1').val() );
+		
+		var numeric = $.isNumeric( profitMarginPercentage1 );  
+		
+		var profitMargin         = Math.ceil( manufacturingCost1 * ( profitMarginPercentage1 / 100 ) );
+		var salePriceToAdmin1    = manufacturingCost1 + profitMargin;
+		var salePriceToCustomer1 = Math.ceil( salePriceToAdmin1 * ( 1 + markupPercentage1 / 100 ) );
+		var discount1            = ( ( listPrice1 - salePriceToAdmin1 ) / listPrice1 ) * 100;
+		
+		
+		if (numeric == true) {
+		
+			$(this).css({"background-color": "#9EE69E"});
+			
+			$('#profitMargin1').val(profitMargin);
+			$('#salePriceToAdmin1').val(salePriceToAdmin1);
+			$('#salePriceToCustomer1').val(salePriceToCustomer1);
+			$('#discount1').val(Math.floor(discount1));
+			
+		} else {
+			
+			$(this).css({"background-color": "#E89D9D"});
+		}
+	});
+	
+	$('#listPrice1').keyup(function(e) {  
+		
+		var listPrice1 = parseInt( $(this).val() );
+		var manufacturingCost1      = parseInt( $('#manufacturingCost1').val()      );
+		var markupPercentage1       = parseInt( $('#markupPercentage1').val()       );
+		var profitMarginPercentage1 = parseInt( $('#profitMarginPercentage1').val() );
+		
+		var numeric = $.isNumeric( listPrice1 ); 
+		
+		var profitMargin         = Math.ceil( manufacturingCost1 * ( profitMarginPercentage1 / 100 ) );
+		var salePriceToAdmin1    = manufacturingCost1 + profitMargin;
+		var salePriceToCustomer1 = Math.ceil( salePriceToAdmin1 * ( 1 + markupPercentage1 / 100 ) );
+		var discount1            = ( ( listPrice1 - salePriceToAdmin1 ) / listPrice1 ) * 100;
+		
+		if (numeric == true) {
+			
+			$(this).css({"background-color": "#9EE69E"});
+			
+			$('#discount1').val(Math.floor(discount1));
+			
+		} else {
+			
+			$(this).css({"background-color": "#E89D9D"});
+		}
+		
 	});
 	
 });
