@@ -55,7 +55,7 @@
     <servlet-class>ecom.SERVLET.seller.EditProductServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>EditProductServlet</servlet-name>    
+    <servlet-name>EditProductServlet</servlet-name>
     <url-pattern>/EditBasicProduct</url-pattern>
     <url-pattern>/EditIconImage</url-pattern>
     <url-pattern>/EditImage1</url-pattern>
@@ -79,11 +79,9 @@
     <url-pattern>/InsertQtyToCart</url-pattern>
     <url-pattern>/Account</url-pattern>
     <url-pattern>/CallRegistrationPage</url-pattern>
-    <url-pattern>/Registration</url-pattern>   
+    <url-pattern>/Registration</url-pattern>
     <url-pattern>/CheckUserId</url-pattern>
-    <url-pattern>/OrderHistroy</url-pattern>   
-
-    
+    <url-pattern>/OrderHistroy</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>OrderReviewAndSubmit</servlet-name>
@@ -111,7 +109,7 @@
     <url-pattern>/SetCommission</url-pattern>
     <url-pattern>/FranchiseAdditionalBalance</url-pattern>
     <url-pattern>/RetrieveOrderedItemsForAdmin</url-pattern>
-    <url-pattern>/RetrieveAllSellerForApprovalRegistration</url-pattern>    
+    <url-pattern>/RetrieveAllSellerForApprovalRegistration</url-pattern>
     <url-pattern>/ApproveSellerRegistrationPage</url-pattern>
     <url-pattern>/ApproveSeller</url-pattern>
   </servlet-mapping>
