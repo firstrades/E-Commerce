@@ -59,13 +59,13 @@
 						<label> <span style="color:red;">*</span> Company Name </label>
 					</div>
 					<div class="col-md-3 col-sm-6 col-xs-12">
-						<input type="text" name="company" required class="form-control" value="<%=productBean.getCompanyName() %>" />
+						<input type="text" name="companyOfTheProduct" required class="form-control" value="<%=productBean.getCompanyName() %>" />
 					</div>
 					<div class="col-md-3 col-sm-6 col-xs-12">
 						<label>  <span style="color:red;">*</span> Product Name </label>
 					</div>
 					<div class="col-md-3 col-sm-6 col-xs-12">		
-						<input type="text" name="product" class="form-control" required value="<%=productBean.getProductName() %>" />
+						<input type="text" name="productName" class="form-control" required value="<%=productBean.getProductName() %>" />
 					</div>					
 				</div>	
 				
@@ -109,14 +109,14 @@
 						<label>	<span style="color:red;">*</span> Manufacturing Cost </label>
 					</div>
 					<div class="col-md-3 col-sm-6 col-xs-12">
-						<input type="text" name="manufacturingCost1" id="manufacturingCost1" class="form-control" required value="<%=productBean.getPrice().getManufacturingCost() %>" />
+						<input type="text" name="manufacturingCost" id="manufacturingCost1" class="form-control" required value="<%=productBean.getPrice().getManufacturingCost() %>" />
 					</div>
 					
 					<div class="col-md-3 col-sm-6 col-xs-12">
 						<label><span style="color:red;">*</span> Profit Margin % </label>
 					</div>
 					<div class="col-md-3 col-sm-6 col-xs-12">
-						<input type="text" name="profitMarginPercentage1" id="profitMarginPercentage1" class="form-control" required value="<%=productBean.getPrice().getProfitMarginPercentage() %>"/>
+						<input type="text" name="profitMarginPercentage" id="profitMarginPercentage1" class="form-control" required value="<%=productBean.getPrice().getProfitMarginPercentage() %>"/>
 					</div> 
 				</div>		
 				
@@ -126,7 +126,7 @@
 						<label>	Sale Price To Admin </label>
 					</div>
 					<div class="col-md-3 col-sm-6 col-xs-12">
-						<input type="text" name="salePriceToAdmin1" id="salePriceToAdmin1" class="form-control" readonly value="<%=productBean.getPrice().getSalePriceToAdmin() %>" />
+						<input type="text" name="salePriceToAdmin" id="salePriceToAdmin1" class="form-control" readonly value="<%=productBean.getPrice().getSalePriceToAdmin() %>" />
 					</div>
 					<div class="col-md-3 col-sm-6 col-xs-12">
 						<label>Profit Margin </label>
@@ -141,13 +141,13 @@
 						<label>	Sale Price To Customer </label>
 					</div>
 					<div class="col-md-3 col-sm-6 col-xs-12">
-						<input type="text" name="salePriceToCustomer1" id="salePriceToCustomer1" class="form-control" readonly value="<%=productBean.getPrice().getSalePriceCustomer() %>" />
+						<input type="text" name="salePriceToCustomer" id="salePriceToCustomer1" class="form-control" readonly value="<%=productBean.getPrice().getSalePriceCustomer() %>" />
 					</div>
 					<div class="col-md-3 col-sm-6 col-xs-12">
 						<label>Markup % </label>
 					</div>
 					<div class="col-md-3 col-sm-6 col-xs-12">
-						<input type="text" name="markupPercentage1" id="markupPercentage1" class="form-control" readonly value="<%=productBean.getPrice().getMarkup() %>"/>
+						<input type="text" name="markupPercentage" id="markupPercentage1" class="form-control" readonly value="<%=productBean.getPrice().getMarkup() %>"/>
 					</div> 
 				</div>	
 				
@@ -157,13 +157,13 @@
 						<label> <span style="color:red;">*</span> List Price </label>
 					</div>
 					<div class="col-md-3 col-sm-6 col-xs-12">
-						<input type="text" name="listPrice1" id="listPrice1" class="form-control" required value="<%=productBean.getPrice().getListPrice() %>" />
+						<input type="text" name="listPrice" id="listPrice1" class="form-control" required value="<%=productBean.getPrice().getListPrice() %>" />
 					</div>
 					<div class="col-md-3 col-sm-6 col-xs-12">
 						<label> Discount %</label>
 					</div>
 					<div class="col-md-3 col-sm-6 col-xs-12">
-						<input type="text" name="discount1" id="discount1" class="form-control" required readonly value="<%=productBean.getPrice().getDiscount() %>"/>
+						<input type="text" name="discount" id="discount1" class="form-control" required readonly value="<%=productBean.getPrice().getDiscount() %>"/>
 					</div>					
 				</div>
 				

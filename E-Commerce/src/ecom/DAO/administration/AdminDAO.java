@@ -58,8 +58,8 @@ public class AdminDAO {
 					productBean.setWarranty               (resultSet.getString("warranty"                 ));
 					productBean.setCancellationAfterBooked(resultSet.getInt   ("calcellation_after_booked"));					
 					
-					productBean.getCommission().setFranchiseCommission(resultSet.getDouble("f_commission" ));
-					productBean.getCommission().setFranchiseCommission(resultSet.getDouble("d_commission" ));
+					productBean.getCommission().setFranchiseCommission  (resultSet.getDouble("f_commission"));
+					productBean.getCommission().setDistributorCommission(resultSet.getDouble("d_commission"));  
 					
 					
 					productBeans.add(productBean);

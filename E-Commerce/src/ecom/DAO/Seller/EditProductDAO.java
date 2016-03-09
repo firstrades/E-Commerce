@@ -17,106 +17,100 @@ import ecom.model.Size;
 
 public class EditProductDAO {
 
-	public ProductBean editProduct(long productId, long sellerId, String category, String subCategory, String company, String product, Double listPrice, 
-			Double discount, Double salePrice, String kf1, String kf2, String kf3, String kf4, int stock, String warranty) {		
+	public ProductBean editProduct(ProductBean productBean) {	
 		
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		String sql = null;
+		/*sql = "UPDATE product SET category = ?, sub_category = ?, product_name = ?, company_name = ?, " +
+				"kf_1 = ?, kf_2 = ?, kf_3 = ?, kf_4 = ?, list_price = ?, discount = ?, sale_price = ?, " +
+				"stock = ?, warranty = ?" +
+				"WHERE seller_id = ? AND product_id = ?";*/
 		
-		ProductBean productBean = new ProductBean();
-		Price price = new Price();
-		KeyFeatures keyFeatures = new KeyFeatures();
-		productBean.setPrice(price);
-		productBean.setKeyFeatures(keyFeatures);
-		
-		
+		Connection connection = null; CallableStatement callableStatement = null; ResultSet resultSet = null;		
+		String sql = "{call editProduct(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";			
+	
 		try {
-			connection = ConnectionFactory.getNewConnection();  
+			
+			connection = ConnectionFactory.getNewConnection();
 			connection.setAutoCommit(false);
 			
-			sql = "UPDATE product SET category = ?, sub_category = ?, product_name = ?, company_name = ?, " +
-					"kf_1 = ?, kf_2 = ?, kf_3 = ?, kf_4 = ?, list_price = ?, discount = ?, sale_price = ?, " +
-					"stock = ?, warranty = ?" +
-					"WHERE seller_id = ? AND product_id = ?";
+			callableStatement = connection.prepareCall(sql); 		
+			
+			callableStatement.setLong  (1,   productBean.getProductId());
+			
+			callableStatement.setString(2,   productBean.getCategory()   );
+			callableStatement.setString(3,   productBean.getSubCategory());
+			callableStatement.setString(4,   productBean.getCompanyName());
+			callableStatement.setString(5,   productBean.getProductName());
+			
+			callableStatement.setString(6,   productBean.getKeyFeatures().getKf1());
+			callableStatement.setString(7,   productBean.getKeyFeatures().getKf2());
+			callableStatement.setString(8,   productBean.getKeyFeatures().getKf3());
+			callableStatement.setString(9,   productBean.getKeyFeatures().getKf4());
+			
+			callableStatement.setDouble(10,  productBean.getPrice().getManufacturingCost()     );
+			callableStatement.setDouble(11,  productBean.getPrice().getProfitMarginPercentage());
+			callableStatement.setDouble(12,  productBean.getPrice().getSalePriceToAdmin()      );
+			callableStatement.setDouble(13,  productBean.getPrice().getSalePriceCustomer()     );
+			callableStatement.setDouble(14,  productBean.getPrice().getMarkup()                );
+			callableStatement.setDouble(15,  productBean.getPrice().getListPrice()             );
+			callableStatement.setDouble(16,  productBean.getPrice().getDiscount()              );			
+			
+			callableStatement.setInt   (17,  productBean.getStock()                  );
+			callableStatement.setDouble(18,  productBean.getWeight()                 );
+			callableStatement.setString(19,  productBean.getWarranty()               );
+			callableStatement.setInt   (20,  productBean.getCancellationAfterBooked());			
+			
+			resultSet = callableStatement.executeQuery();
+			
+			while (resultSet.next()) {
 				
-			
-			preparedStatement = connection.prepareStatement(sql);		
-			
-			preparedStatement.setString (1, category);
-			preparedStatement.setString (2, subCategory);
-			preparedStatement.setString (3, product);
-			preparedStatement.setString (4, company);
-			preparedStatement.setString (5, kf1);
-			preparedStatement.setString (6, kf2);
-			preparedStatement.setString (7, kf3);
-			preparedStatement.setString (8, kf4);
-			preparedStatement.setDouble (9, listPrice);
-			preparedStatement.setDouble (10, discount);
-			preparedStatement.setDouble (11, salePrice);
-			preparedStatement.setInt    (12, stock);
-			preparedStatement.setString (13, warranty);
-			preparedStatement.setLong   (14, sellerId);
-			preparedStatement.setLong   (15, productId);			
-			
-		
-			int result = preparedStatement.executeUpdate();
-			
-			
-			//-------------------Set ProductBean--------------------------------
-			
-			if (result != 0) {
-			
-				productBean.setProductId           (productId);
-				productBean.setSellerId            (sellerId);
-				productBean.setCategory            (category);
-				productBean.setCompanyName         (company);
-				productBean.getKeyFeatures().setKf1(kf1);
-				productBean.getKeyFeatures().setKf2(kf2);
-				productBean.getKeyFeatures().setKf3(kf3);
-				productBean.getKeyFeatures().setKf4(kf4);
-				productBean.getPrice().setListPrice(listPrice);
-				productBean.getPrice().setDiscount (discount);
-				productBean.getPrice().setSalePriceCustomer(salePrice);
-				productBean.setProductName         (product);
-				productBean.setSubCategory         (subCategory);
-				productBean.setStock               (stock);
-				productBean.setWarranty            (warranty);		
-			
-			
-				connection.commit();
+				productBean.setProductId                 (resultSet.getInt   ("product_id")  );				
 				
-				return productBean;
+				productBean.setCategory                  (resultSet.getString("category"    ));
+				productBean.setSubCategory               (resultSet.getString("sub_category"));
+				productBean.setCompanyName               (resultSet.getString("company_name"));
+				productBean.setProductName               (resultSet.getString("product_name"));
+				
+				productBean.getKeyFeatures().setKf1      (resultSet.getString("kf_1"));
+				productBean.getKeyFeatures().setKf2      (resultSet.getString("kf_2"));
+				productBean.getKeyFeatures().setKf3      (resultSet.getString("kf_3"));
+				productBean.getKeyFeatures().setKf4      (resultSet.getString("kf_4"));	
+				
+				productBean.getPrice().setManufacturingCost     (resultSet.getDouble("manufacturingCost"     ));
+				productBean.getPrice().setProfitMarginPercentage(resultSet.getDouble("profitMarginPercentage"));
+				productBean.getPrice().setSalePriceToAdmin      (resultSet.getDouble("sale_price"            ));
+				productBean.getPrice().setSalePriceCustomer     (resultSet.getDouble("salePriceCustomer"     ));
+				productBean.getPrice().setMarkup                (resultSet.getDouble("markup"                ));				
+				productBean.getPrice().setListPrice             (resultSet.getDouble("list_price"            ));
+				productBean.getPrice().setDiscount              (resultSet.getDouble("discount"              ));								
+				
+				productBean.setStock                     (resultSet.getInt   ("stock"                    ));
+				productBean.setWeight                    (resultSet.getDouble("weight"                   ));
+				productBean.setWarranty                  (resultSet.getString("warranty"                 ));
+				productBean.setCancellationAfterBooked   (resultSet.getInt   ("calcellation_after_booked"));
+			}
 			
-			} // if close
+			connection.commit();					
+			System.out.println("SQL - editProduct executed");
 			
+			return productBean;			
 			
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | SQLException e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {				
-				e1.printStackTrace();
-			}
+			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 			e.printStackTrace();
+			
 		} finally {
-			try {
-				preparedStatement.close();
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
-			try {
-				connection.close();
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
-		}
+			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
+			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+			
+		} 
 		
 		
 		return null;
-	}
+	}// editProduct
 	
-public ProductBean getBasicFeatures(long productId) {		
+	public ProductBean getBasicFeatures(long productId) {		
 		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -163,6 +157,8 @@ public ProductBean getBasicFeatures(long productId) {
 				productBean.setWeight                    (resultSet.getDouble("weight"                   ));
 				productBean.setWarranty                  (resultSet.getString("warranty"                 ));
 				productBean.setCancellationAfterBooked   (resultSet.getInt   ("calcellation_after_booked"));
+				
+				productBean.setSellerCompany             (resultSet.getString("seller_company"));
 			}
 			
 			connection.commit();

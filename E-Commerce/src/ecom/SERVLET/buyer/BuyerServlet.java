@@ -3,6 +3,7 @@ package ecom.SERVLET.buyer;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,13 +12,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.soap.SOAPException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xml.sax.SAXException;
 
 import ecom.DAO.Buyer.BuyerSearchDAO;
 import ecom.DAO.User.UserDAO;
+import ecom.Implementation.Courier.SOAP.EstimatedRateAndDeliveryBean;
+import ecom.Interface.Courier.EstimatedRateAndDelivery;
 import ecom.beans.CartAttributesBean;
 import ecom.beans.ApiDataMultiThreadBean;
 import ecom.beans.TransientData;
@@ -348,20 +354,25 @@ public class BuyerServlet extends HttpServlet {
 				/*************** Get Request **************/
 			
 				String productId111  = (String) request.getParameter("productId");
-				String qty111        = (String) request.getParameter("qty");          
+				String qty111        = (String) request.getParameter("qty"); 
+				int    itemNo        = Integer.parseInt(request.getParameter("itemNo"));
 		
 				/*************** Get Session **************/
 			
-				User user = (User) session.getAttribute("user");
+				User user = (User) session.getAttribute("user");				
+				@SuppressWarnings("unchecked")
+				List<TwoObjects<BigDecimal, String>> apiDataList = (List<TwoObjects<BigDecimal, String>>) session.getAttribute("apiDataList");
 			
 				/*************** Process ******************/
 			
-				Long productId = Long.parseLong(productId111);        System.out.println("productId: " + productId);
+				Long productId = Long.parseLong(productId111);        
 				int qty        = Integer.parseInt(qty111);
 				int stock      = TransientData.getStock(productId);
 				int tempQty    = qty;
 				
-				qty = (qty > stock) ? stock : qty;   //if (qty > stock)  qty = stock;				 
+				qty = (qty > stock) ? stock : qty;   //if (qty > stock)  qty = stock;	
+				
+				
 				
 				/*************** Database *****************/			
 				
@@ -371,6 +382,40 @@ public class BuyerServlet extends HttpServlet {
 				CartAttributesBean cartAttributesBean = CartAttributesBean.getInstance();
 				int                totalQty           = cartAttributesBean.getTotalQty(user.getUserInfo().getId());
 				double             totalSum           = cartAttributesBean.getTotalAmount(user.getUserInfo().getId());
+				
+				/***************** API ********************/
+				EstimatedRateAndDelivery estimatedRateAndDelivery = null;
+				try {
+					estimatedRateAndDelivery = EstimatedRateAndDeliveryBean.getNewInstance(productId, user, qty1);
+				} catch (SOAPException e) {
+					System.out.println("SOAPException");
+					e.printStackTrace();
+				} catch (ParserConfigurationException e) {
+					System.out.println("ParserConfigurationException");
+					e.printStackTrace();
+				} catch (SAXException e) {
+					System.out.println("SAXException");
+					e.printStackTrace();
+				} catch (ParseException e) {
+					System.out.println("ParseException");
+					e.printStackTrace();
+				}
+				
+				BigDecimal rate = estimatedRateAndDelivery.getRate();    
+				String delivery = estimatedRateAndDelivery.getDelivery();  System.out.println(rate + " " + delivery);
+				
+				//Insert
+				int i = 0;
+				for (TwoObjects<BigDecimal, String> twoObjects : apiDataList) {
+					
+					if (i == itemNo) {
+						twoObjects.setObj1(rate);
+						twoObjects.setObj2(delivery);
+					}
+				}
+				
+				/************* Set Session *************/
+				session.setAttribute("apiDataList", apiDataList);
 				
 				/************** Set Request ***************/
 				
@@ -384,6 +429,9 @@ public class BuyerServlet extends HttpServlet {
 					jsonObject.put("qty",      qty1);
 					jsonObject.put("totalQty", totalQty);
 					jsonObject.put("totalSum", totalSum);
+					if (rate.doubleValue() != 0)
+						jsonObject.put("rate",     rate);
+					jsonObject.put("delivery", delivery);
 				} catch (JSONException e) {							
 					e.printStackTrace();
 				}

@@ -180,7 +180,8 @@ float: left;
 					  	<div class="desc1 span_3_of_2">
 							<h3><%=productBean.getProductName() %></h3>
 							<span class="brand">Brand: <a href="#"> <%=productBean.getCompanyName() %> </a></span> <br>
-						 	<small class="details"> Seller : <%=sellerCompany %> </small> 
+						 	<small class="details"> Seller : <%=productBean.getSellerCompany() %> </small> <br>
+						 	<span>Product ID: <%=productBean.getProductId() %></span>
 						 	<hr>
 						 	<small class="details"> - 1 Year Warranty </small> 	                      	
 	                     	<hr>
@@ -193,7 +194,11 @@ float: left;
 									<span style="color:red;float:right;text-transform: uppercase;font-size: 23px;">Out Of Stock</span>
 								<% } %>                   
 								<span class="points">
-									<small>+ Shipping Rs. <%=rate %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Delivery: <%=delivery %></small>
+									<% if (rate.doubleValue() == 0) { %>
+										<small style="font-size: 140%">Free Shipping &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Delivery: <%=delivery %></small>
+									<% } else { %>
+										<small style="font-size: 140%">+ Shipping Rs. <%=rate %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Delivery: <%=delivery %></small>
+									<% } %>
 								</span><br>
 								<br>
 								

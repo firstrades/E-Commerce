@@ -118,7 +118,8 @@
  							<a href="CompleteProductDetails?subCategory=<%=productBeanAndQty.getObj1().getSubCategory() %>&productId=<%=productBeanAndQty.getObj1().getProductId() %>">
  								<span class="fk-bold"><%=productBeanAndQty.getObj1().getProductName() %>(<%=productBeanAndQty.getObj1().getCompanyName() %>)</span> <br>
  							</a>
- 							<span class="fk-bold" style="float: left;"><%=sellerCompany %></span>
+ 							<span class="fk-bold" style="float: left;"><%=sellerCompany %></span><br>
+ 							<span class="fk-bold">Product ID: <%=productBeanAndQty.getObj1().getProductId() %></span>
  							
 							<a href="#" class="remove wishlist <%=productBeanAndQty.getObj1().getProductId() %>"  
 									title="Remove Item" style="float: right; margin-top:51px; color: #FF6978;"> Remove </a> 

@@ -1,7 +1,10 @@
 package ecom.Implementation.Courier.SOAP;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.math.BigDecimal;
 import java.sql.CallableStatement;
@@ -46,6 +49,7 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 	// Input
 	private long productId;
 	private User user;
+	private int  qty;
 	
 	// Output
 	private BigDecimal rate;
@@ -56,19 +60,30 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 	private double  weight;
 	private Address shipper;
 	private Address recipient;
+	private double  outOfDeliveryAreaRate;
+	private double  outOfDeliveryAreaRateAllTaxes;
+	private double  totalOutOfDeliveryAreaRate;
+	//private double  octroiPercentage;
+	//private double  octroiPlusODA;
 	
-	private EstimatedRateAndDeliveryBean(long productId, User user) throws SOAPException, IOException, ParserConfigurationException, SAXException, ParseException {
+	private EstimatedRateAndDeliveryBean() {
+		this.rate = new BigDecimal(0f);
+		this.outOfDeliveryAreaRateAllTaxes = 20;  // in %
+	}
+	
+	private EstimatedRateAndDeliveryBean(long productId, User user, int qty) throws SOAPException, IOException, ParserConfigurationException, SAXException, ParseException {
+		this();
+		
 		this.productId = productId;
 		this.user      = user;
+		this.qty       = qty;
 		
 		this.shipper   = new Address();
 		this.recipient = new Address();
 		
 		if (this.user != null) {			
 			getInputDataForRateRequest();
-			getRateAndDeliveryXML();   //with soap
-			//getRateAndDelivery();    //without soap
-			
+			getRateAndDeliveryXML();   //with soap			
 		}
 	}	
 	
@@ -100,8 +115,8 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 
 	/************************************  New Instance  ******************************************************************/
 
-	public static EstimatedRateAndDeliveryBean getNewInstance(long productId, User user) throws SOAPException, IOException, ParserConfigurationException, SAXException, ParseException {		
-		return new EstimatedRateAndDeliveryBean(productId, user);
+	public static EstimatedRateAndDeliveryBean getNewInstance(long productId, User user, int qty) throws SOAPException, IOException, ParserConfigurationException, SAXException, ParseException {		
+		return new EstimatedRateAndDeliveryBean(productId, user, qty);
 	}
 	
 	/*********************************** Database Fetch *******************************************************************/	
@@ -167,8 +182,7 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
         String testURL       = "https://wsbeta.fedex.com:443/web-services";
         String productionURL = "https://ws.fedex.com:443/web-services";
         
-        soapResponse = soapConnection.call(soapMessage(), testURL);           
-        //testUrl = 
+        soapResponse = soapConnection.call(soapMessage(), productionURL);        
         
         ByteArrayOutputStream baout = new ByteArrayOutputStream();
         soapResponse.writeTo(baout);
@@ -177,6 +191,10 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
         String responseString = new String(baout.toByteArray());                
         responseString = responseString.replaceAll("&lt;", "<");
         responseString = responseString.replaceAll("&gt;", ">");   
+        
+        
+        
+        //String responseString = fileContent();
         
         System.out.println(responseString);
         
@@ -235,6 +253,12 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
         		
         		SOAPElement Minor = Version.addChildElement("Minor", "v18");
         		Minor.addTextNode("0");
+        		
+        		
+        		
+        		
+        		
+        		
         		
         	//ReturnTransitAndCommit
         	SOAPElement	ReturnTransitAndCommit = RateRequest.addChildElement("ReturnTransitAndCommit", "v18");
@@ -378,7 +402,7 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
         		
         		//PackageCount
         		SOAPElement PackageCount = RequestedShipment.addChildElement("PackageCount", "v18");
-        		PackageCount.addTextNode("1");
+        		PackageCount.addTextNode(String.valueOf(this.qty));
         		
         		//RequestedPackageLineItems
         		SOAPElement RequestedPackageLineItems = RequestedShipment.addChildElement("RequestedPackageLineItems", "v18");
@@ -392,7 +416,7 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
         				Units.addTextNode("KG");
         				
         				SOAPElement Value = Weight.addChildElement("Value", "v18");
-        				Value.addTextNode(String.valueOf(this.weight));
+        				Value.addTextNode(String.valueOf(this.weight * this.qty));
         				
         		
         		
@@ -408,7 +432,7 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 		return soapMessage;
 	}
 	
-	private void parseSoapResponseMessage(String soapResponseMessage) throws ParserConfigurationException, SAXException, IOException, ParseException {
+	private void parseSoapResponseMessage(String soapResponseMessage) throws ParserConfigurationException, SAXException, IOException, ParseException {		
 		
 		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -416,7 +440,41 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 		Document document = documentBuilder.parse(inputSource);		
 		document.getDocumentElement().normalize();
 		
-		//TotalNetChargeWithDutiesAndTaxes
+		//Surcharges
+		NodeList SurchargesList = document.getElementsByTagName("Surcharges");	
+	
+		for (int i = 0; i < SurchargesList.getLength(); i++) {
+		
+			Node Surcharges = SurchargesList.item(i);
+			
+			NodeList SurchargesChildNodes = Surcharges.getChildNodes();
+		
+			Node SurchargeType = SurchargesChildNodes.item(1);
+			Node SurchargeTypeText = SurchargeType.getFirstChild();
+			
+			String outOfDeliveryArea = null;
+			if (SurchargeTypeText instanceof CharacterData) {				
+				outOfDeliveryArea = ((CharacterData) SurchargeTypeText).getData(); 				
+			}
+			
+			if (outOfDeliveryArea.equals("OUT_OF_DELIVERY_AREA")) {  System.out.println("Enter");
+				
+				Node AmountChild = SurchargesChildNodes.item(5);  			
+				NodeList AmountChildList = AmountChild.getChildNodes();
+				Node Amount = AmountChildList.item(3);
+				
+				this.outOfDeliveryAreaRate = Double.parseDouble(Amount.getTextContent());				
+				this.totalOutOfDeliveryAreaRate = this.outOfDeliveryAreaRate * ( 1 + this.outOfDeliveryAreaRateAllTaxes / 100 );
+				
+				if (this.totalOutOfDeliveryAreaRate != 0)
+					this.rate = new BigDecimal(this.totalOutOfDeliveryAreaRate);
+				
+			}
+			
+			
+		}
+		
+		/*//TotalNetChargeWithDutiesAndTaxes
 		NodeList TotalNetChargeWithDutiesAndTaxesList = document.getElementsByTagName("TotalNetChargeWithDutiesAndTaxes");		
 		
 		for (int i = 0; i < TotalNetChargeWithDutiesAndTaxesList.getLength(); i++) {
@@ -428,7 +486,7 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 			if (text instanceof CharacterData) {				
 				this.rate = new BigDecimal(((CharacterData) text).getData());  
 			}
-		}
+		}*/
 		
 		//DeliveryDayOfWeek
 		NodeList DeliveryDayOfWeekList = document.getElementsByTagName("DeliveryDayOfWeek"); 
@@ -480,6 +538,45 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 		return requiredData;
 	}
 	
+	/*private double getOctroiCharge(String shipperState, String recipientState) {
+		
+		double rate = 0;
+		
+		if (shipperState.equals(recipientState)) 
+			
+			rate = new BigDecimal(this.totalOutOfDeliveryAreaRate);
+		
+		else {
+			
+			if (recipientState.equals("MH")) {
+				
+				double rateInDouble = this.totalOutOfDeliveryAreaRate + this.salePriceToCustomer * ( 1 + this.octroiPercentage / 100 );
+				rate = new BigDecimal(rateInDouble);
+			}
+			else
+				rate = new BigDecimal(this.totalOutOfDeliveryAreaRate);
+		}
+		
+		return rate;
+	}*/
+	
+	private String fileContent() throws IOException {		
+		
+		InputStream in = this.getClass().getResourceAsStream("/Fedex.txt");	
+		
+		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+		
+		String soapResponseMessage1 = "";
+		String tempLine = null;
+		
+		while ((tempLine = reader.readLine()) != null) {
+			
+			soapResponseMessage1 += tempLine;
+		}		
+		
+		return soapResponseMessage1;
+	}
+	
 	
 	/**********************  Main  ***************************************/
 	
@@ -490,7 +587,7 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 		user.getUserInfo().setId(1L);
 		
 			try {
-				new EstimatedRateAndDeliveryBean(12, user).getRateAndDeliveryXML();
+				new EstimatedRateAndDeliveryBean(235, user, 2).getRateAndDeliveryXML();
 			} catch (IOException | SOAPException | ParserConfigurationException | SAXException | ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -516,192 +613,3 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 
 
 
-
-/*
-
-*//**************************  API with Java  ***************************************//*
-
-private void getRateAndDelivery() {		  //  calling method
-	
-	boolean getAllRatesFlag = false; // set to true to get the rates for different service types
-			
-	RateRequest request = new RateRequest();
-	request.setClientDetail(createClientDetail());
-	request.setWebAuthenticationDetail(createWebAuthenticationDetail());
-	request.setReturnTransitAndCommit(true);
-	
-	// needed (provided by fedex)        
-	VersionId versionId = new VersionId("crs", 18, 0, 0);
-	request.setVersion(versionId);		        
-	        
-    RequestedShipment requestedShipment = new RequestedShipment();        
-    requestedShipment.setShipTimestamp(Calendar.getInstance());
-    requestedShipment.setDropoffType(DropoffType.REGULAR_PICKUP);
-    if (! getAllRatesFlag) {
-    	requestedShipment.setServiceType(ServiceType.PRIORITY_OVERNIGHT);
-    	requestedShipment.setPackagingType(PackagingType.YOUR_PACKAGING);//-------------------Required
-    }
-	        
-	        
-    Party shipper = new Party();  // Shipper
-    com.fedex.rate.stub.Address shipperAddress = new com.fedex.rate.stub.Address(); 
-    shipperAddress.setStreetLines(new String[] {this.shipper.getAddress()});
-    shipperAddress.setCity(this.shipper.getCity());   
-    shipperAddress.setPostalCode(this.shipper.getPin());
-    shipperAddress.setCountryCode("IN");                
-    shipper.setAddress(shipperAddress);
-    requestedShipment.setShipper(shipper);
-
-		    
-    Party recipient = new Party();  // Recipient
-    com.fedex.rate.stub.Address recipientAddress = new com.fedex.rate.stub.Address(); 
-    recipientAddress.setStreetLines(new String[] {this.recipient.getAddress()});
-    recipientAddress.setCity(this.recipient.getCity());	   
-    recipientAddress.setPostalCode(this.recipient.getPin());
-    recipientAddress.setCountryCode("IN");
-    recipient.setAddress(recipientAddress);
-    requestedShipment.setRecipient(recipient);	    
-
-		    
-    Payment shippingChargesPayment = new Payment();
-    shippingChargesPayment.setPaymentType(PaymentType.SENDER);
-    requestedShipment.setShippingChargesPayment(shippingChargesPayment);
-		    
-		    
-    CustomsClearanceDetail customsClearanceDetail = new CustomsClearanceDetail();
-    customsClearanceDetail.setDocumentContent(InternationalDocumentContentType.DOCUMENTS_ONLY);
-    customsClearanceDetail.setCustomsValue(new Money("INR", new BigDecimal(100)));
-    CommercialInvoice commercialInvoice = new CommercialInvoice();
-    commercialInvoice.setPurpose(PurposeOfShipmentType.NOT_SOLD);
-    customsClearanceDetail.setCommercialInvoice(commercialInvoice);
-    requestedShipment.setCustomsClearanceDetail(customsClearanceDetail);
-
-		   
-    RequestedPackageLineItem rp = new RequestedPackageLineItem();	    
-    rp.setGroupPackageCount(new NonNegativeInteger("1"));
-    rp.setWeight(new Weight(WeightUnits.KG, new BigDecimal(this.weight)));    // weight
-		    
-		   
-	requestedShipment.setRequestedPackageLineItems(new RequestedPackageLineItem[] {rp});
-
-		    
-    requestedShipment.setPackageCount(new NonNegativeInteger("1"));
-    request.setRequestedShipment(requestedShipment);
-		    
-		 
-	try {
-		
-		// Initialize the service
-		RateServiceLocator service;
-		RatePortType port;
-		//
-		service = new RateServiceLocator();
-		updateEndPoint(service);
-		port = service.getRateServicePort();
-		// This is the call to the web service passing in a RateRequest and returning a RateReply
-		RateReply reply = port.getRates(request); // Service call					
-		
-		RateReplyDetail[] rateReplyDetails = reply.getRateReplyDetails();
-		
-		for (int i = 0; i < rateReplyDetails.length; i++) {
-			
-			Calendar calendar = rateReplyDetails[i].getDeliveryTimestamp();				
-			Date date = calendar.getTime();    				
-			DateFormat dtformat = DateFormat.getDateInstance(DateFormat.FULL);
-			this.delivery = dtformat.format(date); 		// Delivery Date		
-			
-			RatedShipmentDetail[] ratedShipmentDetails = rateReplyDetails[i].getRatedShipmentDetails();
-			
-			for (int j = 0; j < ratedShipmentDetails.length; j++) {
-				
-				ShipmentRateDetail shipmentRateDetail = ratedShipmentDetails[i].getShipmentRateDetail();					
-				Money money = shipmentRateDetail.getTotalNetCharge();					
-				this.rate = money.getAmount();          // Rate					
-			}
-			
-		} // for
-		
-		
-	} catch (Exception e) {
-	    e.printStackTrace();
-	} 
-}
-
-
-private static ClientDetail createClientDetail() {
-	
-    ClientDetail clientDetail = new ClientDetail();
-    String accountNumber = System.getProperty("accountNumber");
-    String meterNumber   = System.getProperty("meterNumber");        
-   
-    // See if the accountNumber and meterNumber properties are set,
-    // if set use those values, otherwise default them to "XXX"
-  
-    if (accountNumber == null) {
-    	accountNumber = FrequentUse.fedExAccountNumber; 
-    }
-    if (meterNumber == null) {
-    	meterNumber = FrequentUse.fedExMeterNumber; 
-    }
-    clientDetail.setAccountNumber(accountNumber);
-    clientDetail.setMeterNumber(meterNumber);
-    
-    return clientDetail;
-}
-
-private static WebAuthenticationDetail createWebAuthenticationDetail() {
-	
-    WebAuthenticationCredential userCredential = new WebAuthenticationCredential();
-    String key      = System.getProperty("key");
-    String password = System.getProperty("password");       
-    
-    // See if the key and password properties are set,
-    // if set use those values, otherwise default them to "XXX"
-  
-    if (key == null) {
-    	key = FrequentUse.fedExKey; 
-    }
-    if (password == null) {
-    	password = FrequentUse.fedExPassword; 
-    }
-    userCredential.setKey(key);
-    userCredential.setPassword(password);
-    
-    WebAuthenticationCredential parentCredential = null;
-    Boolean useParentCredential = false; //Set this value to true is using a parent credential
-    
-    if(useParentCredential) {
-    
-    	String parentKey = System.getProperty("parentkey");
-    	String parentPassword = System.getProperty("parentpassword");
-    	
-        // See if the parentkey and parentpassword properties are set,
-        // if set use those values, otherwise default them to "XXX"
-    	//
-    	if (parentKey == null) {
-    		parentKey = "XXX"; 
-    	}
-    	if (parentPassword == null) {
-    		parentPassword = "XXX"; 
-    	}
-    	
-    	parentCredential = new WebAuthenticationCredential();
-    	parentCredential.setKey(parentKey);
-    	parentCredential.setPassword(parentPassword);
-    }
-    
-	return new WebAuthenticationDetail(parentCredential, userCredential);
-}
-
-private static void updateEndPoint(RateServiceLocator serviceLocator) {
-	
-	String endPoint = System.getProperty("endPoint");
-	
-	if (endPoint != null) {
-		serviceLocator.setRateServicePortEndpointAddress(endPoint);
-	}
-}
-
-*//******************************* END API *******************************************//*
-
-*/
