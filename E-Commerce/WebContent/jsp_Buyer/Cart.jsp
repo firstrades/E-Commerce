@@ -117,7 +117,7 @@ float: left;
 						double subtotal      = productBeanAndQty.getObj1().getPrice().getSalePriceCustomer() * productBeanAndQty.getObj2();    
 						
 						TwoObjects<BigDecimal, String> apiData = apiDataList.get(i);
-						i++;
+						
 				%>
  					<tr class="item-row">
  						<td colspan="2" class="product-info" style="width: 45%;">
@@ -144,20 +144,22 @@ float: left;
  						
  							<input type="text" class="qty" value="<%=productBeanAndQty.getObj2() %>" style="width: 100%; padding: 0px 5px;"/>
  							<input type="hidden" value="<%=productBeanAndQty.getObj1().getPrice().getSalePriceCustomer() %>" class="salePriceChange"/>
+ 							<input type="hidden" name="itemNo" value="<%=i %>" />
  							<a style="font-size: 12px;display: none; cursor: pointer;" class="save">save </a>
  						</td>
  						<td class="cell price-cell">			 				
 							Rs. <%=productBeanAndQty.getObj1().getPrice().getSalePriceCustomer() %>	
 	 					</td>
- 						<td class="cell delivery-cell">
+ 						<td class="cell delivery-cell api">
  							<div class="fk-fontlight">
  								<% if (apiData.getObj1().doubleValue() == 0) { %>
  									<strong class="price fk-font-14">Free Shipping</strong>
  								<% } else { %>
  									<strong class="price fk-font-14">Rs. <%=apiData.getObj1() %></strong>
  								<% } %>
+ 								<br><p class="fk-font-11 fk-fontlight tmargin5 delivery">Delivery: &nbsp;&nbsp; <%=apiData.getObj2() %></p> 
  							</div>
- 							<p class="fk-font-11 fk-fontlight tmargin5">Delivery: &nbsp;&nbsp; <%=apiData.getObj2() %></p> 
+ 							
  						</td>
  						<td>
  						<div class="bd">
@@ -179,7 +181,9 @@ float: left;
  						</td>
  					</tr>
  					
- 				<%  } %>
+ 				<%
+ 						i++;
+					} %>
 				</tbody>
 			</table>
 

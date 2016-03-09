@@ -29,7 +29,7 @@ $(function() {
 				td.find('.save').show();                              // show this save
 		});
 		
-		$('.save').click(function() {
+		$('.save').click(function() {  
 			
 				var td    = $(this).closest('td.carty-changeQuantity');             // find parent
 				var qty   = td.find('input.qty').val();                             // find value of sibling 
@@ -41,9 +41,17 @@ $(function() {
 				var productId  = tr.find('.remove').attr('class').split(' ')[2];  
 				
 				tr.find('span.stock').html('');
+				var itemNo = tr.find('input[name=itemNo]').val();   
 				
-				$.getJSON('InsertQtyToCart', {qty: qty, productId: productId}, function(object) {
+				$.getJSON('InsertQtyToCart', {qty: qty, productId: productId, itemNo: itemNo}, function(object) {
+					
 						td.find('input.qty').val(object.qty);
+						
+						if(object.rate) {  
+						    tr.find('.price').html('Rs. ' + object.rate);     
+						}
+						
+						tr.find('.delivery').html('Delivery: &nbsp;&nbsp; ' + object.delivery);
 						
 						if (object.stock) {
 							tr.find('span.stock').html(object.stock);
@@ -59,6 +67,11 @@ $(function() {
 						
 						var subTotal = object.qty * parseFloat(salePrice); 
 						tdSubTotal.html('Rs. ' + subTotal);
+						
+						
+						
+						
+						 
 				});
 		});
 		

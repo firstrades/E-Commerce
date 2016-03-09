@@ -18,12 +18,14 @@ public class APIDataThread extends Thread {
 	
 	private long productId;
 	private User user;
+	private int  qty;
 	
 	TwoObjects<BigDecimal, String> apiRateAndDelivery;
 
-	public APIDataThread(long productId, User user) {
+	public APIDataThread(long productId, User user, int qty) {
 		this.productId = productId;
 		this.user      = user;
+		this.qty       = qty;
 		this.apiRateAndDelivery = new TwoObjects<BigDecimal, String>();		
 	}
 	
@@ -36,7 +38,7 @@ public class APIDataThread extends Thread {
 		EstimatedRateAndDelivery estimatedRateAndDelivery = null;
 		
 		try {
-			estimatedRateAndDelivery = EstimatedRateAndDeliveryBean.getNewInstance(this.productId, user);
+			estimatedRateAndDelivery = EstimatedRateAndDeliveryBean.getNewInstance(this.productId, user, qty);
 		} catch (SOAPException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

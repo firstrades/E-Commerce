@@ -27,8 +27,9 @@ public class ApiDataMultiThreadBean {
 		for (TwoObjects<ProductBean, Integer> productIdAndQty : productBeanAndQtyList) {
 		
 			long productId = productIdAndQty.getObj1().getProductId();
+			int  qty       = productIdAndQty.getObj2();
 			
-			APIDataThread apiDataThread = new APIDataThread(productId, user);
+			APIDataThread apiDataThread = new APIDataThread(productId, user, qty);
 			apiDataThread.start();
 			TwoObjects<BigDecimal, String> apiRateAndDelivery = apiDataThread.getApiRateAndDelivery();			
 			

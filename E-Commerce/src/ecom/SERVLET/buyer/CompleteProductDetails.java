@@ -88,7 +88,7 @@ public class CompleteProductDetails extends HttpServlet {
 			 */			
 			EstimatedRateAndDelivery estimatedRateAndDelivery = null;
 			try {
-				estimatedRateAndDelivery = EstimatedRateAndDeliveryBean.getNewInstance(productId, user);
+				estimatedRateAndDelivery = EstimatedRateAndDeliveryBean.getNewInstance(productId, user, 1);
 			} catch (SOAPException e) {
 				System.out.println("SOAPException");
 				e.printStackTrace();

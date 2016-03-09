@@ -49,6 +49,7 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 	// Input
 	private long productId;
 	private User user;
+	private int  qty;
 	
 	// Output
 	private BigDecimal rate;
@@ -70,11 +71,12 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 		this.outOfDeliveryAreaRateAllTaxes = 20;  // in %
 	}
 	
-	private EstimatedRateAndDeliveryBean(long productId, User user) throws SOAPException, IOException, ParserConfigurationException, SAXException, ParseException {
+	private EstimatedRateAndDeliveryBean(long productId, User user, int qty) throws SOAPException, IOException, ParserConfigurationException, SAXException, ParseException {
 		this();
 		
 		this.productId = productId;
 		this.user      = user;
+		this.qty       = qty;
 		
 		this.shipper   = new Address();
 		this.recipient = new Address();
@@ -113,8 +115,8 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 
 	/************************************  New Instance  ******************************************************************/
 
-	public static EstimatedRateAndDeliveryBean getNewInstance(long productId, User user) throws SOAPException, IOException, ParserConfigurationException, SAXException, ParseException {		
-		return new EstimatedRateAndDeliveryBean(productId, user);
+	public static EstimatedRateAndDeliveryBean getNewInstance(long productId, User user, int qty) throws SOAPException, IOException, ParserConfigurationException, SAXException, ParseException {		
+		return new EstimatedRateAndDeliveryBean(productId, user, qty);
 	}
 	
 	/*********************************** Database Fetch *******************************************************************/	
@@ -180,8 +182,7 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
         String testURL       = "https://wsbeta.fedex.com:443/web-services";
         String productionURL = "https://ws.fedex.com:443/web-services";
         
-        /*soapResponse = soapConnection.call(soapMessage(), productionURL);           
-        //soapResponse = fileContent(); 
+        soapResponse = soapConnection.call(soapMessage(), productionURL);        
         
         ByteArrayOutputStream baout = new ByteArrayOutputStream();
         soapResponse.writeTo(baout);
@@ -191,9 +192,9 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
         responseString = responseString.replaceAll("&lt;", "<");
         responseString = responseString.replaceAll("&gt;", ">");   
         
-        System.out.println(responseString);*/
         
-        String responseString = fileContent();
+        
+        //String responseString = fileContent();
         
         System.out.println(responseString);
         
@@ -252,6 +253,12 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
         		
         		SOAPElement Minor = Version.addChildElement("Minor", "v18");
         		Minor.addTextNode("0");
+        		
+        		
+        		
+        		
+        		
+        		
         		
         	//ReturnTransitAndCommit
         	SOAPElement	ReturnTransitAndCommit = RateRequest.addChildElement("ReturnTransitAndCommit", "v18");
@@ -395,7 +402,7 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
         		
         		//PackageCount
         		SOAPElement PackageCount = RequestedShipment.addChildElement("PackageCount", "v18");
-        		PackageCount.addTextNode("1");
+        		PackageCount.addTextNode(String.valueOf(this.qty));
         		
         		//RequestedPackageLineItems
         		SOAPElement RequestedPackageLineItems = RequestedShipment.addChildElement("RequestedPackageLineItems", "v18");
@@ -409,7 +416,7 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
         				Units.addTextNode("KG");
         				
         				SOAPElement Value = Weight.addChildElement("Value", "v18");
-        				Value.addTextNode(String.valueOf(this.weight));
+        				Value.addTextNode(String.valueOf(this.weight * this.qty));
         				
         		
         		
@@ -580,7 +587,7 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 		user.getUserInfo().setId(1L);
 		
 			try {
-				new EstimatedRateAndDeliveryBean(235, user).getRateAndDeliveryXML();
+				new EstimatedRateAndDeliveryBean(235, user, 2).getRateAndDeliveryXML();
 			} catch (IOException | SOAPException | ParserConfigurationException | SAXException | ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
