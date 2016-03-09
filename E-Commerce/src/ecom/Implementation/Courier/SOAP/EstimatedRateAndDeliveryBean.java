@@ -1,7 +1,10 @@
 package ecom.Implementation.Courier.SOAP;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.math.BigDecimal;
 import java.sql.CallableStatement;
@@ -59,9 +62,17 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 	private double  outOfDeliveryAreaRate;
 	private double  outOfDeliveryAreaRateAllTaxes;
 	private double  totalOutOfDeliveryAreaRate;
-	private double  octroiPercentage;
+	//private double  octroiPercentage;
+	//private double  octroiPlusODA;
+	
+	private EstimatedRateAndDeliveryBean() {
+		this.rate = new BigDecimal(0f);
+		this.outOfDeliveryAreaRateAllTaxes = 20;  // in %
+	}
 	
 	private EstimatedRateAndDeliveryBean(long productId, User user) throws SOAPException, IOException, ParserConfigurationException, SAXException, ParseException {
+		this();
+		
 		this.productId = productId;
 		this.user      = user;
 		
@@ -70,9 +81,7 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 		
 		if (this.user != null) {			
 			getInputDataForRateRequest();
-			getRateAndDeliveryXML();   //with soap
-			//getRateAndDelivery();    //without soap
-			
+			getRateAndDeliveryXML();   //with soap			
 		}
 	}	
 	
@@ -171,8 +180,8 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
         String testURL       = "https://wsbeta.fedex.com:443/web-services";
         String productionURL = "https://ws.fedex.com:443/web-services";
         
-        soapResponse = soapConnection.call(soapMessage(), productionURL);           
-        //testUrl = 
+        /*soapResponse = soapConnection.call(soapMessage(), productionURL);           
+        //soapResponse = fileContent(); 
         
         ByteArrayOutputStream baout = new ByteArrayOutputStream();
         soapResponse.writeTo(baout);
@@ -181,6 +190,10 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
         String responseString = new String(baout.toByteArray());                
         responseString = responseString.replaceAll("&lt;", "<");
         responseString = responseString.replaceAll("&gt;", ">");   
+        
+        System.out.println(responseString);*/
+        
+        String responseString = fileContent();
         
         System.out.println(responseString);
         
@@ -412,7 +425,7 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 		return soapMessage;
 	}
 	
-	private void parseSoapResponseMessage(String soapResponseMessage) throws ParserConfigurationException, SAXException, IOException, ParseException {
+	private void parseSoapResponseMessage(String soapResponseMessage) throws ParserConfigurationException, SAXException, IOException, ParseException {		
 		
 		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -420,7 +433,41 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 		Document document = documentBuilder.parse(inputSource);		
 		document.getDocumentElement().normalize();
 		
-		//TotalNetChargeWithDutiesAndTaxes
+		//Surcharges
+		NodeList SurchargesList = document.getElementsByTagName("Surcharges");	
+	
+		for (int i = 0; i < SurchargesList.getLength(); i++) {
+		
+			Node Surcharges = SurchargesList.item(i);
+			
+			NodeList SurchargesChildNodes = Surcharges.getChildNodes();
+		
+			Node SurchargeType = SurchargesChildNodes.item(1);
+			Node SurchargeTypeText = SurchargeType.getFirstChild();
+			
+			String outOfDeliveryArea = null;
+			if (SurchargeTypeText instanceof CharacterData) {				
+				outOfDeliveryArea = ((CharacterData) SurchargeTypeText).getData(); 				
+			}
+			
+			if (outOfDeliveryArea.equals("OUT_OF_DELIVERY_AREA")) {  System.out.println("Enter");
+				
+				Node AmountChild = SurchargesChildNodes.item(5);  			
+				NodeList AmountChildList = AmountChild.getChildNodes();
+				Node Amount = AmountChildList.item(3);
+				
+				this.outOfDeliveryAreaRate = Double.parseDouble(Amount.getTextContent());				
+				this.totalOutOfDeliveryAreaRate = this.outOfDeliveryAreaRate * ( 1 + this.outOfDeliveryAreaRateAllTaxes / 100 );
+				
+				if (this.totalOutOfDeliveryAreaRate != 0)
+					this.rate = new BigDecimal(this.totalOutOfDeliveryAreaRate);
+				
+			}
+			
+			
+		}
+		
+		/*//TotalNetChargeWithDutiesAndTaxes
 		NodeList TotalNetChargeWithDutiesAndTaxesList = document.getElementsByTagName("TotalNetChargeWithDutiesAndTaxes");		
 		
 		for (int i = 0; i < TotalNetChargeWithDutiesAndTaxesList.getLength(); i++) {
@@ -432,7 +479,7 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 			if (text instanceof CharacterData) {				
 				this.rate = new BigDecimal(((CharacterData) text).getData());  
 			}
-		}
+		}*/
 		
 		//DeliveryDayOfWeek
 		NodeList DeliveryDayOfWeekList = document.getElementsByTagName("DeliveryDayOfWeek"); 
@@ -484,13 +531,14 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 		return requiredData;
 	}
 	
-	private BigDecimal getOctroiCharge(String shipperState, String recipientState) {
+	/*private double getOctroiCharge(String shipperState, String recipientState) {
 		
-		BigDecimal rate = null;
+		double rate = 0;
 		
 		if (shipperState.equals(recipientState)) 
 			
 			rate = new BigDecimal(this.totalOutOfDeliveryAreaRate);
+		
 		else {
 			
 			if (recipientState.equals("MH")) {
@@ -503,6 +551,23 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 		}
 		
 		return rate;
+	}*/
+	
+	private String fileContent() throws IOException {		
+		
+		InputStream in = this.getClass().getResourceAsStream("/Fedex.txt");	
+		
+		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+		
+		String soapResponseMessage1 = "";
+		String tempLine = null;
+		
+		while ((tempLine = reader.readLine()) != null) {
+			
+			soapResponseMessage1 += tempLine;
+		}		
+		
+		return soapResponseMessage1;
 	}
 	
 	

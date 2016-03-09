@@ -151,7 +151,11 @@ float: left;
 	 					</td>
  						<td class="cell delivery-cell">
  							<div class="fk-fontlight">
- 								<strong class="price fk-font-14">Rs. <%=apiData.getObj1() %></strong>
+ 								<% if (apiData.getObj1().doubleValue() == 0) { %>
+ 									<strong class="price fk-font-14">Free Shipping</strong>
+ 								<% } else { %>
+ 									<strong class="price fk-font-14">Rs. <%=apiData.getObj1() %></strong>
+ 								<% } %>
  							</div>
  							<p class="fk-font-11 fk-fontlight tmargin5">Delivery: &nbsp;&nbsp; <%=apiData.getObj2() %></p> 
  						</td>

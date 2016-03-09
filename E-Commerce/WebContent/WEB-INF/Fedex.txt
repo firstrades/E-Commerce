@@ -98,40 +98,30 @@ All Break Up
 </FreightDiscounts>
 
 <Surcharges>
-	<SurchargeType>COD</SurchargeType>
-	<Description>Payment on delivery</Description>
-	<Amount>
-		<Currency>INR</Currency>
-		<Amount>49.5</Amount>
-	</Amount>
-</Surcharges>
-
-
-<Surcharge>
-     <SurchargeType>OUT_OF_DELIVERY_AREA</SurchargeType>
-     <Description>Out of delivery area</Description>
-     <Amount>
-        <Currency>INR</Currency>
-        <Amount>1600.0</Amount>
-     </Amount>
-</Surcharge>
-
-<Surcharges>
-	<SurchargeType>FEDEX_INTRACOUNTRY_FEES</SurchargeType>
-	<Description>Waybill</Description>
-	<Amount>
-		<Currency>INR</Currency>
-		<Amount>0.0</Amount>
-	</Amount>
+<SurchargeType>COD</SurchargeType>
+<Description>Payment on delivery</Description>
+<Amount>
+<Currency>INR</Currency>
+<Amount>49.5</Amount>
+</Amount>
 </Surcharges>
 
 <Surcharges>
-	<SurchargeType>FUEL</SurchargeType>
-	<Description>Fuel</Description>
-	<Amount>
-		<Currency>INR</Currency>
-		<Amount>7.3</Amount>
-	</Amount>
+<SurchargeType>FEDEX_INTRACOUNTRY_FEES</SurchargeType>
+<Description>Waybill</Description>
+<Amount>
+<Currency>INR</Currency>
+<Amount>0.0</Amount>
+</Amount>
+</Surcharges>
+
+<Surcharges>
+<SurchargeType>FUEL</SurchargeType>
+<Description>Fuel</Description>
+<Amount>
+<Currency>INR</Currency>
+<Amount>7.3</Amount>
+</Amount>
 </Surcharges>
 
 
