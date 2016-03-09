@@ -54,7 +54,7 @@ First Name :<input type="text" name="first_name" id="first_name" /><br>
 Last_Name :<input type ="text" name="last_name" id="last_name" /><br>
 </div>
 
-<input type="checkbox" name="checkbox2" id="checkbox1" value="2"> <span > &nbsp; Click CheckBox2 If Email Id Is Difference </span><br>
+<input type="checkbox" name="checkbox2" id="checkbox1" value="3"> <span > &nbsp; Click CheckBox2 If Email Id Is Difference </span><br>
 
 <div style="display:none;" id="aux1">
 Email :<input type="text" name="email" id="email" /><br>
