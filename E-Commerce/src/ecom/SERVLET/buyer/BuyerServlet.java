@@ -404,7 +404,7 @@ public class BuyerServlet extends HttpServlet {
 				BigDecimal rate = estimatedRateAndDelivery.getRate();    
 				String delivery = estimatedRateAndDelivery.getDelivery();  System.out.println(rate + " " + delivery);
 				
-				//Insert
+				//Insert into session that already existed
 				int i = 0;
 				for (TwoObjects<BigDecimal, String> twoObjects : apiDataList) {
 					

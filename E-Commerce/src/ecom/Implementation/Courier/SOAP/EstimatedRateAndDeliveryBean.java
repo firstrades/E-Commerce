@@ -142,14 +142,33 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 				
 				this.weight    = resultSet.getDouble("weight");
 				this.salePriceToCustomer = resultSet.getDouble("salePriceCustomer");				
-				// seller
-				this.shipper.setAddress  (resultSet.getString("address1"));  
-				this.shipper.setCity     (resultSet.getString("city1"   ));
-				this.shipper.setPin      (resultSet.getString("pin1"    ));
+				// seller				
+				this.shipper.setAddress  (resultSet.getString("address" ));  
+				this.shipper.setAddress1 (resultSet.getString("address1"));
+				this.shipper.setCity     (resultSet.getString("city"    ));
+				this.shipper.setPin      (resultSet.getString("pin"     ));
+				this.shipper.setState    (resultSet.getString("state"   ));
+				this.shipper.setCountry  (resultSet.getString("country" ));
+				
+				this.shipper.setFirstName(resultSet.getString("first_name"));
+				this.shipper.setLastName (resultSet.getString("last_name" ));
+				this.shipper.setContact  (resultSet.getString("contact"   ));
+				this.shipper.setCompany  (resultSet.getString("company"   ));
+				this.shipper.setEmail    (resultSet.getString("email"     ));
+				
 				// customer
-				this.recipient.setAddress(resultSet.getString("address2"));
-				this.recipient.setCity   (resultSet.getString("city2"   ));
-				this.recipient.setPin    (resultSet.getString("pin2"    ));
+				this.recipient.setAddress  (resultSet.getString("cAddress" ));  
+				this.recipient.setAddress1 (resultSet.getString("cAddress1"));
+				this.recipient.setCity     (resultSet.getString("cCity"    ));
+				this.recipient.setPin      (resultSet.getString("cPin"     ));
+				this.recipient.setState    (resultSet.getString("cState"   ));
+				this.recipient.setCountry  (resultSet.getString("cCountry" ));
+				
+				this.recipient.setFirstName(resultSet.getString("cFName"   ));
+				this.recipient.setLastName (resultSet.getString("cLName"   ));
+				this.recipient.setContact  (resultSet.getString("cContact" ));
+				this.recipient.setCompany  (resultSet.getString("cCompany" ));
+				this.recipient.setEmail    (resultSet.getString("cEmail"   ));
 				
 			}			
 			
@@ -284,27 +303,35 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
         		
         		SOAPElement PreferredCurrency = RequestedShipment.addChildElement("PreferredCurrency", "v18");
         		PreferredCurrency.addTextNode("INR");
+        		
+        		
+        		
+        		
+        		
         		//Shipper
         		SOAPElement Shipper = RequestedShipment.addChildElement("Shipper", "v18");
         		
         			SOAPElement Contact = Shipper.addChildElement("Contact", "v18");
         			
         				SOAPElement PersonName = Contact.addChildElement("PersonName", "v18");
-        				PersonName.addTextNode("Jewel Saha");
+        				PersonName.addTextNode(this.shipper.getFirstName() + " " + this.shipper.getLastName());
         				
         				SOAPElement CompanyName = Contact.addChildElement("CompanyName", "v18");
-        				CompanyName.addTextNode("Skypoint");
+        				CompanyName.addTextNode(this.shipper.getCompany());
         				
         				SOAPElement PhoneNumber = Contact.addChildElement("PhoneNumber", "v18");
-        				PhoneNumber.addTextNode("9007785663");
+        				PhoneNumber.addTextNode(this.shipper.getContact());
         				
         				SOAPElement EMailAddress = Contact.addChildElement("EMailAddress", "v18");
-        				EMailAddress.addTextNode("jewel.skypoint@gmail.com");
+        				EMailAddress.addTextNode(this.shipper.getEmail());
         		
         			SOAPElement Address = Shipper.addChildElement("Address", "v18");
         		
         				SOAPElement StreetLines = Address.addChildElement("StreetLines", "v18");
         				StreetLines.addTextNode(this.shipper.getAddress());
+        				
+        				SOAPElement StreetLines11 = Address.addChildElement("StreetLines", "v18");
+        				StreetLines11.addTextNode(this.recipient.getAddress1());
         				
         				SOAPElement City = Address.addChildElement("City", "v18");
         				City.addTextNode(this.shipper.getCity());
@@ -312,8 +339,16 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
         				SOAPElement PostalCode = Address.addChildElement("PostalCode", "v18");
         				PostalCode.addTextNode(this.shipper.getPin());
         				
+        				/*SOAPElement StateOrProvinceCode = Address.addChildElement("StateOrProvinceCode", "v18");
+        				StateOrProvinceCode.addTextNode(this.shipper.getState());*/
+        				
         				SOAPElement CountryCode = Address.addChildElement("CountryCode", "v18");
-        				CountryCode.addTextNode("IN");
+        				CountryCode.addTextNode(this.shipper.getCountry());
+        				
+        				
+        				
+        				
+        				
         				
 				//Recipient
         		SOAPElement Recipient = RequestedShipment.addChildElement("Recipient", "v18");
@@ -321,21 +356,24 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
         			SOAPElement Contact1 = Recipient.addChildElement("Contact", "v18");
     			
 						SOAPElement PersonName1 = Contact1.addChildElement("PersonName", "v18");
-						PersonName1.addTextNode("RRRRRR");
+						PersonName1.addTextNode(this.recipient.getFirstName() + " " + this.recipient.getLastName());
 						
 						SOAPElement CompanyName1 = Contact1.addChildElement("CompanyName", "v18");
-						CompanyName1.addTextNode("Skypoint");
+						CompanyName1.addTextNode(this.recipient.getCompany());
 						
 						SOAPElement PhoneNumber1 = Contact1.addChildElement("PhoneNumber", "v18");
-						PhoneNumber1.addTextNode("9007785664");
+						PhoneNumber1.addTextNode(this.recipient.getContact());
 						
 						SOAPElement EMailAddress1 = Contact1.addChildElement("EMailAddress", "v18");
-						EMailAddress1.addTextNode("jewel.skypoint123@gmail.com");
+						EMailAddress1.addTextNode(this.recipient.getEmail());
         		
         			SOAPElement Address1 = Recipient.addChildElement("Address", "v18");
         		
         				SOAPElement StreetLines1 = Address1.addChildElement("StreetLines", "v18");
         				StreetLines1.addTextNode(this.recipient.getAddress());
+        				
+        				SOAPElement StreetLines12 = Address1.addChildElement("StreetLines", "v18");
+        				StreetLines12.addTextNode(this.recipient.getAddress1());
         				
         				SOAPElement City1 = Address1.addChildElement("City", "v18");
         				City1.addTextNode(this.recipient.getCity());
@@ -343,8 +381,16 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
         				SOAPElement PostalCode1 = Address1.addChildElement("PostalCode", "v18");
         				PostalCode1.addTextNode(this.recipient.getPin());
         				
+        				/*SOAPElement StateOrProvinceCode1 = Address1.addChildElement("StateOrProvinceCode", "v18");
+        				StateOrProvinceCode1.addTextNode(this.recipient.getState());*/
+        				
         				SOAPElement CountryCode1 = Address1.addChildElement("CountryCode", "v18");
-        				CountryCode1.addTextNode("IN");
+        				CountryCode1.addTextNode(this.recipient.getCountry());
+        				
+        				
+        				
+        				
+        				
         		//ShippingChargesPayment		
         		SOAPElement ShippingChargesPayment = RequestedShipment.addChildElement("ShippingChargesPayment", "v18");
         		
@@ -365,7 +411,7 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
         					Currency1.addTextNode("INR");
         					
         					SOAPElement Amount1 = CodCollectionAmount.addChildElement("Amount", "v18");
-        					Amount1.addTextNode(String.valueOf(this.salePriceToCustomer));                                                       
+        					Amount1.addTextNode(String.valueOf(this.salePriceToCustomer * this.qty));                                                       
         					
         				/*SOAPElement AddTransportationChargesDetail = CodDetail.addChildElement("AddTransportationChargesDetail");
         				
@@ -393,7 +439,7 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
         				Currency.addTextNode("INR");
         				
         				SOAPElement Amount = CustomsValue.addChildElement("Amount", "v18");
-        				Amount.addTextNode("100.00");
+        				Amount.addTextNode(String.valueOf(this.salePriceToCustomer * this.qty));
         				
         			SOAPElement CommercialInvoice = CustomsClearanceDetail.addChildElement("CommercialInvoice", "v18");
         			
@@ -539,7 +585,7 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 	}
 	
 	/*private double getOctroiCharge(String shipperState, String recipientState) {
-		
+		// will be added with rate
 		double rate = 0;
 		
 		if (shipperState.equals(recipientState)) 
@@ -560,6 +606,7 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 		return rate;
 	}*/
 	
+	@SuppressWarnings("unused")
 	private String fileContent() throws IOException {		
 		
 		InputStream in = this.getClass().getResourceAsStream("/Fedex.txt");	
