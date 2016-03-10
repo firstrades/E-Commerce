@@ -586,21 +586,22 @@ z-index: 101;
 	  													<div class="shipping-options-container bpadding10 fk-font-13 ng-scope" > 
 	  														<div class="lpadding20 rpadding10 ng-scope"> 
 	  															<div class="bmargin5"> 
-	  																<div class="lmargin20 bmargin5 ng-hide">
-	  																	+ Shipping  Rs. <%=bookedProduct.getRate() %>
-	  																</div> 
+	  																<% if (bookedProduct.getRate().doubleValue() == 0) { %>
+		  																<div style="font-size: 140%" class="lmargin20 bmargin5 ng-hide">
+		  																	Free Shipping
+		  																</div> 
+	  																<% } else { %>
+		  																<div  style="font-size: 140%" class="lmargin20 bmargin5 ng-hide">
+		  																	+ Shipping  Rs. <%=bookedProduct.getRate() %>
+		  																</div> 
+	  																<% } %>
 	  																<label>
 	  																	
-	  																	<span  class="ng-scope"><strong class="ng-binding">Delivery: &nbsp;&nbsp; <%=bookedProduct.getDelivery() %></strong> 
-	  																		<!-- <span  class="offer-color ng-scope">[FREE]</span>  -->
+	  																	<span  class="ng-scope"><strong class="ng-binding">Delivery: &nbsp;&nbsp; <%=bookedProduct.getDelivery() %></strong>	  																		
 	  																	</span>
 	  																</label> 
 	  															</div> 
-	  															<!-- <div class="fk-font-11 font-color-medium bmargin10 lmargin20" > 
-	  																<div class="ng-scope ng-binding">
-	 																	Standard Delivery <a class="js-sla-msg ques-mark ng-scope">[?]</a> 
-	 																</div>	
-	 															</div>  -->
+	  															
 	 														</div>
 	 													</div>
 	 												</div>

@@ -89,7 +89,7 @@ public class ProductDetailsDAO {
 			
 			TwoObjects<Double, String> twoObjects = new TwoObjects<>();
 			
-			sql = "SELECT sale_price, markup, warranty FROM product WHERE product_id = ?";
+			sql = "SELECT salePriceCustomer, warranty FROM product WHERE product_id = ?";
 			
 			try (Connection connection = ConnectionFactory.getNewConnection();
 				 PreparedStatement preparedStatement = connection.prepareStatement(sql)) {					
@@ -98,11 +98,9 @@ public class ProductDetailsDAO {
 					
 							try (ResultSet resultSet = preparedStatement.executeQuery()) {					
 							
-								if (resultSet.next()) {				
+								if (resultSet.next()) {											
 									
-									double markedupSellPrice = resultSet.getDouble("sale_price") + resultSet.getDouble("markup");
-									
-									twoObjects.setObj1(markedupSellPrice);
+									twoObjects.setObj1(resultSet.getDouble("salePriceCustomer"));
 									twoObjects.setObj2(resultSet.getString("warranty"  ));					
 								}	
 								
