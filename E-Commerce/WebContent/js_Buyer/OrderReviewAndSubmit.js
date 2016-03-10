@@ -116,6 +116,7 @@ $(function() {
 		    	
 		    	$("#fullName")   .html(data.fName + " " + data.lName  ); 
 		    	$("#fullAddress").html(data.address                   );  
+		    	$("#fullAddress1").html(data.address1                   );
 		    	$("#pinCity")    .html(data.pincode + ", " + data.city);  
 		    	$("#fullState")  .html(data.state                     );  
 		    	$("#fullContact").html(data.contact                   );
@@ -154,6 +155,7 @@ $(function() {
 		    	
 		    	$("#fullName")   .html(data.fName + " " + data.lName  ); 
 		    	$("#fullAddress").html(data.address                   );  
+		    	$("#fullAddress1").html(data.address1                 );
 		    	$("#pinCity")    .html(data.pincode + ", " + data.city);  
 		    	$("#fullState")  .html(data.state                     );  
 		    	$("#fullContact").html(data.contact                   );

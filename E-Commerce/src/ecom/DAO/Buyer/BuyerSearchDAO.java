@@ -762,7 +762,7 @@ public class BuyerSearchDAO {
 		
 			Connection connection               = null;
 			CallableStatement callableStatement = null;			
-			String sql = "{call setDeliveryAddressIfExists(?,?,?,?,?,?,?,?,?,?,?)}";				
+			String sql = "{call setDeliveryAddressIfExists(?,?,?,?,?,?,?,?,?,?,?,?,?)}";				
 			
 			
 			try {
@@ -783,6 +783,8 @@ public class BuyerSearchDAO {
 					callableStatement.registerOutParameter(9,  java.sql.Types.VARCHAR);
 					callableStatement.registerOutParameter(10, java.sql.Types.VARCHAR);
 					callableStatement.registerOutParameter(11, java.sql.Types.VARCHAR);
+					callableStatement.registerOutParameter(12, java.sql.Types.VARCHAR);
+					callableStatement.registerOutParameter(13, java.sql.Types.VARCHAR);
 					 			
 					callableStatement.execute();			
 					// if address exists
@@ -797,11 +799,13 @@ public class BuyerSearchDAO {
 						order.getDeliveryAddress().setfName  (callableStatement.getString(4) );
 						order.getDeliveryAddress().setlName  (callableStatement.getString(5) );
 						order.getDeliveryAddress().setContact(callableStatement.getString(6) );
-						order.getDeliveryAddress().setAddress(callableStatement.getString(7) );
-						order.getDeliveryAddress().setCity   (callableStatement.getString(8) );
-						order.getDeliveryAddress().setState  (callableStatement.getString(9) );
-						order.getDeliveryAddress().setPin    (callableStatement.getString(10));
-						order.getDeliveryAddress().setEmail  (callableStatement.getString(11));
+						order.getDeliveryAddress().setAddress(callableStatement.getString(7) );  
+						order.getDeliveryAddress().setAddress1(callableStatement.getString(8) );  
+						order.getDeliveryAddress().setCity   (callableStatement.getString(9) );
+						order.getDeliveryAddress().setState  (callableStatement.getString(10) );
+						order.getDeliveryAddress().setPin    (callableStatement.getString(11));
+						order.getDeliveryAddress().setEmail  (callableStatement.getString(12));
+						order.getDeliveryAddress().setCompany(callableStatement.getString(13));
 					}
 					
 					connection.commit();
@@ -840,12 +844,12 @@ public class BuyerSearchDAO {
 	} // setDeliveryAddressIfExists
 	
 	
-	public Order editDeliveryAddress(String fName, String lName, String pincode, String address, String city, 
+	public Order editDeliveryAddress(String fName, String lName, String pincode, String address1, String address2, String city, 
 			String state, String contact, Order order, User user) {
 		
 			Connection connection               = null;
 			CallableStatement callableStatement = null;			
-			String sql = "{call editDeliveryAddress(?,?,?,?,?,?,?,?)}";				
+			String sql = "{call editDeliveryAddress(?,?,?,?,?,?,?,?,?)}";				
 			
 			
 			try {
@@ -858,18 +862,21 @@ public class BuyerSearchDAO {
 					callableStatement.setString(2, fName  );
 					callableStatement.setString(3, lName  );
 					callableStatement.setString(4, contact);
-					callableStatement.setString(5, address);
-					callableStatement.setString(6, city   );
-					callableStatement.setString(7, state  );
-					callableStatement.setString(8, pincode);					
+					callableStatement.setString(5, address1);
+					callableStatement.setString(6, address2);
+					callableStatement.setString(7, city   );
+					callableStatement.setString(8, state  );
+					callableStatement.setString(9, pincode);					
 					
+					callableStatement.registerOutParameter(1,  java.sql.Types.INTEGER);
 					callableStatement.registerOutParameter(2,  java.sql.Types.VARCHAR);
 					callableStatement.registerOutParameter(3,  java.sql.Types.VARCHAR);
 					callableStatement.registerOutParameter(4,  java.sql.Types.VARCHAR);
 					callableStatement.registerOutParameter(5,  java.sql.Types.VARCHAR);
 					callableStatement.registerOutParameter(6,  java.sql.Types.VARCHAR);
 					callableStatement.registerOutParameter(7,  java.sql.Types.VARCHAR);
-					callableStatement.registerOutParameter(8,  java.sql.Types.VARCHAR);					
+					callableStatement.registerOutParameter(8,  java.sql.Types.VARCHAR);	
+					callableStatement.registerOutParameter(9,  java.sql.Types.VARCHAR);	
 					 			
 					callableStatement.execute();						
 					
@@ -877,9 +884,10 @@ public class BuyerSearchDAO {
 					order.getDeliveryAddress().setlName  (callableStatement.getString(3));
 					order.getDeliveryAddress().setContact(callableStatement.getString(4));					
 					order.getDeliveryAddress().setAddress(callableStatement.getString(5));
-					order.getDeliveryAddress().setCity   (callableStatement.getString(6));
-					order.getDeliveryAddress().setState  (callableStatement.getString(7));					
-					order.getDeliveryAddress().setPin    (callableStatement.getString(8));
+					order.getDeliveryAddress().setAddress1(callableStatement.getString(6));
+					order.getDeliveryAddress().setCity   (callableStatement.getString(7));
+					order.getDeliveryAddress().setState  (callableStatement.getString(8));					
+					order.getDeliveryAddress().setPin    (callableStatement.getString(9));
 					
 					
 					connection.commit();
@@ -918,12 +926,12 @@ public class BuyerSearchDAO {
 	} // editDeliveryAddress
 	
 	
-	public Order newDeliveryAddress(String fName, String lName, String pincode, String address, String city, 
+	public Order newDeliveryAddress(String fName, String lName, String pincode, String address1, String address2, String city, 
 			String state, String contact, Order order, User user) {
 		
 			Connection connection               = null;
 			CallableStatement callableStatement = null;			
-			String sql = "{call newDeliveryAddress(?,?,?,?,?,?,?,?)}";				
+			String sql = "{call newDeliveryAddress(?,?,?,?,?,?,?,?,?)}";				
 			
 			
 			try {
@@ -936,10 +944,11 @@ public class BuyerSearchDAO {
 					callableStatement.setString(2, fName  );
 					callableStatement.setString(3, lName  );
 					callableStatement.setString(4, contact);
-					callableStatement.setString(5, address);
-					callableStatement.setString(6, city   );
-					callableStatement.setString(7, state  );
-					callableStatement.setString(8, pincode);					
+					callableStatement.setString(5, address1);
+					callableStatement.setString(6, address2);
+					callableStatement.setString(7, city   );
+					callableStatement.setString(8, state  );
+					callableStatement.setString(9, pincode);					
 					
 					callableStatement.registerOutParameter(2,  java.sql.Types.VARCHAR);
 					callableStatement.registerOutParameter(3,  java.sql.Types.VARCHAR);
@@ -947,7 +956,8 @@ public class BuyerSearchDAO {
 					callableStatement.registerOutParameter(5,  java.sql.Types.VARCHAR);
 					callableStatement.registerOutParameter(6,  java.sql.Types.VARCHAR);
 					callableStatement.registerOutParameter(7,  java.sql.Types.VARCHAR);
-					callableStatement.registerOutParameter(8,  java.sql.Types.VARCHAR);					
+					callableStatement.registerOutParameter(8,  java.sql.Types.VARCHAR);	
+					callableStatement.registerOutParameter(9,  java.sql.Types.VARCHAR);
 					 			
 					callableStatement.execute();						
 					
@@ -955,9 +965,10 @@ public class BuyerSearchDAO {
 					order.getDeliveryAddress().setlName  (callableStatement.getString(3));
 					order.getDeliveryAddress().setContact(callableStatement.getString(4));					
 					order.getDeliveryAddress().setAddress(callableStatement.getString(5));
-					order.getDeliveryAddress().setCity   (callableStatement.getString(6));
-					order.getDeliveryAddress().setState  (callableStatement.getString(7));					
-					order.getDeliveryAddress().setPin    (callableStatement.getString(8));
+					order.getDeliveryAddress().setAddress(callableStatement.getString(6));
+					order.getDeliveryAddress().setCity   (callableStatement.getString(7));
+					order.getDeliveryAddress().setState  (callableStatement.getString(8));					
+					order.getDeliveryAddress().setPin    (callableStatement.getString(9));
 					
 					order.getDeliveryAddress().setExits  (true);
 					
@@ -1009,7 +1020,7 @@ public class BuyerSearchDAO {
 				connection = ConnectionFactory.getNewConnection();
 				connection.setAutoCommit(false);				
 				
-				sql = "SELECT category, company_name, product_name, seller_company, sub_category, warranty FROM product WHERE product_id = ?";
+				sql = "SELECT category, company_name, product_name, seller_company, sub_category, warranty, calcellation_after_booked FROM product WHERE product_id = ?";
 				
 				preparedStatement = connection.prepareStatement(sql);				
 				preparedStatement.setLong  (1, productId);
@@ -1024,6 +1035,7 @@ public class BuyerSearchDAO {
 					productBean.setSellerCompany(resultSet.getString("seller_company"));
 					productBean.setSubCategory  (resultSet.getString("sub_category"  ));
 					productBean.setWarranty     (resultSet.getString("warranty"      ));
+					productBean.setCancellationAfterBooked(resultSet.getInt("calcellation_after_booked"));
 				}
 			
 				connection.commit();

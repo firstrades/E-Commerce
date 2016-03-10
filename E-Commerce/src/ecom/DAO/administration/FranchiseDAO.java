@@ -111,7 +111,7 @@ public class FranchiseDAO {
 					extractDistributorDetails.getPinAreaMap().setPin             (resultSet.getString("pin"       ));				
 					extractDistributorDetails.getPinAreaMap().setArea            (resultSet.getString("area"      ));
 					
-					extractDistributorDetails.getCommission().setCommission      (resultSet.getDouble("commission"));
+					extractDistributorDetails.getCommission().setFranchiseCommission(resultSet.getDouble("commission"));
 					
 					list.add(extractDistributorDetails);
 					

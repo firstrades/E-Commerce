@@ -105,10 +105,11 @@ public class OrderReviewAndSubmit extends HttpServlet {
 			System.out.println("Entered EditDeliveryAddress");
 			
 			/************ Get Request Data ******************/
-			String fName   = request.getParameter("fName"  );       
+			String fName   = request.getParameter("fName"  );     
 			String lName   = request.getParameter("lName"  );       
 			String pincode = request.getParameter("pincode");     
-			String address = request.getParameter("address");     
+			String address1 = request.getParameter("address");
+			String address2 = request.getParameter("address1");   
 			String city    = request.getParameter("city"   );     
 			String state   = request.getParameter("state"  );     
 			String contact = request.getParameter("contact");     
@@ -119,7 +120,7 @@ public class OrderReviewAndSubmit extends HttpServlet {
 			
 			/***************** Database ********************/
 			BuyerSearchDAO buyerSearchDAO = new BuyerSearchDAO();
-			order = buyerSearchDAO.editDeliveryAddress(fName, lName, pincode, address, city, state, contact, order, user);
+			order = buyerSearchDAO.editDeliveryAddress(fName, lName, pincode, address1, address2, city, state, contact, order, user);
 			
 			/********* Set Session ****************/
 			session.setAttribute("order", order);
@@ -133,6 +134,7 @@ public class OrderReviewAndSubmit extends HttpServlet {
 				jsonObject.put("lName",   order.getDeliveryAddress().getlName()  );
 				jsonObject.put("pincode", order.getDeliveryAddress().getPin()    );
 				jsonObject.put("address", order.getDeliveryAddress().getAddress());
+				jsonObject.put("address1", order.getDeliveryAddress().getAddress1());
 				jsonObject.put("city",    order.getDeliveryAddress().getCity()   );
 				jsonObject.put("state",   order.getDeliveryAddress().getState()  );
 				jsonObject.put("contact", order.getDeliveryAddress().getContact());
@@ -155,7 +157,8 @@ public class OrderReviewAndSubmit extends HttpServlet {
 			String fName   = request.getParameter("fName1"  );      
 			String lName   = request.getParameter("lName1"  );       
 			String pincode = request.getParameter("pincode1");     
-			String address = request.getParameter("address1");     
+			String address1 = request.getParameter("address1");  
+			String address2 = request.getParameter("address2"); 
 			String city    = request.getParameter("city1"   );     
 			String state   = request.getParameter("state1"  );     
 			String contact = request.getParameter("contact1");     
@@ -166,7 +169,7 @@ public class OrderReviewAndSubmit extends HttpServlet {
 			
 			/***************** Database ********************/
 			BuyerSearchDAO buyerSearchDAO = new BuyerSearchDAO();
-			order = buyerSearchDAO.newDeliveryAddress(fName, lName, pincode, address, city, state, contact, order, user);
+			order = buyerSearchDAO.newDeliveryAddress(fName, lName, pincode, address1, address2, city, state, contact, order, user);
 			
 			/********* Set Session ****************/
 			session.setAttribute("order", order);
@@ -180,6 +183,7 @@ public class OrderReviewAndSubmit extends HttpServlet {
 				jsonObject.put("lName",   order.getDeliveryAddress().getlName()  );
 				jsonObject.put("pincode", order.getDeliveryAddress().getPin()    );
 				jsonObject.put("address", order.getDeliveryAddress().getAddress());
+				jsonObject.put("address1", order.getDeliveryAddress().getAddress1());
 				jsonObject.put("city",    order.getDeliveryAddress().getCity()   );
 				jsonObject.put("state",   order.getDeliveryAddress().getState()  );
 				jsonObject.put("contact", order.getDeliveryAddress().getContact());

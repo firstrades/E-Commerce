@@ -193,7 +193,7 @@ public class FranchiseServlet extends HttpServlet {
 						inner.put("pin",        details.getPinAreaMap().getPin()            );
 						inner.put("area",       details.getPinAreaMap().getArea()           );
 						
-						inner.put("commission", details.getCommission().getCommission()     );
+						inner.put("commission", details.getCommission().getFranchiseCommission());
 						
 						array.put(inner);
 						
