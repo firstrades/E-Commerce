@@ -442,7 +442,7 @@ public class OrderImpl implements OrderInterface {
 			   connection = ConnectionFactory.getNewConnection();
 			   connection.setAutoCommit(false);
 			   
-			   callableStatement = connection.prepareCall("{call setOrderFailed(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+			   callableStatement = connection.prepareCall("{call setOrderFailed(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
 			   
 			   callableStatement.setLong  (1, userId );
 			   callableStatement.setString(2, orderId);
@@ -458,6 +458,8 @@ public class OrderImpl implements OrderInterface {
 			   callableStatement.setString(12, order.getDeliveryAddress().getlName());
 			   callableStatement.setString(13, order.getDeliveryAddress().getEmail());
 			   callableStatement.setString(14, paymentType);
+			   callableStatement.setString(15, order.getDeliveryAddress().getAddress1());
+			   callableStatement.setString(16, order.getDeliveryAddress().getCompany());
 			   
 			   
 			   

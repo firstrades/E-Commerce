@@ -306,6 +306,9 @@ z-index: 101;
                     								</div>
                     								<div class="name rposition"> 
                     								<p style="margin-left: 32px;display: block;" id="fullAddress"><%=order.getDeliveryAddress().getAddress() %></p>
+                    								
+                    								<p style="margin-left: 32px;display: block;" id="fullAddress1"><%=order.getDeliveryAddress().getAddress1() %></p>
+                    								
                     								<p style="margin-left: 32px;display: block;" id="pinCity"><%=order.getDeliveryAddress().getPin() %>, <%=order.getDeliveryAddress().getCity() %></p>
                     								<p style="margin-left: 32px;display: block;" id="fullState"><%=order.getDeliveryAddress().getState() %></p>
                     								</div>
@@ -389,7 +392,8 @@ z-index: 101;
 		      										</td> 
 		      									</tr>
 		        								<tr > 
-		        									<td class="fk-label vtop" align="right"> <div class="tpadding20 tmargin5"><label for="address1">Address </label></div> </td>
+		        									<td class="fk-label vtop" align="right"> <div class="tpadding20 tmargin5"><label for="address1">Address Line 1 </label></div> </td>
+		        									<td class="fk-label vtop" align="right"> <div class="tpadding20 tmargin5"><label for="address2">Address Line 2 </label></div> </td>
 		         									<td> <textarea name="address1" class="fk-input" required="required" id="address1"/></textarea> </td> 
 		          								</tr> 		         								
 		           								<tr> 
@@ -701,7 +705,13 @@ z-index: 101;
 		       									</tr>
 		        								<tr > 
 		        									<td class="fk-label vtop" align="right"> 
-		        										<div class="tpadding20 tmargin5"><label for="address">Address </label></div> 
+		        										<div class="tpadding20 tmargin5"><label for="address">Address Line 1 </label></div> 
+		        									</td>
+		         									<td> <textarea  name="address" id="address" minlength="10" maxlength="216"   class="fk-input ng-pristine ng-valid ng-valid-required ng-valid-maxlength ng-valid-minlength"  required="required"></textarea></td> 
+		          								</tr> 
+		          								<tr > 
+		        									<td class="fk-label vtop" align="right"> 
+		        										<div class="tpadding20 tmargin5"><label for="address">Address Line 2 </label></div> 
 		        									</td>
 		         									<td> <textarea  name="address" id="address" minlength="10" maxlength="216"   class="fk-input ng-pristine ng-valid ng-valid-required ng-valid-maxlength ng-valid-minlength"  required="required"></textarea></td> 
 		          								</tr> 
@@ -780,9 +790,13 @@ z-index: 101;
 		      										</td> 
 		      									</tr>
 		        								<tr > 
-		        									<td class="fk-label vtop" align="right"> <div class="tpadding20 tmargin5"><label for="address">Address </label></div> </td>
+		        									<td class="fk-label vtop" align="right"> <div class="tpadding20 tmargin5"><label for="address">Address Line 1 </label></div> </td>
 		         									<td> <textarea name="address" class="fk-input" required="required" id="address" /></textarea> </td> 
-		          								</tr> 		         								
+		          								</tr> 
+		          								<tr > 
+		        									<td class="fk-label vtop" align="right"> <div class="tpadding20 tmargin5"><label for="address1">Address Line 2</label></div> </td>
+		         									<td> <textarea name="address1" class="fk-input"  id="address1" /></textarea> </td> 
+		          								</tr>		         								
 		           								<tr> 
 		           									<td class="fk-label" align="right"><label for="city">City </label></td>
 		            								<td> <input id="city" name="city" class="fk-input" type="text" required="required" /></td> 
@@ -826,7 +840,7 @@ z-index: 101;
 		                       								<option value="Tripura">Tripura</option> 
 		                       								<option value="Uttar Pradesh">Uttar Pradesh</option> 
 		                       								<option value="Uttrakhand">Uttarakhand</option> 
-		                       								<option value="West Bengal">West Bengal</option> 
+		                       								<option value="WB">West Bengal</option> 
 		                       								<option value="Army Post Office">Army Post Office</option>
 		                        							<option value="Telangana">Telangana</option> 
 		                        						</select>

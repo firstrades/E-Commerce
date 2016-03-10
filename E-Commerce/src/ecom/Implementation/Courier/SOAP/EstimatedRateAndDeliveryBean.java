@@ -158,7 +158,7 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
 				
 				// customer
 				this.recipient.setAddress  (resultSet.getString("cAddress" ));  
-				this.recipient.setAddress1 (resultSet.getString("cAddress1"));
+				this.recipient.setAddress1 (resultSet.getString("cAddress1"));     
 				this.recipient.setCity     (resultSet.getString("cCity"    ));
 				this.recipient.setPin      (resultSet.getString("cPin"     ));
 				this.recipient.setState    (resultSet.getString("cState"   ));
@@ -331,7 +331,7 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
         				StreetLines.addTextNode(this.shipper.getAddress());
         				
         				SOAPElement StreetLines11 = Address.addChildElement("StreetLines", "v18");
-        				StreetLines11.addTextNode(this.recipient.getAddress1());
+        				StreetLines11.addTextNode(this.shipper.getAddress1());
         				
         				SOAPElement City = Address.addChildElement("City", "v18");
         				City.addTextNode(this.shipper.getCity());
