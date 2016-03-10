@@ -423,6 +423,8 @@ public class OrderImpl implements OrderInterface {
 			 stringArray.append(bookedProduct.getRate());
 			 stringArray.append(",");
 			 stringArray.append(bookedProduct.getWarranty());			 
+			 stringArray.append(","); 
+			 stringArray.append(bookedProduct.getProductBean().getCancellationAfterBooked());			 
 			 stringArray.append(","); // this is required for mysql split string
 			 stringArray.append(";");		 
 			 
@@ -460,6 +462,7 @@ public class OrderImpl implements OrderInterface {
 			   callableStatement.setString(14, paymentType);
 			   callableStatement.setString(15, order.getDeliveryAddress().getAddress1());
 			   callableStatement.setString(16, order.getDeliveryAddress().getCompany());
+			   
 			   
 			   
 			   

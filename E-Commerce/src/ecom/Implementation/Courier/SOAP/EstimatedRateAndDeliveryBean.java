@@ -201,7 +201,7 @@ public class EstimatedRateAndDeliveryBean implements EstimatedRateAndDelivery {
         String testURL       = "https://wsbeta.fedex.com:443/web-services";
         String productionURL = "https://ws.fedex.com:443/web-services";
         
-        soapResponse = soapConnection.call(soapMessage(), productionURL);        
+        soapResponse = soapConnection.call(soapMessage(), testURL);        
         
         ByteArrayOutputStream baout = new ByteArrayOutputStream();
         soapResponse.writeTo(baout);
