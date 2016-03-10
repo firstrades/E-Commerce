@@ -43,6 +43,7 @@ public class TrackingIdGeneration implements TrackingIdGenerationInterface {
 	//From Database
 	private String shipperContact;
 	private String shipperAddress;
+	private String shipperAddress1;
 	private String shipperCity;
 	private String shipperState;
 	private String shipperPin;
@@ -53,6 +54,7 @@ public class TrackingIdGeneration implements TrackingIdGenerationInterface {
 	
 	private String recipientContact;
 	private String recipientAddress;
+	private String recipientAddress1;
 	private String recipientCity;
 	private String recipientState;
 	private String recipientPin;
@@ -220,8 +222,11 @@ public class TrackingIdGeneration implements TrackingIdGenerationInterface {
         		
         			SOAPElement Address = Shipper.addChildElement("Address", xlns);
         		
-        				SOAPElement StreetLines = Address.addChildElement("StreetLines", xlns);
-        				StreetLines.addTextNode(this.shipperAddress);
+        				SOAPElement StreetLines11 = Address.addChildElement("StreetLines", xlns);
+        				StreetLines11.addTextNode(this.shipperAddress);
+        				
+        				SOAPElement StreetLines12 = Address.addChildElement("StreetLines", xlns);
+        				StreetLines12.addTextNode(this.shipperAddress1);
         				
         				SOAPElement City = Address.addChildElement("City", xlns);
         				City.addTextNode(this.shipperCity);
@@ -257,8 +262,11 @@ public class TrackingIdGeneration implements TrackingIdGenerationInterface {
         		
         			SOAPElement Address1 = Recipient.addChildElement("Address", xlns);
         		
-        				SOAPElement StreetLines1 = Address1.addChildElement("StreetLines", xlns);
-        				StreetLines1.addTextNode(this.recipientAddress);
+        				SOAPElement StreetLines21 = Address1.addChildElement("StreetLines", xlns);
+        				StreetLines21.addTextNode(this.recipientAddress);
+        				
+        				SOAPElement StreetLines22 = Address1.addChildElement("StreetLines", xlns);
+        				StreetLines22.addTextNode(this.recipientAddress1);
         				
         				SOAPElement City1 = Address1.addChildElement("City", xlns);
         				City1.addTextNode(this.recipientCity);
@@ -305,6 +313,9 @@ public class TrackingIdGeneration implements TrackingIdGenerationInterface {
 	            		
 	            				SOAPElement StreetLines2 = Address2.addChildElement("StreetLines", xlns);
 	            				StreetLines2.addTextNode(this.shipperAddress);
+	            				
+	            				SOAPElement StreetLines3 = Address2.addChildElement("StreetLines", xlns);
+	            				StreetLines3.addTextNode(this.shipperAddress1);
 	            				
 	            				SOAPElement City2 = Address2.addChildElement("City", xlns);
 	            				City2.addTextNode(this.shipperCity);
@@ -366,8 +377,11 @@ public class TrackingIdGeneration implements TrackingIdGenerationInterface {
 		        		
 		        			SOAPElement Address3 = Recipient1.addChildElement("Address", xlns);
 		        		
-		        				SOAPElement StreetLines3 = Address3.addChildElement("StreetLines", xlns);
-		        				StreetLines3.addTextNode(this.recipientAddress);
+		        				SOAPElement StreetLines4 = Address3.addChildElement("StreetLines", xlns);
+		        				StreetLines4.addTextNode(this.recipientAddress);
+		        				
+		        				SOAPElement StreetLines5 = Address3.addChildElement("StreetLines", xlns);
+		        				StreetLines5.addTextNode(this.recipientAddress1);
 		        				
 		        				SOAPElement City3 = Address3.addChildElement("City", xlns);
 		        				City3.addTextNode(this.recipientCity);
@@ -602,6 +616,7 @@ public class TrackingIdGeneration implements TrackingIdGenerationInterface {
 				
 				this.shipperContact   = resultSet.getString("da_contact"      );
 				this.shipperAddress   = resultSet.getString("da_address"      );
+				this.shipperAddress1   = resultSet.getString("da_address1"      );
 				this.shipperCity      = resultSet.getString("da_city"         );
 				this.shipperState     = resultSet.getString("da_state"        );
 				this.shipperPin       = resultSet.getString("da_pin"          );
@@ -613,6 +628,7 @@ public class TrackingIdGeneration implements TrackingIdGenerationInterface {
 				
 				this.recipientContact = resultSet.getString("contact"         );
 				this.recipientAddress = resultSet.getString("address"         );
+				this.recipientAddress1 = resultSet.getString("address1"         );
 				this.recipientCity    = resultSet.getString("city"            );
 				this.recipientState   = resultSet.getString("state"           );
 				this.recipientPin     = resultSet.getString("pin"             );
