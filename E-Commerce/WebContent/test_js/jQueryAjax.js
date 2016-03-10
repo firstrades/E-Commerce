@@ -1,38 +1,43 @@
+
+	/******************************** Seller Registration Submit Form ********************************/
 $(function() {
-$('#checkbox').click(function() {
-
-var Checkbox   = $.trim($("#checkbox").  val());
-
-if (Checkbox == null)
-$('#aux').css('display', 'block'); 
-else
-$('#aux').css('display', 'none'); 
-})
-});
-
-
-	/******************************* Submit Form ***********************************************************/
-function insertdata() {
 	
-	var Checkbox   = $.trim($("#checkbox").  val());
-	var Checkbox1  = $.trim($("#checkbox1"). val());
-	var Email      = $.trim($("#email").     val());
-	var First_name = $.trim($("#first_name").val());
-	var Last_name  = $.trim($("#last_name"). val());
-	
-	alert("hello"+Checkbox+"RkK"+Checkbox1+"email"+Email+"first_name"+First_name+"last_name"+Last_name);
+	  $('#button').click(function() {
+		  
+			var First_name = $.trim($("#first_name").val());
+			
+		    var Last_name = null;
+			
+		  		  var Checkbox = $.trim($(this).val());
+
+		  		    if (Checkbox == true) {
+		  		    	
+		  		    	 Last_name  = $.trim($("#last_name").val());
+
+		  		    }
+		  			
+
+		  		else{
+		  			
+		  			 Last_name  = $.trim($("#first_name").val());
+
+		  		}
+		  		    
+		  		alert (" first_name "+First_name+" last_name "+Last_name);
+
+  });
 	
 	$.ajax({
 		
-		type: "POST",
-		url: "User",
-		data: "checkbox="+Checkbox+"&checkbox1="+Checkbox1+"&email="+Email+"&first_name="+First_name+"&last_name="+Last_name,
-		dataType: "html",
-		success: function(response) {
-			document.getElementById('insertdata').innerHTML=response;
+		type     : "POST",
+		url      : "User",
+		data     : "checkbox="+Checkbox+"&first_name="+First_name+"&last_name="+Last_name,
+		dataType : "html",
+		success  : function(response) {
+			document.getElementById('button').innerHTML=response;
 		},
 		error: function(e) {
-			document.getElementById('insertdata').innerHTML="<font color='red'>Technical Error.Try again..</font>";
+			document.getElementById('button').innerHTML="<font color='red'>Technical Error.Try again..</font>";
         }
 	});
-}
+});
