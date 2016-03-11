@@ -249,7 +249,9 @@ public class Controller extends HttpServlet {
 			}
 			
        		/********* Database Check ***********/
-	        //SellerDAO sellerDAO = SellerDAO.getNewInstance();
+
+	        //SellerDAO sellerDAO = SellerDAO.getNewInstance();			
+
 			
 
 	        boolean status = CreateUserDAO.setSellerRegistration
@@ -338,8 +340,7 @@ public class Controller extends HttpServlet {
 			 
        		
        		/********* Database Check ***********/
-       		
-       	
+
        		boolean status = CreateUserDAO.setUserRegistration
        				(User_Id, Password, First_Name, Last_Name, Gender, Email, Contact_Number, Address, Pin, City, State, 
        						First_Name2, Last_Name2, Email2, Contact_Number2, Address2, Pin2, City2, State2);       		
