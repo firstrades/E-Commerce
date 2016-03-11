@@ -1,6 +1,7 @@
 package extra;
 
 import java.io.IOException;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -55,6 +56,7 @@ public class EastBengal extends HttpServlet {
 		process(request, response);
 	}
 	
+	@SuppressWarnings("unused")
 	protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String servletPath = request.getServletPath();
