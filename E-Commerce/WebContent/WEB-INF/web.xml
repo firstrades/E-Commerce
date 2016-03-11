@@ -5,7 +5,20 @@
     <welcome-file>BuyerMainPanel-</welcome-file>
     <welcome-file>SellerMainPanel-</welcome-file>
     <welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>
+  </welcome-file-list>  
+  
+  <listener>
+  	<listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>  	
+  </listener>
+  <servlet>
+  	<servlet-name>jaxws</servlet-name>
+  	<servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>jaxws</servlet-name>
+  	<url-pattern>/jaxrs/*</url-pattern>
+  </servlet-mapping> 
+  
   <servlet>
     <servlet-name>Controller</servlet-name>
     <servlet-class>ecom.Controller.Controller</servlet-class>
