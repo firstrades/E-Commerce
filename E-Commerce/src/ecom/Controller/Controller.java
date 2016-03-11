@@ -183,7 +183,7 @@ public class Controller extends HttpServlet {
 			System.out.println("Entered RegisterSeller");	
 			
 			/*************** Get Request ***************/		
-			String User_Id         = request.getParameter("user_id")   .trim();
+			String User_Id        = request.getParameter("user_id")  .trim();
 			String Password       = request.getParameter("password")  .trim();
 			String First_Name     = request.getParameter("first_name").trim();
 			String Last_Name      = request.getParameter("last_name") .trim();
@@ -250,9 +250,9 @@ public class Controller extends HttpServlet {
 			
        		/********* Database Check ***********/
 	        //SellerDAO sellerDAO = SellerDAO.getNewInstance();
-			CreateUserDAO createUserDAO = new CreateUserDAO();
 			
-	        boolean status = createUserDAO.setSellerRegistration
+
+	        boolean status = CreateUserDAO.setSellerRegistration
 	        		(User_Id, Password, First_Name, Last_Name, Gender, Company, Mobile_Number1, Mobile_Number2, 
 	        		 Email1, Email2, Landphone1, Landphone2, Fax1, Fax2, Address_Line1, Address_Line2, City, State, Pin, 
 	        		 Country, Pancard, VoterId, First_Name2, Last_Name2, Company2, Mobile_Number3, Address_Line3, 
@@ -339,8 +339,8 @@ public class Controller extends HttpServlet {
        		
        		/********* Database Check ***********/
        		
-       		CreateUserDAO createUserDAO = new CreateUserDAO();
-       		boolean status = createUserDAO.setUserRegistration
+       	
+       		boolean status = CreateUserDAO.setUserRegistration
        				(User_Id, Password, First_Name, Last_Name, Gender, Email, Contact_Number, Address, Pin, City, State, 
        						First_Name2, Last_Name2, Email2, Contact_Number2, Address2, Pin2, City2, State2);       		
        		

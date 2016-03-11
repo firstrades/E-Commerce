@@ -237,7 +237,7 @@ public class FranchiseServlet extends HttpServlet {
 				try {
 					keyValue = new JSONObject(json);
 					
-					d_id = (int)    keyValue.get("d_id");          System.out.println(d_id);
+					d_id = (int)    keyValue.get("d_id");       System.out.println(d_id);
 					pin  = (String) keyValue.getString("pin");  System.out.println(pin);
 					 
 				} catch (JSONException e) {						

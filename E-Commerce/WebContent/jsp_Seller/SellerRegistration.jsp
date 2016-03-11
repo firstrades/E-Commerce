@@ -348,7 +348,7 @@
 				<div class="row">
 			
 				<div class="col-md-12 col-sm-6 col-xs-12" style="font-size: 17px;color: #00405d;font-weight: bold;margin-bottom: 34px;margin-top: 16px;">
-					<input type="checkbox" name="checkbox" id="checkbox"  style="width: 18px; height: 19px;"> 
+					<input type="checkbox" name="checkbox" id="checkbox"  style="width: 18px; height: 19px;" /> 
 					&nbsp; Tick This Box, If Product Pickup Address Is Different
 				</div>
 				
@@ -597,17 +597,5 @@
 
 </body>  <!-- CreateEditUserController -->
 
-<script type="text/javascript">
-$(function() {
-	$('#checkbox').change(function() {
-		
-		var display = $('#aux').css('display');  
-		
-		if (display == 'none')
-			$('#aux').css('display', 'block'); 
-		else
-			$('#aux').css('display', 'none'); 
-	})
-});
-</script>
+
 </html>
