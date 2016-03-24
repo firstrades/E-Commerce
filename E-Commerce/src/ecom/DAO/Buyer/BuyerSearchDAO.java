@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -1105,4 +1106,48 @@ public class BuyerSearchDAO {
 		return null;
 		
 	} //getOrderIdForCustomer
+	
+	
+	public boolean setItemCancelOfCustomer(long orderTableId) {
+		
+		Connection connection = null; CallableStatement callableStatement = null;     
+	    
+		String sql = "{call setItemCancelOfCustomer(?,?)}";	
+		
+		boolean status = false;
+		
+		try {
+				connection = ConnectionFactory.getNewConnection();
+				connection.setAutoCommit(false);
+				
+				callableStatement = connection.prepareCall(sql);
+				
+				callableStatement.setLong(1, orderTableId);							
+				callableStatement.registerOutParameter(2, Types.BOOLEAN);			
+										
+				callableStatement.execute();
+				
+				status = callableStatement.getBoolean(2);				
+				
+				connection.commit();
+				callableStatement.close();
+				
+				System.out.println("SQL - Select setItemCancelOfCustomer() successfull.");
+				
+				return status;
+				
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e) {			
+			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
+			e.printStackTrace();
+			
+		} finally {				
+			
+			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+		}		
+		
+		return status;
+		
+	} //setItemCancelOfCustomer
 }

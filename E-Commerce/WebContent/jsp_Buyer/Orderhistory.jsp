@@ -12,6 +12,7 @@
 	<title> Customer Page </title>
 	<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />	
 	<script type="text/javascript" src="<%=FrequentUse.jQuery %>"></script>
+	<script type="text/javascript" src="js_Buyer/OrderHistory.js"></script>
 	<!-- Custom Theme files -->
 	<link href="<%=FrequentUse.style %>" rel='stylesheet' type='text/css' />
 	<link href="css/order.css" rel='stylesheet' type='text/css' />
@@ -151,15 +152,17 @@ font-size: 16px;
 	 				
 %>
 	 				
-	 				<div class="line js-order-details fk-hidden" style="display: block;">
+	 				<div class="line js-order-details fk-hidden root" style="display: block;">
+	 				
+	 					<div style="display:none;" class="orderTableId"><%=customerOrderHistroy.getOrderTableId() %></div>
 <% 
 						boolean bookedOrPickup = customerOrderHistroy.getOrderState().equals("Booked") || customerOrderHistroy.getOrderState().equals("Pickup");
-						boolean cancelled = customerOrderHistroy.getOrderState().equals("Cancelled");
+						boolean cancelled = customerOrderHistroy.getOrderState().equals("Cancelled") || customerOrderHistroy.getOrderState().equals("Cancel");
 						boolean delivered = customerOrderHistroy.getOrderState().equals("Delivered");
 	 					if (bookedOrPickup) {
 %>
-	 					<div class="delivery_button"> 
-	 						<a href="#"> Cancel  </a>  
+	 					<div class="delivery_button cancel"> 
+	 						<a href="#" class="cancelButton"> Cancel  </a>  
 	 					</div>
 <%                      
 						}  else if (cancelled) {                                                          

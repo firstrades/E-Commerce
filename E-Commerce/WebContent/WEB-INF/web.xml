@@ -95,6 +95,7 @@
     <url-pattern>/Registration</url-pattern>
     <url-pattern>/CheckUserId</url-pattern>
     <url-pattern>/OrderHistroy</url-pattern>
+    <url-pattern>/CancelOrderFromCustomer</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>OrderReviewAndSubmit</servlet-name>

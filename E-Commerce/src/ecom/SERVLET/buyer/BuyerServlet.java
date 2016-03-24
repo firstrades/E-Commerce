@@ -523,5 +523,31 @@ public class BuyerServlet extends HttpServlet {
 
 		}
 		
+		else if(servletPath.equals("/CancelOrderFromCustomer")) {
+			
+			System.out.println("Enter CancelOrderFromCustomer");
+			
+			/******* Get Request **********/			
+			long orderTableId = Long.parseLong(request.getParameter("orderTableId"));  //System.out.println(orderTableId);
+			
+			/***** DataBase *********/
+			boolean status = buyerSearchDAO.setItemCancelOfCustomer(orderTableId);
+			
+			/***** Json value for calling page *********/
+			
+			JSONObject jsonObject = new JSONObject();
+			
+			try {
+				jsonObject.put("status", status);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			response.setContentType("application/json");
+			response.getWriter().write(jsonObject.toString());
+			
+		} //CancelOrderFromCustomer
+		
 	}
 }
