@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import ecom.common.ConnectionFactory;
 import ecom.model.CartWishlist;
@@ -76,24 +78,14 @@ public class BuyerSearchDAO {
 			
 			
 		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException | SQLException e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {				
-				e1.printStackTrace();
-			}
+				| ClassNotFoundException | SQLException e) {			
+			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 			e.printStackTrace();
-		} finally {
-			try {
-				preparedStatement.close();
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
-			try {
-				connection.close();
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
+			
+		} finally {				
+			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
+			try { preparedStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
 		}		
 		
 		
@@ -246,29 +238,15 @@ public class BuyerSearchDAO {
 					return productBeanAndQtyList;
 				
 				
-			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
-					try {
-						connection.rollback();
-					} catch (SQLException e1) {				
-						e1.printStackTrace();
-					}
-					e.printStackTrace();
-			} finally {	
-					try {
-						resultSet.close();
-					} catch (SQLException e2) {				
-						e2.printStackTrace();
-					}
-					try {
-						preparedStatement.close();
-					} catch (SQLException e1) {			
-						e1.printStackTrace();
-					}
-					try {
-						connection.close();
-					} catch (SQLException e) {			
-						e.printStackTrace();
-					}
+			} catch (InstantiationException | IllegalAccessException
+					| ClassNotFoundException | SQLException e) {			
+				try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
+				e.printStackTrace();
+				
+			} finally {				
+				try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
+				try { preparedStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+				try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
 			}		
 			
 			
@@ -301,24 +279,15 @@ public class BuyerSearchDAO {
 				if (result != 0)  return true;
 				
 				
-			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
-				try {
-					connection.rollback();
-				} catch (SQLException e1) {				
-					e1.printStackTrace();
-				}
+			} catch (InstantiationException | IllegalAccessException
+					| ClassNotFoundException | SQLException e) {			
+				try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 				e.printStackTrace();
-			} finally {					
-				try {
-					preparedStatement.close();
-				} catch (SQLException e1) {			
-					e1.printStackTrace();
-				}
-				try {
-					connection.close();
-				} catch (SQLException e) {			
-					e.printStackTrace();
-				}
+				
+			} finally {				
+				
+				try { preparedStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+				try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
 			}		
 			
 			return false;
@@ -486,29 +455,15 @@ public class BuyerSearchDAO {
 						
 					
 					
-				} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
-						try {
-							connection.rollback();
-						} catch (SQLException e1) {				
-							e1.printStackTrace();
-						}
-						e.printStackTrace();
-				} finally {	
-						try {
-							resultSet.close();
-						} catch (SQLException e2) {				
-							e2.printStackTrace();
-						}
-						try {
-							preparedStatement.close();
-						} catch (SQLException e1) {			
-							e1.printStackTrace();
-						}
-						try {
-							connection.close();
-						} catch (SQLException e) {			
-							e.printStackTrace();
-						}
+				} catch (InstantiationException | IllegalAccessException
+						| ClassNotFoundException | SQLException e) {			
+					try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
+					e.printStackTrace();
+					
+				} finally {				
+					try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
+					try { preparedStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+					try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
 				}		
 				
 				
@@ -546,27 +501,14 @@ public class BuyerSearchDAO {
 				return qty1;
 				
 		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException | SQLException e) {	
-			
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {					
-				e1.printStackTrace();
-			}
+				| ClassNotFoundException | SQLException e) {			
+			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 			e.printStackTrace();
 			
-		} finally {	
+		} finally {				
 			
-			try {
-				callableStatement.close();
-			} catch (SQLException e1) {			
-				e1.printStackTrace();
-			}
-			try {
-				connection.close();
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
+			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
 		}		
 		
 		return 0;
@@ -659,32 +601,15 @@ public class BuyerSearchDAO {
 				return list;
 			
 		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException | SQLException e) {	
-			
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {					
-				e1.printStackTrace();
-			}
+				| ClassNotFoundException | SQLException e) {			
+			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 			e.printStackTrace();
 			
-		} finally {	
-			try {
-				resultSet.close();
-			} catch (SQLException e2) {				
-				e2.printStackTrace();
-			}
-			try {
-				preparedStatement.close();
-			} catch (SQLException e1) {			
-				e1.printStackTrace();
-			}
-			try {
-				connection.close();
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
-		}
+		} finally {				
+			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
+			try { preparedStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+		}	
 		
 		return null;
 	}
@@ -728,32 +653,15 @@ public class BuyerSearchDAO {
 				return list;
 			
 		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException | SQLException e) {	
-			
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {					
-				e1.printStackTrace();
-			}
+				| ClassNotFoundException | SQLException e) {			
+			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 			e.printStackTrace();
 			
-		} finally {	
-			try {
-				resultSet.close();
-			} catch (SQLException e2) {				
-				e2.printStackTrace();
-			}
-			try {
-				preparedStatement.close();
-			} catch (SQLException e1) {			
-				e1.printStackTrace();
-			}
-			try {
-				connection.close();
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
-		}
+		} finally {				
+			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
+			try { preparedStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+		}	
 		
 		return null;
 	} // getProductIdAndQty
@@ -816,27 +724,14 @@ public class BuyerSearchDAO {
 					return order;
 					
 			} catch (InstantiationException | IllegalAccessException
-					| ClassNotFoundException | SQLException e) {	
-				
-				try {
-					connection.rollback();
-				} catch (SQLException e1) {					
-					e1.printStackTrace();
-				}
+					| ClassNotFoundException | SQLException e) {			
+				try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 				e.printStackTrace();
 				
-			} finally {	
+			} finally {				
 				
-				try {
-					callableStatement.close();
-				} catch (SQLException e1) {			
-					e1.printStackTrace();
-				}
-				try {
-					connection.close();
-				} catch (SQLException e) {			
-					e.printStackTrace();
-				}
+				try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+				try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
 			}		
 			
 		return null;
@@ -898,27 +793,14 @@ public class BuyerSearchDAO {
 					return order;
 					
 			} catch (InstantiationException | IllegalAccessException
-					| ClassNotFoundException | SQLException e) {	
-				
-				try {
-					connection.rollback();
-				} catch (SQLException e1) {					
-					e1.printStackTrace();
-				}
+					| ClassNotFoundException | SQLException e) {			
+				try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 				e.printStackTrace();
 				
-			} finally {	
+			} finally {				
 				
-				try {
-					callableStatement.close();
-				} catch (SQLException e1) {			
-					e1.printStackTrace();
-				}
-				try {
-					connection.close();
-				} catch (SQLException e) {			
-					e.printStackTrace();
-				}
+				try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+				try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
 			}		
 			
 			return null;
@@ -980,27 +862,14 @@ public class BuyerSearchDAO {
 					return order;
 					
 			} catch (InstantiationException | IllegalAccessException
-					| ClassNotFoundException | SQLException e) {	
-				
-				try {
-					connection.rollback();
-				} catch (SQLException e1) {					
-					e1.printStackTrace();
-				}
+					| ClassNotFoundException | SQLException e) {			
+				try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 				e.printStackTrace();
 				
-			} finally {	
+			} finally {				
 				
-				try {
-					callableStatement.close();
-				} catch (SQLException e1) {			
-					e1.printStackTrace();
-				}
-				try {
-					connection.close();
-				} catch (SQLException e) {			
-					e.printStackTrace();
-				}
+				try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+				try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
 			}		
 			
 			return null;
@@ -1045,32 +914,15 @@ public class BuyerSearchDAO {
 				return productBean;
 			
 		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException | SQLException e) {	
-			
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {					
-				e1.printStackTrace();
-			}
+				| ClassNotFoundException | SQLException e) {			
+			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 			e.printStackTrace();
 			
-		} finally {	
-			try {
-				resultSet.close();
-			} catch (SQLException e2) {				
-				e2.printStackTrace();
-			}
-			try {
-				preparedStatement.close();
-			} catch (SQLException e1) {			
-				e1.printStackTrace();
-			}
-			try {
-				connection.close();
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
-		}
+		} finally {				
+			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
+			try { preparedStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+		}	
 		
 		return null;
 	} // getProductBean
@@ -1078,9 +930,7 @@ public class BuyerSearchDAO {
 	
 	public SizeGarment getSizeGarmentModel(long productId, SizeGarment sizeGarment) {
 		
-		Connection connection               = null;
-		CallableStatement callableStatement = null;		
-		ResultSet resultSet                 = null;
+		Connection connection = null; CallableStatement callableStatement = null; ResultSet resultSet = null;
 		
 		String sql = "{call getSizeGarmentModel(?)}";		
 		
@@ -1124,32 +974,14 @@ public class BuyerSearchDAO {
 				return sizeGarment;
 				
 		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException | SQLException e) {	
-			
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {					
-				e1.printStackTrace();
-			}
+				| ClassNotFoundException | SQLException e) {			
+			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 			e.printStackTrace();
 			
-		} finally {	
-			
-			try {
-				resultSet.close();
-			} catch (SQLException e1) {			
-				e1.printStackTrace();
-			}			
-			try {
-				callableStatement.close();
-			} catch (SQLException e1) {			
-				e1.printStackTrace();
-			}
-			try {
-				connection.close();
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
+		} finally {				
+			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
+			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
 		}		
 		
 		return null;
@@ -1159,9 +991,7 @@ public class BuyerSearchDAO {
 	//Soumya
 	public List<CustomerOrderHistroy> getCustomerOrderHistroy(User user) {
 		
-		Connection connection               = null;
-		CallableStatement callableStatement = null;		
-		ResultSet resultSet                 = null;
+		Connection connection = null; CallableStatement callableStatement = null; ResultSet resultSet = null;
 		
 	    List<CustomerOrderHistroy> list = new ArrayList<CustomerOrderHistroy>();
 	    
@@ -1198,6 +1028,7 @@ public class BuyerSearchDAO {
 					customerOrderHistroy.setSize                   (resultSet.getInt   ("size"                   ));
 					customerOrderHistroy.setStatus                 (resultSet.getString("status"                 ));
 					customerOrderHistroy.setWarranty               (resultSet.getString("warranty"               ));
+					customerOrderHistroy.setOrderBookedDate        (resultSet.getString("orderBookedDate"        ));             
 		
 					list.add(customerOrderHistroy);
 					
@@ -1211,46 +1042,26 @@ public class BuyerSearchDAO {
 				return list;
 				
 		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException | SQLException e) {	
-			
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {					
-				e1.printStackTrace();
-			}
+				| ClassNotFoundException | SQLException e) {			
+			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 			e.printStackTrace();
 			
-		} finally {	
-			
-			try {
-				resultSet.close();
-			} catch (SQLException e1) {			
-				e1.printStackTrace();
-			}			
-			try {
-				callableStatement.close();
-			} catch (SQLException e1) {			
-				e1.printStackTrace();
-			}
-			try {
-				connection.close();
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
-		}		
+		} finally {				
+			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
+			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+		}	
 		
 		return null;
 		
 	} //getCustomerOrderHistroy
 	
 	//Soumya
-	public List<String> getOrderIdForCustomer(User user) {
+	public Set<String> getOrderIdForCustomer(User user) {
 		
-		Connection connection               = null;
-		CallableStatement callableStatement = null;		
-		ResultSet resultSet                 = null;
+		Connection connection = null; CallableStatement callableStatement = null; ResultSet resultSet = null;
 		
-	    List<String> list = new ArrayList<String>();
+	    Set<String> set = new HashSet<>();
 	    
 		String sql = "{call getOrderIdForCustomer(?)}";		
 		
@@ -1269,7 +1080,7 @@ public class BuyerSearchDAO {
 					
 					String orderId = resultSet.getString("order_id");
 		
-					list.add(orderId);
+					set.add(orderId);
 					
 				}
 				
@@ -1278,35 +1089,17 @@ public class BuyerSearchDAO {
 				
 				System.out.println("SQL - Select getOrderIdForCustomer() successfull.");
 				
-				return list;
+				return set;
 				
 		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException | SQLException e) {	
-			
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {					
-				e1.printStackTrace();
-			}
+				| ClassNotFoundException | SQLException e) {			
+			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 			e.printStackTrace();
 			
-		} finally {	
-			
-			try {
-				resultSet.close();
-			} catch (SQLException e1) {			
-				e1.printStackTrace();
-			}			
-			try {
-				callableStatement.close();
-			} catch (SQLException e1) {			
-				e1.printStackTrace();
-			}
-			try {
-				connection.close();
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
+		} finally {				
+			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
+			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
 		}		
 		
 		return null;

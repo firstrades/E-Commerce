@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,20 +26,33 @@ import ecom.DAO.Buyer.BuyerSearchDAO;
 import ecom.DAO.User.UserDAO;
 import ecom.Implementation.Courier.SOAP.EstimatedRateAndDeliveryBean;
 import ecom.Interface.Courier.EstimatedRateAndDelivery;
+import ecom.beans.BuyerServletHelper;
 import ecom.beans.CartAttributesBean;
 import ecom.beans.ApiDataMultiThreadBean;
 import ecom.beans.TransientData;
+import ecom.model.CustomerOrderHistroy;
 import ecom.model.ProductBean;
 import ecom.model.TwoObjects;
 import ecom.model.User;
 
 public class BuyerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private BuyerServletHelper helper;
+	private BuyerSearchDAO     buyerSearchDAO;
+	
+	@Override
+	public void init() {
+		this.helper         = BuyerServletHelper.getNewInstance();
+		this.buyerSearchDAO = new BuyerSearchDAO();
+	}
   
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
 	}
@@ -486,16 +501,22 @@ public class BuyerServlet extends HttpServlet {
 		 }
 		
 		else if(servletPath.equals("/OrderHistroy")) {
+			
 			System.out.println("Enter OrderHistroy");
 			
 			/******* Get Session ******/
 			User user = (User) session.getAttribute("user");
 			
-			/******* DataBase *******/
+			/******* DataBase *******/				
+			Set<String> orderTableIds                        = buyerSearchDAO.getOrderIdForCustomer  (user);		
+			List<CustomerOrderHistroy> customerOrderHistroys = buyerSearchDAO.getCustomerOrderHistroy(user);
 			
-			BuyerSearchDAO dao = new BuyerSearchDAO();
-			dao.getOrderIdForCustomer(user);		
-			dao.getCustomerOrderHistroy(user);
+			/******* Process *******/	
+			//To arrange orders with same OrderTableId
+			Map<String, List<CustomerOrderHistroy>> map = helper.getCustomerOrderHistroyMap(orderTableIds, customerOrderHistroys);
+			
+			/********* Set Request *********/
+			request.setAttribute("map", map);
 			
 			/****** NextPage ******/
 			request.getRequestDispatcher("jsp_Buyer/Orderhistory.jsp").forward(request, response);

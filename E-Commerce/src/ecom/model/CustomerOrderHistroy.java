@@ -22,11 +22,20 @@ import java.io.Serializable;
 	private String sellerCompany;
 	private String productName;
 	private String companyName;
+	private String orderBookedDate;
 	
 	
 	//Getter & Setter
+	
+	
 	public long getId() {
 		return id;
+	}
+	public String getOrderBookedDate() {
+		return orderBookedDate;
+	}
+	public void setOrderBookedDate(String orderBookedDate) {
+		this.orderBookedDate = orderBookedDate;
 	}
 	public void setId(long id) {
 		this.id = id;

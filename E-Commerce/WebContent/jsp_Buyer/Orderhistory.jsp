@@ -1,3 +1,6 @@
+<%@page import="ecom.beans.BuyerServletHelper"%>
+<%@page import="java.util.Map"%>
+<%@page import="ecom.model.CustomerOrderHistroy"%>
 <%@page import="ecom.model.ProductBean"%>
 <%@page import="java.util.List"%>
 <%@page import="ecom.common.FrequentUse"%>
@@ -72,13 +75,24 @@
         display: block;
     } 
    
-
+.delivery_button{
+float: right;
+    margin-right: 10px;
+}
+.delivery_button a{
+font-size: 16px;
+    color: #FFF;
+    background-color: #007FB8;
+    padding: 9px 20px;
+}
 </style>
 </head>
 <body>
 
 <%
 	User user = (User) session.getAttribute("user");
+	@SuppressWarnings("all")
+	Map<String, List<CustomerOrderHistroy>> map = (Map<String, List<CustomerOrderHistroy>>) request.getAttribute("map");
 %>
 
 
@@ -93,81 +107,160 @@
 
 
 <!-- ----------------------------------------------------BODY-------------------------------------------------------- -->
-<div class="container"> <ul class="line bmargin20 tmargin20 fk-font-17"> <li class="fk-inline-block" id="myAccountBtn"><a href="https://www.flipkart.com/account?link=my_account">My Account</a> / </li> <li class="fk-inline-block"><h1>My Orders</h1></li> </ul> <div class="myorder-tabs"> <ul> <li class="fk-inline-block tab" id="recent-orders"><span class="text">RECENT ORDERS</span><span id="subText" class="text fk-font-small">(Last 6 Months)</span></li> </ul> </div> <div id="order-section"> <div id="recent-orders-tab" class="line tmargin20" >
-<div class="fk-inf-scroll-item order physical">
- <div class="line order-collapsed fk-hidden">
- <div class="unit size1of5">
- <strong>OD101246839208188700</strong>
- </div>
- <div class="unit size3of5 smallText">
- How to Read a Cash Flow Statement (English) 2nd Edition, How to An... (Total: 2 items)
- </div>
- <div class="unit size1of6">
- <span class="smallText">Order Total:</span> <strong>Rs.289</strong>
- </div>
- <div class="lastUnit text_right">
- <a class="toggle-details" title="Show order details"></a>
- </div>
- </div>
- <div class="line order-expanded">
- <div class="unit size1of4">
- <a class="orderIdBtn btn btn-medium btn-blue" target="_blank" href="https://www.flipkart.com/order_details?order_id=OD101246839208188700&amp;src=od&amp;link=order_number">OD101246839208188700</a>
- </div>
- <div class="unit size3of5">
- </div>
- <div class="lastUnit text_right">
- <a class="toggle-details" title="Hide order details"></a>
- </div>
- </div>
- <div class="line js-order-details fk-hidden" style="display: block;">
- <div class="line order-item ">
- <div class="line order-item-inner">
- <div class="unit size1of8 fk-text-center product-image">
- <a href="#" target="__blank">
- <img class="item-image"  src="images/histroy.jpeg">
- </a>
- </div>
- <div class="unit size2of7">
- <a target="_blank" href="#">
- How to Read a Cash Flow Statement (En... </a>
- <p class="smallText tmargin10">N. Ramachandran, Ram Kumar Kakani</p>
- <p class="smallText tmargin10">
- Qty: 1 </p>
- </div>
- <div class="unit size1of6">
- <div class="lpadding10">
- Rs. 132 </div>
+	<div class="container"> 
+		<ul class="line bmargin20 tmargin20 fk-font-17"> 
+			<li class="fk-inline-block" id="myAccountBtn"><a href="https://www.flipkart.com/account?link=my_account">My Account</a> / </li> 
+			<li class="fk-inline-block"><h1>My Orders</h1></li> 
+		</ul> 
+		<div class="myorder-tabs"> 
+			<ul> 
+				<li class="fk-inline-block tab" id="recent-orders">
+					<span class="text">RECENT ORDERS</span>
+					<span id="subText" class="text fk-font-small">(Last 6 Months)</span>
+				</li> 
+			</ul> 
+		</div> 
+		
+<%
+		
+	for (Map.Entry<String, List<CustomerOrderHistroy>> entry : map.entrySet())	 {
+		
+		String orderTableId = entry.getKey();
+		//System.out.println(orderTableId);
+		List<CustomerOrderHistroy> customerOrderHistroys = entry.getValue();
+		
+		
+		
+%>	
+		
+		<div id="order-section"> 
+			<div id="recent-orders-tab" class="line tmargin20">
+				<div class="fk-inf-scroll-item order physical">
+	 				<%-- <div class="line order-collapsed fk-hidden">
+	 					<div class="unit size1of5">
+	 						<strong><%=orderTableId %></strong>
+	 					</div>
+	 					<div class="unit size3of5 smallText">
+	 						How to Read a Cash Flow Statement (English) 2nd Edition, How to An... (Total: 2 items)
+	 					</div>
+	 					<div class="unit size1of6">
+	 						<span class="smallText">Order Total:</span> <strong>Rs.289</strong>
+	 					</div>
+	 					<div class="lastUnit text_right">
+	 						<a class="toggle-details" title="Show order details"></a>
+	 					</div>
+	 				</div> --%>
+	 				<div class="line order-expanded">
+	 					<div class="unit size1of4">
+	 						<div class="orderIdBtn btn btn-medium btn-blue"><%=orderTableId %></div>
+	 					</div>
+	 					<div class="unit size3of5"></div>
+	 					<div class="lastUnit text_right">
+	 						<a class="toggle-details" title="Hide order details"></a>
+	 					</div>
+	 				</div>
+	 				
+<%
+	 			for (CustomerOrderHistroy customerOrderHistroy : customerOrderHistroys) {			
+	 				
+%>
+	 				
+	 				<div class="line js-order-details fk-hidden" style="display: block;">
+<% 
+						boolean bookedOrPickup = customerOrderHistroy.getOrderState().equals("Booked") || customerOrderHistroy.getOrderState().equals("Pickup");
+						boolean cancelled = customerOrderHistroy.getOrderState().equals("Cancelled");
+						boolean delivered = customerOrderHistroy.getOrderState().equals("Delivered");
+	 					if (bookedOrPickup) {
+%>
+	 					<div class="delivery_button"> 
+	 						<a href="#"> Cancel  </a>  
+	 					</div>
+<%                      
+						}  else if (cancelled) {                                                          
+%>
+						<div class="delivery_button"> 
+	 						 <a href="#"> Cancelled   </a>
+	 					</div>
 
- </div>
- <div class="unit size2of7">
- <p class="greyText bmargin10">
- Delivered on Fri, 14th Nov'14 </p>
- 
- </div>
- <div class="lastUnit text_right">
- </div>
- </div>
- 
- </div>
- 
- 
- <div class="line order-total">
- <div class="line">
- <div class="unit size2of5">
- <span class="smallText">Seller:</span> <span class="rmargin20">WS Retail</span>
- <span class="smallText fk-inline-block">Date:</span> Mon, 10th Nov'14 </div>
- <div class="lastUnit text_right">
- <span class="smallText">Order Total:</span> <strong>Rs.289</strong>
- </div>
- </div>
- </div>
- </div>
- </div>
+<%                      
+						}  else if (delivered) {       
+							
+								boolean returnOrder = BuyerServletHelper.getNewInstance().ifOrderCouldBeReturned(customerOrderHistroy.getDeliveredDate(), customerOrderHistroy.getCalcellationAfterBooked());
+								System.out.println(returnOrder);
+								if (returnOrder) {
+%>
+									<div class="delivery_button"> 
+				 						 <a href="#"> Return   </a>
+				 					</div>
+				 			<%  } else { %>
+				 			
+									<div class="delivery_button"> 
+				 						 <a href="#"> Delivered   </a>
+				 					</div>
+<%          
+				 				}
+								
+						}  else {                                                         
+%>
 
- 
- </div>
-</div>
-</div>
+						<div class="delivery_button"> 
+	 						 <a href="#"> In-Transit   </a>
+	 					</div>
+
+<%                      
+						}                                                         
+%>
+	 					<div class="line order-item ">
+	 						<div class="line order-item-inner">
+	 							<div class="unit size1of8 fk-text-center product-image">
+	 								<a href="#" target="__blank">
+	 									<img class="item-image"  src="IconImageFromProduct?productId=<%=customerOrderHistroy.getProductId() %>">
+	 								</a>
+	 							</div>
+	 							<div class="unit size2of7">
+	 								<a target="_blank" href="#">
+	 									<%=customerOrderHistroy.getProductName() + " ( " + customerOrderHistroy.getCompanyName() + " )" %>
+	 								</a>	<br> 								
+	 								<p class="smallText tmargin10">Qty: <%=customerOrderHistroy.getQty() %> </p>
+	 							</div>
+	 							<div class="unit size1of6">
+	 								<div class="lpadding10">Rs. <%=customerOrderHistroy.getSellPrice() +  customerOrderHistroy.getShippingCost()%> </div>
+	
+	 							</div>
+	 							<div class="unit size2of7">
+	 								<p class="greyText bmargin10">Delivered on Fri, 14th Nov'14 </p>
+	 
+	 							</div>
+	 							<div class="lastUnit text_right"></div>
+	 						</div>	 
+	 						<br>
+	 						<div class="line order-total">
+		 						<div class="line">
+		 							<div class="unit size2of5">
+		 								<span class="smallText" style="margin-left: -3px;">Seller:</span> 
+		 								<span class="rmargin20"><%=customerOrderHistroy.getSellerCompany() %></span><br>
+		 								<span class="smallText fk-inline-block" style="margin-left: 39px;">Booked On:</span> <%=customerOrderHistroy.getOrderBookedDate() %>
+		 							</div>	 							
+		 						</div>
+		 					</div>
+	 					</div>	 
+	 					
+	 				</div>
+	 				
+<%
+	 			}	
+	 				
+%>
+	 				
+	 			</div> 
+	 		</div>
+		</div>
+		
+<%
+
+	}
+%>
+	</div>
 
  
 

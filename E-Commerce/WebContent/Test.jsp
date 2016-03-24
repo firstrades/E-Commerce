@@ -12,15 +12,15 @@
 <script type="text/javascript">
 
 $(function() {
-$('#checkbox').change(function() {
-
-var display = $('#aux').css('display');  
-
-if (display == 'none')
-$('#aux').css('display', 'block'); 
-else
-$('#aux').css('display', 'none'); 
-})
+	$('#checkbox').change(function() {
+	
+	var display = $('#aux').css('display');  
+	
+	if (display == 'none')
+	$('#aux').css('display', 'block'); 
+	else
+	$('#aux').css('display', 'none'); 
+	})
 });
 
 </script>

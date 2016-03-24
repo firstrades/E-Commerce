@@ -81,7 +81,7 @@ class Payment {
     
     public boolean isInQuery(HttpServletRequest request, String key) {
     	
-    	  String query = request.getQueryString();
+    	  String query = request.getQueryString();   	 
     	  
     	  String[] nameValuePairs = query.split("&");
     	  

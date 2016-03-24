@@ -369,8 +369,9 @@ public class CreateUserDAO {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		CreateUserDAO createUserDAO = new CreateUserDAO();
-    boolean sellerDAOSSS = createUserDAO.setSellerRegistration("HHH55", "HHH55", "HHH55", "HHH55", "FEMALE", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55");
+		
+    @SuppressWarnings("unused")
+	boolean sellerDAOSSS = CreateUserDAO.setSellerRegistration("HHH55", "HHH55", "HHH55", "HHH55", "FEMALE", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55");
     System.out.println("sellerDAOSSS");
 	}
 	
