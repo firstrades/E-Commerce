@@ -35,7 +35,7 @@ public class BuyerServletHelper {
 			map.put(orderTableId, list);		
 		}
 		
-		return map;
+		return map;   // for test
 	}
 	
 	public boolean ifOrderCouldBeReturned(String deliveryDate, int calcellationAfterBooked) {
