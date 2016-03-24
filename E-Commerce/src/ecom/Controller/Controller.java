@@ -178,104 +178,100 @@ public class Controller extends HttpServlet {
 			
 		} //SellerRegistrationPage
 		
-		else if (servletPath.equals("/RegisterSeller")) {                 
-			
-			System.out.println("Entered RegisterSeller");	
-			
-			/*************** Get Request ***************/		
-			String User_Id        = request.getParameter("user_id")  .trim();
-			String Password       = request.getParameter("password")  .trim();
-			String First_Name     = request.getParameter("first_name").trim();
-			String Last_Name      = request.getParameter("last_name") .trim();
-			String Gender         = request.getParameter("sex")       .trim();
-			String Company        = request.getParameter("company")   .trim();
-			String Mobile_Number1 = request.getParameter("mobile1")   .trim();
-			String Mobile_Number2 = request.getParameter("mobile2")   .trim();
-			String Email1         = request.getParameter("email1")    .trim();
-			String Email2         = request.getParameter("email2")    .trim();
-			String Landphone1     = request.getParameter("landphone1").trim();
-			String Landphone2     = request.getParameter("landphone2").trim();
-			String Fax1           = request.getParameter("fax1")      .trim();
-			String Fax2           = request.getParameter("fax2")      .trim();
-			String Address_Line1  = request.getParameter("address1")  .trim();
-			String Address_Line2  = request.getParameter("address2")  .trim();
-			String City           = request.getParameter("city")      .trim();
-			String State          = request.getParameter("state1")    .trim();
-			String Pin            = request.getParameter("pin")       .trim();
-			String Country        = request.getParameter("country1")  .trim();
-			String Pancard        = request.getParameter("pancard")   .trim();
-			String VoterId        = request.getParameter("voterId")   .trim();
+		else if (servletPath.equals("/RegisterSeller")) {System.out.println("Entered RegisterSeller");	
 
-			String First_Name2    = "";
-			String Last_Name2     = "";
-			String Company2       = "";
-			String Mobile_Number3 = "";
-			String Address_Line3  = "";
-			String Address_Line4  = "";
-			String City2          = "";
-			String Pin2           = "";
-			String State2         = "";
-			String Country2       = "";
-			String Email3         = "";
-			
-			if(request.getParameter("checkbox")!=null) {			   
-				
-			   First_Name2    = request.getParameter("first_name2").trim();
-			   Last_Name2     = request.getParameter("last_name2") .trim();
-			   Company2       = request.getParameter("company2")   .trim();
-			   Mobile_Number3 = request.getParameter("mobile3")    .trim();
-			   Address_Line3  = request.getParameter("address3")   .trim();
-			   Address_Line4  = request.getParameter("address4")   .trim();
-			   City2          = request.getParameter("city2")      .trim();
-			   Pin2           = request.getParameter("pin2")       .trim();
-			   State2         = request.getParameter("state2")     .trim();
-			   Country2       = request.getParameter("country2")   .trim();
-			   Email3         = request.getParameter("email3")     .trim();
-			   
-			} else {
-				
-				First_Name = First_Name2;
-				Last_Name = Last_Name2;
-				Company = Company2;
-				Mobile_Number1 = Mobile_Number3;
-				Address_Line1 = Address_Line3;
-				Address_Line2 = Address_Line4;
-				City = City2;
-				Pin = Pin2;
-				State = State2;
-				Country = Country2;
-				Email1 = Email3;
-				
-			}
-			
-       		/********* Database Check ***********/
+		/*************** Get Request ***************/		
+		String User_Id        = request.getParameter("user_id")   .trim();
+		String Password       = request.getParameter("password")  .trim();
+		String First_Name     = request.getParameter("fNam")      .trim();  System.out.println("HHHHH"+First_Name);
+		String Last_Name      = request.getParameter("last_name") .trim();
+		String Gender         = request.getParameter("sex")       .trim();
+		String Company        = request.getParameter("company")   .trim();
+		String Mobile_Number1 = request.getParameter("mobile1")   .trim();
+		String Mobile_Number2 = request.getParameter("mobile2")   .trim();
+		String Email1         = request.getParameter("email1")    .trim();
+		String Email2         = request.getParameter("email2")    .trim();
+		String Landphone1     = request.getParameter("landphone1").trim();
+		String Landphone2     = request.getParameter("landphone2").trim();
+		String Fax1           = request.getParameter("fax1")      .trim();
+		String Fax2           = request.getParameter("fax2")      .trim();
+		String Address_Line1  = request.getParameter("address1")  .trim();
+		String Address_Line2  = request.getParameter("address2")  .trim();
+		String City           = request.getParameter("city")      .trim();
+		String State          = request.getParameter("state1")    .trim();
+		String Pin            = request.getParameter("pin")       .trim();
+		String Country        = request.getParameter("country1")  .trim();
+		String Pancard        = request.getParameter("pancard")   .trim();
+		String VoterId        = request.getParameter("voterId")   .trim();
 
-	        //SellerDAO sellerDAO = SellerDAO.getNewInstance();			
+		String First_Name2    = "";
+		String Last_Name2     = "";
+		String Company2       = "";
+		String Mobile_Number3 = "";
+		String Address_Line3  = "";
+		String Address_Line4  = "";
+		String City2          = "";
+		String Pin2           = "";
+		String State2         = "";
+		String Country2       = "";
+		String Email3         = "";
+		
+		if(request.getParameter("checkbox")!=null) {			   
+			
+		   First_Name2    = request.getParameter("first_name2").trim();
+		   Last_Name2     = request.getParameter("last_name2") .trim();
+		   Company2       = request.getParameter("company2")   .trim();
+		   Mobile_Number3 = request.getParameter("mobile3")    .trim();
+		   Address_Line3  = request.getParameter("address3")   .trim();
+		   Address_Line4  = request.getParameter("address4")   .trim();
+		   City2          = request.getParameter("city2")      .trim();
+		   Pin2           = request.getParameter("pin2")       .trim();
+		   State2         = request.getParameter("state2")     .trim();
+		   Country2       = request.getParameter("country2")   .trim();
+		   Email3         = request.getParameter("email3")     .trim();
+		   
+		} else {
+			
+			First_Name = First_Name2;
+			Last_Name = Last_Name2;
+			Company = Company2;
+			Mobile_Number1 = Mobile_Number3;
+			Address_Line1 = Address_Line3;
+			Address_Line2 = Address_Line4;
+			City = City2;
+			Pin = Pin2;
+			State = State2;
+			Country = Country2;
+			Email1 = Email3;
+			
+		}
+		
+   		/********* Database Check ***********/
 
-			
+        //SellerDAO sellerDAO = SellerDAO.getNewInstance();			
 
-	        boolean status = CreateUserDAO.setSellerRegistration
-	        		(User_Id, Password, First_Name, Last_Name, Gender, Company, Mobile_Number1, Mobile_Number2, 
-	        		 Email1, Email2, Landphone1, Landphone2, Fax1, Fax2, Address_Line1, Address_Line2, City, State, Pin, 
-	        		 Country, Pancard, VoterId, First_Name2, Last_Name2, Company2, Mobile_Number3, Address_Line3, 
-	        		 Address_Line4, City2, Pin2, State2, Country2, Email3);
-	        		
-	        
-	        UserDAO userDAO = new UserDAO();
-			User user       = userDAO.getUser(User_Id, Password);
+        boolean status = CreateUserDAO.setSellerRegistration
+        		(User_Id, Password, First_Name, Last_Name, Gender, Company, Mobile_Number1, Mobile_Number2, 
+        		 Email1, Email2, Landphone1, Landphone2, Fax1, Fax2, Address_Line1, Address_Line2, City, State, Pin, 
+        		 Country, Pancard, VoterId, First_Name2, Last_Name2, Company2, Mobile_Number3, Address_Line3, 
+        		 Address_Line4, City2, Pin2, State2, Country2, Email3);
+        		
+        
+        UserDAO userDAO = new UserDAO();
+		User user       = userDAO.getUser(User_Id, Password);
+		
+		/******* Set Session **********/				
+		session.setAttribute("user", user);
+		
+		if (status == true) {
 			
-			/******* Set Session **********/				
-			session.setAttribute("user", user);
-			
-			if (status == true) {
-				
-				System.out.println("registerSeller DataBase Updated"); 
-				request.getRequestDispatcher("jsp_Seller/SellerRegistration.jsp").forward(request, response);
-			}/*else{
-				System.out.println("registerSeller DataBase Not Updated"); 
-				request.getRequestDispatcher("jsp_Seller/SellerRegistration.jsp").forward(request, response);
-		}	*/
-			
+			System.out.println("registerSeller DataBase Updated"); 
+			request.getRequestDispatcher("jsp_Seller/SellerRegistration.jsp").forward(request, response);
+		}else{
+			System.out.println("registerSeller DataBase Not Updated"); 
+			request.getRequestDispatcher("jsp_Seller/SellerRegistration.jsp").forward(request, response);
+		}
+		
 	} //SellerRegistrationPage
 		
 		
