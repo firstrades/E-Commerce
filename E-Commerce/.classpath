@@ -8,11 +8,11 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/ShareProject/E-Commerce/E-Commerce/WebContent/WEB-INF/lib/commons-fileupload-1.2.jar"/>
-	<classpathentry kind="lib" path="D:/ShareProject/E-Commerce/E-Commerce/WebContent/WEB-INF/lib/javax.activation.jar"/>
-	<classpathentry kind="lib" path="D:/ShareProject/E-Commerce/E-Commerce/WebContent/WEB-INF/lib/log4j-1.2.8.jar"/>
-	<classpathentry kind="lib" path="D:/ShareProject/E-Commerce/E-Commerce/WebContent/WEB-INF/lib/mysql-connector-java-5.1.25.jar"/>
-	<classpathentry kind="lib" path="D:/ShareProject/E-Commerce/E-Commerce/WebContent/WEB-INF/lib/org.json.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-fileupload-1.2.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javax.activation.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/log4j-1.2.8.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mysql-connector-java-5.1.25.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/org.json.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/webservices-rt-2.3.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
