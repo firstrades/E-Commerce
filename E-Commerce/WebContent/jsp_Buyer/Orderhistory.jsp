@@ -13,7 +13,7 @@
 	<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />	
 	<script type="text/javascript" src="<%=FrequentUse.jQuery %>"></script>
 	<!-- Custom Theme files -->
-	<link href="css/style.css" rel='stylesheet' type='text/css' />
+	<link href="<%=FrequentUse.style %>" rel='stylesheet' type='text/css' />
 	<link href="css/order.css" rel='stylesheet' type='text/css' />
 	
 	<!-- Custom Theme files -->
@@ -135,21 +135,7 @@ font-size: 16px;
 		
 		<div id="order-section"> 
 			<div id="recent-orders-tab" class="line tmargin20">
-				<div class="fk-inf-scroll-item order physical">
-	 				<%-- <div class="line order-collapsed fk-hidden">
-	 					<div class="unit size1of5">
-	 						<strong><%=orderTableId %></strong>
-	 					</div>
-	 					<div class="unit size3of5 smallText">
-	 						How to Read a Cash Flow Statement (English) 2nd Edition, How to An... (Total: 2 items)
-	 					</div>
-	 					<div class="unit size1of6">
-	 						<span class="smallText">Order Total:</span> <strong>Rs.289</strong>
-	 					</div>
-	 					<div class="lastUnit text_right">
-	 						<a class="toggle-details" title="Show order details"></a>
-	 					</div>
-	 				</div> --%>
+				<div class="fk-inf-scroll-item order physical">	 				
 	 				<div class="line order-expanded">
 	 					<div class="unit size1of4">
 	 						<div class="orderIdBtn btn btn-medium btn-blue"><%=orderTableId %></div>
