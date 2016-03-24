@@ -16,12 +16,11 @@ public class BuyerServletHelper {
 		return new BuyerServletHelper();
 	}
 	
-	public Map<String, List<CustomerOrderHistroy>> getCustomerOrderHistroyMap(Set<String> orderTableIds, 
-			List<CustomerOrderHistroy> customerOrderHistroys) {		
+	public Map<String, List<CustomerOrderHistroy>> getCustomerOrderHistroyMap(Set<String> orderIds, List<CustomerOrderHistroy> customerOrderHistroys) {		
 		
 		Map<String, List<CustomerOrderHistroy>> map = new HashMap<>();
 		
-		for (String orderTableId : orderTableIds) {
+		for (String orderTableId : orderIds) {
 			
 			List<CustomerOrderHistroy> list = new ArrayList<>();
 			

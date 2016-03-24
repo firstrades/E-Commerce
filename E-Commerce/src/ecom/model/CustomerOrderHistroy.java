@@ -5,7 +5,7 @@ import java.io.Serializable;
 	public class CustomerOrderHistroy implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private long   id; 
+	private long   id; // order_table ID
 	private long   orderTableId;
 	private long   productId;
 	private int    qty;

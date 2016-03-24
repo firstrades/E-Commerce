@@ -1014,8 +1014,8 @@ public class BuyerSearchDAO {
 					customerOrderHistroy.setCalcellationAfterBooked(resultSet.getInt   ("calcellationAfterBooked"));
 					customerOrderHistroy.setCompanyName            (resultSet.getString("companyName"            ));
 					customerOrderHistroy.setDeliveredDate          (resultSet.getString("deliveredDate"          ));
-					customerOrderHistroy.setId                     (resultSet.getInt   ("id"                     ));
-					customerOrderHistroy.setOrderId                (resultSet.getString("orderId"                ));
+					customerOrderHistroy.setId                     (resultSet.getInt   ("id"                     )); // Order Table ID 
+					customerOrderHistroy.setOrderId                (resultSet.getString("orderId"                ));  
 					customerOrderHistroy.setOrderState             (resultSet.getString("orderState"             ));
 					customerOrderHistroy.setOrderTableId           (resultSet.getLong  ("orderTableId"           ));
 					customerOrderHistroy.setPaymentType            (resultSet.getString("paymentType"            ));

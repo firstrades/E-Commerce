@@ -508,12 +508,12 @@ public class BuyerServlet extends HttpServlet {
 			User user = (User) session.getAttribute("user");
 			
 			/******* DataBase *******/				
-			Set<String> orderTableIds                        = buyerSearchDAO.getOrderIdForCustomer  (user);		
+			Set<String> orderIds                             = buyerSearchDAO.getOrderIdForCustomer  (user);		
 			List<CustomerOrderHistroy> customerOrderHistroys = buyerSearchDAO.getCustomerOrderHistroy(user);
 			
 			/******* Process *******/	
 			//To arrange orders with same OrderTableId
-			Map<String, List<CustomerOrderHistroy>> map = helper.getCustomerOrderHistroyMap(orderTableIds, customerOrderHistroys);
+			Map<String, List<CustomerOrderHistroy>> map = helper.getCustomerOrderHistroyMap(orderIds, customerOrderHistroys);
 			
 			/********* Set Request *********/
 			request.setAttribute("map", map);
