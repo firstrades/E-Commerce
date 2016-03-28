@@ -119,7 +119,7 @@ public class SellerDAO {
 		    connection.commit();
 		    return list;
 
-        }catch (InstantiationException | IllegalAccessException
+        } catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | SQLException e) {
 			try {
 				connection.rollback();
@@ -143,6 +143,44 @@ public class SellerDAO {
         
 		return null;
 	} //getOrderTables
+	
+	
+	public boolean setItemCancelled(long orderTableId) {
+		
+		Connection connection = null; CallableStatement callableStatement = null;  
+		boolean status = false;
+        
+        try{
+        	connection = ConnectionFactory.getNewConnection();
+		    connection.setAutoCommit(false);
+		    
+		    callableStatement = connection.prepareCall("{call setItemCancelled(?,?)}");
+		    callableStatement.setLong   (1, orderTableId);
+		    callableStatement.registerOutParameter(2, Types.BOOLEAN);
+		    
+		    callableStatement.execute();
+		    
+		    status = callableStatement.getBoolean(2);   System.out.println(status);
+		   
+		    System.out.println("SQL - setItemCancelled Executed");
+		    
+		    connection.commit();
+		    return status;
+
+        } catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e) {
+			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
+			e.printStackTrace();
+			
+		} finally {
+			
+			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+			
+		}   
+        
+		return status;
+	} //setItemCancelled
 	
 
 }
