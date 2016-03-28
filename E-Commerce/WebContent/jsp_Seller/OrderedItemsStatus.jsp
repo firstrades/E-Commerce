@@ -75,6 +75,8 @@ clear: both;
 	int i = 0;
 	for (OrderTable orderTable : orderTables) { 
 	    System.out.println(orderTable.getPaymentType());
+	    
+	    if ( orderTable.getOrderState().equals("Delivered") || orderTable.getOrderState().equals("Cancelled") )  continue;
 %>
 
 	<div class="row" data-ng-controller="LoopController"> 
@@ -277,18 +279,26 @@ clear: both;
 				
 				
 				
-				<!-- -------------------  Cancel (COD)    ------------------------------ -->		
+				<!-- --------------------------  Cancel (COD)    ------------------------------------------- -->		
 				
 				<% if (orderTable.getOrderState().equals("Cancel") && orderTable.getPaymentType().equals("COD")) { %>
-				<div data-ng-init="cancelParcelCOD=true"></div>
+				<div data-ng-init="cancelParcelCOD=true; cancelledCOD=false"></div>
 				<% } else { %>
-				<div data-ng-init="cancelParcelCOD=false"></div>
+				<div data-ng-init="cancelParcelCOD=false; cancelledCOD=false"></div>
 				<% } %>
 				
 				<div class="col-md-3" style="margin-top:58px;" data-ng-show="cancelParcelCOD">
 					<a href="#" 
-						 style="padding: 9px 42px;background: linear-gradient(#d9534f, #d9534f 60%, #d9534f);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Cancel Shipment (COD)</a><br><br>
-										
+						 style="padding: 9px 42px;background: linear-gradient(#d9534f, #d9534f 60%, #d9534f);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;"
+						 data-ng-click="setCancelledCOD(<%=orderTable.getId() %>)">
+						 Cancel Shipment (COD)
+					</a><br><br>										
+				</div>	
+				<div class="col-md-3" style="margin-top:58px;" data-ng-show="cancelledCOD">
+					<a href="#" 
+						 style="padding: 9px 42px;background: linear-gradient(#d9534f, #d9534f 60%, #d9534f);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">
+						 Cancelled
+					</a><br><br>										
 				</div>				
 				
 				<!-- -------------------------------------------------------------------------------------------- -->
@@ -296,15 +306,23 @@ clear: both;
 				<!-- -------------------  Cancel (BANK)    ------------------------------------------------------ -->		
 				
 				<% if (orderTable.getOrderState().equals("Cancel") && orderTable.getPaymentType().equals("BANK")) { %>
-				<div data-ng-init="cancelParcelBANK=true"></div>
+				<div data-ng-init="cancelParcelBANK=true; cancelledBANK=false"></div>
 				<% } else { %>
-				<div data-ng-init="cancelParcelBANK=false"></div>
+				<div data-ng-init="cancelParcelBANK=false; cancelledBANK=false"></div>
 				<% } %>
 				
 				<div class="col-md-3" style="margin-top:58px;" data-ng-show="cancelParcelBANK">
-					<a href="#" 
-						 style="padding: 9px 42px;background: linear-gradient(#d9534f, #d9534f 60%, #d9534f);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Cancel Shipment (BANK)</a><br><br>
-										
+					<a href="#"  
+						 style="padding: 9px 42px;background: linear-gradient(#d9534f, #d9534f 60%, #d9534f);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;"
+						 data-ng-click="setCancelledBANK(<%=orderTable.getId() %>)">
+						 Cancel Shipment (BANK)
+					</a><br><br>										
+				</div>	
+				<div class="col-md-3" style="margin-top:58px;" data-ng-show="cancelledBANK">
+					<a href="#"  
+						 style="padding: 9px 42px;background: linear-gradient(#d9534f, #d9534f 60%, #d9534f);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">
+						 Cancelled
+					</a><br><br>										
 				</div>				
 				
 				<!-- -------------------------------------------------------------------------------------------- -->
@@ -316,7 +334,7 @@ clear: both;
 	
 
 <% 
-	i++;
+		i++;
 	} %>
 
 <!-- ---------------------        End  Loop    ------------------------------------------ -->

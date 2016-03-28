@@ -38,14 +38,14 @@ import ecom.model.User;
 public class BuyerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private BuyerServletHelper helper;
+	/*private BuyerServletHelper helper;
 	private BuyerSearchDAO     buyerSearchDAO;
 	
 	@Override
 	public void init() {
 		this.helper         = BuyerServletHelper.getNewInstance();
 		this.buyerSearchDAO = new BuyerSearchDAO();
-	}
+	}*/
   
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -507,12 +507,14 @@ public class BuyerServlet extends HttpServlet {
 			/******* Get Session ******/
 			User user = (User) session.getAttribute("user");
 			
-			/******* DataBase *******/				
+			/******* DataBase *******/		
+			BuyerSearchDAO buyerSearchDAO = new BuyerSearchDAO();
 			Set<String> orderIds                             = buyerSearchDAO.getOrderIdForCustomer  (user);		
 			List<CustomerOrderHistroy> customerOrderHistroys = buyerSearchDAO.getCustomerOrderHistroy(user);
 			
 			/******* Process *******/	
 			//To arrange orders with same OrderTableId
+			BuyerServletHelper helper = BuyerServletHelper.getNewInstance();
 			Map<String, List<CustomerOrderHistroy>> map = helper.getCustomerOrderHistroyMap(orderIds, customerOrderHistroys);
 			
 			/********* Set Request *********/
@@ -531,6 +533,7 @@ public class BuyerServlet extends HttpServlet {
 			long orderTableId = Long.parseLong(request.getParameter("orderTableId"));  //System.out.println(orderTableId);
 			
 			/***** DataBase *********/
+			BuyerSearchDAO buyerSearchDAO = new BuyerSearchDAO();
 			boolean status = buyerSearchDAO.setItemCancelOfCustomer(orderTableId);
 			
 			/***** Json value for calling page *********/

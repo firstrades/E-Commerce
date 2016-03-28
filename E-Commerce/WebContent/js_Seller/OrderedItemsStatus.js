@@ -115,6 +115,60 @@ application.controller('LoopController', function($scope, $http, $window) {
 	};
 	
 	
+	
+	
+	
+	/********************* Set Item Cancelled **************************/
+	
+	
+	$scope.setCancelledCOD = function(orderTableId) {			
+		
+		var data = $.param ({
+			orderTableId: orderTableId			
+		});
+		
+		var config = {
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8;'
+                }
+        }
+		
+		$http.post('SetItemCancelled', data, config).success(function(data) {
+			
+			if (data.cancelled) {				
+				
+				$scope.cancelParcelCOD  = false;			
+				$scope.cancelledCOD     = true;				
+			}
+		});	
+	};
+	
+	$scope.setCancelledBANK = function(orderTableId) {			
+		
+		var data = $.param ({
+			orderTableId: orderTableId			
+		});
+		
+		var config = {
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8;'
+                }
+        }
+		
+		$http.post('SetItemCancelled', data, config).success(function(data) {
+			
+			if (data.cancelled) {					
+				
+				$scope.cancelParcelBANK = false;				
+				$scope.cancelledBANK    = true;
+			}
+		});	
+	};
+	
+	
+	/********************* End Set Item Cancelled **************************/
+	
+	
 	//$window.alert(orderTableId);
 	
 	

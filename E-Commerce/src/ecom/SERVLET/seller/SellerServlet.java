@@ -487,6 +487,32 @@ public class SellerServlet extends HttpServlet {
 			response.getWriter().write(jsonObject.toString());
 			
 		} //  /GetTrackingDetails
+		
+		
+		else if (servletPath.equals("/SetItemCancelled")) {
+			
+			System.out.println("Entered SetItemCancelled");
+			
+			/********* Get Request **********/
+			
+			long orderTableId = Long.parseLong(request.getParameter("orderTableId"));	System.out.println(orderTableId);	
+			
+			/*********** Database *************/
+			SellerDAO sellerDAO = SellerDAO.getNewInstance();
+			boolean status = sellerDAO.setItemCancelled(orderTableId);	System.out.println(status);	
+			//boolean status = true;
+			
+			/************* JSON Data for Next Page ****************/
+			JSONObject jsonObject = new JSONObject();
+			
+			try {
+				jsonObject.put("cancelled", status);
+			} catch (JSONException e) {	e.printStackTrace(); }
+			
+			response.setContentType("application/json");
+			response.getWriter().write(jsonObject.toString());
+			
+		} //  /SetItemCancelled
 	}
 	
 	
