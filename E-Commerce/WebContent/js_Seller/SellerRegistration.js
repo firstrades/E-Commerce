@@ -26,20 +26,7 @@ $(function() {
 			    var Pancard        = $.trim($("#pancard")   .val());
 			    var VoterId        = $.trim($("#voterId")   .val());
 			    
-			 /* var First_Name2    = $.trim($("#first_name2").val());
-			    var Last_Name2     = $.trim($("#last_name2") .val());
-			    var Company2       = $.trim($("#company2")   .val());
-			    var Mobile_Number3 = $.trim($("#mobile3")    .val());
-			    var Address_Line3  = $.trim($("#address3")   .val());
-			    var Address_Line4  = $.trim($("#address4")   .val());
-			    var City2          = $.trim($("#city2")      .val());
-			    var Pin2           = $.trim($("#pin2")       .val());
-			    var State2         = $.trim($("#state2")     .val());
-			    var Country2       = $.trim($("#country2")   .val());
-			    var Email3         = $.trim($("#email3")     .val()); */
-			    
 			//	var First_name = $.trim($("#first_name").val());
-
 			//	var Last_name = null;
 				
 				var First_Name2    = null;
@@ -59,31 +46,52 @@ $(function() {
 	
 	  		    if (checkbox.val() == 'on') {    		 
 	                
-	  		    	First_Name2  = $.trim($("#last_name").val());
-	  		    	Last_Name2  = $.trim($("#last_name").val());
-	  		    	Company2  = $.trim($("#last_name").val());
-	  		    	Mobile_Number3  = $.trim($("#last_name").val());
-	  		    	Address_Line3 = $.trim($("#last_name").val());
-	  		    	Address_Line4 = $.trim($("#last_name").val());
-	  		    	City2  = $.trim($("#last_name").val());
-	  		    	Pin2  = $.trim($("#last_name").val());
-	  		    	State2  = $.trim($("#last_name").val());
-	  		    	Country2  = $.trim($("#last_name").val());
-	  		    	Email3  = $.trim($("#last_name").val());
+	  		    	First_Name2     = $.trim($("#first_name2").val());
+	  		    	Last_Name2      = $.trim($("#last_name2") .val());
+	  		    	Company2        = $.trim($("#company2")   .val());
+	  		    	Mobile_Number3  = $.trim($("#mobile3")    .val());
+	  		    	Address_Line3   = $.trim($("#address3")   .val());
+	  		    	Address_Line4   = $.trim($("#address4")   .val());
+	  		    	City2           = $.trim($("#city2")      .val());
+	  		    	Pin2            = $.trim($("#pin2")       .val());
+	  		    	State2          = $.trim($("#state2")     .val());
+	  		    	Country2        = $.trim($("#country2")   .val());
+	  		    	Email3          = $.trim($("#email3")     .val());
 	  		    	
 	  		    //	 Last_name  = $.trim($("#last_name").val());
 	
 	  		    }
 		  			
-		  		else{
-
-		  			 Last_name  = $.trim($("#first_name").val());
+		  		else {
+		  			
+		  			First_Name2     = $.trim($("#first_name").val());
+	  		    	Last_Name2      = $.trim($("#last_name") .val());
+	  		    	Company2        = $.trim($("#company")   .val());
+	  		    	Mobile_Number3  = $.trim($("#mobile1")   .val());
+	  		    	Address_Line3   = $.trim($("#address1")  .val());
+	  		    	Address_Line4   = $.trim($("#address1")  .val());
+	  		    	City2           = $.trim($("#city")      .val());
+	  		    	Pin2            = $.trim($("#pin")       .val());
+	  		    	State2          = $.trim($("#state1")    .val());
+	  		    	Country2        = $.trim($("#country1")  .val());
+	  		    	Email3          = $.trim($("#email1")    .val());
+	  		    	
+		  		// Last_name  = $.trim($("#first_name").val());
 
 		  		}
 		  		    
-		  		alert (" first_name "+First_name+" last_name "+Last_name);
+		  		alert (" User_id "+User_Id+" Password "+Password+" First_Name "+First_Name+" Last_Name "+Last_Name+" Company "+Company+
+		  				" First_Name2 "+First_Name2+" Last_Name2 "+Last_Name2+" Company2 "+Company2);
 		  		
-		  		var data = {fNam: First_name };
+		  		var data = {userId: User_Id, paSSworD: Password, fName1: First_Name, lName1: Last_Name, seX: Gender, companY1: Company,
+		  				    mobileNumber1: Mobile_Number1, mobileNumber2: Mobile_Number2, emaiL1: Email1, emaiL2: Email2, landPhonE1: Landphone1,
+		  				    landPhonE2: Landphone2, faX1: Fax1, faX2: Fax2, addressLine1: Address_Line1, addressLine2: Address_Line2, citY1: City, 
+		  				    statE1: State, piN1: Pin, countrY1: Country, pancarD: Pancard, voterID: VoterId,
+		  				    
+		  				    fName2: First_Name2, lName2: Last_Name2, companY2: Company2, mobileNumber3: Mobile_Number3, addressLine3: Address_Line3, 
+		  				    addressLine4: Address_Line4, citY2: City2, piN2: Pin2, statE2: State2, countrY2: Country2, emaiL3: Email3};
+		  		
+		  	//	var data = {fNam: First_name };
 		  		
 		  		$.ajax({
 		  			

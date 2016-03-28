@@ -178,31 +178,32 @@ public class Controller extends HttpServlet {
 			
 		} //SellerRegistrationPage
 		
+		
 		else if (servletPath.equals("/RegisterSeller")) {System.out.println("Entered RegisterSeller");	
 
 		/*************** Get Request ***************/		
-		String User_Id        = request.getParameter("user_id")   .trim();
-		String Password       = request.getParameter("password")  .trim();
-		String First_Name     = request.getParameter("fNam")      .trim();  System.out.println("HHHHH"+First_Name);
-		String Last_Name      = request.getParameter("last_name") .trim();
-		String Gender         = request.getParameter("sex")       .trim();
-		String Company        = request.getParameter("company")   .trim();
-		String Mobile_Number1 = request.getParameter("mobile1")   .trim();
-		String Mobile_Number2 = request.getParameter("mobile2")   .trim();
-		String Email1         = request.getParameter("email1")    .trim();
-		String Email2         = request.getParameter("email2")    .trim();
-		String Landphone1     = request.getParameter("landphone1").trim();
-		String Landphone2     = request.getParameter("landphone2").trim();
-		String Fax1           = request.getParameter("fax1")      .trim();
-		String Fax2           = request.getParameter("fax2")      .trim();
-		String Address_Line1  = request.getParameter("address1")  .trim();
-		String Address_Line2  = request.getParameter("address2")  .trim();
-		String City           = request.getParameter("city")      .trim();
-		String State          = request.getParameter("state1")    .trim();
-		String Pin            = request.getParameter("pin")       .trim();
-		String Country        = request.getParameter("country1")  .trim();
-		String Pancard        = request.getParameter("pancard")   .trim();
-		String VoterId        = request.getParameter("voterId")   .trim();
+		String User_Id        = request.getParameter("userId")       .trim();
+		String Password       = request.getParameter("paSSworD")     .trim();
+		String First_Name     = request.getParameter("fName1")       .trim();  System.out.println("HHHHH"+First_Name);
+		String Last_Name      = request.getParameter("lName1")       .trim();
+		String Gender         = request.getParameter("seX")          .trim();
+		String Company        = request.getParameter("companY1")     .trim();
+		String Mobile_Number1 = request.getParameter("mobileNumber1").trim();
+		String Mobile_Number2 = request.getParameter("mobileNumber2").trim();
+		String Email1         = request.getParameter("emaiL1")       .trim();
+		String Email2         = request.getParameter("emaiL2")       .trim();
+		String Landphone1     = request.getParameter("landPhonE1")   .trim();
+		String Landphone2     = request.getParameter("landPhonE2")   .trim();
+		String Fax1           = request.getParameter("faX1")         .trim();
+		String Fax2           = request.getParameter("faX2")         .trim();
+		String Address_Line1  = request.getParameter("addressLine1") .trim();
+		String Address_Line2  = request.getParameter("addressLine2") .trim();
+		String City           = request.getParameter("citY1")        .trim();
+		String State          = request.getParameter("statE1")       .trim();
+		String Pin            = request.getParameter("piN1")         .trim();
+		String Country        = request.getParameter("countrY1")     .trim();
+		String Pancard        = request.getParameter("pancarD")      .trim();
+		String VoterId        = request.getParameter("voterID")      .trim();
 
 		String First_Name2    = "";
 		String Last_Name2     = "";

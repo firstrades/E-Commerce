@@ -57,13 +57,13 @@
 					<label> *User Id  </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="user_id" class="form-control"  placeholder="User Id" required />
+					<input type="text" name="user_id" id="user_id" class="form-control"  placeholder="User Id" required />
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label>	*Password </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="password" name="password" class="form-control" placeholder="Password" required  value="Soumya" />
+					<input type="password" name="password" id="password" class="form-control" placeholder="Password" required />
 				</div>
 			</div>	
 			
@@ -74,13 +74,13 @@
 					<label> *First Name </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="first_name" id="first_name" class="form-control"  placeholder="Enter First Name" required value="Soumya"/>
+					<input type="text" name="first_name" id="first_name" class="form-control"  placeholder="Enter First Name" required />
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label>	*Last Name </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="last_name" id="last_name1" class="form-control" placeholder="Enter Last Name"  required  value="Soumya"/>
+					<input type="text" name="last_name" id="last_name" class="form-control" placeholder="Enter Last Name"  required />
 				</div>
 			</div>		
 
@@ -100,7 +100,7 @@
 					<label>	*Company  </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="company" class="form-control" placeholder="Enter Company Name"  required  value="Soumya"/>
+					<input type="text" name="company" id="company" class="form-control" placeholder="Enter Company Name"  required />
 				</div>
 			</div>	
 
@@ -110,13 +110,13 @@
 					<label> *Mobile Number 1 </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="mobile1" class="form-control"  placeholder="Enter Mobile Number 1" required value="5555555555"/>
+					<input type="text" name="mobile1" class="form-control"  id="mobile1" placeholder="Enter Mobile Number 1" required />
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label>	Mobile Number 2 </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="mobile2" class="form-control" placeholder="Enter Mobile Number 2" value="5555555555" />
+					<input type="text" name="mobile2" class="form-control" id="mobile2" placeholder="Enter Mobile Number 2" />
 				</div>
 			</div>	
 
@@ -127,13 +127,13 @@
 					<label> *E-mail 1 </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="email1" class="form-control"  placeholder="Enter E-mail Id 1" required value="Soumya5555555555"/>
+					<input type="text" name="email1" class="form-control"  id="email1" placeholder="Enter E-mail Id 1" required />
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label>	E-mail 2 </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="email2" class="form-control" placeholder="Enter E-mail Id 2"   />
+					<input type="text" name="email2" class="form-control" id="email2" placeholder="Enter E-mail Id 2"   />
 				</div>
 			</div>	
 			
@@ -144,13 +144,13 @@
 					<label> *Landphone 1 </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="landphone1" class="form-control" placeholder="Enter Landphone Number 1" required value="Soumya5555555555"/>
+					<input type="text" name="landphone1" class="form-control" id="landphone1" placeholder="Enter Landphone Number 1" required />
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label>	Landphone 2 </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="landphone2" class="form-control" placeholder="Enter Landphone Number 2"  />
+					<input type="text" name="landphone2" class="form-control" id="landphone2" placeholder="Enter Landphone Number 2"  />
 				</div>
 			</div>	
 			
@@ -160,13 +160,13 @@
 					<label> Fax 1 </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="fax1" class="form-control" placeholder="Enter Fax  Number 1"  />
+					<input type="text" name="fax1" class="form-control" id="fax1" placeholder="Enter Fax  Number 1"  />
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label>	Fax 2 </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="fax2" class="form-control" placeholder="Enter Fax Number 2"  />
+					<input type="text" name="fax2" class="form-control" id="fax2" placeholder="Enter Fax Number 2"  />
 				</div>
 			</div>			
 			
@@ -177,13 +177,13 @@
 					<label>*Address Line 1 </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="address1" class="form-control"  placeholder="Enter Address 1" required value="Soumya5555555555"/>
+					<input type="text" name="address1" class="form-control" id="address1" placeholder="Enter Address 1" required />
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label>	Address Line 2 </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="address2" class="form-control" placeholder="Enter Address 2"  />
+					<input type="text" name="address2" class="form-control" id="address2" placeholder="Enter Address 2"  />
 				</div>
 			</div>	
 			
@@ -193,13 +193,13 @@
 					<label>*City </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="city" class="form-control"  placeholder="Enter City" required value="Soumya5555555555"/>
+					<input type="text" name="city" class="form-control" id="city" placeholder="Enter City" required />
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label> *State </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<select name="state1" id="state1" class="form-control" required  value="Soumya5555555555">
+					<select name="state1" id="state1" class="form-control" required >
 						<option value="null">---Select State---</option>
 						
 						
@@ -285,7 +285,7 @@
 					<label>*Pin </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="pin" class="form-control"  placeholder="Enter Pin" required value="Soumya5555555555"/>
+					<input type="text" name="pin" class="form-control"  id="pin" placeholder="Enter Pin" required />
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label> Country </label>
@@ -303,13 +303,13 @@
 					<label> Pan card </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="pancard" class="form-control"  placeholder="Enter Pan card"  />
+					<input type="text" name="pancard" class="form-control" id="pancard" placeholder="Enter Pan card"  />
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label>	Voter id </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="voterId" class="form-control" placeholder="Enter Voter id"   />
+					<input type="text" name="voterId" class="form-control" id="voterId" placeholder="Enter Voter id"   />
 				</div>
 			</div>	
 			
@@ -374,13 +374,13 @@
 							<label>*First Name  </label>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
-							<input type="text" name="first_name2" class="form-control" placeholder="Enter First Name" required value="Soumya5555555555"/>
+							<input type="text" name="first_name2" class="form-control" id="first_name2" placeholder="Enter First Name" required />
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
 							<label>	*Last Name</label>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
-							<input type="text" name="last_name2" id="last_name" class="form-control" placeholder="Enter Last Name"  required  />
+							<input type="text" name="last_name2" class="form-control" id="last_name2" placeholder="Enter Last Name"  required />
 						</div>
 					</div>	
 					
@@ -391,13 +391,13 @@
 							<label>*Company  </label>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
-							<input type="text" name="company2" class="form-control"  placeholder="Enter Company Name" required value="Soumya5555555555"/>
+							<input type="text" name="company2" class="form-control" id="company2"  placeholder="Enter Company Name" required />
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
 							<label>	*Mobile Number</label>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
-							<input type="text" name="mobile3" class="form-control" placeholder="Enter Mobile Number"  required value="Soumya5555555555"/>
+							<input type="text" name="mobile3" class="form-control" id="mobile3" placeholder="Enter Mobile Number"  required />
 						</div>
 					</div>	
 					
@@ -408,13 +408,13 @@
 							<label>*Address Line 1 </label>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
-							<input type="text" name="address3" class="form-control"  placeholder="Enter Address 1" required value="Soumya5555555555"/>
+							<input type="text" name="address3" class="form-control" id="address3" placeholder="Enter Address 1" required />
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
 							<label>	Address Line 2</label>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
-							<input type="text" name="address4" class="form-control" placeholder="Enter Address 2"   />
+							<input type="text" name="address4" class="form-control" id="address4" placeholder="Enter Address 2" />
 						</div>
 					</div>	
 					
@@ -425,13 +425,13 @@
 							<label>*City  </label>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
-							<input type="text" name="city2" class="form-control"  placeholder="Enter City" required value="Soumya5555555555"/>
+							<input type="text" name="city2" class="form-control" id="city2" placeholder="Enter City" required />
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
 							<label>*Pin </label>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
-							<input type="text" name="pin2" class="form-control" placeholder="Enter Pin"  required  value="Soumya5555555555"/>
+							<input type="text" name="pin2" class="form-control" id="pin2" placeholder="Enter Pin"  required />
 						</div>
 					</div>	
 					
@@ -535,7 +535,7 @@
 							<label>*Email  </label>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
-							<input type="text" name="email3" class="form-control"  placeholder="Enter E-mail Id" required value="Soumya5555555555"/>
+							<input type="text" name="email3" class="form-control" id="email3" placeholder="Enter E-mail Id" required />
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
 							<label>	Demo----</label>
