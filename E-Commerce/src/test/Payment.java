@@ -40,8 +40,7 @@ class Payment {
         conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
         conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
         conn.setDoOutput(true);
-        conn.getOutputStream().write(postDataBytes);
-        
+        conn.getOutputStream().write(postDataBytes);        
         
         
         // Return

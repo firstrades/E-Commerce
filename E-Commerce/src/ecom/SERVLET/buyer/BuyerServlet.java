@@ -31,6 +31,7 @@ import ecom.beans.CartAttributesBean;
 import ecom.beans.ApiDataMultiThreadBean;
 import ecom.beans.TransientData;
 import ecom.model.CustomerOrderHistroy;
+import ecom.model.DeliveryAddress;
 import ecom.model.ProductBean;
 import ecom.model.TwoObjects;
 import ecom.model.User;
@@ -551,6 +552,47 @@ public class BuyerServlet extends HttpServlet {
 			response.getWriter().write(jsonObject.toString());
 			
 		} //CancelOrderFromCustomer
+		
+		else if(servletPath.equals("/GetDeliveryAddressCustomer")) {
+			
+			System.out.println("Enter GetDeliveryAddressCustomer");
+			
+			/************* Get Request ***************/
+			long userId = Long.parseLong(request.getParameter("userId"));  
+			
+			/************* Get Session ***************/
+			User user = (User) session.getAttribute("user");
+			
+			/*********** Database ************/
+			BuyerSearchDAO buyerSearchDAO = new BuyerSearchDAO();
+			DeliveryAddress deliveryAddress = buyerSearchDAO.getDeliveryAddressCustomer(user, userId);
+			
+			/********* Json Data for Next Page **********/
+			JSONObject jsonObject = new JSONObject();
+			
+			try {
+				jsonObject.put("address",    deliveryAddress.getAddress() );
+				jsonObject.put("address1",   deliveryAddress.getAddress1());
+				jsonObject.put("city",       deliveryAddress.getCity()    );
+				jsonObject.put("company",    deliveryAddress.getCompany() );
+				jsonObject.put("contact",    deliveryAddress.getContact() );
+				jsonObject.put("country",    deliveryAddress.getCountry() );
+				jsonObject.put("email",      deliveryAddress.getEmail()   );
+				jsonObject.put("firstName", deliveryAddress.getfName()   );
+				jsonObject.put("id",         deliveryAddress.getId()      );
+				jsonObject.put("lastName",  deliveryAddress.getlName()   );
+				jsonObject.put("pin",        deliveryAddress.getPin()     );
+				jsonObject.put("state",      deliveryAddress.getState()   );
+				jsonObject.put("userId",     deliveryAddress.getUserId()  );
+			} catch (JSONException e) {				
+				e.printStackTrace();
+			}
+			
+			response.setContentType("application/json");
+			response.getWriter().write(jsonObject.toString());
+			
+			
+		} // GetDeliveryAddressCustomer
 		
 	}
 }

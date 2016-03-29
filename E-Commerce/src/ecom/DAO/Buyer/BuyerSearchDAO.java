@@ -14,6 +14,7 @@ import java.util.Set;
 import ecom.common.ConnectionFactory;
 import ecom.model.CartWishlist;
 import ecom.model.CustomerOrderHistroy;
+import ecom.model.DeliveryAddress;
 import ecom.model.KeyFeatures;
 import ecom.model.Order;
 import ecom.model.Price;
@@ -1150,4 +1151,60 @@ public class BuyerSearchDAO {
 		return status;
 		
 	} //setItemCancelOfCustomer
+	
+	public DeliveryAddress getDeliveryAddressCustomer(User user, long userId) {
+		
+		Connection connection = null; CallableStatement callableStatement = null; ResultSet resultSet = null;  
+	    
+		String sql = "{call getDeliveryAddressCustomer(?)}";	
+		
+		DeliveryAddress deliveryAddress = new DeliveryAddress();
+		
+		try {
+				connection = ConnectionFactory.getNewConnection();
+				connection.setAutoCommit(false);
+				
+				callableStatement = connection.prepareCall(sql);
+				
+				callableStatement.setLong(1, user.getUserInfo().getId());					
+										
+				resultSet = callableStatement.executeQuery();
+				
+				while(resultSet.next()) {
+					
+					deliveryAddress.setAddress    (resultSet.getString("address"   ));
+					deliveryAddress.setAddress1   (resultSet.getString("address1"  ));
+					deliveryAddress.setCity       (resultSet.getString("city"      ));
+					deliveryAddress.setCompany    (resultSet.getString("company"   ));
+					deliveryAddress.setContact    (resultSet.getString("contact"   ));
+					deliveryAddress.setCountry    (resultSet.getString("country"   ));
+					deliveryAddress.setEmail      (resultSet.getString("email"     ));
+					deliveryAddress.setfName      (resultSet.getString("first_name"));
+					deliveryAddress.setId         (resultSet.getLong  ("id"        ));
+					deliveryAddress.setlName      (resultSet.getString("last_name" ));
+					deliveryAddress.setPin        (resultSet.getString("pin"       ));
+					deliveryAddress.setState      (resultSet.getString("state"     ));
+					deliveryAddress.setUserId     (resultSet.getLong  ("user_id"   ));
+				}
+				
+				connection.commit();
+				callableStatement.close();
+				
+				System.out.println("SQL - Select getDeliveryAddressCustomer() successfull.");
+				
+				return deliveryAddress;
+				
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e) {			
+			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
+			e.printStackTrace();
+			
+		} finally {				
+			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
+			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+		}	
+		
+		return null;
+	}//getDeliveryAddressCustomer
 }

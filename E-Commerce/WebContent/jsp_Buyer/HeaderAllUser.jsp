@@ -30,7 +30,7 @@
 		<div class="header">
 			<div class="head-t">
 				<div class="logo">
-					<a href="index.html"> <img src="images/logoFirstTrade.png" /> </a>
+					<a href="index.jsp"> <img src="images/logoFirstTrade.png" /> </a>
 				</div>
 				<!-- start header_right -->
 				<div class="header_right">

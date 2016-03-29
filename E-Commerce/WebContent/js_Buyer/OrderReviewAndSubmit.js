@@ -45,6 +45,32 @@ $(function() {
 	
 	$('#changeAddress').click(function() {
 		
+		/************* Get Delivery Address From Database ************/
+		var userId = $('#userId').html();  
+		
+		$.getJSON( "GetDeliveryAddressCustomer", { userId: userId } )
+		  .done(function( data ) {
+		    
+			  $('input[name=fName]')   .val(data.firstName);
+			  $('input[name=lName]')   .val(data.lastName );
+			  $('input[name=pincode]') .val(data.pin      );
+			  $('textarea#address')    .val(data.address  );
+			  $('textarea#address1')   .val(data.address1 );
+			  $('input[name=city]')    .val(data.city     );
+			  //$('input[name=state]')   .val(data.state    );
+			  $('input[name=contact]') .val(data.contact  );	
+			  $('input[name=contact]') .val(data.contact  );
+			  $('input[name=contact]') .val(data.contact  );
+			  
+		  })
+		  .fail(function() {
+		   
+		});
+		
+		
+		
+		/*************************************************************/
+		
 		$('#changeLogin').attr('disabled','disabled');
 		
 		$('#deliverySummary').css('display', 'none');
@@ -114,14 +140,18 @@ $(function() {
 		    processData: false,
 		    success: function (data) {	    	
 		    	
-		    	$("#fullName")   .html(data.fName + " " + data.lName  ); 
-		    	$("#fullAddress").html(data.address                   );  
-		    	$("#fullAddress1").html(data.address1                   );
-		    	$("#pinCity")    .html(data.pincode + ", " + data.city);  
-		    	$("#fullState")  .html(data.state                     );  
-		    	$("#fullContact").html(data.contact                   );
+		    	$("#fullName")    .html(data.fName + " " + data.lName  ); 
+		    	$("#fullAddress") .html(data.address                   );  
+		    	$("#fullAddress1").html(data.address1                  );
+		    	$("#pinCity")     .html(data.pincode + ", " + data.city);  
+		    	$("#fullState")   .html(data.state                     );  
+		    	$("#fullContact") .html(data.contact                   );
 		    	
 		    	$("#dialog1").fadeOut(100);
+		    	
+		    	$('#name1').html(data.fName + " " + data.lName);
+		    	$('#contact1').html(data.contact);
+		    	$('#address1').html(data.address + " " + data.address1 + " " + data.city + " - " + data.pincode + ", " + data.state);
 		    	
 		    },
 		  	error: function() {

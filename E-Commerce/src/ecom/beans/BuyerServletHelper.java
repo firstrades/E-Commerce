@@ -3,7 +3,7 @@ package ecom.beans;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,7 +18,7 @@ public class BuyerServletHelper {
 	
 	public Map<String, List<CustomerOrderHistroy>> getCustomerOrderHistroyMap(Set<String> orderIds, List<CustomerOrderHistroy> customerOrderHistroys) {		
 		
-		Map<String, List<CustomerOrderHistroy>> map = new HashMap<>();
+		Map<String, List<CustomerOrderHistroy>> map = new LinkedHashMap<>();  // no order
 		
 		for (String orderTableId : orderIds) {
 			
