@@ -8,7 +8,7 @@
     	<div class="container">
 		<!-- start header menu -->
 			<ul class="megamenu skyblue">
-				<li class="active grid"><a class="color1" href="index.html">HOME</a>
+				<li class="active grid"><a class="color1" href="index.jsp">HOME</a>
 				<li class="grid"><a class="color1" href="#">ELECTRONICS</a>
 					<div class="megapanel">
 						<div class="row">
