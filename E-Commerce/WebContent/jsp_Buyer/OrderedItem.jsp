@@ -407,7 +407,7 @@ List<OrderedItems> orderedItemsList = (List<OrderedItems>) request.getAttribute(
 	                	<!-- Column 3 -->
 	                	<td width="40%" class="vtop item-shipment"> Standard Delivery <span class=""> by <span class="date">Tue, 16th Feb</span> <a class="js-sla-msg ques-mark"></a> </span></td>
 	                	<!-- Column 4 -->
-	                	<td width="20%" class="vtop item-details"><span class="fk-label boldtext">Rs. <%=orderedItems.getSellPriceWithShipping() %></span> <a id="priceInfoLink813661">[?]</a></td>
+	                	<td width="20%" class="vtop item-details"><span class="fk-label boldtext">Rs. <%=orderedItems.getSellPriceWithShipping() * orderedItems.getQty() %></span> <a id="priceInfoLink813661">[?]</a></td>
 	  				</tr>
 		            <tr class="buttons_row last">
 		                <td colspan="3"><div class="button_container"></div></td>

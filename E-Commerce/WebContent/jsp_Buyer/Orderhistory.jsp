@@ -213,7 +213,7 @@ font-size: 16px;
 	 								<p class="smallText tmargin10">Qty: <%=customerOrderHistroy.getQty() %> </p>
 	 							</div>
 	 							<div class="unit size1of6">
-	 								<div class="lpadding10">Rs. <%=customerOrderHistroy.getSellPrice() +  customerOrderHistroy.getShippingCost()%> </div>
+	 								<div class="lpadding10">Rs. <%=(customerOrderHistroy.getSellPrice() +  customerOrderHistroy.getShippingCost()) * customerOrderHistroy.getQty() %> </div>
 	
 	 							</div>
 	 							<div class="unit size2of7">
