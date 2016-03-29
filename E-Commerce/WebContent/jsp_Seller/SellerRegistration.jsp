@@ -8,6 +8,7 @@
 	<title>Seller Registration Page</title>
 	
     <script type="text/javascript" src="<%=FrequentUse.jQuery %>"></script>
+	<!-- <script type="text/javascript" src="js_Seller/SellerRegistration5.js"></script> -->
 	<script type="text/javascript" src="js_Seller/SellerRegistration.js"></script>
 	<link href="<%=FrequentUse.style %>" rel='stylesheet' type='text/css' />
 	<link type="text/css" href="css/bootstrap.css" rel="stylesheet">
@@ -57,13 +58,13 @@
 					<label> *User Id  </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="user_id" id="user_id" class="form-control"  placeholder="User Id" required />
+					<input type="text" name="user_id" id="user_id" class="form-control"  placeholder="User Id" required value="Jewel888"/>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label>	*Password </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="password" name="password" id="password" class="form-control" placeholder="Password" required />
+					<input type="password" name="password" id="password" class="form-control" placeholder="Password" required value = "hh55h" />
 				</div>
 			</div>	
 			
@@ -80,7 +81,7 @@
 					<label>	*Last Name </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="last_name" id="last_name" class="form-control" placeholder="Enter Last Name"  required />
+					<input type="text" name="last_name" id="last_name88" class="form-control" placeholder="Enter Last Name"  required value = "Paul"/>
 				</div>
 			</div>		
 
@@ -100,7 +101,7 @@
 					<label>	*Company  </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="company" id="company" class="form-control" placeholder="Enter Company Name"  required />
+					<input type="text" name="company" id="company" class="form-control" placeholder="Enter Company Name"  required value = "SkyPoint"/>
 				</div>
 			</div>	
 
@@ -110,13 +111,13 @@
 					<label> *Mobile Number 1 </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="mobile1" class="form-control"  id="mobile1" placeholder="Enter Mobile Number 1" required />
+					<input type="text" name="mobile1" class="form-control"  id="mobile1" placeholder="Enter Mobile Number 1" required value="9836965305" />
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label>	Mobile Number 2 </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="mobile2" class="form-control" id="mobile2" placeholder="Enter Mobile Number 2" />
+					<input type="text" name="mobile2" class="form-control" id="mobile2" placeholder="Enter Mobile Number 2" value="9836965305" />
 				</div>
 			</div>	
 
@@ -127,13 +128,13 @@
 					<label> *E-mail 1 </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="email1" class="form-control"  id="email1" placeholder="Enter E-mail Id 1" required />
+					<input type="text" name="email1" class="form-control"  id="email1" placeholder="Enter E-mail Id 1" required value="Soumya.Skypoint@gmail.com"/>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label>	E-mail 2 </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="email2" class="form-control" id="email2" placeholder="Enter E-mail Id 2"   />
+					<input type="text" name="email2" class="form-control" id="email2" placeholder="Enter E-mail Id 2"  value="Soumya.Skypoint888@gmail.com" />
 				</div>
 			</div>	
 			
@@ -144,13 +145,13 @@
 					<label> *Landphone 1 </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="landphone1" class="form-control" id="landphone1" placeholder="Enter Landphone Number 1" required />
+					<input type="text" name="landphone1" class="form-control" id="landphone1" placeholder="Enter Landphone Number 1" required value = "033-25338888"/>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label>	Landphone 2 </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="landphone2" class="form-control" id="landphone2" placeholder="Enter Landphone Number 2"  />
+					<input type="text" name="landphone2" class="form-control" id="landphone2" placeholder="Enter Landphone Number 2"  value = "033-25335888"/>
 				</div>
 			</div>	
 			
@@ -177,7 +178,7 @@
 					<label>*Address Line 1 </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="address1" class="form-control" id="address1" placeholder="Enter Address 1" required />
+					<input type="text" name="address1" class="form-control" id="address1" placeholder="Enter Address 1" required value="5/55, M.G.Road"/>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label>	Address Line 2 </label>
@@ -193,7 +194,7 @@
 					<label>*City </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="city" class="form-control" id="city" placeholder="Enter City" required />
+					<input type="text" name="city" class="form-control" id="city" placeholder="Enter City" required value="Kolkata"/>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label> *State </label>
@@ -285,7 +286,7 @@
 					<label>*Pin </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="pin" class="form-control"  id="pin" placeholder="Enter Pin" required />
+					<input type="text" name="pin" class="form-control"  id="pin" placeholder="Enter Pin" required value="700088"/>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label> Country </label>
@@ -380,7 +381,7 @@
 							<label>	*Last Name</label>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
-							<input type="text" name="last_name2" class="form-control" id="last_name2" placeholder="Enter Last Name"  required />
+							<input type="text" name="last_name" class="form-control" id="last_name" placeholder="Enter Last Name"  required />
 						</div>
 					</div>	
 					

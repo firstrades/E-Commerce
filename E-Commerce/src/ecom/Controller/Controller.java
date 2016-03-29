@@ -179,10 +179,14 @@ public class Controller extends HttpServlet {
 		} //SellerRegistrationPage
 		
 		
-		else if (servletPath.equals("/RegisterSeller")) {System.out.println("Entered RegisterSeller");	
+		else if (servletPath.equals("/RegisterSeller")) {
+			
+			System.out.println("Entered RegisterSeller");	
 
-		/*************** Get Request ***************/		
-		String User_Id        = request.getParameter("userId")       .trim();
+		String First_Name     = request.getParameter("fName1");  System.out.println("HHHHH"+First_Name);
+		//String Last_Name      = request.getParameter("lName1")       .trim();
+
+	/*	String User_Id        = request.getParameter("userId")       .trim();   System.out.println("HHHHH"+User_Id);
 		String Password       = request.getParameter("paSSworD")     .trim();
 		String First_Name     = request.getParameter("fName1")       .trim();  System.out.println("HHHHH"+First_Name);
 		String Last_Name      = request.getParameter("lName1")       .trim();
@@ -205,7 +209,20 @@ public class Controller extends HttpServlet {
 		String Pancard        = request.getParameter("pancarD")      .trim();
 		String VoterId        = request.getParameter("voterID")      .trim();
 
-		String First_Name2    = "";
+		
+		String First_Name2    = request.getParameter("fName2")       .trim();
+		String Last_Name2     = request.getParameter("lName2")       .trim();
+		String Company2       = request.getParameter("companY2")     .trim();
+		String Mobile_Number3 = request.getParameter("mobileNumber3").trim();
+		String Address_Line3  = request.getParameter("addressLine3") .trim();
+	    String Address_Line4  = request.getParameter("addressLine4") .trim();
+	    String City2          = request.getParameter("citY2")        .trim();
+	    String Pin2           = request.getParameter("piN2")         .trim();
+	    String State2         = request.getParameter("statE2")       .trim();
+	    String Country2       = request.getParameter("countrY2")     .trim();
+	    String Email3         = request.getParameter("emaiL3")       .trim();*/
+	
+	/*  String First_Name2    = "";
 		String Last_Name2     = "";
 		String Company2       = "";
 		String Mobile_Number3 = "";
@@ -245,13 +262,13 @@ public class Controller extends HttpServlet {
 			Country = Country2;
 			Email1 = Email3;
 			
-		}
+		}*/
 		
    		/********* Database Check ***********/
 
         //SellerDAO sellerDAO = SellerDAO.getNewInstance();			
 
-        boolean status = CreateUserDAO.setSellerRegistration
+    /*    boolean status = CreateUserDAO.setSellerRegistration
         		(User_Id, Password, First_Name, Last_Name, Gender, Company, Mobile_Number1, Mobile_Number2, 
         		 Email1, Email2, Landphone1, Landphone2, Fax1, Fax2, Address_Line1, Address_Line2, City, State, Pin, 
         		 Country, Pancard, VoterId, First_Name2, Last_Name2, Company2, Mobile_Number3, Address_Line3, 
@@ -259,10 +276,10 @@ public class Controller extends HttpServlet {
         		
         
         UserDAO userDAO = new UserDAO();
-		User user       = userDAO.getUser(User_Id, Password);
+		User user       = userDAO.getUser(User_Id, Password);*/
 		
 		/******* Set Session **********/				
-		session.setAttribute("user", user);
+	/*	session.setAttribute("user", user);
 		
 		if (status == true) {
 			
@@ -271,7 +288,7 @@ public class Controller extends HttpServlet {
 		}else{
 			System.out.println("registerSeller DataBase Not Updated"); 
 			request.getRequestDispatcher("jsp_Seller/SellerRegistration.jsp").forward(request, response);
-		}
+		}*/
 		
 	} //SellerRegistrationPage
 		
