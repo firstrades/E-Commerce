@@ -495,11 +495,11 @@ public class SellerServlet extends HttpServlet {
 			
 			/********* Get Request **********/
 			
-			long orderTableId = Long.parseLong(request.getParameter("orderTableId"));	System.out.println(orderTableId);	
+			long orderTableId = Long.parseLong(request.getParameter("orderTableId"));	
 			
 			/*********** Database *************/
 			SellerDAO sellerDAO = SellerDAO.getNewInstance();
-			boolean status = sellerDAO.setItemCancelled(orderTableId);	System.out.println(status);	
+			boolean status = sellerDAO.setItemCancelled(orderTableId);	
 			//boolean status = true;
 			
 			/************* JSON Data for Next Page ****************/
