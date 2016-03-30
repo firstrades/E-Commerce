@@ -304,10 +304,10 @@ public class CreateUserDAO {
 			callableStatement.setString(6, Company        );
 			callableStatement.setString(7, Mobile_Number1 );
 			callableStatement.setString(8, Mobile_Number2 );
-			callableStatement.setString(9, Email1         );
-			callableStatement.setString(10, Email2        );
-			callableStatement.setString(11, Landphone1    );
-			callableStatement.setString(12, Landphone2    );
+			callableStatement.setString(9, Landphone1     );
+			callableStatement.setString(10, Landphone2    );
+			callableStatement.setString(11, Email1        );
+			callableStatement.setString(12, Email2        );
 			callableStatement.setString(13, Fax1          );
 			callableStatement.setString(14, Fax2          );
 			callableStatement.setString(15, Address_Line1 );
@@ -371,7 +371,9 @@ public class CreateUserDAO {
 		// TODO Auto-generated method stub
 		
     @SuppressWarnings("unused")
-	boolean sellerDAOSSS = CreateUserDAO.setSellerRegistration("HHH55", "HHH55", "HHH55", "HHH55", "FEMALE", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55");
+	boolean sellerDAOSSS = CreateUserDAO.setSellerRegistration("HHH55", "HHH55", "HHH55", "HHH55", "FEMALE", "HHH55", "HHH55", 
+"HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", 
+"HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55");
     System.out.println("sellerDAOSSS");
 	}
 	

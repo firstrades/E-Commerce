@@ -183,21 +183,21 @@ public class Controller extends HttpServlet {
 			
 			System.out.println("Entered RegisterSeller");	
 
-		String First_Name     = request.getParameter("fName1");  System.out.println("HHHHH"+First_Name);
+		//String First_Name     = request.getParameter("fName1");  System.out.println("HHHHH"+First_Name);
 		//String Last_Name      = request.getParameter("lName1")       .trim();
 
-	/*	String User_Id        = request.getParameter("userId")       .trim();   System.out.println("HHHHH"+User_Id);
-		String Password       = request.getParameter("paSSworD")     .trim();
-		String First_Name     = request.getParameter("fName1")       .trim();  System.out.println("HHHHH"+First_Name);
+		String User_Id        = request.getParameter("userId")       .trim();   //System.out.println("HHHHH"+User_Id);
+		String Password       = request.getParameter("paSSworD")     .trim();    
+		String First_Name     = request.getParameter("fName1")       .trim();   //System.out.println("HHHHH"+First_Name);
 		String Last_Name      = request.getParameter("lName1")       .trim();
 		String Gender         = request.getParameter("seX")          .trim();
 		String Company        = request.getParameter("companY1")     .trim();
-		String Mobile_Number1 = request.getParameter("mobileNumber1").trim();
-		String Mobile_Number2 = request.getParameter("mobileNumber2").trim();
+		String Mobile_Number1 = request.getParameter("mobileNumber1").trim();    //System.out.println("HHHHH"+Mobile_Number1);
+		String Mobile_Number2 = request.getParameter("mobileNumber2").trim(); 
 		String Email1         = request.getParameter("emaiL1")       .trim();
 		String Email2         = request.getParameter("emaiL2")       .trim();
-		String Landphone1     = request.getParameter("landPhonE1")   .trim();
-		String Landphone2     = request.getParameter("landPhonE2")   .trim();
+		String Landphone1     = request.getParameter("landPhonE1")   .trim();    //System.out.println("HHHHH"+Landphone1);
+		String Landphone2     = request.getParameter("landPhonE2")   .trim();    //System.out.println("HHHHH"+Landphone2);
 		String Fax1           = request.getParameter("faX1")         .trim();
 		String Fax2           = request.getParameter("faX2")         .trim();
 		String Address_Line1  = request.getParameter("addressLine1") .trim();
@@ -220,7 +220,7 @@ public class Controller extends HttpServlet {
 	    String Pin2           = request.getParameter("piN2")         .trim();
 	    String State2         = request.getParameter("statE2")       .trim();
 	    String Country2       = request.getParameter("countrY2")     .trim();
-	    String Email3         = request.getParameter("emaiL3")       .trim();*/
+	    String Email3         = request.getParameter("emaiL3")       .trim();
 	
 	/*  String First_Name2    = "";
 		String Last_Name2     = "";
@@ -268,7 +268,7 @@ public class Controller extends HttpServlet {
 
         //SellerDAO sellerDAO = SellerDAO.getNewInstance();			
 
-    /*    boolean status = CreateUserDAO.setSellerRegistration
+        boolean status = CreateUserDAO.setSellerRegistration
         		(User_Id, Password, First_Name, Last_Name, Gender, Company, Mobile_Number1, Mobile_Number2, 
         		 Email1, Email2, Landphone1, Landphone2, Fax1, Fax2, Address_Line1, Address_Line2, City, State, Pin, 
         		 Country, Pancard, VoterId, First_Name2, Last_Name2, Company2, Mobile_Number3, Address_Line3, 
@@ -276,10 +276,10 @@ public class Controller extends HttpServlet {
         		
         
         UserDAO userDAO = new UserDAO();
-		User user       = userDAO.getUser(User_Id, Password);*/
+		User user       = userDAO.getUser(User_Id, Password);
 		
 		/******* Set Session **********/				
-	/*	session.setAttribute("user", user);
+		session.setAttribute("user", user);
 		
 		if (status == true) {
 			
@@ -288,7 +288,7 @@ public class Controller extends HttpServlet {
 		}else{
 			System.out.println("registerSeller DataBase Not Updated"); 
 			request.getRequestDispatcher("jsp_Seller/SellerRegistration.jsp").forward(request, response);
-		}*/
+		}
 		
 	} //SellerRegistrationPage
 		

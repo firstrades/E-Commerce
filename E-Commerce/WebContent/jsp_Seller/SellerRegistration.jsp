@@ -8,7 +8,6 @@
 	<title>Seller Registration Page</title>
 	
     <script type="text/javascript" src="<%=FrequentUse.jQuery %>"></script>
-	<!-- <script type="text/javascript" src="js_Seller/SellerRegistration5.js"></script> -->
 	<script type="text/javascript" src="js_Seller/SellerRegistration.js"></script>
 	<link href="<%=FrequentUse.style %>" rel='stylesheet' type='text/css' />
 	<link type="text/css" href="css/bootstrap.css" rel="stylesheet">
@@ -75,13 +74,13 @@
 					<label> *First Name </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="first_name" id="first_name" class="form-control"  placeholder="Enter First Name" required />
+					<input type="text" name="first_name" id="first_name1" class="form-control"  placeholder="Enter First Name" required />
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label>	*Last Name </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="last_name" id="last_name88" class="form-control" placeholder="Enter Last Name"  required value = "Paul"/>
+					<input type="text" name="last_name1" class="form-control" id="last_name1" placeholder="Enter Last Name"  required value = "Paul"/>
 				</div>
 			</div>		
 
@@ -101,7 +100,7 @@
 					<label>	*Company  </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="company" id="company" class="form-control" placeholder="Enter Company Name"  required value = "SkyPoint"/>
+					<input type="text" name="company1" id="company1" class="form-control" placeholder="Enter Company Name"  required value = "SkyPoint"/>
 				</div>
 			</div>	
 
@@ -381,7 +380,7 @@
 							<label>	*Last Name</label>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
-							<input type="text" name="last_name" class="form-control" id="last_name" placeholder="Enter Last Name"  required />
+							<input type="text" name="last_name2" class="form-control" id="last_name2" placeholder="Enter Last Name"  required />
 						</div>
 					</div>	
 					
@@ -392,7 +391,7 @@
 							<label>*Company  </label>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
-							<input type="text" name="company2" class="form-control" id="company2"  placeholder="Enter Company Name" required />
+							<input type="text" name="company2" class="form-control" id="company2"  placeholder="Enter Company Name" required value="Heritage"/>
 						</div>
 						<div class="col-md-3 col-sm-6 col-xs-12">
 							<label>	*Mobile Number</label>

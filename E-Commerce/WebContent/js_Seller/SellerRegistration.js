@@ -3,7 +3,7 @@ $(function() {
 	
 	  $('#button').click(function() {
 		  
-				var First_name = $.trim($("#first_name").val()); alert ("MMM"+First_name);
+				/*var First_name = $.trim($("#first_name").val()); alert ("MMM"+First_name);
 				var Last_name = null; 
 
 			 	var checkbox = $("#checkbox");  
@@ -17,14 +17,15 @@ $(function() {
 	  		  }
 	  		    
 		  		  var data = {fName1: First_name, lName1: Last_name};
-		  		  alert(First_name+":::"+Last_name);
+		  		  alert(First_name+":::"+Last_name);*/
+		  
 
-			  /*var User_Id        = $.trim($("#user_id")   .val()); 
+			    var User_Id        = $.trim($("#user_id")   .val()); 
 			    var Password       = $.trim($("#password")  .val());
-			    var First_Name     = $.trim($("#first_name").val());
-			    var Last_Name      = $.trim($("#last_name") .val());
+			    var First_Name1    = $.trim($("#first_name1").val());
+			    var Last_Name1     = $.trim($("#last_name1").val());
 			    var Gender         = $.trim($("#sex")       .val());
-			    var Company        = $.trim($("#company")   .val());
+			    var Company1        = $.trim($("#company1") .val());
 			    var Mobile_Number1 = $.trim($("#mobile1")   .val());
 			    var Mobile_Number2 = $.trim($("#mobile2")   .val());
 			    var Email1         = $.trim($("#email1")    .val());
@@ -40,12 +41,12 @@ $(function() {
 			    var Pin            = $.trim($("#pin")       .val());
 			    var Country        = $.trim($("#country1")  .val());
 			    var Pancard        = $.trim($("#pancard")   .val());
-			    var VoterId        = $.trim($("#voterId")   .val());*/
+			    var VoterId        = $.trim($("#voterId")   .val());
 			    
 			//	var First_name = $.trim($("#first_name").val());
 			//	var Last_name = null;
 				
-			/*	var First_Name2    = null;
+				var First_Name2    = null;
 				var Last_Name2     = null;
 				var Company2       = null;
 				var Mobile_Number3 = null;
@@ -59,7 +60,9 @@ $(function() {
 				   
 				   
 	  		  	var checkbox = $("#checkbox");  
-	
+
+	  		  /* $('#checkbox').is(':checked'); 
+	             alert(checkbox.val());*/
 	  		    if (checkbox.val() == 'on') {    		 
 	                
 	  		    	First_Name2     = $.trim($("#first_name2").val());
@@ -81,7 +84,7 @@ $(function() {
 		  		else {
 		  			
 		  			First_Name2     = $.trim($("#first_name").val());
-	  		    	Last_Name2      = $.trim($("#last_name") .val());
+	  		    	Last_Name2      = $.trim($("#last_name1") .val());
 	  		    	Company2        = $.trim($("#company")   .val());
 	  		    	Mobile_Number3  = $.trim($("#mobile1")   .val());
 	  		    	Address_Line3   = $.trim($("#address1")  .val());
@@ -94,18 +97,18 @@ $(function() {
 	  		    	
 		  		// Last_name  = $.trim($("#first_name").val());
 
-		  		}*/
+		  		}
 		  		    
-		  		/*alert (" User_id "+User_Id+" Password "+Password+" First_Name "+First_Name+" Last_Name "+Last_Name+" Company "+Company+
-		  				" First_Name2 "+First_Name2+" Last_Name2 "+Last_Name2+" Company2 "+Company2);*/
+		  		alert (" User_id "+User_Id+" Password "+Password+" First_Name "+First_Name+" Last_Name1 "+Last_Name1+" Company "+Company1+
+		  				" First_Name2 "+First_Name2+" Last_Name2 "+Last_Name2+" Company2 "+Company2);
 	  		    
-		  	/*	var data1 = {userId: User_Id, paSSworD: Password, fName1: First_Name, lName1: Last_Name, seX: Gender, companY1: Company,
+		  		var data = {userId: User_Id, paSSworD: Password, fName1: First_Name, lName1: Last_Name, seX: Gender, companY1: Company1,
 		  				    mobileNumber1: Mobile_Number1, mobileNumber2: Mobile_Number2, emaiL1: Email1, emaiL2: Email2, landPhonE1: Landphone1,
 		  				    landPhonE2: Landphone2, faX1: Fax1, faX2: Fax2, addressLine1: Address_Line1, addressLine2: Address_Line2, citY1: City, 
 		  				    statE1: State, piN1: Pin, countrY1: Country, pancarD: Pancard, voterID: VoterId,
 		  				    
 		  				    fName2: First_Name2, lName2: Last_Name2, companY2: Company2, mobileNumber3: Mobile_Number3, addressLine3: Address_Line3, 
-		  				    addressLine4: Address_Line4, citY2: City2, piN2: Pin2, statE2: State2, countrY2: Country2, emaiL3: Email3};*/
+		  				    addressLine4: Address_Line4, citY2: City2, piN2: Pin2, statE2: State2, countrY2: Country2, emaiL3: Email3};
 		  		
 		  	//	var data = {fNam: First_name };
 		  		
