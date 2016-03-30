@@ -369,8 +369,11 @@ List<OrderedItems> orderedItemsList = (List<OrderedItems>) request.getAttribute(
 	          	<tbody>
 	          	
 	          	 <% 
+	          	 	int totalItemsAmount = 0;
 	          	 
-	          	 	for (OrderedItems orderedItems : orderedItemsList) {	          	 
+	          	 	for (OrderedItems orderedItems : orderedItemsList) {	
+	          	 		
+	          	 		totalItemsAmount += orderedItems.getSellPriceWithShipping() * orderedItems.getQty();
 	          	 
 	          	 %>
 	            	<tr class="caption nondigital order_item_row_0" align="left">
@@ -417,10 +420,10 @@ List<OrderedItems> orderedItemsList = (List<OrderedItems>) request.getAttribute(
 		         
 		            <!-- Continue Shopping -->
 		            <tr class="total-row">
-		            	<td> <div class="line lpadding10 bpadding10"> <a class="btn btn-blue btn-medium" href="#">Continue Shopping</a> </div>  </td>
+		            	<td> <div class="line lpadding10 bpadding10"> <a class="btn btn-blue btn-medium" href="BuyerMainPanel">Continue Shopping</a> </div>  </td>
 		                <td>  </td>
-		                <td  align="right" class="padding10"><div class="fk-inline-block rmargin10" style="font-size: 12px; ">Your Total Savings <span class="promo_total">Rs. 40</span></div>
-		                	<span class="order_total" style="color:#007FB8;"> Total Rs. 120</span>
+		                <td  align="right" class="padding10">
+		                	<span class="order_total" style="color:#007FB8;"> Total Rs. <%=totalItemsAmount %></span>
 		                </td>
 		            </tr>
 	            </tbody>

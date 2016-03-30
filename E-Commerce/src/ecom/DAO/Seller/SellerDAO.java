@@ -111,6 +111,16 @@ public class SellerDAO {
 		    	orderTable.setSellerId      (resultSet.getLong  ("seller_id"    ));
 		    	orderTable.setPaymentType   (resultSet.getString("payment_type" ));
 		    	
+		    	orderTable.getDeliveryAddress().setfName   (resultSet.getString("first_name" ));
+		    	orderTable.getDeliveryAddress().setlName   (resultSet.getString("last_name"  ));
+		    	orderTable.getDeliveryAddress().setContact (resultSet.getString("contact" ));
+		    	orderTable.getDeliveryAddress().setAddress (resultSet.getString("address" ));
+		    	orderTable.getDeliveryAddress().setAddress1(resultSet.getString("address1"));
+		    	orderTable.getDeliveryAddress().setCity    (resultSet.getString("city"    ));
+		    	orderTable.getDeliveryAddress().setState   (resultSet.getString("state"   ));
+		    	orderTable.getDeliveryAddress().setPin     (resultSet.getString("pin"     ));
+		    	orderTable.getDeliveryAddress().setEmail   (resultSet.getString("email"   ));
+		    	
 		    	list.add(orderTable);
 		    }
 		   

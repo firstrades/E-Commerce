@@ -7,10 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import ecom.common.ConnectionFactory;
 import ecom.model.CartWishlist;
 import ecom.model.CustomerOrderHistroy;
@@ -1083,11 +1080,11 @@ public class BuyerSearchDAO {
 	} //getCustomerOrderHistroy
 	
 	//Soumya
-	public Set<String> getOrderIdForCustomer(User user) {
+	public List<String> getOrderIdForCustomer(User user) {
 		
 		Connection connection = null; CallableStatement callableStatement = null; ResultSet resultSet = null;
 		
-	    Set<String> set = new HashSet<>();
+	    List<String> list = new ArrayList<>();
 	    
 		String sql = "{call getOrderIdForCustomer(?)}";		
 		
@@ -1106,7 +1103,7 @@ public class BuyerSearchDAO {
 					
 					String orderId = resultSet.getString("order_id");
 		
-					set.add(orderId);
+					list.add(orderId);
 					
 				}
 				
@@ -1115,7 +1112,7 @@ public class BuyerSearchDAO {
 				
 				System.out.println("SQL - Select getOrderIdForCustomer() successfull.");
 				
-				return set;
+				return list;
 				
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | SQLException e) {			

@@ -162,13 +162,13 @@ font-size: 16px;
 	 					if (bookedOrPickup) {
 %>
 	 					<div class="delivery_button cancel"> 
-	 						<a href="#" class="cancelButton"> Cancel  </a>  
+	 						<a class="cancelButton"> Cancel  </a>  
 	 					</div>
 <%                      
 						}  else if (cancelled) {                                                          
 %>
 						<div class="delivery_button"> 
-	 						 <a href="#"> Cancelled   </a>
+	 						 <a> Cancelled   </a>
 	 					</div>
 
 <%                      
@@ -179,12 +179,12 @@ font-size: 16px;
 								if (returnOrder) {
 %>
 									<div class="delivery_button"> 
-				 						 <a href="#"> Return   </a>
+				 						 <a> Return   </a>
 				 					</div>
 				 			<%  } else { %>
 				 			
 									<div class="delivery_button"> 
-				 						 <a href="#"> Delivered   </a>
+				 						 <a> Delivered   </a>
 				 					</div>
 <%          
 				 				}
@@ -193,7 +193,7 @@ font-size: 16px;
 %>
 
 						<div class="delivery_button"> 
-	 						 <a href="#"> In-Transit   </a>
+	 						 <a> In-Transit   </a>
 	 					</div>
 
 <%                      
@@ -202,12 +202,12 @@ font-size: 16px;
 	 					<div class="line order-item ">
 	 						<div class="line order-item-inner">
 	 							<div class="unit size1of8 fk-text-center product-image">
-	 								<a href="#" target="__blank">
+	 								<a target="__blank">
 	 									<img class="item-image"  src="IconImageFromProduct?productId=<%=customerOrderHistroy.getProductId() %>">
 	 								</a>
 	 							</div>
 	 							<div class="unit size2of7">
-	 								<a target="_blank" href="#">
+	 								<a target="_blank">
 	 									<%=customerOrderHistroy.getProductName() + " ( " + customerOrderHistroy.getCompanyName() + " )" %>
 	 								</a>	<br> 								
 	 								<p class="smallText tmargin10">Qty: <%=customerOrderHistroy.getQty() %> </p>
