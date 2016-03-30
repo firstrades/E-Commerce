@@ -116,16 +116,17 @@ public class BuyerSearchDAO {
 								/**
 								 * @Check if Product already exist
 								 */
-								sql = "SELECT * FROM cart_wishlist WHERE product_id = ? AND cart_wishlist = ? AND user_id = ?";
+								sql = "SELECT * FROM cart_wishlist WHERE product_id = ? AND cart_wishlist = ? AND user_id = ? AND size = ?";
 																															
 								preparedStatement = connection.prepareStatement(sql);				
 								preparedStatement.setLong   (1, productId);   
 								preparedStatement.setString (2, cartOrWishlist); 
 								preparedStatement.setLong   (3, userId);
+								preparedStatement.setInt    (4, size);
 								 			
 								resultSet = preparedStatement.executeQuery();			
 								 																								
-								if (resultSet.next()) {
+								if (resultSet.next()) {										
 									
 										resultSet.close();
 										preparedStatement.close();		
@@ -333,12 +334,13 @@ public class BuyerSearchDAO {
 						/**
 						 * @Check if Product already exist
 						 */
-						sql = "SELECT * FROM cart_wishlist WHERE product_id = ? AND cart_wishlist = ? AND user_id = ?";
+						sql = "SELECT * FROM cart_wishlist WHERE product_id = ? AND cart_wishlist = ? AND user_id = ? AND size = ?";
 																													
 						preparedStatement = connection.prepareStatement(sql);				
 						preparedStatement.setLong   (1, productId);   
 						preparedStatement.setString (2, toggle);  
 						preparedStatement.setLong   (3, userId);
+						preparedStatement.setInt    (4, size);
 						 			
 						resultSet = preparedStatement.executeQuery();			
 						 																								
@@ -347,12 +349,14 @@ public class BuyerSearchDAO {
 								resultSet.close();
 								preparedStatement.close();	
 								
-								sql = "DELETE FROM cart_wishlist WHERE product_id = ? AND user_id = ? AND cart_wishlist = ?";
+								sql = "DELETE FROM cart_wishlist WHERE product_id = ? AND user_id = ? AND cart_wishlist = ? AND size = ?";
 								
 								preparedStatement = connection.prepareStatement(sql);
 								preparedStatement.setLong  (1, productId);
 								preparedStatement.setLong  (2, userId);
 								preparedStatement.setString(3, cartOrWishlist);
+								preparedStatement.setInt    (4, size);
+								
 								int result = preparedStatement.executeUpdate();
 								
 								if (result != 0) System.out.println("SQL - Delete successfull.");
@@ -364,7 +368,7 @@ public class BuyerSearchDAO {
 						
 								
 								
-								sql = "UPDATE cart_wishlist SET cart_wishlist = ?, qty = ? WHERE product_id = ? AND user_id = ? AND cart_wishlist = ?";
+								sql = "UPDATE cart_wishlist SET cart_wishlist = ?, qty = ? WHERE product_id = ? AND user_id = ? AND cart_wishlist = ? AND size = ?";
 								
 								preparedStatement = connection.prepareStatement(sql);
 								preparedStatement.setString (1, toggle);
@@ -372,6 +376,7 @@ public class BuyerSearchDAO {
 								preparedStatement.setLong   (3, productId);
 								preparedStatement.setLong   (4, userId); 
 								preparedStatement.setString (5, cartOrWishlist);
+								preparedStatement.setInt    (6, size);
 								 			
 								int result = preparedStatement.executeUpdate();
 								
@@ -491,11 +496,11 @@ public class BuyerSearchDAO {
 	} // moveToCartOrWishList	
 	
 	
-	public int insertQtyOfRow(long user_id, int qty, long productId) {		
+	public int insertQtyOfRow(long user_id, int qty, long productId, long cartWishlistID) {		
 		
 		Connection connection   = null;
 		CallableStatement callableStatement = null;
-		String sql = "{call insertQtyOfRow(?,?,?)}";			
+		String sql = "{call insertQtyOfRow(?,?,?,?)}";			
 		
 		int qty1 = 0;
 		
@@ -504,9 +509,10 @@ public class BuyerSearchDAO {
 				connection.setAutoCommit(false);
 				
 				callableStatement = connection.prepareCall(sql);
-				callableStatement.setInt  (1, qty      );
-				callableStatement.setLong (2, productId);
-				callableStatement.setLong (3, user_id  ); 
+				callableStatement.setInt  (1, qty             );
+				callableStatement.setLong (2, productId       );
+				callableStatement.setLong (3, user_id         );
+				callableStatement.setLong (4, cartWishlistID  );
 				callableStatement.registerOutParameter(1, java.sql.Types.INTEGER);
 				 			
 				callableStatement.execute();			

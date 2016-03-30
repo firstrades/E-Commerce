@@ -41,9 +41,11 @@ $(function() {
 				var productId  = tr.find('.remove').attr('class').split(' ')[2];  
 				
 				tr.find('span.stock').html('');
-				var itemNo = tr.find('input[name=itemNo]').val();   
+				var itemNo = tr.find('input[name=itemNo]').val();  
 				
-				$.getJSON('InsertQtyToCart', {qty: qty, productId: productId, itemNo: itemNo}, function(object) {
+				var cartWishlistID = tr.find('input[name=id]').val();    
+				
+				$.getJSON('InsertQtyToCart', {qty: qty, productId: productId, itemNo: itemNo, cartWishlistID: cartWishlistID }, function(object) {
 					
 						td.find('input.qty').val(object.qty);
 						

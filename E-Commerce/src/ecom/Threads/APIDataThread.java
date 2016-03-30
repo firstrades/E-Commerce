@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.soap.SOAPException;
 
@@ -19,14 +22,18 @@ public class APIDataThread extends Thread {
 	private long productId;
 	private User user;
 	private int  qty;
+	private HttpServletRequest request;
+	private HttpServletResponse response;
 	
 	TwoObjects<BigDecimal, String> apiRateAndDelivery;
 
-	public APIDataThread(long productId, User user, int qty) {
+	public APIDataThread(long productId, User user, int qty, HttpServletRequest request, HttpServletResponse response) {
 		this.productId = productId;
 		this.user      = user;
 		this.qty       = qty;
-		this.apiRateAndDelivery = new TwoObjects<BigDecimal, String>();		
+		this.apiRateAndDelivery = new TwoObjects<BigDecimal, String>();	
+		this.request = request;
+		this.response = response;
 	}
 	
 	public TwoObjects<BigDecimal, String> getApiRateAndDelivery() {
@@ -40,8 +47,13 @@ public class APIDataThread extends Thread {
 		try {
 			estimatedRateAndDelivery = EstimatedRateAndDeliveryBean.getNewInstance(this.productId, user, qty);
 		} catch (SOAPException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("SOAPException" + e);
+			try {
+				request.getRequestDispatcher("ErrorPages/ConnectionError.jsp").forward(request, response);
+			} catch (ServletException | IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

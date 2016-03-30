@@ -149,6 +149,7 @@ float: left;
  							<input type="text" class="qty" value="<%=productBeanAndQty.getObj2().getQty() %>" style="width: 100%; padding: 0px 5px;"/>
  							<input type="hidden" value="<%=productBeanAndQty.getObj1().getPrice().getSalePriceCustomer() %>" class="salePriceChange"/>
  							<input type="hidden" name="itemNo" value="<%=i %>" />
+ 							<input type="hidden" name="id" value="<%=productBeanAndQty.getObj2().getId() %>" />
  							<a style="font-size: 12px;display: none; cursor: pointer;" class="save">save </a>
  						</td>
  						<td class="cell price-cell">			 				
@@ -177,7 +178,7 @@ float: left;
  									<input type="hidden" name="move" value="move"/>
  									<input type="hidden" name="productId"      value="<%=productBeanAndQty.getObj1().getProductId() %>"/>
  									<input type="hidden" name="cartOrWishlist" value="cart"/>
- 									<input type="hidden" name="size" value="0"/>
+ 									<input type="hidden" name="size" value="<%=productBeanAndQty.getObj2().getSize() %>"/>
  									<input type="submit" class="btn btn-orange"  value="Add to wishlist" style="padding: 2px 5px; float: right;"/>
  								</form>
   								
