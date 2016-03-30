@@ -252,7 +252,7 @@ public class BuyerServlet extends HttpServlet {
 						qty = (stock == 0) ? 0 : 1; 
 					}
 					
-					int size = Integer.parseInt(size1);
+					int size = Integer.parseInt(size1);  
 					
 				/*************** Database *****************/
 				
@@ -264,16 +264,18 @@ public class BuyerServlet extends HttpServlet {
 						productBeanAndCW = buyerSearchDAO.addToCartOrWishList(productId, user.getUserInfo().getId(), cartOrWishlist, size);
 						//productBeanAndQtyList1 = productBeanAndQtyList;
 					}
-					else   //  for add to cart/wishlist
+					else  { //  for add to cart/wishlist
 						productBeanAndCW = buyerSearchDAO.moveToCartOrWishList(productId, user.getUserInfo().getId(), cartOrWishlist,
 								qty, size);
+					}
 					
 				/*************** Thread Call For API Rate & Delivery ****************/
 					
 					List<TwoObjects<BigDecimal, String>> apiDataList = null;
 					
 					//if (productBeanAndQtyList1 != null) {
-						ApiDataMultiThreadBean getApiDataMultiThread  = new ApiDataMultiThreadBean(productBeanAndCW, user);
+						ApiDataMultiThreadBean getApiDataMultiThread  = new ApiDataMultiThreadBean(productBeanAndCW, user, 
+								request, response);
 						apiDataList = getApiDataMultiThread.getRateAndDeliveryList();
 					//}
 					
@@ -370,9 +372,10 @@ public class BuyerServlet extends HttpServlet {
 			
 				/*************** Get Request **************/
 			
-				String productId111  = (String) request.getParameter("productId");
-				String qty111        = (String) request.getParameter("qty"); 
-				int    itemNo        = Integer.parseInt(request.getParameter("itemNo"));
+				String productId111   = (String) request.getParameter("productId");
+				String qty111         = (String) request.getParameter("qty"); 
+				int    itemNo         = Integer.parseInt(request.getParameter("itemNo"));
+				long   cartWishlistID = Integer.parseInt(request.getParameter("cartWishlistID"));
 		
 				/*************** Get Session **************/
 			
@@ -394,10 +397,10 @@ public class BuyerServlet extends HttpServlet {
 				/*************** Database *****************/			
 				
 				BuyerSearchDAO buyerSearchDAO = new BuyerSearchDAO();
-				int qty1 = buyerSearchDAO.insertQtyOfRow(user.getUserInfo().getId(), qty, productId);
+				int qty1 = buyerSearchDAO.insertQtyOfRow(user.getUserInfo().getId(), qty, productId, cartWishlistID);
 				
 				CartAttributesBean cartAttributesBean = CartAttributesBean.getInstance();
-				int                totalQty           = cartAttributesBean.getTotalQty(user.getUserInfo().getId());
+				int                totalQty           = cartAttributesBean.getTotalQty   (user.getUserInfo().getId());
 				double             totalSum           = cartAttributesBean.getTotalAmount(user.getUserInfo().getId());
 				
 				/***************** API ********************/
@@ -405,8 +408,8 @@ public class BuyerServlet extends HttpServlet {
 				try {
 					estimatedRateAndDelivery = EstimatedRateAndDeliveryBean.getNewInstance(productId, user, qty1);
 				} catch (SOAPException e) {
-					System.out.println("SOAPException");
-					e.printStackTrace();
+					System.out.println("SOAPException" + e);
+					request.getRequestDispatcher("ErrorPages/ConnectionError.jsp").forward(request, response);
 				} catch (ParserConfigurationException e) {
 					System.out.println("ParserConfigurationException");
 					e.printStackTrace();

@@ -121,6 +121,9 @@
  							</a>
  							<span class="fk-bold" style="float: left;"><%=sellerCompany %></span><br>
  							<span class="fk-bold">Product ID: <%=productBeanAndQty.getObj1().getProductId() %></span>
+ 							<% if (productBeanAndQty.getObj2().getSize() != 0) { %>
+ 							<br><span class="fk-bold">Item Size: <%=productBeanAndQty.getObj2().getSize() %></span>
+ 							<% } %>
  							
 							<a href="#" class="remove wishlist <%=productBeanAndQty.getObj1().getProductId() %>"  
 									title="Remove Item" style="float: right; margin-top:51px; color: #FF6978;"> Remove </a> 
@@ -148,7 +151,7 @@
  									<input type="hidden" name="move" value="move"/>
  									<input type="hidden" name="productId"      value="<%=productBeanAndQty.getObj1().getProductId() %>"/>
  									<input type="hidden" name="cartOrWishlist" value="wishlist"/>
- 									<input type="hidden" name="size" value="0"/>
+ 									<input type="hidden" name="size" value="<%=productBeanAndQty.getObj2().getSize() %>"/>
  									<input type="submit" class="btn btn-orange" style="" value="Add to Cart" />
  								</form>
   								

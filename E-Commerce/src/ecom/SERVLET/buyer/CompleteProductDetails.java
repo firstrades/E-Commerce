@@ -41,7 +41,7 @@ public class CompleteProductDetails extends HttpServlet {
 		process(request, response);
 	}
 
-	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		System.out.println("Entered CompleteProductDetails");
 		

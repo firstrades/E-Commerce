@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import ecom.Threads.APIDataThread;
 import ecom.model.CartWishlist;
 import ecom.model.ProductBean;
@@ -14,10 +17,15 @@ public class ApiDataMultiThreadBean {
 	
 	private List<TwoObjects<ProductBean, CartWishlist>> productBeanAndQtyList;
 	private User user;
+	private HttpServletRequest request;
+	private HttpServletResponse response;
 	
-	public ApiDataMultiThreadBean(List<TwoObjects<ProductBean, CartWishlist>> productBeanAndQtyList, User user) {
+	public ApiDataMultiThreadBean(List<TwoObjects<ProductBean, CartWishlist>> productBeanAndQtyList, User user, 
+			HttpServletRequest request, HttpServletResponse response) {
 		this.productBeanAndQtyList = productBeanAndQtyList;
 		this.user = user;
+		this.request = request;
+		this.response = response;
 	}
 	
 	public List<TwoObjects<BigDecimal, String>> getRateAndDeliveryList() {
@@ -30,7 +38,7 @@ public class ApiDataMultiThreadBean {
 			long productId = productIdAndQty.getObj1().getProductId();
 			int  qty       = productIdAndQty.getObj2().getQty();
 			
-			APIDataThread apiDataThread = new APIDataThread(productId, user, qty);
+			APIDataThread apiDataThread = new APIDataThread(productId, user, qty, request, response);
 			apiDataThread.start();
 			TwoObjects<BigDecimal, String> apiRateAndDelivery = apiDataThread.getApiRateAndDelivery();			
 			
