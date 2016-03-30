@@ -1,3 +1,4 @@
+<%@page import="ecom.model.CartWishlist"%>
 <%@page import="java.math.BigDecimal"%>
 <%@page import="ecom.beans.TransientData"%>
 <%@page import="ecom.model.TwoObjects"%>
@@ -82,7 +83,7 @@ float: left;
 
 <%
 	@SuppressWarnings("all")
-	List<TwoObjects<ProductBean, Integer>> productBeanAndQtyList = (List<TwoObjects<ProductBean, Integer>>) request.getAttribute("productBeanAndQtyList");
+	List<TwoObjects<ProductBean, CartWishlist>> productBeanAndCW = (List<TwoObjects<ProductBean, CartWishlist>>) request.getAttribute("productBeanAndCW");
 	@SuppressWarnings("all")
 	List<TwoObjects<BigDecimal, String>> apiDataList             = (List<TwoObjects<BigDecimal, String>>) request.getAttribute("apiDataList");
 %>
@@ -109,12 +110,12 @@ float: left;
 				<% 
 					int i = 0;
 				
-					for (TwoObjects<ProductBean, Integer> productBeanAndQty : productBeanAndQtyList) { 
+					for (TwoObjects<ProductBean, CartWishlist> productBeanAndQty : productBeanAndCW) { 
 				
 						UserDAO userDAO = new UserDAO();
 						String sellerCompany = userDAO.getSellerCompany(productBeanAndQty.getObj1().getSellerId());
 						int    stock         = TransientData.getStock(productBeanAndQty.getObj1().getProductId());    
-						double subtotal      = productBeanAndQty.getObj1().getPrice().getSalePriceCustomer() * productBeanAndQty.getObj2();    
+						double subtotal      = productBeanAndQty.getObj1().getPrice().getSalePriceCustomer() * productBeanAndQty.getObj2().getQty();    
 						
 						TwoObjects<BigDecimal, String> apiData = apiDataList.get(i);
 						
@@ -131,7 +132,10 @@ float: left;
  								
  							</a>
  							<span class="fk-bold"><%=sellerCompany %></span><br>
- 							<span class="fk-bold">Product ID: <%=productBeanAndQty.getObj1().getProductId() %></span> 
+ 							<span class="fk-bold">Product ID: <%=productBeanAndQty.getObj1().getProductId() %></span>
+ 							<% if (productBeanAndQty.getObj2().getSize() != 0) { %>
+ 							<br><span class="fk-bold">Item Size: <%=productBeanAndQty.getObj2().getSize() %></span>
+ 							<% } %>
  							<% if (stock == 0) { %>
  								<span class="stock" style="position: relative;top: 47px;right: 207px;color: red; font-size: 12px; margin-top: -13px;">OUT OF STOCK </span>
  							<% } else {%>
@@ -142,7 +146,7 @@ float: left;
  						</td>
  						<td class="cell qty-cell carty-changeQuantity" style="width: 4.50%;">
  						
- 							<input type="text" class="qty" value="<%=productBeanAndQty.getObj2() %>" style="width: 100%; padding: 0px 5px;"/>
+ 							<input type="text" class="qty" value="<%=productBeanAndQty.getObj2().getQty() %>" style="width: 100%; padding: 0px 5px;"/>
  							<input type="hidden" value="<%=productBeanAndQty.getObj1().getPrice().getSalePriceCustomer() %>" class="salePriceChange"/>
  							<input type="hidden" name="itemNo" value="<%=i %>" />
  							<a style="font-size: 12px;display: none; cursor: pointer;" class="save">save </a>

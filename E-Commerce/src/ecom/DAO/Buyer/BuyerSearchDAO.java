@@ -95,7 +95,7 @@ public class BuyerSearchDAO {
 		
 	}
 	
-	public List<TwoObjects<ProductBean, Integer>> addToCartOrWishList(long productId, long userId, String cartOrWishlist, int size) {		
+	public List<TwoObjects<ProductBean, CartWishlist>> addToCartOrWishList(long productId, long userId, String cartOrWishlist, int size) {		
 			
 			Connection connection   = null;
 			PreparedStatement preparedStatement = null;
@@ -103,8 +103,8 @@ public class BuyerSearchDAO {
 			ResultSet resultSet     = null;		
 			ProductBean productBean = null;	
 			
-			List<TwoObjects<Long, Integer>>        productIdAndQtyList   = new ArrayList<>();
-			List<TwoObjects<ProductBean, Integer>> productBeanAndQtyList = new ArrayList<>();
+			List<TwoObjects<Long, CartWishlist>>        productIdAndQtyList   = new ArrayList<>();
+			List<TwoObjects<ProductBean, CartWishlist>> productBeanAndQtyList = new ArrayList<>();
 			
 			try {
 					connection = ConnectionFactory.getNewConnection();
@@ -161,7 +161,7 @@ public class BuyerSearchDAO {
 					 * @Retrieve all productIds for this User
 					 */
 					
-					sql = "SELECT product_id, qty FROM cart_wishlist WHERE user_id = ? AND cart_wishlist = ?";
+					sql = "SELECT * FROM cart_wishlist WHERE user_id = ? AND cart_wishlist = ?";
 					
 					preparedStatement = connection.prepareStatement(sql);				
 					preparedStatement.setLong   (1, userId); 
@@ -171,10 +171,19 @@ public class BuyerSearchDAO {
 				
 					while (resultSet.next()) {
 						
-						TwoObjects<Long, Integer> twoObjects = new TwoObjects<>();
+						TwoObjects<Long, CartWishlist> twoObjects = new TwoObjects<>();
+						CartWishlist cartWishlist = new CartWishlist();
 						
-						twoObjects.setObj1 (resultSet.getLong("product_id"));  System.out.println(twoObjects.getObj1());
-						twoObjects.setObj2 (resultSet.getInt ("qty"       ));  System.out.println(twoObjects.getObj2());
+						twoObjects.setObj1 (resultSet.getLong("product_id")); 
+						
+						cartWishlist.setCartOrWishlist(resultSet.getString("cart_wishlist"));
+						cartWishlist.setId            (resultSet.getLong  ("id"           ));
+						cartWishlist.setProductId     (resultSet.getLong  ("product_id"   ));
+						cartWishlist.setQty           (resultSet.getInt   ("qty"          ));
+						cartWishlist.setSize          (resultSet.getInt   ("size"         ));
+						cartWishlist.setUserId        (resultSet.getLong  ("user_id"      ));
+						
+						twoObjects.setObj2 (cartWishlist);  
 						
 						productIdAndQtyList.add(twoObjects);
 					}
@@ -186,7 +195,7 @@ public class BuyerSearchDAO {
 					 * @Retrieve ProductBeanList
 					 */
 					
-					for (TwoObjects<Long, Integer> twoObjects : productIdAndQtyList) {
+					for (TwoObjects<Long, CartWishlist> twoObjects : productIdAndQtyList) {
 						
 							sql = "SELECT * FROM product WHERE product_id = ?";
 							
@@ -201,7 +210,7 @@ public class BuyerSearchDAO {
 									//productBean.setKeyFeatures(new KeyFeatures());
 									//productBean.setPrice(new Price());
 									
-									TwoObjects<ProductBean, Integer> twoObjects2 = new TwoObjects<>();
+									TwoObjects<ProductBean, CartWishlist> twoObjects2 = new TwoObjects<>();
 									
 									productBean.setProductId                 (resultSet.getInt   ("product_id"  ));
 									productBean.setSellerId                  (resultSet.getLong  ("seller_id"   ));
@@ -296,7 +305,7 @@ public class BuyerSearchDAO {
 	}
 	
 	
-	public List<TwoObjects<ProductBean, Integer>> moveToCartOrWishList(long productId, long userId, String cartOrWishlist,
+	public List<TwoObjects<ProductBean, CartWishlist>> moveToCartOrWishList(long productId, long userId, String cartOrWishlist,
 			int qty, int size) {  //wish		
 				
 				Connection connection   = null;
@@ -305,8 +314,8 @@ public class BuyerSearchDAO {
 				ResultSet resultSet     = null;		
 				ProductBean productBean = null;	
 				
-				List<TwoObjects<Long, Integer>>        productIdAndQtyList   = new ArrayList<>();
-				List<TwoObjects<ProductBean, Integer>> productBeanAndQtyList = new ArrayList<>();
+				List<TwoObjects<Long, CartWishlist>>        productIdAndQtyList   = new ArrayList<>();
+				List<TwoObjects<ProductBean, CartWishlist>> productBeanAndQtyList = new ArrayList<>();
 				
 				try {
 						connection = ConnectionFactory.getNewConnection();
@@ -376,7 +385,7 @@ public class BuyerSearchDAO {
 						 * @Retrieve all productIds for this User
 						 */
 						
-						sql = "SELECT product_id, qty FROM cart_wishlist WHERE user_id = ? AND cart_wishlist = ?";
+						sql = "SELECT * FROM cart_wishlist WHERE user_id = ? AND cart_wishlist = ?";
 						
 						preparedStatement = connection.prepareStatement(sql);				
 						preparedStatement.setLong   (1, userId); 
@@ -384,12 +393,21 @@ public class BuyerSearchDAO {
 						 			
 						resultSet = preparedStatement.executeQuery();
 					
-						while (resultSet.next()) {
+						while (resultSet.next()) {							
 							
-							TwoObjects<Long, Integer> twoObjects = new TwoObjects<>();
+							TwoObjects<Long, CartWishlist> twoObjects = new TwoObjects<>();
+							CartWishlist cartWishlist = new CartWishlist();
 							
-							twoObjects.setObj1 (resultSet.getLong("product_id"));  System.out.println(twoObjects.getObj1());
-							twoObjects.setObj2 (resultSet.getInt("qty"        ));  System.out.println(twoObjects.getObj2());
+							twoObjects.setObj1 (resultSet.getLong("product_id")); 
+							
+							cartWishlist.setCartOrWishlist(resultSet.getString("cart_wishlist"));
+							cartWishlist.setId            (resultSet.getLong  ("id"           ));
+							cartWishlist.setProductId     (resultSet.getLong  ("product_id"   ));
+							cartWishlist.setQty           (resultSet.getInt   ("qty"          ));
+							cartWishlist.setSize          (resultSet.getInt   ("size"         ));
+							cartWishlist.setUserId        (resultSet.getLong  ("user_id"      ));
+							
+							twoObjects.setObj2 (cartWishlist);  
 							
 							productIdAndQtyList.add(twoObjects);
 						}
@@ -401,7 +419,7 @@ public class BuyerSearchDAO {
 						 * @Retrieve ProductBeanList
 						 */
 						
-						for (TwoObjects<Long, Integer> twoObjects : productIdAndQtyList) {
+						for (TwoObjects<Long, CartWishlist> twoObjects : productIdAndQtyList) {
 							
 								sql = "SELECT * FROM product WHERE product_id = ?";
 								
@@ -416,7 +434,7 @@ public class BuyerSearchDAO {
 										productBean.setKeyFeatures(new KeyFeatures());
 										productBean.setPrice(new Price());
 										
-										TwoObjects<ProductBean, Integer> twoObjects2 = new TwoObjects<>();
+										TwoObjects<ProductBean, CartWishlist> twoObjects2 = new TwoObjects<>();
 										
 										productBean.setProductId                 (resultSet.getInt   ("product_id"  ));
 										productBean.setSellerId                  (resultSet.getLong  ("seller_id"   ));

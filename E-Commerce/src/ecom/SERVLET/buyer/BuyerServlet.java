@@ -30,6 +30,7 @@ import ecom.beans.BuyerServletHelper;
 import ecom.beans.CartAttributesBean;
 import ecom.beans.ApiDataMultiThreadBean;
 import ecom.beans.TransientData;
+import ecom.model.CartWishlist;
 import ecom.model.CustomerOrderHistroy;
 import ecom.model.DeliveryAddress;
 import ecom.model.ProductBean;
@@ -255,16 +256,16 @@ public class BuyerServlet extends HttpServlet {
 					
 				/*************** Database *****************/
 				
-					List<TwoObjects<ProductBean, Integer>> productBeanAndQtyList = null;//, productBeanAndQtyList1 = null;
+					List<TwoObjects<ProductBean, CartWishlist>> productBeanAndCW = null;//, productBeanAndQtyList1 = null;
 					
 					BuyerSearchDAO buyerSearchDAO = new BuyerSearchDAO();
 					
 					if (move == null) {
-						productBeanAndQtyList = buyerSearchDAO.addToCartOrWishList(productId, user.getUserInfo().getId(), cartOrWishlist, size);
+						productBeanAndCW = buyerSearchDAO.addToCartOrWishList(productId, user.getUserInfo().getId(), cartOrWishlist, size);
 						//productBeanAndQtyList1 = productBeanAndQtyList;
 					}
 					else   //  for add to cart/wishlist
-						productBeanAndQtyList = buyerSearchDAO.moveToCartOrWishList(productId, user.getUserInfo().getId(), cartOrWishlist,
+						productBeanAndCW = buyerSearchDAO.moveToCartOrWishList(productId, user.getUserInfo().getId(), cartOrWishlist,
 								qty, size);
 					
 				/*************** Thread Call For API Rate & Delivery ****************/
@@ -272,7 +273,7 @@ public class BuyerServlet extends HttpServlet {
 					List<TwoObjects<BigDecimal, String>> apiDataList = null;
 					
 					//if (productBeanAndQtyList1 != null) {
-						ApiDataMultiThreadBean getApiDataMultiThread  = new ApiDataMultiThreadBean(productBeanAndQtyList, user);
+						ApiDataMultiThreadBean getApiDataMultiThread  = new ApiDataMultiThreadBean(productBeanAndCW, user);
 						apiDataList = getApiDataMultiThread.getRateAndDeliveryList();
 					//}
 					
@@ -283,7 +284,7 @@ public class BuyerServlet extends HttpServlet {
 					
 				/************** Set Request ***************/
 					
-					request.setAttribute("productBeanAndQtyList", productBeanAndQtyList);
+					request.setAttribute("productBeanAndCW", productBeanAndCW);
 					request.setAttribute("apiDataList", apiDataList);
 					
 				/************** Next Page *****************/
