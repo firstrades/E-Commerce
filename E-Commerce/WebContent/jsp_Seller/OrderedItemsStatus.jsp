@@ -340,6 +340,9 @@ a.tooltip span b {
 			            			<div class="tmargin20 login-btn-wrap" style="margin-left: 20%;">
 			                			<input type="text"  data-ng-model="date"
 			                				class="span1"   placeholder="Pick a date" style="margin-bottom: 25px;"/> 
+			                			<input type="text"  data-ng-model="courierName"
+			                				class=""   placeholder="Courier Name" style="margin-bottom: 25px;"/>
+			                			<br>
 			                			<a data-dismiss="modal" data-ng-click="changeStateToPicked(<%=orderTable.getId() %>)"
 			                				style="padding: 9px 35px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;cursor: pointer;"> Ok  </a>
 			            			</div>

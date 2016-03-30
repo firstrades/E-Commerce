@@ -58,7 +58,7 @@ public class UserDAO {
 				user.getUserInfo().setStatus         (resultSet.getString(  "status"        ));
 				user.getUserInfo().setJoiningDate    (resultSet.getString(  "joining_date"  ));
 				user.getUserInfo().setCompany        (resultSet.getString(  "company"       ));
-				user.getUserInfo().setId             (resultSet.getLong  (  "id"            ));
+				user.getUserInfo().setId             (resultSet.getLong  (  "id"            ));   
 				
 			}
 			

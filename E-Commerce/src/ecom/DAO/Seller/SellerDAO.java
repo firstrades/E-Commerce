@@ -22,8 +22,8 @@ public class SellerDAO {
 	
 	/*************************************************************/
 	
-	public boolean setPickedUp(long orderTableId, String date) {
-		
+	public boolean setPickedUp(long orderTableId, String date, String courierName) {
+		System.out.println(courierName);
 		Connection connection = null;
         CallableStatement callableStatement = null;        
         
@@ -33,10 +33,11 @@ public class SellerDAO {
         	connection = ConnectionFactory.getNewConnection();
 		    connection.setAutoCommit(false);
 		    
-		    callableStatement = connection.prepareCall("{call setPickedUp(?,?,?)}");
+		    callableStatement = connection.prepareCall("{call setPickedUp(?,?,?,?)}");
 		    callableStatement.setLong  (1, orderTableId);
 		    callableStatement.setString(2, date        );
 		    callableStatement.registerOutParameter(3, Types.BOOLEAN);
+		    callableStatement.setString(4, courierName);
 		    
 		    callableStatement.execute(); 		   
 		    	

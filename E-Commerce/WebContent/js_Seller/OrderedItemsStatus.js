@@ -57,13 +57,15 @@ application.controller('LoopController', function($scope, $http, $window) {
 	
 	
 	$scope.date = '12-02-2016';	
-	$scope.changeStateToPicked = function(orderTableId) {	  	
+	$scope.changeStateToPicked = function(orderTableId) {	  //$window.alert("j");	
 
-		var date = $scope.date;      
+		var date        = $scope.date;           //$window.alert(date);
+		var courierName = $scope.courierName;    //$window.alert(courierName);
 		
 		var data = $.param ({
 			orderTableId: orderTableId,
-			date        : date
+			date        : date,
+			courierName : courierName
 		});
 		
 		var config = {
