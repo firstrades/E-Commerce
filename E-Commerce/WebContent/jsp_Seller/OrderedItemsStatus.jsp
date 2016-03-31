@@ -311,7 +311,7 @@ a.tooltip span b {
 				
 				<div class="col-md-3" style="margin-top:58px;" data-ng-show="trackParcel">
 					<a data-ng-click="trackingDetails(<%=orderTable.getId() %>)"
-						data-toggle="modal" data-target="#myModal1<%=i%>" style="padding: 9px 79px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">Track Parcel</a><br><br>
+						data-toggle="modal" data-target="#myModalJ1<%=i%>" style="padding: 9px 79px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">Track Parcel</a><br><br>
 					<a style="padding: 9px 35px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">Delete Shipment (BANK)</a>					
 				</div>
 				
@@ -365,7 +365,7 @@ a.tooltip span b {
 				<!-- ---------------------------------- Pop Up - Track Item -------------------------------------------------------------------- -->
 				
 				
-				<div class="modal fade pickpop" id="myModal1<%=i%>">
+				<div class="modal fade pickpop" id="myModalJ1<%=i%>">
 			    	<div class="modal-dialog">    
 			      		<!-- Modal content-->
 			      		<div class="modal-content" style="width: 100%; margin-left: 15%;">
