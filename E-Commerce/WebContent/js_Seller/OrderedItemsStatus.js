@@ -7,6 +7,7 @@ application.controller('LoopController', function($scope, $http, $window) {
 	$scope.generateTrackNumberCOD = function(orderTableId) {	
 		
 		$scope.loader = true;
+		$scope.msg1   = '';
 		
 		var data = $.param ({
 			orderTableId: orderTableId
@@ -24,6 +25,10 @@ application.controller('LoopController', function($scope, $http, $window) {
 				$scope.trackNumberCOD = false;
 				$scope.pickupLabelCOD = true;
 				$scope.loader = false;
+			} 
+			else {  
+				$scope.loader = false;
+				$scope.msg1 = "Error Occured!";
 			}
 		});	
 		

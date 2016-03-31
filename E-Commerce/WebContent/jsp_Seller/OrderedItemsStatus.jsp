@@ -236,6 +236,7 @@ a.tooltip span b {
 				<% if (orderTable.getOrderState().equals("Booked") && orderTable.getPaymentType().equals("COD")) { %>
 				<div class="col-md-3" style="margin-top:58px;" data-ng-show="trackNumberCOD">
 					<a data-ng-click="generateTrackNumberCOD(<%=orderTable.getId() %>)" style="width: 50% !important;  padding: 9px 10px;background: linear-gradient(#5cb85c, #5cb85c 60%, #5cb85c);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">Generate Track ID (COD)</a>
+					<div data-ng-bind="msg1" style="margin-top: 12px;color: red;"></div>
 				</div>
 				<% } %>
 								
@@ -249,6 +250,7 @@ a.tooltip span b {
 				<% if (orderTable.getOrderState().equals("Booked") && orderTable.getPaymentType().equals("BANK")) { %>
 				<div class="col-md-3" style="margin-top:58px;" data-ng-show="trackNumberBANK">
 					<a data-ng-click="generateTrackNumberBANK(<%=orderTable.getId() %>)" style="width: 50% !important;  padding: 9px 7px;background: linear-gradient(#5cb85c, #5cb85c 60%, #5cb85c);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">Generate Track ID (BANK)</a>
+					<div data-ng-bind="msg1" style="margin-top: 12px;color: red;"></div>
 				</div>
 				<% } %>
 				

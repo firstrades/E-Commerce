@@ -356,19 +356,21 @@ public class SellerServlet extends HttpServlet {
 		
 		else if (servletPath.equals("/GenerateTrackNumberCOD")) {
 			
-			System.out.println("Entered GenerateTrackNumberCOD");			
-			
+			System.out.println("Entered GenerateTrackNumberCOD");	
+						
 			/*********** Call API *************/		
 			
 			String paymentType = "COD";	    boolean pickup = false;
 			
 			try {
 				
-				pickup = callShipTransaction(request, paymentType, pickup);				
+				pickup = callShipTransaction(request, paymentType, pickup);					
 				
 			} catch (SOAPException | ParserConfigurationException | SAXException | ParseException e) {				
-				e.printStackTrace();
-			} 
+				e.printStackTrace();			
+			} catch (Exception e) {
+				e.printStackTrace();					
+			}
 			
 			
 			/************* JSON Data for Next Page ****************/
@@ -538,7 +540,7 @@ public class SellerServlet extends HttpServlet {
 		
 		TrackingIdGenerationInterface trackingIdGeneration = TrackingIdGeneration.getNewInstance();
 		
-		pickup = trackingIdGeneration.getTrackingNumber(orderTableId, paymentType);  System.out.println(pickup);
+		pickup = trackingIdGeneration.getTrackingNumber(orderTableId, paymentType);  
 		
 		return pickup;
 	}

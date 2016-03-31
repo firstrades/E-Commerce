@@ -40,6 +40,8 @@ public class TrackingIdGeneration implements TrackingIdGenerationInterface {
 	private long   orderTableId;
 	private String paymentType;
 	
+	private String highestSeverity;
+	
 	//From Database
 	private String shipperContact;
 	private String shipperAddress;
@@ -93,8 +95,11 @@ public class TrackingIdGeneration implements TrackingIdGenerationInterface {
 		this.paymentType  = paymentType;
 		getDataForTrackNumberGeneration();
 		getTrackIdAndInvoiceXML();		
-		return setTrackNumberIntoDatabase();
-		//return true;
+		
+		if (this.highestSeverity.toUpperCase().equals("SUCCESS"))
+			return setTrackNumberIntoDatabase();
+		else
+			return false;  //ERROR
 	}
 	
 	/******************************** API ******************************************/	
@@ -478,10 +483,14 @@ public class TrackingIdGeneration implements TrackingIdGenerationInterface {
         		
         		//PackageCount
         		SOAPElement PackageCount = RequestedShipment.addChildElement("PackageCount", xlns);                //Count
-        		PackageCount.addTextNode(String.valueOf(this.qtyOrdered));
+        		//PackageCount.addTextNode(String.valueOf(this.qtyOrdered));  // In case two seperate pakages
+        		PackageCount.addTextNode(String.valueOf("1"));
         		
         		//RequestedPackageLineItems
         		SOAPElement RequestedPackageLineItems = RequestedShipment.addChildElement("RequestedPackageLineItems", xlns);
+        		
+	        		//SOAPElement SequenceNumber = RequestedPackageLineItems.addChildElement("SequenceNumber", xlns);     //Required for More than one PackageCount
+	        		//SequenceNumber.addTextNode("1");
         		
         			SOAPElement GroupPackageCount = RequestedPackageLineItems.addChildElement("GroupPackageCount", xlns);     //Count
         			GroupPackageCount.addTextNode("1");
@@ -492,7 +501,7 @@ public class TrackingIdGeneration implements TrackingIdGenerationInterface {
         				Units.addTextNode("KG");
         				
         				SOAPElement Value = Weight.addChildElement("Value", xlns);
-        				Value.addTextNode(String.valueOf(this.weight * this.qtyOrdered));
+        				Value.addTextNode(String.valueOf(this.weight * this.qtyOrdered));  // this is (this.weight * this.qtyOrdered) * PackageCount
         				
         				
     				SOAPElement CustomerReferences = RequestedPackageLineItems.addChildElement("CustomerReferences", xlns);
@@ -539,7 +548,21 @@ public class TrackingIdGeneration implements TrackingIdGenerationInterface {
 	    //Element foo
 	    //Text node: "Hello world"
 		
+		/************************ <HighestSeverity>SUCCESS</HighestSeverity> *******************/
+		NodeList HighestSeveritys = document.getElementsByTagName("HighestSeverity");
 		
+		for (int i = 0; i < HighestSeveritys.getLength(); i++) {
+			
+			Node HighestSeverityNode = HighestSeveritys.item(i);
+			
+			//Image
+			Node HighestSeverity     = HighestSeverityNode.getFirstChild();	
+			
+			if (HighestSeverity instanceof CharacterData) {				
+				this.highestSeverity = ((CharacterData) HighestSeverity).getData();  System.out.println(this.highestSeverity);
+			}			
+			
+		}
 		
 		/************************* Tracking Id **************************************************/
 		NodeList TrackingIds = document.getElementsByTagName("TrackingIds");		
