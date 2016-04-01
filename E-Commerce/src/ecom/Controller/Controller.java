@@ -44,7 +44,8 @@ public class Controller extends HttpServlet {
 				/********* Database Check ***********/
 				
 				UserDAO userDAO = new UserDAO();
-				User user       = userDAO.getUser(userId, password);				
+				User user       = userDAO.getUser(userId, password);			
+				
 				
 				/********* Next Page ****************/				
 				

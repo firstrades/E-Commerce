@@ -143,7 +143,7 @@ public class SellerServlet extends HttpServlet {
 								*  Get Session  *
 			*******************************************************/	
 			
-			Long sellerId = (Long) session.getAttribute("sellerId");
+			//Long sellerId = (Long) session.getAttribute("sellerId");
 			
 			User user     = (User) session.getAttribute("user");
 			
@@ -151,7 +151,7 @@ public class SellerServlet extends HttpServlet {
 			 	*  Database - Get Product List  *
 			*******************************************************/			
 			ProductDAO productDAO = new ProductDAO();
-			List<ProductBean> productList = productDAO.getProducts(category, subCategory, sellerId);
+			List<ProductBean> productList = productDAO.getProducts(category, subCategory, user);
 			
 			int MAX = TransientData.getMAX(user.getUserInfo().getId(), category, subCategory);
 			
@@ -356,19 +356,21 @@ public class SellerServlet extends HttpServlet {
 		
 		else if (servletPath.equals("/GenerateTrackNumberCOD")) {
 			
-			System.out.println("Entered GenerateTrackNumberCOD");			
-			
+			System.out.println("Entered GenerateTrackNumberCOD");	
+						
 			/*********** Call API *************/		
 			
 			String paymentType = "COD";	    boolean pickup = false;
 			
 			try {
 				
-				pickup = callShipTransaction(request, paymentType, pickup);				
+				pickup = callShipTransaction(request, paymentType, pickup);					
 				
 			} catch (SOAPException | ParserConfigurationException | SAXException | ParseException e) {				
-				e.printStackTrace();
-			} 
+				e.printStackTrace();			
+			} catch (Exception e) {
+				e.printStackTrace();					
+			}
 			
 			
 			/************* JSON Data for Next Page ****************/
@@ -420,13 +422,14 @@ public class SellerServlet extends HttpServlet {
 			
 			long   orderTableId = Long.parseLong(request.getParameter("orderTableId"));
 			String date         = request.getParameter("date");
+			String courierName  = request.getParameter("courierName");
 			
 			boolean picked = false;
 			
 			/*********** Database *************/
 			
 			SellerDAO dao = SellerDAO.getNewInstance();
-			picked = dao.setPickedUp(orderTableId, date);
+			picked = dao.setPickedUp(orderTableId, date, courierName);
 			
 			
 			/************* JSON Data for Next Page ****************/
@@ -537,7 +540,7 @@ public class SellerServlet extends HttpServlet {
 		
 		TrackingIdGenerationInterface trackingIdGeneration = TrackingIdGeneration.getNewInstance();
 		
-		pickup = trackingIdGeneration.getTrackingNumber(orderTableId, paymentType);  System.out.println(pickup);
+		pickup = trackingIdGeneration.getTrackingNumber(orderTableId, paymentType);  
 		
 		return pickup;
 	}

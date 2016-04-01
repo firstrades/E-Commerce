@@ -1,3 +1,4 @@
+<%@page import="ecom.common.State"%>
 <%@page import="java.util.List"%>
 <%@page import="ecom.model.OrderTable"%>
 <%@page import="ecom.common.FrequentUse"%>
@@ -54,11 +55,97 @@ clear: both;
 }
 
 </style>
+
+
+<!-- Tooltip -->
+<style>
+a.tooltip {
+    outline: none;
+    text-decoration: none;    
+    position: relative;
+    opacity: 1;
+}
+
+a.tooltip strong {
+    line-height: 30px;
+}
+
+a.tooltip > span {
+    width: 300px;
+    padding: 10px 20px;
+    margin-top: 0;
+    margin-left: -120px;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 10;
+    position: absolute;
+    font-family: Arial;
+    font-size: 12px;
+    font-style: normal;
+    border-radius: 3px;
+    box-shadow: 2px 2px 2px #999;
+    -webkit-transition-property: opacity, margin-top, visibility, margin-left;
+    -webkit-transition-duration: 0.4s, 0.3s, 0.4s, 0.3s;
+    -webkit-transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+    transition-property: opacity, margin-top, visibility, margin-left;
+    transition-duration: 0.4s, 0.3s, 0.4s, 0.3s;
+    transition-timing-function: 
+        ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+}
+
+
+a.tooltip:hover > span {
+    opacity: 1;
+    text-decoration: none;
+    visibility: visible;
+    overflow: visible;
+    margin-top: 50px;
+    display: inline;
+    margin-left: -90px;
+}
+
+a.tooltip span b {
+    width: 15px;
+    height: 15px;
+    margin-left: 40px;
+    margin-top: -19px;
+    display: block;
+    position: absolute;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    -webkit-box-shadow: inset -1px 1px 0 #fff;
+    -moz-box-shadow: inset 0 1px 0 #fff;
+    -o-box-shadow: inset 0 1px 0 #fff;
+    box-shadow: inset 0 1px 0 #fff;
+    display: none\0/;
+    *display: none;
+}    
+
+a.tooltip > span {
+	color: #000000; 
+	background: #FBF5E6;
+	background: -webkit-linear-gradient(top, #FBF5E6, #FFFFFF);
+	background: linear-gradient(top, #FBF5E6, #FFFFFF);	    
+	border: 1px solid #CFB57C;	     
+}    
+	  
+a.tooltip span b {
+	background: #FBF5E6;
+	border-top: 1px solid #CFB57C;
+	border-right: 1px solid #CFB57C;
+}
+
+</style>
+
 </head>
 
 <%
 	@SuppressWarnings("all")
 	List<OrderTable> orderTables = (List<OrderTable>) request.getAttribute("orderTables");
+
+	State state = new State();
 
 	
 %>
@@ -87,11 +174,13 @@ clear: both;
 				<div class="col-md-7">
 					<div class="col-md-6">
 						<h3 style="margin-bottom: 7px;margin-top: 8px;color: #337ab7; font-size: 16px;">  Order Id : <%=orderTable.getOrderId() %>  </h3> <hr>
-						<span>   Id :    </span>  
+						<span>   Id : <%=orderTable.getId() %>   </span>  
 						<span style=""></span>					
 						<hr>					
 						<span style="margin-right:15px;">Product Id : <%=orderTable.getProductId() %> </span> <br> <hr>
-						<span>  Sell Price : <%=orderTable.getSellPrice() %> </span> <br> <hr>
+						<span>  Each Price : <%=orderTable.getSellPrice() %> </span> 
+						<span style="margin-left:33px;">  Total Price : <%=orderTable.getSellPrice() * orderTable.getQty() %> </span> 
+						<br> <hr>
 						<span>Warranty  : <%=orderTable.getWarranty() %></span>
 						
 					</div>					
@@ -100,12 +189,33 @@ clear: both;
 						<span>Shipping Cost : Rs <%=orderTable.getShippingCost() %></span>
 						<hr>
 						<span>Quantity : <%=orderTable.getQty() %></span>
+						<% if (orderTable.getSize() != 0) { %>
+						<span style="margin-left: 74px;">Size : <%=orderTable.getSize() %></span>
+						<% } %>
 						<hr>
 						<span>Order  Booked On : <%=orderTable.getBookedDateTime() %></span>
-						<hr>
-						<% if (orderTable.getSize() < 0) { %>
-						<span>Size : <%=orderTable.getSize() %></span>
-						<% } %>
+						<hr>						
+						
+						
+							<a class="tooltip" style="font-size: medium;">
+								Customer Details (Bring mouse on it)
+								<span>
+									 <span><%=orderTable.getDeliveryAddress().getfName()    %>                 </span> 
+									 <span><%=orderTable.getDeliveryAddress().getlName()    %>                 </span><br>
+									 <span><%=orderTable.getDeliveryAddress().getContact()  %>                 </span><br>
+									 <span><%=orderTable.getDeliveryAddress().getAddress()  %>                 </span><br>
+									 <% if (orderTable.getDeliveryAddress().getAddress1() != null) { %>
+									 <span><%=orderTable.getDeliveryAddress().getAddress1() %>                 </span><br>
+									 <% } %>									 
+									 <span><%=orderTable.getDeliveryAddress().getCity()     %>                 </span>
+									 <span>     -                                                              </span>
+									 <span><%=orderTable.getDeliveryAddress().getPin()      %>                 </span><br>
+									 <span><%=state.getStateName(orderTable.getDeliveryAddress().getState()) %></span><br>	
+									 <span><%=orderTable.getDeliveryAddress().getEmail()    %>                 </span>						
+								</span>
+							</a>					
+						
+											
 						<hr>
 						
 						
@@ -126,6 +236,7 @@ clear: both;
 				<% if (orderTable.getOrderState().equals("Booked") && orderTable.getPaymentType().equals("COD")) { %>
 				<div class="col-md-3" style="margin-top:58px;" data-ng-show="trackNumberCOD">
 					<a data-ng-click="generateTrackNumberCOD(<%=orderTable.getId() %>)" style="width: 50% !important;  padding: 9px 10px;background: linear-gradient(#5cb85c, #5cb85c 60%, #5cb85c);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">Generate Track ID (COD)</a>
+					<div data-ng-bind="msg1" style="margin-top: 12px;color: red;"></div>
 				</div>
 				<% } %>
 								
@@ -139,6 +250,7 @@ clear: both;
 				<% if (orderTable.getOrderState().equals("Booked") && orderTable.getPaymentType().equals("BANK")) { %>
 				<div class="col-md-3" style="margin-top:58px;" data-ng-show="trackNumberBANK">
 					<a data-ng-click="generateTrackNumberBANK(<%=orderTable.getId() %>)" style="width: 50% !important;  padding: 9px 7px;background: linear-gradient(#5cb85c, #5cb85c 60%, #5cb85c);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">Generate Track ID (BANK)</a>
+					<div data-ng-bind="msg1" style="margin-top: 12px;color: red;"></div>
 				</div>
 				<% } %>
 				
@@ -159,9 +271,9 @@ clear: both;
 				<% } %>
 				
 				<div class="col-md-3" style="margin-top:58px;" data-ng-show="pickupLabelCOD">
-					<a href="#" data-toggle="modal" data-target="#myModal<%=i%>" style="padding: 9px 20px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Pickup Req</a> 
-					<a href="#" style="padding: 9px 20px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Pirnt Label</a>  <br><br>
-					<a href="#" style="padding: 9px 39px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Cancel Shipment (COD)</a>					
+					<a data-toggle="modal" data-target="#myModal<%=i%>" style="padding: 9px 20px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">Pickup Req</a> 
+					<a style="padding: 9px 20px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">Pirnt Label</a>  <br><br>
+					<a style="padding: 9px 39px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">Cancel Shipment (COD)</a>					
 				</div>
 				
 				
@@ -174,10 +286,10 @@ clear: both;
 				<% } %>
 				
 				<div class="col-md-3" style="margin-top:58px;" data-ng-show="pickupLabelBANK">
-					<a href="#" data-toggle="modal" data-target="#myModal<%=i%>" 
-						style="padding: 9px 20px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Pickup Req</a> 
-					<a href="#" style="padding: 9px 20px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Pirnt Label</a>  <br><br>
-					<a href="#" style="padding: 9px 35px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Cancel Shipment (BANK)</a>					
+					<a data-toggle="modal" data-target="#myModal<%=i%>" 
+						style="padding: 9px 20px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">Pickup Req</a> 
+					<a style="padding: 9px 20px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">Pirnt Label</a>  <br><br>
+					<a style="padding: 9px 35px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">Cancel Shipment (BANK)</a>					
 				</div>
 				
 				
@@ -198,9 +310,9 @@ clear: both;
 				<% } %>
 				
 				<div class="col-md-3" style="margin-top:58px;" data-ng-show="trackParcel">
-					<a href="#" data-ng-click="trackingDetails(<%=orderTable.getId() %>)"
-						data-toggle="modal" data-target="#myModal1<%=i%>" style="padding: 9px 79px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Track Parcel</a><br><br>
-					<a href="#" style="padding: 9px 35px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">Delete Shipment (BANK)</a>					
+					<a data-ng-click="trackingDetails(<%=orderTable.getId() %>)"
+						data-toggle="modal" data-target="#myModalJ1<%=i%>" style="padding: 9px 79px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">Track Parcel</a><br><br>
+					<a style="padding: 9px 35px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">Delete Shipment (BANK)</a>					
 				</div>
 				
 				
@@ -230,8 +342,11 @@ clear: both;
 			            			<div class="tmargin20 login-btn-wrap" style="margin-left: 20%;">
 			                			<input type="text"  data-ng-model="date"
 			                				class="span1"   placeholder="Pick a date" style="margin-bottom: 25px;"/> 
-			                			<a href="#"  data-dismiss="modal" data-ng-click="changeStateToPicked(<%=orderTable.getId() %>)"
-			                				style="padding: 9px 35px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;"> Ok  </a>
+			                			<input type="text"  data-ng-model="courierName"
+			                				class=""   placeholder="Courier Name" style="margin-bottom: 25px;"/>
+			                			<br>
+			                			<a data-dismiss="modal" data-ng-click="changeStateToPicked(<%=orderTable.getId() %>)"
+			                				style="padding: 9px 35px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;cursor: pointer;"> Ok  </a>
 			            			</div>
 			        			</div>			        		
 			      			</div>   
@@ -250,7 +365,7 @@ clear: both;
 				<!-- ---------------------------------- Pop Up - Track Item -------------------------------------------------------------------- -->
 				
 				
-				<div class="modal fade pickpop" id="myModal1<%=i%>">
+				<div class="modal fade pickpop" id="myModalJ1<%=i%>">
 			    	<div class="modal-dialog">    
 			      		<!-- Modal content-->
 			      		<div class="modal-content" style="width: 100%; margin-left: 15%;">
@@ -288,15 +403,15 @@ clear: both;
 				<% } %>
 				
 				<div class="col-md-3" style="margin-top:58px;" data-ng-show="cancelParcelCOD">
-					<a href="#" 
-						 style="padding: 9px 42px;background: linear-gradient(#d9534f, #d9534f 60%, #d9534f);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;"
+					<a
+						 style="padding: 9px 42px;background: linear-gradient(#d9534f, #d9534f 60%, #d9534f);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;"
 						 data-ng-click="setCancelledCOD(<%=orderTable.getId() %>)">
 						 Cancel Shipment (COD)
 					</a><br><br>										
 				</div>	
 				<div class="col-md-3" style="margin-top:58px;" data-ng-show="cancelledCOD">
-					<a href="#" 
-						 style="padding: 9px 42px;background: linear-gradient(#d9534f, #d9534f 60%, #d9534f);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">
+					<a
+						 style="padding: 9px 42px;background: linear-gradient(#d9534f, #d9534f 60%, #d9534f);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">
 						 Cancelled
 					</a><br><br>										
 				</div>				
@@ -312,15 +427,15 @@ clear: both;
 				<% } %>
 				
 				<div class="col-md-3" style="margin-top:58px;" data-ng-show="cancelParcelBANK">
-					<a href="#"  
-						 style="padding: 9px 42px;background: linear-gradient(#d9534f, #d9534f 60%, #d9534f);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;"
+					<a 
+						 style="padding: 9px 42px;background: linear-gradient(#d9534f, #d9534f 60%, #d9534f);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;"
 						 data-ng-click="setCancelledBANK(<%=orderTable.getId() %>)">
 						 Cancel Shipment (BANK)
 					</a><br><br>										
 				</div>	
 				<div class="col-md-3" style="margin-top:58px;" data-ng-show="cancelledBANK">
-					<a href="#"  
-						 style="padding: 9px 42px;background: linear-gradient(#d9534f, #d9534f 60%, #d9534f);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;">
+					<a  
+						 style="padding: 9px 42px;background: linear-gradient(#d9534f, #d9534f 60%, #d9534f);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">
 						 Cancelled
 					</a><br><br>										
 				</div>				

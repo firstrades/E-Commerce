@@ -6,8 +6,6 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
 import ecom.model.CustomerOrderHistroy;
 
 public class BuyerServletHelper {
@@ -16,7 +14,7 @@ public class BuyerServletHelper {
 		return new BuyerServletHelper();
 	}
 	
-	public Map<String, List<CustomerOrderHistroy>> getCustomerOrderHistroyMap(Set<String> orderIds, List<CustomerOrderHistroy> customerOrderHistroys) {		
+	public Map<String, List<CustomerOrderHistroy>> getCustomerOrderHistroyMap(List<String> orderIds, List<CustomerOrderHistroy> customerOrderHistroys) {		
 		
 		Map<String, List<CustomerOrderHistroy>> map = new LinkedHashMap<>();  // no order
 		

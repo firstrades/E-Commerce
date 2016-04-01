@@ -88,7 +88,7 @@ public class ProductDAO {
 		return status;
 	} //addProduct
 	
-	public List<ProductBean> getProducts(String category, String subCategory, long sellerId) {		
+	public List<ProductBean> getProducts(String category, String subCategory, User user) {		
 		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -103,7 +103,7 @@ public class ProductDAO {
 			sql = "SELECT * FROM product WHERE seller_id = ? AND category = ? AND sub_category = ? AND status = 'approved'";
 				
 			preparedStatement = connection.prepareStatement(sql);			
-			preparedStatement.setLong   (1, sellerId);
+			preparedStatement.setLong   (1, user.getUserInfo().getId());
 			preparedStatement.setString (2, category);
 			preparedStatement.setString (3, subCategory);
 		

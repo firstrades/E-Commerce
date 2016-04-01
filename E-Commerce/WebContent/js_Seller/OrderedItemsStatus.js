@@ -7,6 +7,7 @@ application.controller('LoopController', function($scope, $http, $window) {
 	$scope.generateTrackNumberCOD = function(orderTableId) {	
 		
 		$scope.loader = true;
+		$scope.msg1   = '';
 		
 		var data = $.param ({
 			orderTableId: orderTableId
@@ -24,6 +25,10 @@ application.controller('LoopController', function($scope, $http, $window) {
 				$scope.trackNumberCOD = false;
 				$scope.pickupLabelCOD = true;
 				$scope.loader = false;
+			} 
+			else {  
+				$scope.loader = false;
+				$scope.msg1 = "Error Occured!";
 			}
 		});	
 		
@@ -57,13 +62,15 @@ application.controller('LoopController', function($scope, $http, $window) {
 	
 	
 	$scope.date = '12-02-2016';	
-	$scope.changeStateToPicked = function(orderTableId) {	  	
+	$scope.changeStateToPicked = function(orderTableId) {	  //$window.alert("j");	
 
-		var date = $scope.date;      
+		var date        = $scope.date;           //$window.alert(date);
+		var courierName = $scope.courierName;    //$window.alert(courierName);
 		
 		var data = $.param ({
 			orderTableId: orderTableId,
-			date        : date
+			date        : date,
+			courierName : courierName
 		});
 		
 		var config = {

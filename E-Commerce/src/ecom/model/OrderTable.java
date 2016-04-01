@@ -19,10 +19,22 @@ public class OrderTable implements Serializable {
 	private int    size;
 	private String orderState;
 	private String delivered;
-	private String paymentType;
+	private String paymentType;	
+	private DeliveryAddress deliveryAddress;
 	
 	
+	public OrderTable() {
+		deliveryAddress = new DeliveryAddress();
+	}
 	
+	
+	//Getter & Setter
+	public DeliveryAddress getDeliveryAddress() {
+		return deliveryAddress;
+	}
+	public void setDeliveryAddress(DeliveryAddress deliveryAddress) {
+		this.deliveryAddress = deliveryAddress;
+	}
 	public String getPaymentType() {
 		return paymentType;
 	}
