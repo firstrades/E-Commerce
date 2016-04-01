@@ -153,6 +153,7 @@ public class CreateUserDAO {
 		
 	} // setDistributor()	
 	
+	
 	/*public synchronized static boolean setCustomerLogin(String Userid, String Password) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -202,7 +203,7 @@ public class CreateUserDAO {
 */	
 	
 	//Soumya
-	public synchronized static boolean setUserRegistration (String User_Id, String Password, String First_Name, String Last_Name, 
+/*	public synchronized static boolean setUserRegistration (String User_Id, String Password, String First_Name, String Last_Name, 
 			 String Gender, String Email, String Contact_Number, String Address, String Pin, String City, String State, 
 			 String First_Name2, String Last_Name2, String Email2, String Contact_Number2, String Address2, String Pin2, String City2, String State2) {
 			 
@@ -216,7 +217,7 @@ public class CreateUserDAO {
 				 connection = ConnectionFactory.getNewConnection();
 				 connection.setAutoCommit(false);
 				 
-				 callableStatement = connection.prepareCall("{call registerCustomer(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+				 callableStatement = connection.prepareCall("{call registerUser(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
 				 
 				 callableStatement.setString(1, User_Id);
 				 callableStatement.setString(2, Password);
@@ -272,8 +273,7 @@ public class CreateUserDAO {
 				}
 			}
 			 return false;
-	}
-
+	}*/
 	
 	//Soumya
 	public synchronized static boolean setSellerRegistration (String User_Id, String Password, String First_Name, String Last_Name,
@@ -319,6 +319,7 @@ public class CreateUserDAO {
 			callableStatement.setString(21, Pancard       );
 			callableStatement.setString(22, VoterId       );
 			callableStatement.setString(23, User_type     );
+			
 			callableStatement.setString(24, First_Name2   );
 			callableStatement.setString(25, Last_Name2    );
 			callableStatement.setString(26, Company2      );
@@ -365,9 +366,94 @@ public class CreateUserDAO {
 		}
 		 return false;
 	}
-		
 	
-	public static void main(String[] args) {
+	//Soumya SP
+	public synchronized static boolean setCustomerRegistration (String User_Id, String Password, String First_Name1, String Last_Name1,
+			   String Gender, String Company1, String Mobile_Number1, String Mobile_Number2, String Email1, String Email2, 
+			   String Address_Line1, String Address_Line2, String City, String State, String Pin, String Country, 
+			   String First_Name2, String Last_Name2, String Company2, String Contact, String Address_Line3, 
+			   String Address_Line4, String City2, String Pin2, String State2, String Country2, String Email3) {
+			
+			Connection connection = null;
+			CallableStatement callableStatement = null;
+			boolean exist = false;
+			String User_type = "customer";
+			
+			try {
+				 
+				connection = ConnectionFactory.getNewConnection();
+				connection.setAutoCommit(false);
+				
+				callableStatement = connection.prepareCall 
+						         ("{call registerCustomer(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
+				
+				callableStatement.setString(1, User_Id       );
+				callableStatement.setString(2, Password      );
+				callableStatement.setString(3, First_Name1   );
+				callableStatement.setString(4, Last_Name1    );
+				callableStatement.setString(5, Gender        );
+				callableStatement.setString(6, Company1      );
+				callableStatement.setString(7, Mobile_Number1);
+				callableStatement.setString(8, Mobile_Number2);
+				callableStatement.setString(9, Email1        );
+				callableStatement.setString(10, Email2       );
+				callableStatement.setString(11, Address_Line1);
+				callableStatement.setString(12, Address_Line2);
+				callableStatement.setString(13, City         );
+				callableStatement.setString(14, State        );
+				callableStatement.setString(15, Pin          );
+				callableStatement.setString(16, Country      );
+				callableStatement.setString(17, User_type    );
+				
+				callableStatement.setString(18, First_Name2  );
+				callableStatement.setString(19, Last_Name2   );
+				callableStatement.setString(20, Company2     );
+				callableStatement.setString(21, Contact      );
+				callableStatement.setString(22, Address_Line3);
+				callableStatement.setString(23, Address_Line4);
+				callableStatement.setString(24, City2        );
+				callableStatement.setString(25, Pin2         );
+				callableStatement.setString(26, State2       );
+				callableStatement.setString(27, Country2     );
+				callableStatement.setString(28, Email3       );
+				
+			    callableStatement.registerOutParameter(29, Types.BOOLEAN);
+
+				callableStatement.execute();
+				
+				exist = callableStatement.getBoolean(29);
+				
+				System.out.println("SQL - setregisterCustomer UPDATED");
+				
+				 connection.commit();
+
+				 return exist;
+
+			}catch (InstantiationException | IllegalAccessException
+					| ClassNotFoundException | SQLException e) {
+				try {
+					connection.rollback();
+				} catch (SQLException e1) {				
+					e1.printStackTrace();
+				}
+				e.printStackTrace();
+			} finally {
+				try {
+					callableStatement.close();
+				} catch (SQLException e) {			
+					e.printStackTrace();
+				}
+				try {
+					connection.close();
+				} catch (SQLException e) {			
+					e.printStackTrace();
+				}
+			}
+			 return false;
+		}
+
+	
+/*	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
     @SuppressWarnings("unused")
@@ -375,7 +461,7 @@ public class CreateUserDAO {
 "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", 
 "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55", "HHH55");
     System.out.println("sellerDAOSSS");
-	}
+	}*/
 	
  
 }
