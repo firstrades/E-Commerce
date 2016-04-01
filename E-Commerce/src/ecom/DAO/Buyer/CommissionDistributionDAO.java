@@ -69,6 +69,7 @@ public class CommissionDistributionDAO {
 				} catch (SQLException e) {			
 					e.printStackTrace();
 				}
+				System.gc();
 			}
 		   
 			return 0;
@@ -135,7 +136,7 @@ public class CommissionDistributionDAO {
 			} catch (SQLException e) {					
 				e.printStackTrace();
 			}
-		
+			System.gc();
 		}			
 		
 		return 0;
@@ -192,7 +193,7 @@ public class CommissionDistributionDAO {
 			} catch (SQLException e) {					
 				e.printStackTrace();
 			}
-		
+			System.gc();
 		}
 		
 		return false;
@@ -249,7 +250,7 @@ public class CommissionDistributionDAO {
 			} catch (SQLException e) {					
 				e.printStackTrace();
 			}
-		
+			System.gc();
 		}
 		
 		return false;
@@ -306,6 +307,7 @@ public class CommissionDistributionDAO {
 				} catch (SQLException e) {			
 					e.printStackTrace();
 				}
+				System.gc();
 			}
 		   
 			return 0;
@@ -363,7 +365,7 @@ public class CommissionDistributionDAO {
 			e.printStackTrace();
 			
 		} finally {
-			
+			twoObjects = null;
 			try {
 				resultSet.close();
 			} catch (SQLException e1) {				
@@ -380,7 +382,7 @@ public class CommissionDistributionDAO {
 			} catch (SQLException e) {					
 				e.printStackTrace();
 			}
-		
+			System.gc();
 		}			
 		
 		return null;
@@ -439,7 +441,7 @@ public class CommissionDistributionDAO {
 			} catch (SQLException e) {					
 				e.printStackTrace();
 			}
-		
+			System.gc();
 		}
 		
 		return false;
@@ -499,7 +501,7 @@ public class CommissionDistributionDAO {
 			} catch (SQLException e) {					
 				e.printStackTrace();
 			}
-		
+			System.gc();
 		}
 		
 		return false;

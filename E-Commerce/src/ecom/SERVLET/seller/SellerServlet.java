@@ -48,6 +48,12 @@ public class SellerServlet extends HttpServlet {
 		sellerDAO = SellerDAO.getNewInstance();
 		productDAO = new ProductDAO();
 	}
+	
+	@Override
+	public void destroy() { 
+		System.gc();
+		System.out.println("SellerServlet Destroyed"); 
+	};
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

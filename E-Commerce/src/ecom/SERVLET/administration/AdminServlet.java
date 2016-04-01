@@ -34,6 +34,12 @@ public class AdminServlet extends HttpServlet {
 	public void init() {
 		adminDAO = new AdminDAO();
 	}
+	
+	@Override
+	public void destroy() { 
+		System.gc();
+		System.out.println("AdminServlet Destroyed"); 
+	};
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -96,19 +102,29 @@ public class AdminServlet extends HttpServlet {
 									jsonObject.put("fCommissionPercentage", productBean.getCommission().getFranchiseCommission()  );
 									jsonObject.put("dCommissionPercentage", productBean.getCommission().getDistributorCommission());
 									
-									jsonArray.put(jsonObject);									
+									jsonArray.put(jsonObject);	
+									jsonObject = null;
 							
 						
 							}  // for close
 						
 							items.put("items", jsonArray);
+							
 						
 						} catch (JSONException e) {								
 							e.printStackTrace();
 						}
 						
+						String json = items.toString();
+						
+						/********** Clean Up *********/
+						productBeans = null;
+						items        = null;
+						jsonArray    = null;
+						System.gc();						
+						
 						response.setContentType("application/json");
-						response.getWriter().write(items.toString());
+						response.getWriter().write(json);
 						
 					} // if close
 					
@@ -135,19 +151,20 @@ public class AdminServlet extends HttpServlet {
 						
 						productBean.setProductId(Long.parseLong(jsonObject1.getString("productId")));          
 						
-						productBean.getPrice().setDiscount(Math.floor(Double.parseDouble(jsonObject1.getString("discount"))));              
-						productBean.getPrice().setSalePriceCustomer(Math.ceil(Double.parseDouble(jsonObject1.getString("salePriceToCustomer"))));
-						productBean.getPrice().setMarkup(Double.parseDouble(jsonObject1.getString("markupPercentage")));
-						productBean.getPrice().setSalePriceToAdmin(Double.parseDouble(jsonObject1.getString("salePriceToAdmin")));     
+						productBean.getPrice().setDiscount              (Math.floor(Double.parseDouble(jsonObject1.getString("discount"))));              
+						productBean.getPrice().setSalePriceCustomer     (Math.ceil(Double.parseDouble(jsonObject1.getString("salePriceToCustomer"))));
+						productBean.getPrice().setMarkup                (Double.parseDouble(jsonObject1.getString("markupPercentage")));
+						productBean.getPrice().setSalePriceToAdmin      (Double.parseDouble(jsonObject1.getString("salePriceToAdmin")));     
 						productBean.getPrice().setProfitMarginPercentage(Double.parseDouble(jsonObject1.getString("profitMarginPercentage"))); 
 						
-						productBean.getCommission().setFranchiseCommission(Double.parseDouble(jsonObject1.getString("franComm")));               
+						productBean.getCommission().setFranchiseCommission  (Double.parseDouble(jsonObject1.getString("franComm")));               
 						productBean.getCommission().setDistributorCommission(Double.parseDouble(jsonObject1.getString("drisComm")));             
 						
-						productBean.setWeight(Double.parseDouble(jsonObject1.getString("weight")));               
-						productBean.setWarranty(jsonObject1.getString("warranty"));              
+						productBean.setWeight                 (Double.parseDouble(jsonObject1.getString("weight")));               
+						productBean.setWarranty               (jsonObject1.getString("warranty"));              
 						productBean.setCancellationAfterBooked(Integer.parseInt(jsonObject1.getString("cancellationAfterBooked"))); 
 						
+						jsonObject1 = null;
 						
 					} catch (JSONException e) {				
 						e.printStackTrace();
@@ -155,24 +172,34 @@ public class AdminServlet extends HttpServlet {
 					
 				
 					/***************** DataBase ***********************/					
-					boolean status = adminDAO.setProductApprove(productBean);   System.out.println(status);
+					boolean status = adminDAO.setProductApprove(productBean);   System.out.println(status);					
+					
 					
 					/***************  Send Response  *****************/
 					
-					if (status == true) {
+					JSONObject jsonObject;					
 						
-						JSONObject jsonObject = new JSONObject();
-						
-						try {
-							jsonObject.put("success", true);
-						} catch (JSONException e) {					
-							e.printStackTrace();
-						}
-						
-						response.setContentType("application/json");
-						response.getWriter().write(jsonObject.toString());
-						
-					} // if close
+					jsonObject = new JSONObject();
+					
+					try {
+						jsonObject.put("success", status);
+					} catch (JSONException e) {					
+						e.printStackTrace();
+					}
+					
+					String json = jsonObject.toString();
+					
+					/***** Clean Up *****/
+					productBean = null;
+					br          = null;
+					jsonData    = null;
+					jsonObject = null;
+					System.gc();
+					
+					response.setContentType("application/json");
+					response.getWriter().write(json);				
+					
+					
 			} // ApproveProduct
 			
 			else if (servletPath.equals("/FranchiseRegistration")) {
@@ -186,6 +213,9 @@ public class AdminServlet extends HttpServlet {
 					
 					request.setAttribute("title",          title);
 					request.setAttribute("submitFunction", submitFunction);
+					
+					/***** Clean Up ******/
+					title = null; submitFunction = null; System.gc();
 					
 					/***************  Next Page  *****************/
 					request.getRequestDispatcher("jsp_Administration/FranchiseRegistration.jsp").forward(request, response);
@@ -265,10 +295,19 @@ public class AdminServlet extends HttpServlet {
 						}
 					}
 					
+					String jsonData = jsonObject.toString();
+					
+					/****** Clean Up ****/
+					buffer = null; json = null; keyValue = null;
+					userId = null; password = null; fName = null; lName = null; sex = null; company = null; mobile1 = null; 
+					mobile2 = null; email1 = null; email2 = null; phone1 = null; phone2 = null; fax1 = null; fax2 = null; 
+					address = null; city = null; state = null; pin = null; pan = null; voterId = null;
+					user = null; jsonObject = null;
+					System.gc();
 					
 					/************* Response **************/
 					response.setContentType("application/json");
-					response.getWriter().write(jsonObject.toString());
+					response.getWriter().write(jsonData);
 				
 			} // AddFranchise
 			
@@ -305,7 +344,7 @@ public class AdminServlet extends HttpServlet {
 								
 								jsonArray.put(jsonObject);									
 						
-					
+								jsonObject = null;
 						}  // for close
 					
 						items.put("items", jsonArray);
@@ -314,8 +353,15 @@ public class AdminServlet extends HttpServlet {
 						e.printStackTrace();
 					}
 					
+					
+					String json = items.toString();
+					
+					/******* Clean Up *****/
+					extractFranchiseDetails = null; items = null; jsonArray = null;
+					System.gc();
+					
 					response.setContentType("application/json");
-					response.getWriter().write(items.toString());
+					response.getWriter().write(json);
 					
 				} // if close
 				
@@ -338,9 +384,11 @@ public class AdminServlet extends HttpServlet {
 		            jsonData = br.readLine();                               
 		        }
 		        
+		        JSONObject jsonObject1;
+		        
 		        try {
 		        	
-					JSONObject jsonObject1 = new JSONObject(jsonData);
+					jsonObject1 = new JSONObject(jsonData);
 					
 					id1         = jsonObject1.getString("id"      );            
 					pin         = jsonObject1.getString("pin"     );        
@@ -382,8 +430,14 @@ public class AdminServlet extends HttpServlet {
 					}	
 				}
 				
+				String json = jsonObject.toString();
+				
+				/****** Clean Up ******/
+				id1 = null; pin = null; position1 = null; br = null; jsonData = null; jsonObject1 = null; jsonObject = null;
+				System.gc();
+				
 				response.setContentType("application/json");
-				response.getWriter().write(jsonObject.toString());
+				response.getWriter().write(json);
 				
 			} // SetPin
 			
@@ -403,9 +457,11 @@ public class AdminServlet extends HttpServlet {
 		            jsonData = br.readLine();                               
 		        }
 		        
+		        JSONObject jsonObject1;
+		        
 		        try {
 		        	
-					JSONObject jsonObject1 = new JSONObject(jsonData);
+					jsonObject1 = new JSONObject(jsonData);
 					
 					commission1 = jsonObject1.getString("commission"); 
 					id1         = jsonObject1.getString("id"        );
@@ -446,8 +502,15 @@ public class AdminServlet extends HttpServlet {
 					}	
 				}
 				
+				
+				String json = jsonObject.toString();
+				
+				/***** Clean Up *********/
+				commission1 = null; id1 = null; br = null; jsonData = null; jsonObject1 = null; jsonObject = null;
+				System.gc();
+				
 				response.setContentType("application/json");
-				response.getWriter().write(jsonObject.toString());
+				response.getWriter().write(json);
 				
 			} // SetCommission
 			
@@ -467,9 +530,11 @@ public class AdminServlet extends HttpServlet {
 			            jsonData = br.readLine();                               
 			        }
 			        
+			        JSONObject jsonObject1;
+			        
 			        try {
 			        	
-						JSONObject jsonObject1 = new JSONObject(jsonData);
+						jsonObject1 = new JSONObject(jsonData);
 						
 						addtionalBalance1 = jsonObject1.getString("addtionalBalance"); 
 						id1               = jsonObject1.getString("id"        );
@@ -511,8 +576,15 @@ public class AdminServlet extends HttpServlet {
 						}	
 					}
 					
+					
+					String json = jsonObject.toString();
+					
+					/****** Clean Up ******/
+					addtionalBalance1 = null; id1 = null; br = null; jsonData = null; jsonObject1 = null; jsonObject = null;
+					System.gc();
+					
 					response.setContentType("application/json");
-					response.getWriter().write(jsonObject.toString());
+					response.getWriter().write(json);
 					
 			} // FranchiseAdditionalBalance
 			
@@ -552,7 +624,9 @@ public class AdminServlet extends HttpServlet {
 						jsonObject2.put("status",         orderTable.getStatus());
 						jsonObject2.put("warranty",       orderTable.getWarranty());							
 						
-						jsonArray.put(jsonObject2);					
+						jsonArray.put(jsonObject2);	
+						
+						jsonObject2 = null;
 						
 					} // for 
 					
@@ -564,9 +638,14 @@ public class AdminServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 				
+				String json = jsonObject.toString();
+				
+				/******** Clean Up **********/
+				orderTables = null; jsonObject = null; jsonArray = null; jsonObject2 = null;
+				System.gc();
 				
 				response.setContentType("application/json");
-				response.getWriter().write(jsonObject.toString());
+				response.getWriter().write(json);
 				
 				
 			} // /RetrieveOrderedItemsForAdmin
@@ -601,7 +680,9 @@ public class AdminServlet extends HttpServlet {
 						jsonObject2.put("phone1",     user.getContact().getPhone1());
 						jsonObject2.put("email1",     user.getContact().getEmail1());													
 						
-						jsonArray.put(jsonObject2);					
+						jsonArray.put(jsonObject2);	
+						
+						jsonObject2 = null;
 						
 					} // for 
 					
@@ -613,9 +694,14 @@ public class AdminServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 				
+				String json = jsonObject.toString();
+				
+				/***** Clean Up ******/
+				userList = null; jsonObject = null; jsonArray = null; jsonObject2 = null;
+				System.gc();
 				
 				response.setContentType("application/json");
-				response.getWriter().write(jsonObject.toString());
+				response.getWriter().write(json);
 				
 			} // /RetrieveAllSellerForApprovalRegistration
 			
@@ -633,6 +719,10 @@ public class AdminServlet extends HttpServlet {
 				/********** Set Request ****************/
 				request.setAttribute("userAndPickupAddress", userAndPickupAddress);
 				
+				/***** Clean Up ******/
+				userAndPickupAddress = null;
+				System.gc();
+				
 				/***************  Next Page  *****************/
 				request.getRequestDispatcher("jsp_Administration/ApproveSellerRegistration.jsp").forward(request, response);
 			} //ApproveSellerRegistrationPage
@@ -642,46 +732,7 @@ public class AdminServlet extends HttpServlet {
 				
 				System.out.println("Entered ApproveSeller");
 				
-				UserAndPickupAddress u = new UserAndPickupAddress();
-				
-				/*// Get Request for User
-				long id               = Integer.parseInt(request.getParameter("id"));  
-				String userId         = request.getParameter("userId"        );
-				String firstName      = request.getParameter("firstName"     );
-				String lastName       = request.getParameter("lastName"      );
-				String sex            = request.getParameter("sex"           );
-				String company        = request.getParameter("company"       );
-				String mobile1        = request.getParameter("mobile1"       );
-				String mobile2        = request.getParameter("mobile2"       );				
-				String email1         = request.getParameter("email1"        );
-				String email2         = request.getParameter("email2"        );
-				String phone1         = request.getParameter("phone1"        );
-				String phone2         = request.getParameter("phone2"        );
-				String fax1           = request.getParameter("fax1"          );
-				String fax2           = request.getParameter("fax2"          );
-				String addressLine1   = request.getParameter("addressLine1"  );
-				String addressLine2   = request.getParameter("addressLine2"  );
-				String city           = request.getParameter("city"          );
-				String state          = request.getParameter("state"         );				
-				String pin            = request.getParameter("pin"           );
-				String country        = request.getParameter("country"       );
-				String pan            = request.getParameter("pan"           );
-				String voterId        = request.getParameter("voterId"       );
-				
-				
-				// Get Request for DeliveryAddress
-				String daFirstName    = request.getParameter("daFirstName"   );   
-				String daLastName     = request.getParameter("daLastName"    );
-				String daCompany      = request.getParameter("daCompany"     );
-				String daContact      = request.getParameter("daContact"     );
-				String daAddressLine1 = request.getParameter("daAddressLine1");
-				String daAddressLine2 = request.getParameter("daAddressLine2");
-				String daCity         = request.getParameter("daCity"        );
-				String daPin          = request.getParameter("daPin"         );
-				String daState        = request.getParameter("daState"       );
-				String daCountry      = request.getParameter("daCountry"     );
-				String daEmail        = request.getParameter("daEmail"       );			*/	
-				
+				UserAndPickupAddress u = new UserAndPickupAddress();				
 				
 				// Get Request for User
 				u.getUser().getUserInfo().setId       (Integer.parseInt(request.getParameter("id")));
@@ -728,22 +779,24 @@ public class AdminServlet extends HttpServlet {
 				
 				/***************  Send Response  *****************/
 				
-				JSONObject jsonObject = new JSONObject();
-				
-				if (status == true) {					
+				JSONObject jsonObject = new JSONObject();				
+									
 					
-					try {
-						jsonObject.put("status", status);  
-						
-					} catch (JSONException e) {					
-						e.printStackTrace();
-					}				
+				try {
+					jsonObject.put("status", status);  
 					
-				} // if close
+				} catch (JSONException e) {					
+					e.printStackTrace();
+				}				
+					
+				String json = jsonObject.toString();
 				
+				/****** Clean Up ******/
+				u = null; jsonObject = null;
+				System.gc();
 				
 				response.setContentType("application/json");
-				response.getWriter().write(jsonObject.toString());;
+				response.getWriter().write(json);
 				
 			
 			} //ApproveSeller

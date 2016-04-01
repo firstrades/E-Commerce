@@ -32,6 +32,12 @@ public class EditProductServlet extends HttpServlet {
 	}
 	
 	@Override
+	public void destroy() { 
+		System.gc();
+		System.out.println("EditProductServlet Destroyed"); 
+	};
+	
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
 	}

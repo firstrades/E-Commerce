@@ -75,12 +75,10 @@ public class AdminDAO {
 				
 			} catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException sqlException) {			
 				sqlException.printStackTrace();
-			} finally {			
-				try {
-					resultSet.close();  
-				} catch (SQLException e) {				
-					e.printStackTrace();
-				}
+			} finally {		
+				productBeans = null;				
+				try { resultSet.close(); } catch (SQLException e)  { e.printStackTrace(); }
+				System.gc();
 			}	
 			
 			return null;
@@ -131,11 +129,10 @@ public class AdminDAO {
 			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 			e.printStackTrace();
 			
-		} finally {
-			
+		} finally {			
 			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
-			
+			System.gc();
 		}   
 			
 			return status;
@@ -203,11 +200,11 @@ public class AdminDAO {
 				try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 				e.printStackTrace();
 				
-			} finally {
+			} finally {				
 				try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
 				try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 				try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
-				
+				System.gc();
 			}  
 		
 			return null;
@@ -255,11 +252,10 @@ public class AdminDAO {
 				try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 				e.printStackTrace();
 				
-			} finally {
-				
+			} finally {				
 				try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 				try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
-				
+				System.gc();
 			}  
 			
 			return false;
@@ -298,11 +294,10 @@ public class AdminDAO {
 			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 			e.printStackTrace();
 			
-		} finally {
-			
+		} finally {			
 			try { preparedStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
-			
+			System.gc();
 		}   
 		
 		
@@ -343,11 +338,10 @@ public class AdminDAO {
 				try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 				e.printStackTrace();
 				
-			} finally {
-				
+			} finally {				
 				try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 				try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
-				
+				System.gc();
 			}   
 			
 			return balance;
@@ -402,9 +396,11 @@ public class AdminDAO {
 			e.printStackTrace();
 			
 		} finally {
+			list = null;			
 			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
 			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+			System.gc();
 			
 		}   
         
@@ -453,10 +449,11 @@ public class AdminDAO {
 			e.printStackTrace();
 			
 		} finally {
+			list = null;			
 			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
 			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
-			
+			System.gc();
 		}   
         
 		return null;
@@ -535,10 +532,11 @@ public class AdminDAO {
 			e.printStackTrace();
 			
 		} finally {
+			u = null;			
 			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
 			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
-			
+			System.gc();
 		}   
         
 		return null;
@@ -615,7 +613,7 @@ public class AdminDAO {
 			
 			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
-			
+			System.gc();
 		}  
 		
 		return status;
@@ -628,8 +626,7 @@ public class AdminDAO {
 	
 	/****************** Testing ********************/
 	
-	public static void main (String...args) {
-		
+	public static void main (String...args) {		
 		
 		List<ExtractFranchiseDetails> list = new AdminDAO().getFranchiseDetails();
 		
@@ -642,5 +639,8 @@ public class AdminDAO {
 			System.out.println(c.getFranchisePins().getPin4());
 			System.out.println(c.getFranchisePins().getPin5());
 		}
+		
+		list = null;
+		System.gc();
 	}
 }

@@ -49,7 +49,7 @@ public class SellerDAO {
 		    connection.commit();
 		    return picked;
 
-        }catch (InstantiationException | IllegalAccessException
+        } catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | SQLException e) {
 			try {
 				connection.rollback();
@@ -69,6 +69,7 @@ public class SellerDAO {
 			} catch (SQLException e) {			
 				e.printStackTrace();
 			}
+			System.gc();
 		}   
         
 		return picked;
@@ -140,6 +141,7 @@ public class SellerDAO {
 			e.printStackTrace();
 			
 		} finally {
+			list = null;
 			try {
 				callableStatement.close();
 			} catch (SQLException e) {			
@@ -150,6 +152,7 @@ public class SellerDAO {
 			} catch (SQLException e) {			
 				e.printStackTrace();
 			}
+			System.gc();
 		}   
         
 		return null;
@@ -187,7 +190,7 @@ public class SellerDAO {
 			
 			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
-			
+			System.gc();
 		}   
         
 		return status;

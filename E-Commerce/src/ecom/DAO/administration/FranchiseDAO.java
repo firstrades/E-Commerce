@@ -71,7 +71,7 @@ public class FranchiseDAO {
 				} catch (SQLException e) {				
 					e.printStackTrace();
 				}
-			
+				System.gc();
 			}
 		
 		
@@ -132,7 +132,7 @@ public class FranchiseDAO {
 				}
 				e.printStackTrace();
 			} finally {
-				
+				list = null;
 				try {
 					resultSet.close();
 				} catch (SQLException e) {					
@@ -148,6 +148,7 @@ public class FranchiseDAO {
 				} catch (SQLException e) {					
 					e.printStackTrace();
 				}
+				System.gc();
 			}
 			
 			return null;
@@ -204,7 +205,7 @@ public class FranchiseDAO {
 				}
 				e.printStackTrace();
 			} finally {
-				
+				franchisePins = null;
 				try {
 					preparedStatement.close();
 				} catch (SQLException e) {				
@@ -215,7 +216,7 @@ public class FranchiseDAO {
 				} catch (SQLException e) {				
 					e.printStackTrace();
 				}
-			
+				System.gc();
 			}
 		
 		
@@ -268,6 +269,7 @@ public class FranchiseDAO {
 			} catch (SQLException e) {					
 				e.printStackTrace();
 			}
+			System.gc();
 		}
 		
 		return null;
@@ -320,6 +322,7 @@ public class FranchiseDAO {
 			} catch (SQLException e) {					
 				e.printStackTrace();
 			}
+			System.gc();
 		}
 		
 		return null;
@@ -371,6 +374,7 @@ public class FranchiseDAO {
 			} catch (SQLException e) {					
 				e.printStackTrace();
 			}
+			System.gc();
 		}
 		
 		return 0.0;
@@ -423,7 +427,7 @@ public class FranchiseDAO {
 				} catch (SQLException e) {					
 					e.printStackTrace();
 				}
-			
+				System.gc();
 			}
 			
 			return balance;

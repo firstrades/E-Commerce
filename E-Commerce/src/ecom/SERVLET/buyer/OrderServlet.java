@@ -27,6 +27,12 @@ public class OrderServlet extends HttpServlet {
 	public void init() {
 		userDAO = new UserDAO();
 	}
+	
+	@Override
+	public void destroy() { 
+		System.gc();
+		System.out.println("OrderServlet Destroyed"); 
+	};
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

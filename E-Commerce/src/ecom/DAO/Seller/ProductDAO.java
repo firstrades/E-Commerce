@@ -82,7 +82,7 @@ public class ProductDAO {
 			
 			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
-			
+			System.gc();
 		}  
 		
 		return status;
@@ -155,6 +155,7 @@ public class ProductDAO {
 			}
 			e.printStackTrace();
 		} finally {
+			list = null;
 			try {
 				preparedStatement.close();
 			} catch (SQLException e) {			
@@ -165,6 +166,7 @@ public class ProductDAO {
 			} catch (SQLException e) {			
 				e.printStackTrace();
 			}
+			System.gc();
 		}		
 		
 		
@@ -229,6 +231,7 @@ public class ProductDAO {
 			} catch (SQLException e) {			
 				e.printStackTrace();
 			}
+			System.gc();
 		}
 		
 		

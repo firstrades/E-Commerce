@@ -36,6 +36,12 @@ public class OrderReviewAndSubmit extends HttpServlet {
 	public void init() {
 		buyerSearchDAO = new BuyerSearchDAO();
 	}
+	
+	@Override
+	public void destroy() { 
+		System.gc();
+		System.out.println("OrderReviewAndSubmit Destroyed"); 
+	};
  
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

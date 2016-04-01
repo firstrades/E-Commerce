@@ -41,6 +41,12 @@ public class CompleteProductDetails extends HttpServlet {
 		basicFeatures = new EditProductDAO();
 		buyerSearchDAO = new BuyerSearchDAO();
 	}
+	
+	@Override
+	public void destroy() { 
+		System.gc();
+		System.out.println("CompleteProductDetails Destroyed"); 
+	};
   
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

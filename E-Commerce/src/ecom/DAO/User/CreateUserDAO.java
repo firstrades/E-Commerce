@@ -344,7 +344,7 @@ public class CreateUserDAO {
 
 			 return exist;
 
-		}catch (InstantiationException | IllegalAccessException
+		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | SQLException e) {
 			try {
 				connection.rollback();
@@ -363,6 +363,7 @@ public class CreateUserDAO {
 			} catch (SQLException e) {			
 				e.printStackTrace();
 			}
+			System.gc();
 		}
 		 return false;
 	}
@@ -429,7 +430,7 @@ public class CreateUserDAO {
 
 				 return exist;
 
-			}catch (InstantiationException | IllegalAccessException
+			} catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | SQLException e) {
 				try {
 					connection.rollback();
@@ -448,6 +449,7 @@ public class CreateUserDAO {
 				} catch (SQLException e) {			
 					e.printStackTrace();
 				}
+				System.gc();
 			}
 			 return false;
 		}
