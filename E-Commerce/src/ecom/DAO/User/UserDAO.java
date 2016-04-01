@@ -11,7 +11,7 @@ import ecom.model.User;
 
 public class UserDAO {
 
-	public User getUser(String userId, String password) {		//4-3-16
+	public User getUser(String userId, String password) {		//5-3-16
 		
 		User user = null;
 		
@@ -58,7 +58,9 @@ public class UserDAO {
 				user.getUserInfo().setStatus         (resultSet.getString(  "status"        ));
 				user.getUserInfo().setJoiningDate    (resultSet.getString(  "joining_date"  ));
 				user.getUserInfo().setCompany        (resultSet.getString(  "company"       ));
-				user.getUserInfo().setId             (resultSet.getLong  (  "id"            ));   
+
+				user.getUserInfo().setId             (resultSet.getLong  (  "id"            ));   System.out.println(user.getUserInfo().getId());
+
 				
 			}
 			
