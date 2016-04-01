@@ -625,13 +625,12 @@ margin-right: 24px;
 		
 		<!-- -------------- Status for booked products ---------------------- -->
 		
-<div data-ng-show="bookedProductsStatus" style="position:absolute;top:8%;left:16%;width:83%;max-height: 700px; border:1px solid #ccc; overflow: auto; overflow-x: hidden;">
+	<div data-ng-show="bookedProductsStatus" style="position:absolute;top:8%;left:16%;width:83%;max-height: 700px; border:1px solid #ccc; overflow: auto; overflow-x: hidden;">
+				
+		<div class="col-md-12"> <h1 style="margin-left: 1%;background-color: #eee;padding: 8px 14px; font-size: 23px;width: 98%;"> Status For Booked Products </h1>  </div>	
 		
-			
-			
-			
 		<div class="row" style="margin-bottom: 20px;" data-ng-repeat="item in bookedProducts"> 
-			<div class="col-md-12"> <h1 style="margin-left: 1%;background-color: #eee;padding: 8px 14px; font-size: 23px;width: 98%;"> Status For Booked Products </h1>  </div> 
+			 
 			<div class="col-md-12" style="width:100%;border:1px solid #ddd;margin-bottom:-12px;box-shadow: 1px 1px 1px #f5f5f5;background-color: #FFFFF5;">
 				<div class="col-md-2" style="border: 1px solid #EAEAEA; box-shadow: 1px 1px 1px #e7e7e7; margin-top:10px; margin-bottom: 11px;">
 					<img alt="image" src="IconImageFromProduct?productId={{item.productId}}" width="150" height="150" />
@@ -677,7 +676,7 @@ margin-right: 24px;
 		</div>			
 			
 			
-</div> <!-- Main -->
+	</div> <!-- Main -->
 		<!-- -------------- End Status for booked products ---------------------- -->	
 		
 		

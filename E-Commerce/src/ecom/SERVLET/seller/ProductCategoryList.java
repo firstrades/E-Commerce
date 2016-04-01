@@ -11,15 +11,17 @@ import javax.servlet.http.HttpServletResponse;
 public class ProductCategoryList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
  
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
 	}
 
-	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		
 		System.out.println("Entered ProductCategoryList");
 		

@@ -27,16 +27,25 @@ import ecom.model.UserAndPickupAddress;
 @MultipartConfig
 public class AdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private AdminDAO adminDAO;
+	
+	@Override
+	public void init() {
+		adminDAO = new AdminDAO();
+	}
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
 	}
 
-	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 			String servletPath = request.getServletPath();
 			HttpSession session = request.getSession();
@@ -47,7 +56,6 @@ public class AdminServlet extends HttpServlet {
 					System.out.println("Entered RetrieveProductForApproval");				
 					
 					/***************** DataBase ***********************/					
-					AdminDAO adminDAO = new AdminDAO();
 					List<ProductBean> productBeans = adminDAO.getAwaitingProductList();
 					
 					/************ Data for next page ******************/
@@ -147,7 +155,6 @@ public class AdminServlet extends HttpServlet {
 					
 				
 					/***************** DataBase ***********************/					
-					AdminDAO adminDAO = new AdminDAO();
 					boolean status = adminDAO.setProductApprove(productBean);   System.out.println(status);
 					
 					/***************  Send Response  *****************/
@@ -270,7 +277,6 @@ public class AdminServlet extends HttpServlet {
 				System.out.println("Entered RetrievePinCommission");				
 				
 				/***************** DataBase ***********************/					
-				AdminDAO adminDAO = new AdminDAO();
 				List<ExtractFranchiseDetails> extractFranchiseDetails = adminDAO.getFranchiseDetails();
 				
 				/************ Data for next page ******************/
@@ -350,8 +356,7 @@ public class AdminServlet extends HttpServlet {
 				long id      = Long.parseLong(id1);
 				int position = Integer.parseInt(position1);
 			
-				/***************** DataBase ***********************/					
-				AdminDAO adminDAO = new AdminDAO();
+				/***************** DataBase ***********************/				
 				boolean status    = adminDAO.setPin(id, pin, position);
 				
 				/***************  Send Response  *****************/
@@ -415,8 +420,7 @@ public class AdminServlet extends HttpServlet {
 				double commission = Double.parseDouble(commission1);  
 				long id           = Long.parseLong(id1);          
 			
-				/***************** DataBase ***********************/					
-				AdminDAO adminDAO = new AdminDAO();
+				/***************** DataBase ***********************/				
 				boolean status    = adminDAO.setCommission(id, commission);
 				
 				/***************  Send Response  *****************/
@@ -481,7 +485,6 @@ public class AdminServlet extends HttpServlet {
 					long id                 = Long.parseLong(id1);          
 				
 					/***************** DataBase ***********************/					
-					AdminDAO adminDAO = new AdminDAO();
 					double balance    = adminDAO.setAddtionalBalance(id, addtionalBalance);
 					
 					/***************  Send Response  *****************/
@@ -520,10 +523,8 @@ public class AdminServlet extends HttpServlet {
 				/********** Get Session **************/
 				//User user = (User) session.getAttribute("user");
 				
-				/************* Database **************/
-				
-				AdminDAO dao = new AdminDAO();
-				List<OrderTable> orderTables = dao.getOrderTablesForAdmin();			
+				/************* Database **************/				
+				List<OrderTable> orderTables = adminDAO.getOrderTablesForAdmin();			
 				
 				/********* JSON for Next Page **********/
 				
@@ -575,9 +576,8 @@ public class AdminServlet extends HttpServlet {
 				
 				System.out.println("Entered RetrieveAllSellerForApprovalRegistration");
 				
-				/************ Database *******************/
-				AdminDAO dao = new AdminDAO();
-				List<User> userList = dao.getAllSellerForApprovalRegistration();
+				/************ Database *******************/				
+				List<User> userList = adminDAO.getAllSellerForApprovalRegistration();
 				
 				/********* JSON for Next Page **********/
 				
@@ -627,9 +627,8 @@ public class AdminServlet extends HttpServlet {
 				/***************  Get Request  *****************/
 				long id = new Long(request.getParameter("id"));   
 				
-				/***************  Database  *****************/
-				AdminDAO dao = new AdminDAO();
-				UserAndPickupAddress userAndPickupAddress = dao.getUserAndPicupAddress(id);
+				/***************  Database  *****************/				
+				UserAndPickupAddress userAndPickupAddress = adminDAO.getUserAndPicupAddress(id);
 				
 				/********** Set Request ****************/
 				request.setAttribute("userAndPickupAddress", userAndPickupAddress);
@@ -723,9 +722,8 @@ public class AdminServlet extends HttpServlet {
 		    	u.getDeliveryAddress().setCountry     (request.getParameter("daCountry"     ));
 				
 				
-				/********* Database ***********/
-		    	AdminDAO dao = new AdminDAO();
-				boolean status = dao.setApproveSeller(u);   
+				/********* Database ***********/		    	
+				boolean status = adminDAO.setApproveSeller(u);   
 				
 				
 				/***************  Send Response  *****************/

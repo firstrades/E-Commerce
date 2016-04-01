@@ -17,9 +17,9 @@ $(function() {
 	var display = $('#aux').css('display');  
 	
 	if (display == 'none')
-	$('#aux').css('display', 'block'); 
+		$('#aux').css('display', 'block'); 
 	else
-	$('#aux').css('display', 'none'); 
+		$('#aux').css('display', 'none'); 
 	})
 });
 

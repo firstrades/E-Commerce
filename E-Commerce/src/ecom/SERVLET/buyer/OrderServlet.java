@@ -20,16 +20,25 @@ import ecom.model.User;
 
 public class OrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private UserDAO userDAO;
+	
+	@Override
+	public void init() {
+		userDAO = new UserDAO();
+	}
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
 	}
 	
-	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		System.out.println("Entered OrderServlet");
 		
@@ -169,9 +178,8 @@ public class OrderServlet extends HttpServlet {
 					
 					String trnxId =  request.getParameter("txnid");     //"J20160212160056256";               	
 					
-					/******** Get User from Database and Set Session ***************/
-					UserDAO dao = new UserDAO();
-					User user = dao.getUserByTranxId(trnxId);  
+					/******** Get User from Database and Set Session ***************/					
+					User user = userDAO.getUserByTranxId(trnxId);  
 					session.setAttribute("user", user);
 					
 					//Success---------------------------------------------------------
@@ -192,9 +200,8 @@ public class OrderServlet extends HttpServlet {
 					
 					String trnxId =  request.getParameter("txnid");     //"J20160212160056256";   
 					
-					/******** Get User from Database and Set Session ***************/
-					UserDAO dao = new UserDAO();
-					User user = dao.getUserByTranxId(trnxId);  
+					/******** Get User from Database and Set Session ***************/					
+					User user = userDAO.getUserByTranxId(trnxId);  
 					session.setAttribute("user", user);
 					
 					

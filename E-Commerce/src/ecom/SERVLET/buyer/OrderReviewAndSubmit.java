@@ -29,17 +29,26 @@ import ecom.model.User;
 @MultipartConfig
 public class OrderReviewAndSubmit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private BuyerSearchDAO buyerSearchDAO;
+	
+	@Override
+	public void init() {
+		buyerSearchDAO = new BuyerSearchDAO();
+	}
  
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
 	}
 
 	@SuppressWarnings("unchecked")
-	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		System.out.println("Entered OrderReviewAndSubmit");
 		
@@ -118,8 +127,7 @@ public class OrderReviewAndSubmit extends HttpServlet {
 			Order order = (Order) session.getAttribute("order");
 			User  user  = (User)  session.getAttribute("user" );
 			
-			/***************** Database ********************/
-			BuyerSearchDAO buyerSearchDAO = new BuyerSearchDAO();
+			/***************** Database ********************/			
 			order = buyerSearchDAO.editDeliveryAddress(fName, lName, pincode, address1, address2, city, state, contact, order, user);
 			
 			/********* Set Session ****************/
@@ -167,8 +175,7 @@ public class OrderReviewAndSubmit extends HttpServlet {
 			Order order = (Order) session.getAttribute("order");
 			User  user  = (User)  session.getAttribute("user" );
 			
-			/***************** Database ********************/
-			BuyerSearchDAO buyerSearchDAO = new BuyerSearchDAO();
+			/***************** Database ********************/			
 			order = buyerSearchDAO.newDeliveryAddress(fName, lName, pincode, address1, address2, city, state, contact, order, user);
 			
 			/********* Set Session ****************/

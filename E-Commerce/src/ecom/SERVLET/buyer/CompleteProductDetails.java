@@ -32,11 +32,22 @@ import ecom.model.User;
 @WebServlet("/CompleteProductDetails")
 public class CompleteProductDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private EditProductDAO basicFeatures;
+	private BuyerSearchDAO buyerSearchDAO;
+	
+	@Override
+	public void init() {
+		basicFeatures = new EditProductDAO();
+		buyerSearchDAO = new BuyerSearchDAO();
+	}
   
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
 	}
@@ -68,8 +79,7 @@ public class CompleteProductDetails extends HttpServlet {
 		 *************************************************************************/			
 			/**
 			 * @Basic Product
-			 */
-			EditProductDAO basicFeatures = new EditProductDAO();
+			 */			
 			ProductBean productBean = basicFeatures.getBasicFeatures(productId);		
 			
 			/**
@@ -78,8 +88,7 @@ public class CompleteProductDetails extends HttpServlet {
 			Map<String,String> featureMap = mapFeatures(subCategory, productId);			
 			/**
 			 * @Size
-			 */
-			BuyerSearchDAO buyerSearchDAO = new BuyerSearchDAO();
+			 */			
 			SizeGarment sizeGarment = new SizeGarment();
 			sizeGarment = buyerSearchDAO.getSizeGarmentModel(productId, sizeGarment);	
 			

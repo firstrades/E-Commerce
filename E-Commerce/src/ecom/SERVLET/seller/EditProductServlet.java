@@ -23,16 +23,25 @@ import ecom.model.Size;
 @MultipartConfig
 public class EditProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private EditProductDAO editProductDAO;
  
+	@Override
+	public void init() {
+		editProductDAO = new EditProductDAO();
+	}
+	
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
 	}
 
-	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
 		
@@ -67,9 +76,7 @@ public class EditProductServlet extends HttpServlet {
 			
 			/*********************************************
 			 * Database - Get product table & mobile_spec table 
-			 *********************************************/
-			
-			EditProductDAO editProductDAO = new EditProductDAO();
+			 *********************************************/		
 			ProductBean productBean       = editProductDAO.getBasicFeatures(productId);
 			MobileFeatures mobileFeatures = editProductDAO.getMobileFeatures(productId);
 			
@@ -147,9 +154,7 @@ public class EditProductServlet extends HttpServlet {
 			
 			/*******************************************************
 			 	*  Database - Edit Product Table  *
-			*******************************************************/
-			EditProductDAO editProductDAO = new EditProductDAO();			
-			
+			*******************************************************/		
 			productBean = editProductDAO.editProduct(productBean);
 			
 			/*********************************************
@@ -206,9 +211,7 @@ public class EditProductServlet extends HttpServlet {
 			
 			/*******************************************************
 			 	*  Database - Edit Product Table  *
-			*******************************************************/
-			EditProductDAO editProductDAO = new EditProductDAO();
-			
+			*******************************************************/			
 			@SuppressWarnings("unused")
 			boolean status = editProductDAO.editImage(productId, sellerId, inputStream, "iconImage");
 			
@@ -237,9 +240,7 @@ public class EditProductServlet extends HttpServlet {
 			
 			/*******************************************************
 			 	*  Database - Edit Product Table  *
-			*******************************************************/
-			EditProductDAO editProductDAO = new EditProductDAO();
-			
+			*******************************************************/		
 			@SuppressWarnings("unused")
 			boolean status = editProductDAO.editImage(productId, sellerId, inputStream, "image1");
 			
@@ -268,9 +269,7 @@ public class EditProductServlet extends HttpServlet {
 			
 			/*******************************************************
 			 	*  Database - Edit Product Table  *
-			*******************************************************/
-			EditProductDAO editProductDAO = new EditProductDAO();
-			
+			*******************************************************/			
 			@SuppressWarnings("unused")
 			boolean status = editProductDAO.editImage(productId, sellerId, inputStream, "image2");
 			
@@ -308,8 +307,6 @@ public class EditProductServlet extends HttpServlet {
 			/*******************************************************
 				*  Database - Edit Product Table  *
 			*******************************************************/
-			EditProductDAO editProductDAO = new EditProductDAO();			
-			
 			MobileFeatures mobileFeatures = editProductDAO.editMobileFeatures(productId, sellerId, internalStorage, os, touch, wifi, fm, frontCamera,
 					rearCamera, connectivity);
 			
@@ -359,9 +356,7 @@ public class EditProductServlet extends HttpServlet {
 				productId = (Long) session.getAttribute("productId");				
 			}
 			
-			/********** Database - Get product table & p_leggings_spec table ***************/
-			
-			EditProductDAO editProductDAO     = new EditProductDAO();
+			/********** Database - Get product table & p_leggings_spec table ***************/			
 			ProductBean productBean           = editProductDAO.getBasicFeatures(productId);
 			LeggingsFeatures leggingsFeatures = editProductDAO.getLeggingsFeatures(productId);
 			Size size                         = editProductDAO.getSizes(productId);
@@ -406,8 +401,6 @@ public class EditProductServlet extends HttpServlet {
 			/*******************************************************
 				*  Database - Edit Product Table  *
 			*******************************************************/
-			EditProductDAO editProductDAO = new EditProductDAO();			
-			
 			LeggingsFeatures leggingsFeatures = editProductDAO.editLeggingsFeatures(productId, sellerId, pattern,
 					fabric, style, season, waistband);
 			
@@ -460,10 +453,7 @@ public class EditProductServlet extends HttpServlet {
 					
 			
 			
-			/*************  Database - Edit Product Table  *************/	
-			
-			EditProductDAO editProductDAO = new EditProductDAO();			
-			
+			/*************  Database - Edit Product Table  *************/			
 			Size size = editProductDAO.editSizes(productId, sellerId, size26, size28, size30, size32, size34, size36, size38,
 					size40, size42, size44, size46, size48);
 			

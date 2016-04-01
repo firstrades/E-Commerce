@@ -366,8 +366,7 @@ public class AdminDAO {
         	connection = ConnectionFactory.getNewConnection();
 		    connection.setAutoCommit(false);
 		    
-		    callableStatement = connection.prepareCall("{call getOrderTablesForAdmin()}");
-		    //callableStatement.setLong(1, );		    
+		    callableStatement = connection.prepareCall("{call getOrderTablesForAdmin()}");		   		    
 		    
 		    resultSet = callableStatement.executeQuery() ; 
 		    
@@ -376,7 +375,7 @@ public class AdminDAO {
 		    	OrderTable orderTable = new OrderTable();
 		    	
 		    	orderTable.setBookedDateTime(resultSet.getString("date_time"    ));
-		    	orderTable.setDelivered     (resultSet.getString("delivered"    ));
+		    	//orderTable.setDelivered     (resultSet.getString("delivered"    ));
 		    	orderTable.setId            (resultSet.getLong  ("id"           ));
 		    	orderTable.setOrderId       (resultSet.getString("order_id"     ));
 		    	orderTable.setOrderState    (resultSet.getString("order_state"  ));

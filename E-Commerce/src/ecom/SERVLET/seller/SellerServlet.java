@@ -39,16 +39,27 @@ import ecom.model.User;
 @MultipartConfig
 public class SellerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private SellerDAO sellerDAO;
+	private ProductDAO productDAO;
+	
+	@Override
+	public void init() {
+		sellerDAO = SellerDAO.getNewInstance();
+		productDAO = new ProductDAO();
+	}
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
 	}
 
-	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
 		
@@ -149,8 +160,7 @@ public class SellerServlet extends HttpServlet {
 			
 			/*******************************************************
 			 	*  Database - Get Product List  *
-			*******************************************************/			
-			ProductDAO productDAO = new ProductDAO();
+			*******************************************************/				
 			List<ProductBean> productList = productDAO.getProducts(category, subCategory, user);
 			
 			int MAX = TransientData.getMAX(user.getUserInfo().getId(), category, subCategory);
@@ -305,9 +315,7 @@ public class SellerServlet extends HttpServlet {
 			
 			/*******************************************************
 			 	*  Database - Delete rows from tables  *
-			*******************************************************/	
-			
-			ProductDAO productDAO = new ProductDAO();
+			*******************************************************/			
 			boolean status = productDAO.deleteProduct(productId, subCategory);			
 			System.out.println(status);
 			
@@ -339,10 +347,8 @@ public class SellerServlet extends HttpServlet {
 			/********** Get Session **************/
 			User user = (User) session.getAttribute("user");
 			
-			/************* Database **************/
-			
-			SellerDAO dao = SellerDAO.getNewInstance();
-			List<OrderTable> orderTables = dao.getOrderTables(user);
+			/************* Database **************/			
+			List<OrderTable> orderTables = sellerDAO.getOrderTables(user);
 			
 			/********* Set Request *************/
 			request.setAttribute("orderTables", orderTables);
@@ -426,10 +432,8 @@ public class SellerServlet extends HttpServlet {
 			
 			boolean picked = false;
 			
-			/*********** Database *************/
-			
-			SellerDAO dao = SellerDAO.getNewInstance();
-			picked = dao.setPickedUp(orderTableId, date, courierName);
+			/*********** Database *************/		
+			picked = sellerDAO.setPickedUp(orderTableId, date, courierName);
 			
 			
 			/************* JSON Data for Next Page ****************/
@@ -452,8 +456,7 @@ public class SellerServlet extends HttpServlet {
 			
 			long orderTableId = Long.parseLong(request.getParameter("orderTableId"));		
 			
-			/*********** Database *************/
-			
+			/*********** Database *************/			
 			TrackByNumberInterface trackByNumberInterface = TrackByNumber.getNewInstance();
 			
 			try {
@@ -500,8 +503,7 @@ public class SellerServlet extends HttpServlet {
 			
 			long orderTableId = Long.parseLong(request.getParameter("orderTableId"));	
 			
-			/*********** Database *************/
-			SellerDAO sellerDAO = SellerDAO.getNewInstance();
+			/*********** Database *************/			
 			boolean status = sellerDAO.setItemCancelled(orderTableId);	
 			//boolean status = true;
 			
