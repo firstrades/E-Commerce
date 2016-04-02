@@ -5,11 +5,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
+import ecom.beans.AdminServletHelper;
 import ecom.common.ConnectionFactory;
 import ecom.common.Conversions;
 import ecom.model.ExtractFranchiseDetails;
@@ -355,7 +354,8 @@ public class AdminDAO {
 		
 		Connection connection = null; CallableStatement callableStatement = null; ResultSet resultSet = null;
         
-        List<OrderTable> list = new ArrayList<OrderTable>();
+        List<OrderTable> list     = new ArrayList<OrderTable>();
+        AdminServletHelper helper = new AdminServletHelper();
    
         
         try{
@@ -413,27 +413,18 @@ public class AdminDAO {
 		    	orderTable.getUser().getContact().setEmail1   (resultSet.getString("uEmail"   ));
 		    	orderTable.getUser().getUserInfo().setBalance (resultSet.getDouble("balance"  ));
 		    	
-		    	/************** Increment 15 days ***************/
-		    	String date = resultSet.getString("delivered_date");  System.out.println(date);
-		    	String formatted = null;
-		    	if (resultSet.getString("delivered_date") != null) {
-			    	String[] dateParts = date.split("-");
-					Calendar deliveredDate = Calendar.getInstance();
-					deliveredDate.set(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1])-1, Integer.parseInt(dateParts[2]));
-					deliveredDate.add(Calendar.DATE, 15);
-					SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-					formatted = format1.format(deliveredDate.getTime());  System.out.println(formatted);
-		    	}
+		    	/************** Increment 15 days ***************/		    	
+		    	String date = helper.getDateIncremented(resultSet.getString("delivered_date"));	    	
 		    	
 		    	orderTable.getOrderTableAccessories().setTrackNumber            (resultSet.getString("track_number"             ));
-		    	orderTable.getOrderTableAccessories().setDeliveredDate          (formatted);
+		    	orderTable.getOrderTableAccessories().setDeliveredDate          (date                                            );
 		    	orderTable.getOrderTableAccessories().setPickedUpDate           (resultSet.getString("picked_up_date"           ));
 		    	orderTable.getOrderTableAccessories().setCancellationAfterBooked(resultSet.getInt   ("calcellation_after_booked"));
 		    	orderTable.getOrderTableAccessories().setCourier                (resultSet.getString("courier"                  ));
-		    	
-		    	System.out.println(orderTable.getOrderTableAccessories().getCourier());
-		    	
+		    			    	
 		    	list.add(orderTable);
+		    	
+		    	date = null;
 		    }
 		   
 		    System.out.println("SQL - getOrderTablesForAdmin Executed");
@@ -446,8 +437,9 @@ public class AdminDAO {
 			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 			e.printStackTrace();
 			
-		} finally {
-			list = null;			
+		} finally {		
+			helper = null;
+			list   = null;			
 			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
 			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
