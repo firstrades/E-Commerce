@@ -69,7 +69,6 @@ admin.controller('ViewController', function($scope, $http, $window) {
 	
 	
 	
-	
 								/***************************************************************************/
 	
 	$scope.hideAll = function() {   		
@@ -91,6 +90,31 @@ admin.controller('ViewController', function($scope, $http, $window) {
 	};
 	
 }) ;
+
+admin.controller('DeliveredController', function($scope, $http, $window) {
+	
+	$scope.payment   = false;
+	$scope.delivered = false;
+	
+	$scope.checkDelivery = function(deliveredDate) {		
+		
+		var dateParts = deliveredDate.split("-"); 
+		
+		var month = parseInt(dateParts[1]) - 1;
+		
+		var dateDeliveredOn = new Date(dateParts[0], month, dateParts[2]);		
+		
+		var currentDate = new Date();		
+		
+		if (dateDeliveredOn < currentDate) { 
+			$scope.payment = true;
+		}
+		else
+			$scope.delivered = true;
+	};
+	
+	
+});
 
 admin.controller('SetPinCommissionController', function($scope, $http, $window) {
 	

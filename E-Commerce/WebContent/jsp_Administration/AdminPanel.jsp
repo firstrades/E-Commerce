@@ -725,17 +725,30 @@ margin-right: 24px;
 						    	color: #EA150F;">
 						Order Returned By Customer
 					</span>
-				</div>
-				<div class="col-md-3" style="margin-top:100px;" data-ng-show="delivered">
-					<span style="float: left;margin-top: 9px;">
-						Order Delivered (Payment to Stockist pending)
+				</div>			
+				
+				<div class="col-md-3" data-ng-show="item.orderTableData.orderState == 'Delivered'" data-ng-controller="DeliveredController" style="margin-top:100px;" >
+					<div data-ng-if="item.orderTableData.orderState == 'Delivered'" data-ng-init="checkDelivery(item.orderTableAccessories.deliveredDate)"></div>
+					<span data-ng-show="delivered" style="float: left;
+														margin-top: 9px;    
+														float: left;
+												    	margin-top: -24px;
+												    	margin-left: 96px;
+												    	font-family: fantasy;
+												    	font-size: large;">
+						Order Delivered <br>
+						(Payment to Stockist pending)
 					</span>
-				</div>
-				<div class="col-md-3" style="margin-top:100px;" data-ng-show="payment">
-					<span style="float: left;margin-top: -26px; margin-left: 150px;">
+					<span data-ng-show="payment" style="float: left;
+														margin-top: 9px;    
+														float: left;
+												    	margin-top: -24px;
+												    	margin-left: 96px;												    	
+												    	font-size: large;">
 						<button class="btn btn-success">Payment to Stockist</button>
 					</span>
 				</div>
+				
 				
 				<!-- -------------------------------------------------------------- -->	
 			</div>

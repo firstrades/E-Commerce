@@ -5,7 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import ecom.common.ConnectionFactory;
@@ -411,8 +413,20 @@ public class AdminDAO {
 		    	orderTable.getUser().getContact().setEmail1   (resultSet.getString("uEmail"   ));
 		    	orderTable.getUser().getUserInfo().setBalance (resultSet.getDouble("balance"  ));
 		    	
+		    	/************** Increment 15 days ***************/
+		    	String date = resultSet.getString("delivered_date");  System.out.println(date);
+		    	String formatted = null;
+		    	if (resultSet.getString("delivered_date") != null) {
+			    	String[] dateParts = date.split("-");
+					Calendar deliveredDate = Calendar.getInstance();
+					deliveredDate.set(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1])-1, Integer.parseInt(dateParts[2]));
+					deliveredDate.add(Calendar.DATE, 15);
+					SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+					formatted = format1.format(deliveredDate.getTime());  System.out.println(formatted);
+		    	}
+		    	
 		    	orderTable.getOrderTableAccessories().setTrackNumber            (resultSet.getString("track_number"             ));
-		    	orderTable.getOrderTableAccessories().setDeliveredDate          (resultSet.getString("delivered_date"           ));
+		    	orderTable.getOrderTableAccessories().setDeliveredDate          (formatted);
 		    	orderTable.getOrderTableAccessories().setPickedUpDate           (resultSet.getString("picked_up_date"           ));
 		    	orderTable.getOrderTableAccessories().setCancellationAfterBooked(resultSet.getInt   ("calcellation_after_booked"));
 		    	orderTable.getOrderTableAccessories().setCourier                (resultSet.getString("courier"                  ));
