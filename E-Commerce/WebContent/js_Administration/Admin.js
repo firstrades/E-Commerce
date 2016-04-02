@@ -27,12 +27,8 @@ admin.controller('ViewController', function($scope, $http, $window) {
 		
 		$http.post('RetrieveOrderedItemsForAdmin', {}).success(function(data) {
 			
-			$scope.bookedProducts = data.items;
+			$scope.bookedProducts = data.items;			
 			
-			if (data.items.orderState = 'Booked') {
-				
-				$scope.booked = true;
-			}
 		});
 		
 		

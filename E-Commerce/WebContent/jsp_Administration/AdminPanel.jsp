@@ -664,14 +664,80 @@ margin-right: 24px;
 				<!-- -------------------------------------------------------------- -->
 				
 				
-				<div class="col-md-3" style="margin-top:100px;" data-ng-show="booked">
-					<span style="float: left;margin-top: 9px;">
+				<div class="col-md-3" style="margin-top:100px;" data-ng-show="item.orderTableData.orderState == 'Booked'">
+					<span style="float: left;
+								margin-top: 9px;    
+								float: left;
+						    	margin-top: -24px;
+						    	margin-left: 96px;
+						    	font-family: fantasy;
+						    	font-size: large;
+						    	color: green;">
 						Order Booked By Customer
-					</span>					
-					                                                                 
-				<!-- -------------------------------------------------------------- -->					
-				
+					</span>
 				</div>
+				<div class="col-md-3" style="margin-top:100px;" data-ng-show="item.orderTableData.orderState == 'Pickup'">
+					<span style="float: left;
+								margin-top: 9px;    
+								float: left;
+						    	margin-top: -24px;
+						    	margin-left: 96px;
+						    	font-family: fantasy;
+						    	font-size: large;
+						    	color: #31708F;">
+						Track Number Generated <br>
+						(Pickup Required)
+					</span>
+				</div>
+				<div class="col-md-3" style="margin-top:100px;" data-ng-show="item.orderTableData.orderState == 'Picked'">
+					<span style="float: left;
+								margin-top: 9px;    
+								float: left;
+						    	margin-top: -24px;
+						    	margin-left: 96px;
+						    	font-family: fantasy;
+						    	font-size: large;
+						    	color: #F0AD4E;">
+						Item Picked by Courier
+					</span>
+				</div>
+				<div class="col-md-3" style="margin-top:100px;" data-ng-show="item.orderTableData.orderState == 'Cancel'">
+					<span style="float: left;
+								margin-top: 9px;    
+								float: left;
+						    	margin-top: -24px;
+						    	margin-left: 96px;
+						    	font-family: fantasy;
+						    	font-size: large;
+						    	color: #EA150F;">
+						Order Cancelled By Customer <br>
+						(Cancel pending by Stockist)
+					</span>
+				</div>
+				<div class="col-md-3" style="margin-top:100px;" data-ng-show="item.orderTableData.orderState == 'Return'">
+					<span style="float: left;
+								margin-top: 9px;    
+								float: left;
+						    	margin-top: -24px;
+						    	margin-left: 96px;
+						    	font-family: fantasy;
+						    	font-size: large;
+						    	color: #EA150F;">
+						Order Returned By Customer
+					</span>
+				</div>
+				<div class="col-md-3" style="margin-top:100px;" data-ng-show="delivered">
+					<span style="float: left;margin-top: 9px;">
+						Order Delivered (Payment to Stockist pending)
+					</span>
+				</div>
+				<div class="col-md-3" style="margin-top:100px;" data-ng-show="payment">
+					<span style="float: left;margin-top: -26px; margin-left: 150px;">
+						<button class="btn btn-success">Payment to Stockist</button>
+					</span>
+				</div>
+				
+				<!-- -------------------------------------------------------------- -->	
 			</div>
 		</div>			
 			

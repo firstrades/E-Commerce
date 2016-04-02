@@ -709,7 +709,7 @@ public class AdminServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 				
-				String json = jsonObject.toString();
+				String json = jsonObject.toString();    System.out.println(json);
 				
 				/******** Clean Up **********/
 				orderTables = null; jsonObject = null; jsonArray = null; 
