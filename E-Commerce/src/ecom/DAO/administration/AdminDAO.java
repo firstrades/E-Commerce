@@ -368,19 +368,56 @@ public class AdminDAO {
 		    	
 		    	OrderTable orderTable = new OrderTable();
 		    	
-		    	orderTable.setBookedDateTime(resultSet.getString("date_time"    ));
-		    	//orderTable.setDelivered     (resultSet.getString("delivered"    ));
 		    	orderTable.setId            (resultSet.getLong  ("id"           ));
-		    	orderTable.setOrderId       (resultSet.getString("order_id"     ));
-		    	orderTable.setOrderState    (resultSet.getString("order_state"  ));
+		    	orderTable.setCustomerId    (resultSet.getLong  ("customer_id"  ));
 		    	orderTable.setProductId     (resultSet.getLong  ("product_id"   ));
+		    	orderTable.setSellerId      (resultSet.getLong  ("seller_id"    ));
 		    	orderTable.setQty           (resultSet.getInt   ("qty"          ));
 		    	orderTable.setSellPrice     (resultSet.getDouble("sell_price"   ));
 		    	orderTable.setShippingCost  (resultSet.getDouble("shipping_cost"));
-		    	orderTable.setSize          (resultSet.getInt   ("size"         ));
-		    	orderTable.setStatus        (resultSet.getString("status"       ));
 		    	orderTable.setWarranty      (resultSet.getString("warranty"     ));
-		    	orderTable.setSellerId      (resultSet.getLong  ("seller_id"    ));
+		    	orderTable.setOrderId       (resultSet.getString("order_id"     ));		    	
+		    	orderTable.setBookedDateTime(resultSet.getString("date_time"    ));	
+		    	orderTable.setStatus        (resultSet.getString("status"       ));
+		    	orderTable.setSize          (resultSet.getInt   ("size"         ));		    	
+		    	orderTable.setOrderState    (resultSet.getString("order_state"  ));
+		    	orderTable.setPaymentType   (resultSet.getString("payment_type" ));
+		    	
+		    	orderTable.getDeliveryAddress().setContact (resultSet.getString("contact"   ));
+		    	orderTable.getDeliveryAddress().setAddress (resultSet.getString("address"   ));
+		    	orderTable.getDeliveryAddress().setAddress1(resultSet.getString("address1"  ));
+		    	orderTable.getDeliveryAddress().setCity    (resultSet.getString("city"      ));
+		    	orderTable.getDeliveryAddress().setState   (resultSet.getString("state"     ));
+		    	orderTable.getDeliveryAddress().setPin     (resultSet.getString("pin"       ));
+		    	orderTable.getDeliveryAddress().setfName   (resultSet.getString("first_name"));
+		    	orderTable.getDeliveryAddress().setlName   (resultSet.getString("last_name" ));
+		    	orderTable.getDeliveryAddress().setEmail   (resultSet.getString("email"     ));
+		    	orderTable.getDeliveryAddress().setCompany (resultSet.getString("company"   ));
+		    	orderTable.getDeliveryAddress().setCountry (resultSet.getString("country"   ));
+		    	
+		    	orderTable.getUser().getUserInfo().setId      (resultSet.getLong("uId"        ));
+		    	orderTable.getUser().getUserInfo().setUserType(Conversions.getEnumUserType(resultSet.getString( "user_type" )));
+		    	orderTable.getUser().getPerson().setFirstName (resultSet.getString("uFName"   ));
+		    	orderTable.getUser().getPerson().setLastName  (resultSet.getString("uLName"   ));		    	
+		    	orderTable.getUser().getUserInfo().setCompany (resultSet.getString("uCompany" ));
+		    	orderTable.getUser().getAddress().setAddress  (resultSet.getString("uAddress" ));
+		    	orderTable.getUser().getAddress().setAddress1 (resultSet.getString("uAddress1"));		    	
+		    	orderTable.getUser().getAddress().setPin      (resultSet.getString("uPin"     ));
+		    	orderTable.getUser().getAddress().setCity     (resultSet.getString("uCity"    ));
+		    	orderTable.getUser().getAddress().setState    (resultSet.getString("uState"   ));
+		    	orderTable.getUser().getAddress().setCountry  (resultSet.getString("uCountry" ));
+		    	orderTable.getUser().getPerson().setSex       (resultSet.getString("uSex"     ));
+		    	orderTable.getUser().getContact().setMobile1  (resultSet.getString("uMobile"  ));
+		    	orderTable.getUser().getContact().setEmail1   (resultSet.getString("uEmail"   ));
+		    	orderTable.getUser().getUserInfo().setBalance (resultSet.getDouble("balance"  ));
+		    	
+		    	orderTable.getOrderTableAccessories().setTrackNumber            (resultSet.getString("track_number"             ));
+		    	orderTable.getOrderTableAccessories().setDeliveredDate          (resultSet.getString("delivered_date"           ));
+		    	orderTable.getOrderTableAccessories().setPickedUpDate           (resultSet.getString("picked_up_date"           ));
+		    	orderTable.getOrderTableAccessories().setCancellationAfterBooked(resultSet.getInt   ("calcellation_after_booked"));
+		    	orderTable.getOrderTableAccessories().setCourier                (resultSet.getString("courier"                  ));
+		    	
+		    	System.out.println(orderTable.getOrderTableAccessories().getCourier());
 		    	
 		    	list.add(orderTable);
 		    }

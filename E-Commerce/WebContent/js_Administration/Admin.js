@@ -325,3 +325,5 @@ $(function() {
 });
 
 //var discount = ((parseInt(listPrice) - parseInt(salePriceToAdmin)) / parseInt(listPrice)) * 100;
+
+

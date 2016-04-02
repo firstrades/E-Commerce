@@ -600,16 +600,77 @@ public class AdminServlet extends HttpServlet {
 				
 				/********* JSON for Next Page **********/
 				
-				JSONObject jsonObject = new JSONObject();
+				JSONObject jsonObject = new JSONObject();   
 				JSONArray  jsonArray  = new JSONArray();
 				
-				JSONObject jsonObject2 = null;
+				//JSONObject jsonObject2 = null;
 				
 				try {
 				
 					for (OrderTable orderTable : orderTables) {
 						
-						jsonObject2 = new JSONObject();						
+						JSONObject orderTableData = new JSONObject();
+						
+						orderTableData.put("id",             orderTable.getId());
+						orderTableData.put("customerId",     orderTable.getCustomerId());
+						orderTableData.put("productId",      orderTable.getProductId());
+						orderTableData.put("sellerId",       orderTable.getSellerId());
+						orderTableData.put("qty",            orderTable.getQty());
+						orderTableData.put("sellPrice",      orderTable.getSellPrice());
+						orderTableData.put("shippingCost",   orderTable.getShippingCost());
+						orderTableData.put("warranty",       orderTable.getWarranty());
+						orderTableData.put("orderId",        orderTable.getOrderId());
+						orderTableData.put("bookedDateTime", orderTable.getBookedDateTime());
+						orderTableData.put("status",         orderTable.getStatus());
+						orderTableData.put("size",           orderTable.getSize());
+						orderTableData.put("orderState",     orderTable.getOrderState());
+						orderTableData.put("paymentType",    orderTable.getPaymentType());
+						
+						
+						JSONObject customerDeliveryAddress = new JSONObject();
+						
+						customerDeliveryAddress.put("contact",   orderTable.getDeliveryAddress().getContact() );
+						customerDeliveryAddress.put("address",   orderTable.getDeliveryAddress().getAddress() );
+						customerDeliveryAddress.put("address1",  orderTable.getDeliveryAddress().getAddress1());
+						customerDeliveryAddress.put("city",      orderTable.getDeliveryAddress().getCity()    );
+						customerDeliveryAddress.put("state",     orderTable.getDeliveryAddress().getState()   );
+						customerDeliveryAddress.put("pin",       orderTable.getDeliveryAddress().getPin()     );
+						customerDeliveryAddress.put("firstName", orderTable.getDeliveryAddress().getfName()   );
+						customerDeliveryAddress.put("lastName",  orderTable.getDeliveryAddress().getlName()   );
+						customerDeliveryAddress.put("email",     orderTable.getDeliveryAddress().getEmail()   );
+						customerDeliveryAddress.put("company",   orderTable.getDeliveryAddress().getCompany() );
+						customerDeliveryAddress.put("country",   orderTable.getDeliveryAddress().getCountry() );
+						
+						JSONObject userData = new JSONObject();
+						
+						userData.put("id",       orderTable.getUser().getUserInfo().getId()      );
+						userData.put("userType", orderTable.getUser().getUserInfo().getUserType());
+						userData.put("fName",    orderTable.getUser().getPerson().getFirstName() );
+						userData.put("lName",    orderTable.getUser().getPerson().getLastName()  );
+						userData.put("company",  orderTable.getUser().getUserInfo().getCompany() );
+						userData.put("address",  orderTable.getUser().getAddress().getAddress()  );
+						userData.put("address1", orderTable.getUser().getAddress().getAddress1() );
+						userData.put("pin",      orderTable.getUser().getAddress().getPin()      );
+						userData.put("city",     orderTable.getUser().getAddress().getCity()     );
+						userData.put("state",    orderTable.getUser().getAddress().getState()    );
+						userData.put("country",  orderTable.getUser().getAddress().getCountry()  );
+						userData.put("state",    orderTable.getUser().getPerson().getSex()       );
+						userData.put("mobile",   orderTable.getUser().getContact().getMobile1()  );
+						userData.put("email",    orderTable.getUser().getContact().getEmail1()   );
+						userData.put("balance",  orderTable.getUser().getUserInfo().getBalance() );
+						
+						JSONObject orderTableAccessories = new JSONObject();
+						
+						orderTableAccessories.put("trackNumber",             orderTable.getOrderTableAccessories().getTrackNumber()            );
+						orderTableAccessories.put("deliveredDate",           orderTable.getOrderTableAccessories().getDeliveredDate()          );
+						orderTableAccessories.put("pickedDate",              orderTable.getOrderTableAccessories().getPickedUpDate()           );
+						orderTableAccessories.put("calcellationAfterBooked", orderTable.getOrderTableAccessories().getCancellationAfterBooked());
+						orderTableAccessories.put("courier",                 orderTable.getOrderTableAccessories().getCourier()                );
+						
+						
+						/*************************************/
+						
+						JSONObject jsonObject2 = new JSONObject();						
 						
 						jsonObject2.put("productId",      orderTable.getProductId());
 						jsonObject2.put("qty",            orderTable.getQty());
@@ -622,11 +683,21 @@ public class AdminServlet extends HttpServlet {
 						jsonObject2.put("orderId",        orderTable.getOrderId());
 						jsonObject2.put("orderState",     orderTable.getOrderState());
 						jsonObject2.put("status",         orderTable.getStatus());
-						jsonObject2.put("warranty",       orderTable.getWarranty());							
+						jsonObject2.put("warranty",       orderTable.getWarranty());	
+						
+						
+						jsonObject2.put("orderTableData",          orderTableData);
+						jsonObject2.put("customerDeliveryAddress", customerDeliveryAddress);
+						jsonObject2.put("userData",                userData);
+						jsonObject2.put("orderTableAccessories",   orderTableAccessories);
 						
 						jsonArray.put(jsonObject2);	
 						
-						jsonObject2 = null;
+						jsonObject2             = null;
+						orderTableData          = null;
+						customerDeliveryAddress = null;
+						userData                = null;
+						orderTableAccessories   = null;
 						
 					} // for 
 					
@@ -641,7 +712,7 @@ public class AdminServlet extends HttpServlet {
 				String json = jsonObject.toString();
 				
 				/******** Clean Up **********/
-				orderTables = null; jsonObject = null; jsonArray = null; jsonObject2 = null;
+				orderTables = null; jsonObject = null; jsonArray = null; 
 				System.gc();
 				
 				response.setContentType("application/json");

@@ -100,7 +100,7 @@ a.tooltip:hover > span {
     visibility: visible;
     overflow: visible;
     margin-top: 50px;
-    display: inline;
+    display: inline;       
     margin-left: -90px;
 }
 
