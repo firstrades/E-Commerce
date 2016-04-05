@@ -197,23 +197,23 @@ a.tooltip span b {
 						<hr>						
 						
 						
-							<a class="tooltip" style="font-size: medium;">
-								Customer Details (Bring mouse on it)
-								<span>
-									 <span><%=orderTable.getDeliveryAddress().getfName()    %>                 </span> 
-									 <span><%=orderTable.getDeliveryAddress().getlName()    %>                 </span><br>
-									 <span><%=orderTable.getDeliveryAddress().getContact()  %>                 </span><br>
-									 <span><%=orderTable.getDeliveryAddress().getAddress()  %>                 </span><br>
-									 <% if (orderTable.getDeliveryAddress().getAddress1() != null) { %>
-									 <span><%=orderTable.getDeliveryAddress().getAddress1() %>                 </span><br>
-									 <% } %>									 
-									 <span><%=orderTable.getDeliveryAddress().getCity()     %>                 </span>
-									 <span>     -                                                              </span>
-									 <span><%=orderTable.getDeliveryAddress().getPin()      %>                 </span><br>
-									 <span><%=state.getStateName(orderTable.getDeliveryAddress().getState()) %></span><br>	
-									 <span><%=orderTable.getDeliveryAddress().getEmail()    %>                 </span>						
-								</span>
-							</a>					
+						<a class="tooltip" style="font-size: medium;">
+							Customer Details (Bring mouse on it)
+							<span>
+								 <span><%=orderTable.getDeliveryAddress().getfName()    %>                 </span> 
+								 <span><%=orderTable.getDeliveryAddress().getlName()    %>                 </span><br>
+								 <span><%=orderTable.getDeliveryAddress().getContact()  %>                 </span><br>
+								 <span><%=orderTable.getDeliveryAddress().getAddress()  %>                 </span><br>
+								 <% if (orderTable.getDeliveryAddress().getAddress1() != null) { %>
+								 <span><%=orderTable.getDeliveryAddress().getAddress1() %>                 </span><br>
+								 <% } %>									 
+								 <span><%=orderTable.getDeliveryAddress().getCity()     %>                 </span>
+								 <span>     -                                                              </span>
+								 <span><%=orderTable.getDeliveryAddress().getPin()      %>                 </span><br>
+								 <span><%=state.getStateName(orderTable.getDeliveryAddress().getState()) %></span><br>	
+								 <span><%=orderTable.getDeliveryAddress().getEmail()    %>                 </span>						
+							</span>
+						</a>					
 						
 											
 						<hr>

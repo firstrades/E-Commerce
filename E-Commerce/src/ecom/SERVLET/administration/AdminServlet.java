@@ -601,9 +601,7 @@ public class AdminServlet extends HttpServlet {
 				/********* JSON for Next Page **********/
 				
 				JSONObject jsonObject = new JSONObject();   
-				JSONArray  jsonArray  = new JSONArray();
-				
-				//JSONObject jsonObject2 = null;
+				JSONArray  jsonArray  = new JSONArray();				
 				
 				try {
 				
@@ -641,23 +639,23 @@ public class AdminServlet extends HttpServlet {
 						customerDeliveryAddress.put("company",   orderTable.getDeliveryAddress().getCompany() );
 						customerDeliveryAddress.put("country",   orderTable.getDeliveryAddress().getCountry() );
 						
-						JSONObject userData = new JSONObject();
+						JSONObject sellerData = new JSONObject();
 						
-						userData.put("id",       orderTable.getUser().getUserInfo().getId()      );
-						userData.put("userType", orderTable.getUser().getUserInfo().getUserType());
-						userData.put("fName",    orderTable.getUser().getPerson().getFirstName() );
-						userData.put("lName",    orderTable.getUser().getPerson().getLastName()  );
-						userData.put("company",  orderTable.getUser().getUserInfo().getCompany() );
-						userData.put("address",  orderTable.getUser().getAddress().getAddress()  );
-						userData.put("address1", orderTable.getUser().getAddress().getAddress1() );
-						userData.put("pin",      orderTable.getUser().getAddress().getPin()      );
-						userData.put("city",     orderTable.getUser().getAddress().getCity()     );
-						userData.put("state",    orderTable.getUser().getAddress().getState()    );
-						userData.put("country",  orderTable.getUser().getAddress().getCountry()  );
-						userData.put("state",    orderTable.getUser().getPerson().getSex()       );
-						userData.put("mobile",   orderTable.getUser().getContact().getMobile1()  );
-						userData.put("email",    orderTable.getUser().getContact().getEmail1()   );
-						userData.put("balance",  orderTable.getUser().getUserInfo().getBalance() );
+						sellerData.put("id",       orderTable.getUser().getUserInfo().getId()      );
+						sellerData.put("userType", orderTable.getUser().getUserInfo().getUserType());
+						sellerData.put("fName",    orderTable.getUser().getPerson().getFirstName() );
+						sellerData.put("lName",    orderTable.getUser().getPerson().getLastName()  );
+						sellerData.put("company",  orderTable.getUser().getUserInfo().getCompany() );
+						sellerData.put("address",  orderTable.getUser().getAddress().getAddress()  );
+						sellerData.put("address1", orderTable.getUser().getAddress().getAddress1() );
+						sellerData.put("pin",      orderTable.getUser().getAddress().getPin()      );
+						sellerData.put("city",     orderTable.getUser().getAddress().getCity()     );
+						sellerData.put("state",    orderTable.getUser().getAddress().getState()    );
+						sellerData.put("country",  orderTable.getUser().getAddress().getCountry()  );
+						sellerData.put("sex",    orderTable.getUser().getPerson().getSex()       );
+						sellerData.put("mobile",   orderTable.getUser().getContact().getMobile1()  );
+						sellerData.put("email",    orderTable.getUser().getContact().getEmail1()   );
+						sellerData.put("balance",  orderTable.getUser().getUserInfo().getBalance() );
 						
 						JSONObject orderTableAccessories = new JSONObject();
 						
@@ -672,23 +670,9 @@ public class AdminServlet extends HttpServlet {
 						
 						JSONObject jsonObject2 = new JSONObject();						
 						
-						jsonObject2.put("productId",      orderTable.getProductId());
-						jsonObject2.put("qty",            orderTable.getQty());
-						jsonObject2.put("sellerId",       orderTable.getSellerId());
-						jsonObject2.put("sellPrice",      orderTable.getSellPrice());
-						jsonObject2.put("shippingCost",   orderTable.getShippingCost());
-						jsonObject2.put("size",           orderTable.getSize());
-						jsonObject2.put("bookedDateTime", orderTable.getBookedDateTime());
-						jsonObject2.put("delivered",      orderTable.getDelivered());
-						jsonObject2.put("orderId",        orderTable.getOrderId());
-						jsonObject2.put("orderState",     orderTable.getOrderState());
-						jsonObject2.put("status",         orderTable.getStatus());
-						jsonObject2.put("warranty",       orderTable.getWarranty());	
-						
-						
 						jsonObject2.put("orderTableData",          orderTableData);
 						jsonObject2.put("customerDeliveryAddress", customerDeliveryAddress);
-						jsonObject2.put("userData",                userData);
+						jsonObject2.put("sellerData",              sellerData);
 						jsonObject2.put("orderTableAccessories",   orderTableAccessories);
 						
 						jsonArray.put(jsonObject2);	
@@ -696,7 +680,7 @@ public class AdminServlet extends HttpServlet {
 						jsonObject2             = null;
 						orderTableData          = null;
 						customerDeliveryAddress = null;
-						userData                = null;
+						sellerData              = null;
 						orderTableAccessories   = null;
 						
 					} // for 

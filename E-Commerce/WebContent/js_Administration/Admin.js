@@ -244,19 +244,7 @@ admin.directive('ngRemoveItem', function($http, $window) {
 	
 });
 
-/*admin.directive('jsEmpty', function($http, $window) {
-	
-	return {
-		
-		link: function(scope, element, attr) {
-			
-			scope.emptyMessage = function() {
-				
-				element.html('E');
-			};
-		}
-	};
-});*/
+
 
 /************************ Registration For Franchise *****************************/
 
