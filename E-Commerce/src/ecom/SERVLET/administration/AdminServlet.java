@@ -592,9 +592,6 @@ public class AdminServlet extends HttpServlet {
 				
 				System.out.println("Entered RetrieveOrderedItemsForAdmin");
 				
-				/********** Get Session **************/
-				//User user = (User) session.getAttribute("user");
-				
 				/************* Database **************/				
 				List<OrderTable> orderTables = adminDAO.getOrderTablesForAdmin();			
 				

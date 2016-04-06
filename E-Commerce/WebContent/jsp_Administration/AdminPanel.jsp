@@ -743,49 +743,49 @@ a.tooltip span b {
 								Customer
 								<span>
 									<span>CustomerId: {{item.orderTableData.customerId}}</span><br>
-									<span>Contact:    {{item.customerDeliveryAddress.contact}}</span><br>
-									<span>Address:    {{item.customerDeliveryAddress.address}}</span><br>
-									<span>Address1:   {{item.customerDeliveryAddress.address1}}</span><br>
-									<span>City:       {{item.customerDeliveryAddress.city}}</span><br>
-									<span>State:      {{item.customerDeliveryAddress.state}}</span><br>
-									<span>Pin:        {{item.customerDeliveryAddress.pin}}</span><br>
+									<span>Contact:    {{item.customerDeliveryAddress.contact  }}</span><br>
+									<span>Address:    {{item.customerDeliveryAddress.address  }}</span><br>
+									<span>Address1:   {{item.customerDeliveryAddress.address1 }}</span><br>
+									<span>City:       {{item.customerDeliveryAddress.city     }}</span><br>
+									<span>State:      {{item.customerDeliveryAddress.state    }}</span><br>
+									<span>Pin:        {{item.customerDeliveryAddress.pin      }}</span><br>
 									<span>FirstName:  {{item.customerDeliveryAddress.firstName}}</span><br>
-									<span>LastName:   {{item.customerDeliveryAddress.lastName}}</span><br>
-									<span>Email:      {{item.customerDeliveryAddress.email}}</span><br>
-									<span>Country:    {{item.customerDeliveryAddress.company}}</span><br>
-									<span>Company:    {{item.customerDeliveryAddress.country}}</span>
+									<span>LastName:   {{item.customerDeliveryAddress.lastName }}</span><br>
+									<span>Email:      {{item.customerDeliveryAddress.email    }}</span><br>
+									<span>Country:    {{item.customerDeliveryAddress.company  }}</span><br>
+									<span>Company:    {{item.customerDeliveryAddress.country  }}</span>
 								</span>
 							</a>
 							
 							<a class="tooltip" style="margin-left: 83px;color:#A94442;float:left;">
-								Seller
+								Stockist
 								<span>
-									<span>StockistId: {{item.sellerData.id}}</span><br>
+									<span>StockistId: {{item.sellerData.id      }}</span><br>
 									<span>UserType:   {{item.sellerData.userType}}</span><br>
-									<span>FirstName:  {{item.sellerData.fName}}</span><br>
-									<span>LastName:   {{item.sellerData.lName}}</span><br>
-									<span>Company:    {{item.sellerData.company}}</span><br>
-									<span>Address:    {{item.sellerData.address}}</span><br>
+									<span>FirstName:  {{item.sellerData.fName   }}</span><br>
+									<span>LastName:   {{item.sellerData.lName   }}</span><br>
+									<span>Company:    {{item.sellerData.company }}</span><br>
+									<span>Address:    {{item.sellerData.address }}</span><br>
 									<span>Address1:   {{item.sellerData.address1}}</span><br>
-									<span>Pin:        {{item.sellerData.pin}}</span><br>
-									<span>City:       {{item.sellerData.city}}</span><br>
-									<span>State:      {{item.sellerData.state}}</span><br>
-									<span>Country:    {{item.sellerData.country}}</span><br>
-									<span>Sex:        {{item.sellerData.sex}}</span><br>
-									<span>Mobile:     {{item.sellerData.mobile}}</span><br>
-									<span>Email:      {{item.sellerData.email}}</span><br>
-									<span>Balance:    {{item.sellerData.balance}}</span>									
+									<span>Pin:        {{item.sellerData.pin     }}</span><br>
+									<span>City:       {{item.sellerData.city    }}</span><br>
+									<span>State:      {{item.sellerData.state   }}</span><br>
+									<span>Country:    {{item.sellerData.country }}</span><br>
+									<span>Sex:        {{item.sellerData.sex     }}</span><br>
+									<span>Mobile:     {{item.sellerData.mobile  }}</span><br>
+									<span>Email:      {{item.sellerData.email   }}</span><br>
+									<span>Balance:    {{item.sellerData.balance }}</span>									
 								</span>
 							</a>		
 							
 							<a class="tooltip" style="margin-left: 14px;color:green;float:right;">
 								Courier
 								<span>
-									<span>TrackNumber: {{item.orderTableAccessories.trackNumber}}</span><br>
-									<span>DeleveredDate: {{item.orderTableAccessories.deliveredDate}}</span><br>
-									<span>PickedDate: {{item.orderTableAccessories.pickedDate}}</span><br>
+									<span>TrackNumber: {{item.orderTableAccessories.trackNumber                 }}</span><br>
+									<span>DeleveredDate: {{item.orderTableAccessories.deliveredDate             }}</span><br>
+									<span>PickedDate: {{item.orderTableAccessories.pickedDate                   }}</span><br>
 									<span>CancellationTime: {{item.orderTableAccessories.calcellationAfterBooked}} Days</span><br>
-									<span>CourierName: {{item.orderTableAccessories.courier}}</span>
+									<span>CourierName: {{item.orderTableAccessories.courier                     }}</span>
 								</span>	
 							</a>						
 						</div>				

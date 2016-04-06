@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://test.jewelsaha.in/Product"
+	xmlns:js="http://test.jewelsaha.in/Product" elementFormDefault="qualified">
+	
+	<xsd:annotation>
+		<xsd:documentation>
+			All Product Lists....
+		</xsd:documentation>
+	</xsd:annotation>
+	
+	<xsd:element name="AllProducts" />    <!-- Root Element -->
+	
+	<!-- Products -->
+	
+	<xsd:element name="Products">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Product" minOccurs="1" maxOccurs="unbounded">
+					<xsd:complexType>
+						<xsd:group ref="js:product" />
+						<xsd:attributeGroup ref="js:product" />
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="author" type="xsd:string" />
+		</xsd:complexType>
+	</xsd:element>
+	
+	<!-- Complex Types -->
+	
+	<xsd:complexType name="sellerCompany">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="id" type="xsd:integer" use="required" />
+			</xsd:extension>										
+		</xsd:simpleContent>
+	</xsd:complexType>		
+	
+	<xsd:complexType name="sellerCompanyExtension">
+		<xsd:simpleContent>
+			<xsd:extension base="js:sellerCompany">
+				<xsd:attribute name="super" type="xsd:integer" use="required" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>	
+	
+	<xsd:complexType name="category">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="subCategory" type="xsd:string" use="required" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="prices">
+		<xsd:group ref="js:prices" />
+	</xsd:complexType>
+	
+	<xsd:complexType name="images">
+		<xsd:sequence>
+			<xsd:element name="Image" type="xsd:base64Binary" minOccurs="3" maxOccurs="3" />										
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="imagesExtension">
+		<xsd:complexContent>
+			<xsd:extension base="js:images">
+				<xsd:sequence>
+					<xsd:element name="IconImage" type="xsd:base64Binary" minOccurs="1" maxOccurs="1" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="weight">
+		<xsd:sequence>
+			<xsd:element name="Unit" type="xsd:string" />
+			<xsd:element name="Amount" type="xsd:decimal" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:simpleType name="status">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="approved" />
+			<xsd:enumeration value="awaiting" />
+			<xsd:enumeration value="cancelled" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:complexType name="commission">
+		<xsd:sequence>
+			<xsd:element name="FranchiseCommission" type="xsd:decimal" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="DistributorCommission" type="xsd:decimal" minOccurs="1" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:simpleType name="listPrice">		
+		<xsd:restriction base="xsd:decimal">
+			<xsd:fractionDigits value="2" />
+		</xsd:restriction>		
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="statusAndListPrice">
+		<xsd:union memberTypes="js:status js:listPrice" />
+	</xsd:simpleType>
+	
+	<xsd:complexType name="choiceElement">
+		<xsd:choice>
+			<xsd:element name="Name1" type="js:name1" />
+			<xsd:element name="Name2" type="xsd:string" />
+		</xsd:choice>
+	</xsd:complexType>
+	
+	<xsd:simpleType name="name1">
+		<xsd:restriction base="xsd:string">
+			<xsd:length value="5"></xsd:length>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:complexType name="choiceElementExtension">
+		<xsd:complexContent>
+			<xsd:extension base="js:choiceElement">
+				<xsd:sequence>
+					<xsd:element name="Name3" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:simpleType name="listDecimals">
+		<xsd:list itemType="xsd:decimal" />
+	</xsd:simpleType>
+	
+	<!-- Attributes Groups -->
+	
+	<xsd:attributeGroup name="product">
+		<xsd:attribute name="id" use="required">
+			<xsd:simpleType>
+				<xsd:restriction base="xsd:integer">
+					<xsd:pattern value="[0-9][0-9]" />
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:attribute>
+		<xsd:attribute name="productAddtionDate" type="xsd:dateTime" use="required" />
+	</xsd:attributeGroup>
+	
+	<!-- Groups -->
+	
+	<xsd:group name="product">
+		<xsd:sequence>
+			<xsd:element name="SellerCompany"            type="js:sellerCompanyExtension" minOccurs="1" maxOccurs="1" /> 
+			<xsd:element name="Category"                 type="js:category"      minOccurs="1" maxOccurs="1" />
+			<xsd:element name="ProductName"              type="xsd:string"       minOccurs="1" maxOccurs="1" />
+			<xsd:element name="CompanyName"              type="xsd:string"       minOccurs="1" maxOccurs="1" />
+			<xsd:element name="KeyFeature"               type="xsd:string"       minOccurs="4" maxOccurs="4" />
+			<xsd:element name="Prices"                   type="js:prices"        minOccurs="1" maxOccurs="1" />
+			<xsd:element name="Images"                   type="js:imagesExtension" minOccurs="1" maxOccurs="1" />
+			<xsd:element name="Stock"                    type="xsd:int"          minOccurs="1" maxOccurs="1" />
+			<xsd:element name="Weight"                   type="js:weight"        minOccurs="1" maxOccurs="1" />
+			<xsd:element name="Warranty"                 type="xsd:string"       minOccurs="1" maxOccurs="1" />
+			<xsd:element name="CancellationAfterBooking" type="xsd:int"          minOccurs="1" maxOccurs="1" />
+			<xsd:element name="Status"                   type="js:status"        minOccurs="1" maxOccurs="1" />
+			<xsd:element name="Commission"               type="js:commission"    minOccurs="1" maxOccurs="1" />
+			<xsd:element name="StringDecimal"            type="js:statusAndListPrice"    minOccurs="1" maxOccurs="1" />
+			<xsd:element name="ChoiceElement"            type="js:choiceElementExtension"    minOccurs="1" maxOccurs="1" />
+			<xsd:element name="ListDecimals"             type="js:listDecimals"    minOccurs="1" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:group>
+	
+	<xsd:group name="prices">
+		<xsd:sequence>
+			<xsd:element name="ManufacturingCost"      type="xsd:decimal" />
+			<xsd:element name="ProfitMarginPercentage" type="xsd:decimal" />
+			<xsd:element name="SalePrice"              type="xsd:decimal" />
+			<xsd:element name="Markup"                 type="xsd:decimal" />
+			<xsd:element name="SalePriceCustomer"      type="xsd:decimal" />
+			<xsd:element name="ListPrice"              type="js:listPrice" />
+			<xsd:element name="Discount"               type="xsd:decimal" />
+		</xsd:sequence>
+	</xsd:group>
+	
+	<!-- Test -->
+	
+	
+
+</xsd:schema>

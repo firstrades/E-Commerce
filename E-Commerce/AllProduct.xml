@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<js:AllProducts xmlns:js="http://test.jewelsaha.in/Product"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://test.jewelsaha.in/Product Product.xsd ">
+	
+	<js:Products author="jewel saha">
+		<js:Product id="23" productAddtionDate="2016-04-05T11:38:00">
+			<js:SellerCompany id="2" super="21">
+				Surakha E Commerce Pvt. Ltd.
+			</js:SellerCompany>
+			<js:Category subCategory="Mobile">ELECTRONICS</js:Category>
+			<js:ProductName>Galaxy Note 4</js:ProductName>
+			<js:CompanyName>Samsung</js:CompanyName>
+			<js:KeyFeature>Front Camera</js:KeyFeature>
+			<js:KeyFeature>Rear Camera</js:KeyFeature>
+			<js:KeyFeature>Touch Pad</js:KeyFeature>
+			<js:KeyFeature>5.5 inch Display</js:KeyFeature>
+			<js:Prices>
+				<js:ManufacturingCost>100</js:ManufacturingCost>
+				<js:ProfitMarginPercentage>5</js:ProfitMarginPercentage>
+				<js:SalePrice>105</js:SalePrice>
+				<js:Markup>20</js:Markup>
+				<js:SalePriceCustomer>125</js:SalePriceCustomer>
+				<js:ListPrice>23.77</js:ListPrice>
+				<js:Discount>60</js:Discount>
+			</js:Prices>
+			<js:Images>
+				<js:Image>MA==</js:Image>
+				<js:Image>MA==</js:Image>
+				<js:Image>MA==</js:Image>
+				<js:IconImage>MA==</js:IconImage>
+			</js:Images>
+			<js:Stock>150</js:Stock>
+			<js:Weight>
+				<js:Unit>KG</js:Unit>
+				<js:Amount>0.2</js:Amount>
+			</js:Weight>
+			<js:Warranty>1 Year Warranty</js:Warranty>
+			<js:CancellationAfterBooking>7</js:CancellationAfterBooking>
+			<js:Status>approved</js:Status>
+			<js:Commission>
+				<js:FranchiseCommission>5</js:FranchiseCommission>
+				<js:DistributorCommission>5</js:DistributorCommission>
+			</js:Commission>
+			<js:StringDecimal>20.2</js:StringDecimal>
+			<js:ChoiceElement>
+				<js:Name1>Jewel</js:Name1>	
+				<js:Name3>Jullu Dada</js:Name3>			
+			</js:ChoiceElement>
+			<js:ListDecimals>12.0 13.0 14.0</js:ListDecimals>
+		</js:Product>
+	</js:Products>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</js:AllProducts>

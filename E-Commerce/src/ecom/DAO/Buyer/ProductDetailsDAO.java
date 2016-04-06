@@ -24,7 +24,7 @@ public class ProductDetailsDAO {
 			connection = ConnectionFactory.getNewConnection();
 			connection.setAutoCommit(false);
 			
-			sql = "SELECT * FROM mobile_spec WHERE product_id = ?";
+			sql = "SELECT * FROM p_mobile_spec WHERE product_id = ?";
 				
 			preparedStatement = connection.prepareStatement(sql);			
 			preparedStatement.setLong (1,  productId);			
