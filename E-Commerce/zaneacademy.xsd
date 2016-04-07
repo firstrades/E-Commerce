@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/zaneacademy"
+	xmlns:tns="http://www.example.org/zaneacademy" elementFormDefault="qualified">
+	
+	<element name="zaneacademy" />
+	
+	<element name="channel">
+		<complexType>
+			<sequence>
+				<element name="name" type="string" maxOccurs="1" minOccurs="1"></element>
+				<element name="topic">
+					<complexType>
+						<sequence>
+							<element name="tutorial" type="string"></element>
+						</sequence>
+					</complexType>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+	
+	
+	
+	
+</schema>

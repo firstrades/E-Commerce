@@ -10,6 +10,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
+import com.js.xml.validation.SimpleErrorHandler;
 import com.za.tutorial.java.xml.domain.Channel;
 import com.za.tutorial.java.xml.domain.Topic;
 import com.za.tutorial.java.xml.domain.Tutorial;
@@ -18,6 +19,7 @@ public class XMLReaderDriver {
 
 	public static void main(String[] args) throws SAXException, ParserConfigurationException, IOException {
 		XMLReader xmlReader = SAXParserFactory.newInstance().newSAXParser().getXMLReader();
+		xmlReader.setErrorHandler(new SimpleErrorHandler());
 		ZAHandler zaHandler = new ZAHandler();
 		xmlReader.setContentHandler(zaHandler);
 		xmlReader.parse(new InputSource("zaneacademy.xml"));

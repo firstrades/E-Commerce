@@ -18,7 +18,11 @@ public class SAXParserDriver {
 
 	public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException {
 		SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+		saxParserFactory.setValidating(true);
+		saxParserFactory.setNamespaceAware(true);
 		SAXParser saxParser = saxParserFactory.newSAXParser();
+		saxParser.setProperty("http://java.sun.com/xml/jaxp/properties/schemaLanguage", 
+			      "http://www.w3.org/2001/XMLSchema");
 		ZAHandler zaHandler = new ZAHandler();
 		saxParser.parse(new File("zaneacademy.xml"), zaHandler);
 		displayChannel(zaHandler.getChannel());
