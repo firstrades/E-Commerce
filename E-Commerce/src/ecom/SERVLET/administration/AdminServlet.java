@@ -390,7 +390,7 @@ public class AdminServlet extends HttpServlet {
 		        	
 					jsonObject1 = new JSONObject(jsonData);
 					
-					id1         = jsonObject1.getString("id"      );            
+					id1         = jsonObject1.getString("id"      );          
 					pin         = jsonObject1.getString("pin"     );        
 					position1   = jsonObject1.getString("position");   
 					
@@ -649,7 +649,7 @@ public class AdminServlet extends HttpServlet {
 						sellerData.put("city",     orderTable.getUser().getAddress().getCity()     );
 						sellerData.put("state",    orderTable.getUser().getAddress().getState()    );
 						sellerData.put("country",  orderTable.getUser().getAddress().getCountry()  );
-						sellerData.put("sex",    orderTable.getUser().getPerson().getSex()       );
+						sellerData.put("sex",      orderTable.getUser().getPerson().getSex()       );
 						sellerData.put("mobile",   orderTable.getUser().getContact().getMobile1()  );
 						sellerData.put("email",    orderTable.getUser().getContact().getEmail1()   );
 						sellerData.put("balance",  orderTable.getUser().getUserInfo().getBalance() );

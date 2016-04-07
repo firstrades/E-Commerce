@@ -53,24 +53,12 @@ public class FranchiseDAO {
 				
 			} catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | SQLException e) {
-				try {
-					connection.rollback();
-				} catch (SQLException e1) {					
-					e1.printStackTrace();
-				}
+				try { connection.rollback(); } catch (SQLException e1) { e1.printStackTrace(); }
 				e.printStackTrace();
 			} finally {
 				
-				try {
-					preparedStatement.close();
-				} catch (SQLException e) {				
-					e.printStackTrace();
-				}
-				try {
-					connection.close();
-				} catch (SQLException e) {				
-					e.printStackTrace();
-				}
+				try { preparedStatement.close(); } catch (SQLException e) { e.printStackTrace(); }
+				try { connection.close();        } catch (SQLException e) { e.printStackTrace(); }
 				System.gc();
 			}
 		
@@ -125,29 +113,13 @@ public class FranchiseDAO {
 				
 			} catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | SQLException e) {
-				try {
-					connection.rollback();
-				} catch (SQLException e1) {					
-					e1.printStackTrace();
-				}
+				try { connection.rollback();     } catch (SQLException e1) {	e1.printStackTrace(); }
 				e.printStackTrace();
 			} finally {
 				list = null;
-				try {
-					resultSet.close();
-				} catch (SQLException e) {					
-					e.printStackTrace();
-				}
-				try {
-					callableStatement.close();
-				} catch (SQLException e) {					
-					e.printStackTrace();
-				}
-				try {
-					connection.close();
-				} catch (SQLException e) {					
-					e.printStackTrace();
-				}
+				try { resultSet.close();         } catch (SQLException e) { e.printStackTrace(); }
+				try { callableStatement.close(); } catch (SQLException e) { e.printStackTrace(); }
+				try { connection.close();        } catch (SQLException e) { e.printStackTrace(); }
 				System.gc();
 			}
 			
@@ -198,24 +170,12 @@ public class FranchiseDAO {
 				
 			} catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | SQLException e) {
-				try {
-					connection.rollback();
-				} catch (SQLException e1) {					
-					e1.printStackTrace();
-				}
+				try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 				e.printStackTrace();
 			} finally {
 				franchisePins = null;
-				try {
-					preparedStatement.close();
-				} catch (SQLException e) {				
-					e.printStackTrace();
-				}
-				try {
-					connection.close();
-				} catch (SQLException e) {				
-					e.printStackTrace();
-				}
+				try { preparedStatement.close(); } catch (SQLException e) { e.printStackTrace(); }
+				try { connection.close();        } catch (SQLException e) { e.printStackTrace(); }
 				System.gc();
 			}
 		
@@ -251,24 +211,11 @@ public class FranchiseDAO {
 			
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | SQLException e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {					
-				e1.printStackTrace();
-			}
+			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 			e.printStackTrace();
-		} finally {			
-			
-			try {
-				callableStatement.close();
-			} catch (SQLException e) {					
-				e.printStackTrace();
-			}
-			try {
-				connection.close();
-			} catch (SQLException e) {					
-				e.printStackTrace();
-			}
+		} finally {					
+			try { callableStatement.close(); } catch (SQLException e) { e.printStackTrace(); }
+			try { connection.close();        } catch (SQLException e) { e.printStackTrace(); }
 			System.gc();
 		}
 		
@@ -304,24 +251,11 @@ public class FranchiseDAO {
 			
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | SQLException e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {					
-				e1.printStackTrace();
-			}
+			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 			e.printStackTrace();
-		} finally {			
-			
-			try {
-				callableStatement.close();
-			} catch (SQLException e) {					
-				e.printStackTrace();
-			}
-			try {
-				connection.close();
-			} catch (SQLException e) {					
-				e.printStackTrace();
-			}
+		} finally {				
+			try { callableStatement.close(); } catch (SQLException e) { e.printStackTrace(); }
+			try { connection.close();        } catch (SQLException e) { e.printStackTrace(); }
 			System.gc();
 		}
 		
@@ -356,24 +290,11 @@ public class FranchiseDAO {
 			
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | SQLException e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {					
-				e1.printStackTrace();
-			}
+			try { connection.rollback();     } catch (SQLException e1) {	e1.printStackTrace(); }
 			e.printStackTrace();
-		} finally {			
-			
-			try {
-				callableStatement.close();
-			} catch (SQLException e) {					
-				e.printStackTrace();
-			}
-			try {
-				connection.close();
-			} catch (SQLException e) {					
-				e.printStackTrace();
-			}
+		} finally {				
+			try { callableStatement.close(); } catch (SQLException e) { e.printStackTrace(); }
+			try { connection.close();        } catch (SQLException e) { e.printStackTrace(); }
 			System.gc();
 		}
 		
@@ -409,24 +330,11 @@ public class FranchiseDAO {
 				
 			} catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | SQLException e) {
-				try {
-					connection.rollback();
-				} catch (SQLException e1) {					
-					e1.printStackTrace();
-				}
+				try { connection.rollback(); } catch (SQLException e1) { e1.printStackTrace(); }
 				e.printStackTrace();
-			} finally {
-				
-				try {
-					callableStatement.close();
-				} catch (SQLException e) {					
-					e.printStackTrace();
-				}
-				try {
-					connection.close();
-				} catch (SQLException e) {					
-					e.printStackTrace();
-				}
+			} finally {				
+				try { callableStatement.close(); } catch (SQLException e) { e.printStackTrace(); }
+				try { connection.close(); } catch (SQLException e) { e.printStackTrace(); }
 				System.gc();
 			}
 			
