@@ -17,7 +17,7 @@ franchise.controller('ViewController', function($scope, $http, $window) {
 			
 			$scope.items = data.items;
 			
-			$scope.pin1  = data.pin1; 
+			$scope.pin1  = data.pin1;   
 			$scope.pin2  = data.pin2;
 			$scope.pin3  = data.pin3;
 			$scope.pin4  = data.pin4;
@@ -69,7 +69,7 @@ franchise.controller('SetPinAreaCommissionController', function($scope, $http, $
 			
 			if (data.message) {
 				
-				$scope.item.area = data.updatedArea;
+				$scope.item.area = data.updatedArea;     
 				$scope.message1  = data.message;
 			}
 		});
@@ -97,8 +97,8 @@ franchise.controller('SetPinAreaCommissionController', function($scope, $http, $
 			
 			if (data.success) {
 				
-				$scope.message1      = data.success;
-				$scope.item.balance  = data.balance;
+				$scope.message1      = data.success;   
+				$scope.item.balance  = data.balance;  
 				
 			} else {
 				
