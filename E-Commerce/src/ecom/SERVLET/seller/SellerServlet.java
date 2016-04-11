@@ -524,6 +524,31 @@ public class SellerServlet extends HttpServlet {
 			response.getWriter().write(jsonObject.toString());
 			
 		} //  /SetItemCancelled
+		
+		
+		else if (servletPath.equals("/GeneratePDF")) {
+			
+			System.out.println("Entered GeneratePDF");
+			
+			/********* Get Request **********/
+			
+			long orderTableId = Long.parseLong(request.getParameter("orderTableId"));	
+			
+			/*********** Database *************/			
+			String base64 = sellerDAO.generatePDF(orderTableId);	
+			//boolean status = true;
+			
+			/************* JSON Data for Next Page ****************/
+			JSONObject jsonObject = new JSONObject();
+			
+			try {
+				jsonObject.put("base64", base64);
+			} catch (JSONException e) {	e.printStackTrace(); }
+			
+			response.setContentType("application/json");
+			response.getWriter().write(jsonObject.toString());
+			
+		} //  /SetItemCancelled
 	}
 	
 	

@@ -121,6 +121,29 @@ application.controller('LoopController', function($scope, $http, $window) {
 		});	
 	};
 	
+	$scope.generatePDF = function(orderTableId) {
+		
+		var data = $.param ({
+			orderTableId: orderTableId			
+		});
+		
+		var config = {
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8;'
+                }
+        }
+		
+		$http.post('GeneratePDF', data, config).success(function(data) {
+			
+			if (data.base64) {				
+				
+				var unicode = $window.atob(data.base64);   
+				
+				$window.open("data:application/pdf," + escape(unicode));
+			}
+		});	
+	};
+	
 	
 	
 	

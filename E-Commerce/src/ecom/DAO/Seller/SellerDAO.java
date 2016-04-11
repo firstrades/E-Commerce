@@ -196,5 +196,43 @@ public class SellerDAO {
 		return status;
 	} //setItemCancelled
 	
+	
+	public String generatePDF(long orderTableId) {
+		
+		Connection connection = null; CallableStatement callableStatement = null;  
+		String base64 = null;
+        
+        try{
+        	connection = ConnectionFactory.getNewConnection();
+		    connection.setAutoCommit(false);
+		    
+		    callableStatement = connection.prepareCall("{call generatePDF(?,?)}");
+		    callableStatement.setLong   (1, orderTableId);
+		    callableStatement.registerOutParameter(2, Types.LONGVARCHAR);
+		    
+		    callableStatement.execute();
+		    
+		    base64 = callableStatement.getString(2);   System.out.println(base64);
+		   
+		    System.out.println("SQL - generatePDF Executed");
+		    
+		    connection.commit();
+		    return base64;
+
+        } catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e) {
+			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
+			e.printStackTrace();
+			
+		} finally {
+			
+			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+			System.gc();
+		}   
+        
+		return null;
+	} //generatePDF
+	
 
 }

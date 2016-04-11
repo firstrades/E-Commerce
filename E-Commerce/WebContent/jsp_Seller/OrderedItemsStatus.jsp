@@ -272,7 +272,8 @@ a.tooltip span b {
 				
 				<div class="col-md-3" style="margin-top:58px;" data-ng-show="pickupLabelCOD">
 					<a data-toggle="modal" data-target="#myModal<%=i%>" style="padding: 9px 20px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">Pickup Req</a> 
-					<a style="padding: 9px 20px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">Pirnt Label</a>  <br><br>
+					<a data-ng-click="generatePDF(<%=orderTable.getId() %>)"
+						style="padding: 9px 20px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">Pirnt Label</a>  <br><br>
 					<a style="padding: 9px 39px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">Cancel Shipment (COD)</a>					
 				</div>
 				
@@ -288,7 +289,8 @@ a.tooltip span b {
 				<div class="col-md-3" style="margin-top:58px;" data-ng-show="pickupLabelBANK">
 					<a data-toggle="modal" data-target="#myModal<%=i%>" 
 						style="padding: 9px 20px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">Pickup Req</a> 
-					<a style="padding: 9px 20px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">Pirnt Label</a>  <br><br>
+					<a data-ng-click="generatePDF(<%=orderTable.getId() %>)"
+						style="padding: 9px 20px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">Pirnt Label</a>  <br><br>
 					<a style="padding: 9px 35px;background:linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);border: 1px solid #0098fe;color:#ffffff;margin-top:18px;cursor: pointer;">Cancel Shipment (BANK)</a>					
 				</div>
 				
