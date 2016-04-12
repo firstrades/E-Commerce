@@ -1,0 +1,23 @@
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+	<SOAP-ENV:Header />
+	<SOAP-ENV:Body>
+		<SearchLocationsReply xmlns="http://fedex.com/ws/locs/v3">
+			<HighestSeverity>ERROR</HighestSeverity>
+			<Notifications>
+				<Severity>ERROR</Severity>
+				<Source>locs</Source>
+				<Code>006</Code>
+				<Message>No result returned.</Message>
+				<LocalizedMessage>No result returned.</LocalizedMessage>
+			</Notifications>
+			<Version>
+				<ServiceId>locs</ServiceId>
+				<Major>3</Major>
+				<Intermediate>0</Intermediate>
+				<Minor>0</Minor>
+			</Version>
+			<TotalResultsAvailable>0</TotalResultsAvailable>
+			<ResultsReturned>0</ResultsReturned>
+		</SearchLocationsReply>
+	</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

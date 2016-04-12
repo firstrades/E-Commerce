@@ -202,7 +202,7 @@ public class SellerDAO {
 		Connection connection = null; CallableStatement callableStatement = null;  
 		String base64 = null;
         
-        try{
+        try {
         	connection = ConnectionFactory.getNewConnection();
 		    connection.setAutoCommit(false);
 		    
@@ -212,7 +212,7 @@ public class SellerDAO {
 		    
 		    callableStatement.execute();
 		    
-		    base64 = callableStatement.getString(2);   System.out.println(base64);
+		    base64 = callableStatement.getString(2);  
 		   
 		    System.out.println("SQL - generatePDF Executed");
 		    
@@ -225,7 +225,7 @@ public class SellerDAO {
 			e.printStackTrace();
 			
 		} finally {
-			
+			base64 = null;
 			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
 			System.gc();
