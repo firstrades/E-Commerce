@@ -59,6 +59,87 @@ margin-right: 24px;
 #hr{margin-top:9px;margin-bottom:9px;border:0;border-top:1px solid #eee}
 </style>
 
+<style>
+a.tooltip {
+    outline: none;
+    text-decoration: none;    
+    position: relative;
+    opacity: 1;
+}
+
+a.tooltip strong {
+    line-height: 30px;
+}
+
+a.tooltip > span {
+    width: 300px;
+    padding: 10px 20px;
+    margin-top: 0;
+    margin-left: -120px;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 10;
+    position: absolute;
+    font-family: Arial;
+    font-size: 12px;
+    font-style: normal;
+    border-radius: 3px;
+    box-shadow: 2px 2px 2px #999;
+    -webkit-transition-property: opacity, margin-top, visibility, margin-left;
+    -webkit-transition-duration: 0.4s, 0.3s, 0.4s, 0.3s;
+    -webkit-transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+    transition-property: opacity, margin-top, visibility, margin-left;
+    transition-duration: 0.4s, 0.3s, 0.4s, 0.3s;
+    transition-timing-function: 
+        ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+}
+
+
+a.tooltip:hover > span {
+    opacity: 1;
+    text-decoration: none;
+    visibility: visible;
+    overflow: visible;
+    margin-top: 50px;
+    display: inline;       
+    margin-left: -90px;
+}
+
+a.tooltip span b {
+    width: 15px;
+    height: 15px;
+    margin-left: 40px;
+    margin-top: -19px;
+    display: block;
+    position: absolute;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    -webkit-box-shadow: inset -1px 1px 0 #fff;
+    -moz-box-shadow: inset 0 1px 0 #fff;
+    -o-box-shadow: inset 0 1px 0 #fff;
+    box-shadow: inset 0 1px 0 #fff;
+    display: none\0/;
+    *display: none;
+}    
+
+a.tooltip > span {
+	color: #000000; 
+	background: #FBF5E6;
+	background: -webkit-linear-gradient(top, #FBF5E6, #FFFFFF);
+	background: linear-gradient(top, #FBF5E6, #FFFFFF);	    
+	border: 1px solid #CFB57C;	     
+}    
+	  
+a.tooltip span b {
+	background: #FBF5E6;
+	border-top: 1px solid #CFB57C;
+	border-right: 1px solid #CFB57C;
+}
+
+</style>
+
 </head>
 
 <body>
@@ -633,45 +714,173 @@ margin-right: 24px;
 			 
 			<div class="col-md-12" style="width:100%;border:1px solid #ddd;margin-bottom:-12px;box-shadow: 1px 1px 1px #f5f5f5;background-color: #FFFFF5;">
 				<div class="col-md-2" style="border: 1px solid #EAEAEA; box-shadow: 1px 1px 1px #e7e7e7; margin-top:10px; margin-bottom: 11px;">
-					<img alt="image" src="IconImageFromProduct?productId={{item.productId}}" width="150" height="150" />
+					<img alt="image" src="IconImageFromProduct?productId={{item.orderTableData.productId}}" width="150" height="150" />
 				</div>
 				<div class="col-md-7">
 					<div class="col-md-6">
-						<h3 style="margin-bottom: 7px;margin-top: 8px;color: #337ab7; font-size: 16px;">  Order Id : {{item.orderId}}  </h3> <hr id="hr">
-						<span>   Id :    </span>  
-						<span style=""></span>					
+						<h3 style="margin-bottom: 7px;margin-top: 8px;color: #337ab7; font-size: 16px;">  Order Id : {{item.orderTableData.orderId}}  </h3> <hr id="hr">
+						<span>   Id :  {{item.orderTableData.id}}  </span>  											
 						<hr id="hr">					
-						<span style="margin-right:15px;">Product Id : {{item.productId}} </span> <br> <hr id="hr">
-						<span>  Sell Price : {{item.sellPrice}} </span> <br> <hr id="hr">
-						<span>Warranty  : {{item.warranty}}</span>
+						<span style="margin-right:15px;">Product Id : {{item.orderTableData.productId}} </span> <br> <hr id="hr">
+						<span>  Each Price : {{item.orderTableData.sellPrice}} </span> 
+						<span style="margin-left: 43px;">  Total Price : {{item.orderTableData.sellPrice * item.orderTableData.qty}} </span><br> <hr id="hr">
+						<span>Warranty  : {{item.orderTableData.warranty}}</span>
 						
 					</div>					
 					<div class="col-md-5" style="margin-top: 6px;">
 					
-						<span>Shipping Cost : Rs {{item.shippingCost}}</span>
+						<span>Shipping Cost : Rs. {{item.orderTableData.shippingCost * item.orderTableData.qty}}</span>
 						<hr id="hr">
-						<span>Quantity : {{item.qty}}</span>
+						<span>Quantity : {{item.orderTableData.qty}}</span>
 						<hr id="hr">
-						<span>Order  Booked On : {{item.bookedDateTime}}</span>
+						<span>Order  Booked On : {{item.orderTableData.bookedDateTime}}</span>
+						<hr id="hr">						
+						<span>PaymentType : {{item.orderTableData.paymentType}}</span>
+						<span data-ng-if="item.orderTableData.size != 0" style="margin-left: 28px;">Size : {{item.orderTableData.size}}</span>						
 						<hr id="hr">
-						
-						<span>Size : {{item.size}}</span>
-						<hr id="hr">
-						
-						
+						<div>
+							<a class="tooltip" style="color:blue;float:left;">
+								Customer
+								<span>
+									<span>CustomerId: {{item.orderTableData.customerId}}</span><br>
+									<span>Contact:    {{item.customerDeliveryAddress.contact  }}</span><br>
+									<span>Address:    {{item.customerDeliveryAddress.address  }}</span><br>
+									<span>Address1:   {{item.customerDeliveryAddress.address1 }}</span><br>
+									<span>City:       {{item.customerDeliveryAddress.city     }}</span><br>
+									<span>State:      {{item.customerDeliveryAddress.state    }}</span><br>
+									<span>Pin:        {{item.customerDeliveryAddress.pin      }}</span><br>
+									<span>FirstName:  {{item.customerDeliveryAddress.firstName}}</span><br>
+									<span>LastName:   {{item.customerDeliveryAddress.lastName }}</span><br>
+									<span>Email:      {{item.customerDeliveryAddress.email    }}</span><br>
+									<span>Country:    {{item.customerDeliveryAddress.company  }}</span><br>
+									<span>Company:    {{item.customerDeliveryAddress.country  }}</span>
+								</span>
+							</a>
+							
+							<a class="tooltip" style="margin-left: 83px;color:#A94442;float:left;">
+								Stockist
+								<span>
+									<span>StockistId: {{item.sellerData.id      }}</span><br>
+									<span>UserType:   {{item.sellerData.userType}}</span><br>
+									<span>FirstName:  {{item.sellerData.fName   }}</span><br>
+									<span>LastName:   {{item.sellerData.lName   }}</span><br>
+									<span>Company:    {{item.sellerData.company }}</span><br>
+									<span>Address:    {{item.sellerData.address }}</span><br>
+									<span>Address1:   {{item.sellerData.address1}}</span><br>
+									<span>Pin:        {{item.sellerData.pin     }}</span><br>
+									<span>City:       {{item.sellerData.city    }}</span><br>
+									<span>State:      {{item.sellerData.state   }}</span><br>
+									<span>Country:    {{item.sellerData.country }}</span><br>
+									<span>Sex:        {{item.sellerData.sex     }}</span><br>
+									<span>Mobile:     {{item.sellerData.mobile  }}</span><br>
+									<span>Email:      {{item.sellerData.email   }}</span><br>
+									<span>Balance:    {{item.sellerData.balance }}</span>									
+								</span>
+							</a>		
+							
+							<a class="tooltip" style="margin-left: 14px;color:green;float:right;">
+								Courier
+								<span>
+									<span>TrackNumber: {{item.orderTableAccessories.trackNumber                 }}</span><br>
+									<span>DeleveredDate: {{item.orderTableAccessories.deliveredDate             }}</span><br>
+									<span>PickedDate: {{item.orderTableAccessories.pickedDate                   }}</span><br>
+									<span>CancellationTime: {{item.orderTableAccessories.calcellationAfterBooked}} Days</span><br>
+									<span>CourierName: {{item.orderTableAccessories.courier                     }}</span>
+								</span>	
+							</a>						
+						</div>				
 					</div>					
 				</div>
 				<!-- -------------------------------------------------------------- -->
 				
 				
-				<div class="col-md-3" style="margin-top:100px;" data-ng-show="booked">
-					<span style="float: left;margin-top: 9px;">
+				<div class="col-md-3" style="margin-top:100px;" data-ng-show="item.orderTableData.orderState == 'Booked'">
+					<span style="float: left;
+								margin-top: 9px;    
+								float: left;
+						    	margin-top: -24px;
+						    	margin-left: 96px;
+						    	font-family: fantasy;
+						    	font-size: large;
+						    	color: green;">
 						Order Booked By Customer
-					</span>					
-					                                                                 
-				<!-- -------------------------------------------------------------- -->					
-				
+					</span>
 				</div>
+				<div class="col-md-3" style="margin-top:100px;" data-ng-show="item.orderTableData.orderState == 'Pickup'">
+					<span style="float: left;
+								margin-top: 9px;    
+								float: left;
+						    	margin-top: -24px;
+						    	margin-left: 96px;
+						    	font-family: fantasy;
+						    	font-size: large;
+						    	color: #31708F;">
+						Track Number Generated <br>
+						(Pickup Required)
+					</span>
+				</div>
+				<div class="col-md-3" style="margin-top:100px;" data-ng-show="item.orderTableData.orderState == 'Picked'">
+					<span style="float: left;
+								margin-top: 9px;    
+								float: left;
+						    	margin-top: -24px;
+						    	margin-left: 96px;
+						    	font-family: fantasy;
+						    	font-size: large;
+						    	color: #F0AD4E;">
+						Item Picked by Courier
+					</span>
+				</div>
+				<div class="col-md-3" style="margin-top:100px;" data-ng-show="item.orderTableData.orderState == 'Cancel'">
+					<span style="float: left;
+								margin-top: 9px;    
+								float: left;
+						    	margin-top: -24px;
+						    	margin-left: 96px;
+						    	font-family: fantasy;
+						    	font-size: large;
+						    	color: #EA150F;">
+						Order Cancelled By Customer <br>
+						(Cancel pending by Stockist)
+					</span>
+				</div>
+				<div class="col-md-3" style="margin-top:100px;" data-ng-show="item.orderTableData.orderState == 'Return'">
+					<span style="float: left;
+								margin-top: 9px;    
+								float: left;
+						    	margin-top: -24px;
+						    	margin-left: 96px;
+						    	font-family: fantasy;
+						    	font-size: large;
+						    	color: #EA150F;">
+						Order Returned By Customer
+					</span>
+				</div>			
+				
+				<div class="col-md-3" data-ng-show="item.orderTableData.orderState == 'Delivered'" data-ng-controller="DeliveredController" style="margin-top:100px;" >
+					<div data-ng-if="item.orderTableData.orderState == 'Delivered'" data-ng-init="checkDelivery(item.orderTableAccessories.deliveredDate)"></div>
+					<span data-ng-show="delivered" style="float: left;
+														margin-top: 9px;    
+														float: left;
+												    	margin-top: -24px;
+												    	margin-left: 96px;
+												    	font-family: fantasy;
+												    	font-size: large;">
+						Order Delivered <br>
+						(Payment to Stockist pending)
+					</span>
+					<span data-ng-show="payment" style="float: left;
+														margin-top: 9px;    
+														float: left;
+												    	margin-top: -24px;
+												    	margin-left: 96px;												    	
+												    	font-size: large;">
+						<button class="btn btn-success">Payment to Stockist</button>
+					</span>
+				</div>
+				
+				
+				<!-- -------------------------------------------------------------- -->	
 			</div>
 		</div>			
 			

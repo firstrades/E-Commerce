@@ -459,10 +459,16 @@ float: left;
 	                        <hr>
 							<div class="price">
 								<span class="price-tax" style="display:block;">Check Your Delivery and payment at your location </span><br>
-	                        	<input type="text" name="pincode" class="input_text" placeholder="Enter pin Code" style="float:left;">	                        
+	                        	<input type="text" name="pincode" id="pincode" class="input_text" placeholder="Enter pin Code" style="float:left;">	                        
 	                        	<div class="btn_form">
-									<a href="#" style="padding:6px 20px;">CHECK</a>
+									<a id="location" style="padding:6px 20px;">CHECK</a>									
 								</div>
+								<span id="msgLocation" style="display: none;float: right;font-family: serif;
+    								color: blue;margin-top: 5px;margin-right: 12px;">Enter a valid Postal Code</span>
+								<img id="loader" alt="loader" src="images/loader1.gif" style="width: 40px; height: 40px;display: none;" />
+								<img id="right" alt="" src="images/right.jpg" width="30" height="30" style="display: none;margin-left: 123px;" />
+								<img id="cross" alt="" src="images/cross.jpg" width="30" height="30" style="display: none;margin-left: 120px;" />
+								
 							</div>
 	                        <div class="clearfix"></div>
 						 	<hr>

@@ -8,10 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import ecom.common.ConnectionFactory;
-import ecom.model.KeyFeatures;
 import ecom.model.LeggingsFeatures;
 import ecom.model.MobileFeatures;
-import ecom.model.Price;
 import ecom.model.ProductBean;
 import ecom.model.Size;
 
@@ -103,6 +101,7 @@ public class EditProductDAO {
 			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
 			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+			System.gc();
 			
 		} 
 		
@@ -116,9 +115,7 @@ public class EditProductDAO {
 		PreparedStatement preparedStatement = null;
 		String sql = null;
 		ResultSet resultSet = null;		
-		ProductBean productBean = new ProductBean();
-		productBean.setKeyFeatures(new KeyFeatures());
-		productBean.setPrice(new Price());
+		ProductBean productBean = new ProductBean();		
 		
 		try {
 			connection = ConnectionFactory.getNewConnection();
@@ -177,6 +174,7 @@ public class EditProductDAO {
 			}
 			e.printStackTrace();
 		} finally {
+			productBean = null;
 			try {
 				preparedStatement.close();
 			} catch (SQLException e) {			
@@ -187,6 +185,7 @@ public class EditProductDAO {
 			} catch (SQLException e) {			
 				e.printStackTrace();
 			}
+			System.gc();
 		}
 		
 		
@@ -245,6 +244,7 @@ public class EditProductDAO {
 			} catch (SQLException e) {			
 				e.printStackTrace();
 			}
+			System.gc();
 		}	
 		
 		return false;
@@ -324,6 +324,7 @@ public class EditProductDAO {
 			} catch (SQLException e) {			
 				e.printStackTrace();
 			}
+			System.gc();
 		}
 		
 		return null;
@@ -389,6 +390,7 @@ public class EditProductDAO {
 			}
 			e.printStackTrace();
 		} finally {
+			mobileFeatures = null;
 			try {
 				preparedStatement.close();
 			} catch (SQLException e) {			
@@ -399,6 +401,7 @@ public class EditProductDAO {
 			} catch (SQLException e) {			
 				e.printStackTrace();
 			}
+			System.gc();
 		}
 		
 		
@@ -493,6 +496,7 @@ public class EditProductDAO {
 			}
 			e.printStackTrace();
 		} finally {
+			mobileFeatures = null;
 			try {
 				preparedStatement.close();
 			} catch (SQLException e) {			
@@ -503,6 +507,7 @@ public class EditProductDAO {
 			} catch (SQLException e) {			
 				e.printStackTrace();
 			}
+			System.gc();
 		}
 		
 		return null;
@@ -569,6 +574,7 @@ public class EditProductDAO {
 			}
 			e.printStackTrace();
 		} finally {
+			leggingsFeatures = null;
 			try {
 				preparedStatement.close();
 			} catch (SQLException e) {			
@@ -579,6 +585,7 @@ public class EditProductDAO {
 			} catch (SQLException e) {			
 				e.printStackTrace();
 			}
+			System.gc();
 		}
 		
 		
@@ -643,7 +650,7 @@ public class EditProductDAO {
 			e.printStackTrace();
 			
 		} finally {	
-			
+			leggingsFeatures = null;
 			try {
 				callableStatement.close();
 			} catch (SQLException e1) {			
@@ -654,6 +661,7 @@ public class EditProductDAO {
 			} catch (SQLException e) {			
 				e.printStackTrace();
 			}
+			System.gc();
 		}		
 		
 		return null;
@@ -741,6 +749,7 @@ public class EditProductDAO {
 			} catch (SQLException e) {			
 				e.printStackTrace();
 			}
+			System.gc();
 		}	
 		
 		return null;

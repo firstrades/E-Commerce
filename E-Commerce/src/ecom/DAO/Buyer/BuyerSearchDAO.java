@@ -82,9 +82,11 @@ public class BuyerSearchDAO {
 			e.printStackTrace();
 			
 		} finally {				
+			list = null;
 			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
 			try { preparedStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+			System.gc();
 		}		
 		
 		
@@ -252,10 +254,13 @@ public class BuyerSearchDAO {
 				try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 				e.printStackTrace();
 				
-			} finally {				
+			} finally {		
+				productIdAndQtyList = null;
+				productBeanAndQtyList = null;
 				try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
 				try { preparedStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 				try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+				System.gc();
 			}		
 			
 			
@@ -293,10 +298,10 @@ public class BuyerSearchDAO {
 				try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 				e.printStackTrace();
 				
-			} finally {				
-				
+			} finally {						
 				try { preparedStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 				try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+				System.gc();
 			}		
 			
 			return false;
@@ -482,10 +487,13 @@ public class BuyerSearchDAO {
 					try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 					e.printStackTrace();
 					
-				} finally {				
+				} finally {		
+					productIdAndQtyList   = null;
+					productBeanAndQtyList = null;
 					try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
 					try { preparedStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 					try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+					System.gc();
 				}		
 				
 				
@@ -529,9 +537,9 @@ public class BuyerSearchDAO {
 			e.printStackTrace();
 			
 		} finally {				
-			
 			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+			System.gc();
 		}		
 		
 		return 0;
@@ -632,6 +640,7 @@ public class BuyerSearchDAO {
 			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
 			try { preparedStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+			System.gc();
 		}	
 		
 		return null;
@@ -684,6 +693,7 @@ public class BuyerSearchDAO {
 			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
 			try { preparedStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+			System.gc();
 		}	
 		
 		return null;
@@ -751,10 +761,10 @@ public class BuyerSearchDAO {
 				try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 				e.printStackTrace();
 				
-			} finally {				
-				
+			} finally {					
 				try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 				try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+				System.gc();
 			}		
 			
 		return null;
@@ -767,8 +777,7 @@ public class BuyerSearchDAO {
 		
 			Connection connection               = null;
 			CallableStatement callableStatement = null;			
-			String sql = "{call editDeliveryAddress(?,?,?,?,?,?,?,?,?)}";				
-			
+			String sql = "{call editDeliveryAddress(?,?,?,?,?,?,?,?,?)}";			
 			
 			try {
 					connection = ConnectionFactory.getNewConnection();
@@ -820,10 +829,10 @@ public class BuyerSearchDAO {
 				try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 				e.printStackTrace();
 				
-			} finally {				
-				
+			} finally {					
 				try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 				try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+				System.gc();
 			}		
 			
 			return null;
@@ -889,10 +898,10 @@ public class BuyerSearchDAO {
 				try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 				e.printStackTrace();
 				
-			} finally {				
-				
+			} finally {					
 				try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 				try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+				System.gc();
 			}		
 			
 			return null;
@@ -941,10 +950,12 @@ public class BuyerSearchDAO {
 			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 			e.printStackTrace();
 			
-		} finally {				
+		} finally {			
+			productBean = null;
 			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
 			try { preparedStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+			System.gc();
 		}	
 		
 		return null;
@@ -1005,6 +1016,7 @@ public class BuyerSearchDAO {
 			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
 			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+			System.gc();
 		}		
 		
 		return null;
@@ -1069,10 +1081,12 @@ public class BuyerSearchDAO {
 			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 			e.printStackTrace();
 			
-		} finally {				
+		} finally {		
+			list = null;
 			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
 			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+			System.gc();
 		}	
 		
 		return null;
@@ -1119,10 +1133,12 @@ public class BuyerSearchDAO {
 			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 			e.printStackTrace();
 			
-		} finally {				
+		} finally {	
+			list = null;
 			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
 			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+			System.gc();
 		}		
 		
 		return null;
@@ -1164,9 +1180,9 @@ public class BuyerSearchDAO {
 			e.printStackTrace();
 			
 		} finally {				
-			
 			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+			System.gc();
 		}		
 		
 		return status;
@@ -1220,10 +1236,12 @@ public class BuyerSearchDAO {
 			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 			e.printStackTrace();
 			
-		} finally {				
+		} finally {	
+			deliveryAddress = null;
 			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
 			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+			System.gc();
 		}	
 		
 		return null;

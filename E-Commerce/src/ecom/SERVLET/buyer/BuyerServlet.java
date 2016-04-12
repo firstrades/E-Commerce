@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +24,9 @@ import org.xml.sax.SAXException;
 import ecom.DAO.Buyer.BuyerSearchDAO;
 import ecom.DAO.User.UserDAO;
 import ecom.Implementation.Courier.SOAP.EstimatedRateAndDeliveryBean;
+import ecom.Implementation.Courier.SOAP.SearchLocationByPostal;
 import ecom.Interface.Courier.EstimatedRateAndDelivery;
+import ecom.Interface.Courier.SearchLocationByPostalInterface;
 import ecom.beans.BuyerServletHelper;
 import ecom.beans.CartAttributesBean;
 import ecom.beans.ApiDataMultiThreadBean;
@@ -46,6 +49,12 @@ public class BuyerServlet extends HttpServlet {
 		this.helper         = BuyerServletHelper.getNewInstance();
 		this.buyerSearchDAO = new BuyerSearchDAO();
 	}
+	
+	@Override
+	public void destroy() { 
+		System.gc();
+		System.out.println("BuyerServlet Destroyed"); 
+	};
   
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -586,6 +595,72 @@ public class BuyerServlet extends HttpServlet {
 			
 			
 		} // GetDeliveryAddressCustomer
+		
+		else if(servletPath.equals("/CheckPincode")) {
+			
+			System.out.println("Enter CheckPincode");
+			
+			/************* Get Request ***************/
+			String pincode = request.getParameter("pincode"); 
+			
+			
+			JSONObject jsonObject = new JSONObject();
+			boolean status = false, notANumber = true;
+			
+			try {
+			
+					long pin = Long.parseLong(pincode);					
+					
+					
+					/*********** API ************/				
+					SearchLocationByPostalInterface searchLocationByPostalInterface;
+					
+					try {
+						
+						searchLocationByPostalInterface = SearchLocationByPostal.getNewInstance(pin);
+						status = searchLocationByPostalInterface.isLocationAvailable();
+						
+					} catch (SOAPException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (ParserConfigurationException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (SAXException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (ParseException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+			
+			
+			} catch (NumberFormatException e) {
+				System.out.println("Not A Number");
+				notANumber = false;
+			}
+			
+			
+			/********* Json Data for Next Page **********/
+			
+			
+			try {
+				jsonObject.put("status", status);
+				
+				if (!notANumber)
+					jsonObject.put("notANumber", false);
+				else
+					jsonObject.put("notANumber", true);
+				
+			} catch (JSONException e) {				
+				e.printStackTrace();
+			}
+			
+			response.setContentType("application/json");
+			response.getWriter().write(jsonObject.toString());
+			
+			
+		} // CheckPincode
 		
 	}
 }

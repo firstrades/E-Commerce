@@ -7,6 +7,7 @@ public class OrderTable implements Serializable {
 
 	//Order Table Data
 	private long   id;
+	private long   customerId;
 	private long   productId;
 	private long   sellerId;
 	private int    qty;
@@ -20,11 +21,15 @@ public class OrderTable implements Serializable {
 	private String orderState;
 	private String delivered;
 	private String paymentType;	
-	private DeliveryAddress deliveryAddress;
+	private DeliveryAddress deliveryAddress; // Buyer
+	private OrderTableAccessories orderTableAccessories;
+	private User user;
 	
 	
 	public OrderTable() {
-		deliveryAddress = new DeliveryAddress();
+		deliveryAddress       = new DeliveryAddress();
+		orderTableAccessories = new OrderTableAccessories();
+		user                  = new User();
 	}
 	
 	
@@ -121,6 +126,28 @@ public class OrderTable implements Serializable {
 	}
 	public void setSellerId(long sellerId) {
 		this.sellerId = sellerId;
+	}
+	public OrderTableAccessories getOrderTableAccessories() {
+		return orderTableAccessories;
+	}
+	public void setOrderTableAccessories(OrderTableAccessories orderTableAccessories) {
+		this.orderTableAccessories = orderTableAccessories;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
+	public long getCustomerId() {
+		return customerId;
+	}
+
+
+	public void setCustomerId(long customerId) {
+		this.customerId = customerId;
 	}
 	
 	

@@ -27,12 +27,8 @@ admin.controller('ViewController', function($scope, $http, $window) {
 		
 		$http.post('RetrieveOrderedItemsForAdmin', {}).success(function(data) {
 			
-			$scope.bookedProducts = data.items;
+			$scope.bookedProducts = data.items;			
 			
-			if (data.items.orderState = 'Booked') {
-				
-				$scope.booked = true;
-			}
 		});
 		
 		
@@ -73,7 +69,6 @@ admin.controller('ViewController', function($scope, $http, $window) {
 	
 	
 	
-	
 								/***************************************************************************/
 	
 	$scope.hideAll = function() {   		
@@ -95,6 +90,31 @@ admin.controller('ViewController', function($scope, $http, $window) {
 	};
 	
 }) ;
+
+admin.controller('DeliveredController', function($scope, $http, $window) {
+	
+	$scope.payment   = false;
+	$scope.delivered = false;
+	
+	$scope.checkDelivery = function(deliveredDate) {		
+		
+		var dateParts = deliveredDate.split("-"); 
+		
+		var month = parseInt(dateParts[1]) - 1;
+		
+		var dateDeliveredOn = new Date(dateParts[0], month, dateParts[2]);		
+		
+		var currentDate = new Date();		
+		
+		if (dateDeliveredOn < currentDate) { 
+			$scope.payment = true;
+		}
+		else
+			$scope.delivered = true;
+	};
+	
+	
+});
 
 admin.controller('SetPinCommissionController', function($scope, $http, $window) {
 	
@@ -224,19 +244,7 @@ admin.directive('ngRemoveItem', function($http, $window) {
 	
 });
 
-/*admin.directive('jsEmpty', function($http, $window) {
-	
-	return {
-		
-		link: function(scope, element, attr) {
-			
-			scope.emptyMessage = function() {
-				
-				element.html('E');
-			};
-		}
-	};
-});*/
+
 
 /************************ Registration For Franchise *****************************/
 
@@ -325,3 +333,5 @@ $(function() {
 });
 
 //var discount = ((parseInt(listPrice) - parseInt(salePriceToAdmin)) / parseInt(listPrice)) * 100;
+
+

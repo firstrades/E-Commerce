@@ -24,7 +24,7 @@ public class ProductDetailsDAO {
 			connection = ConnectionFactory.getNewConnection();
 			connection.setAutoCommit(false);
 			
-			sql = "SELECT * FROM mobile_spec WHERE product_id = ?";
+			sql = "SELECT * FROM p_mobile_spec WHERE product_id = ?";
 				
 			preparedStatement = connection.prepareStatement(sql);			
 			preparedStatement.setLong (1,  productId);			
@@ -67,6 +67,7 @@ public class ProductDetailsDAO {
 			}
 			e.printStackTrace();
 		} finally {
+			map = null;
 			try {
 				preparedStatement.close();
 			} catch (SQLException e) {			
@@ -77,6 +78,7 @@ public class ProductDetailsDAO {
 			} catch (SQLException e) {			
 				e.printStackTrace();
 			}
+			System.gc();
 		}
 		
 		
@@ -114,7 +116,10 @@ public class ProductDetailsDAO {
 			} catch (InstantiationException | IllegalAccessException
 					| ClassNotFoundException | SQLException e) {				
 				e.printStackTrace();				
-			} 
+			} finally {
+				twoObjects = null;
+				System.gc();
+			}
 			
 			return null;
 	}
@@ -173,6 +178,7 @@ public class ProductDetailsDAO {
 			}
 			e.printStackTrace();
 		} finally {
+			map = null;
 			try {
 				preparedStatement.close();
 			} catch (SQLException e) {			
@@ -183,6 +189,7 @@ public class ProductDetailsDAO {
 			} catch (SQLException e) {			
 				e.printStackTrace();
 			}
+			System.gc();
 		}
 		
 		

@@ -132,7 +132,7 @@ public class Controller extends HttpServlet {
 			
 			/************* Get Request *******************/
 			
-			String userId   = request.getParameter("userId").trim();    
+			String userId   = request.getParameter("userId")  .trim();    
 			String password = request.getParameter("password").trim();   
 			
 			/********* Database Check ***********/
@@ -147,8 +147,8 @@ public class Controller extends HttpServlet {
 			/********** Set Request ***************/
 			
 			request.setAttribute("company", user.getUserInfo().getCompany());
-			request.setAttribute("fName", user.getPerson().getFirstName());
-			request.setAttribute("lName", user.getPerson().getLastName());
+			request.setAttribute("fName",   user.getPerson().getFirstName());
+			request.setAttribute("lName",   user.getPerson().getLastName() );
 			
 			/********** Next Page **************/
 			

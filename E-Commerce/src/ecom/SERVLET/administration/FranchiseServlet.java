@@ -23,16 +23,31 @@ import ecom.model.User;
 
 public class FranchiseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private FranchiseDAO franchiseDAO;
+	
+	@Override
+	public void init() {
+		franchiseDAO = FranchiseDAO.getNewInstance();
+	}
+	
+	@Override
+	public void destroy() { 
+		System.gc();
+		System.out.println("FranchiseServlet Destroyed"); 
+	};
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
 	}
 	
-	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String servletPath = request.getServletPath();
 		HttpSession session = request.getSession();
@@ -47,7 +62,7 @@ public class FranchiseServlet extends HttpServlet {
 				User user = (User) session.getAttribute("user");
 				
 				/************** Get Pins ***********/
-				String pins = FranchiseDAO.getNewInstance().getPins(user.getUserInfo().getId());
+				String pins = franchiseDAO.getPins(user.getUserInfo().getId());
 				
 				/******************* Set Request *************/
 				
@@ -169,7 +184,7 @@ public class FranchiseServlet extends HttpServlet {
 				
 				/************** Database ******************/	
 				
-				FranchisePins franchisePins = FranchiseDAO.getNewInstance().getPins1(user_id);
+				FranchisePins franchisePins = franchiseDAO.getPins1(user_id);
 				
 				List<ExtractDistributorDetails> extractDistributorDetails = FranchiseDAO.getNewInstance().getPinAreaCommission(user_id);				
 				
@@ -244,9 +259,8 @@ public class FranchiseServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 				
-				/************** Database ******************/
-				
-				String pin1 = FranchiseDAO.getNewInstance().setPin(d_id, pin);  
+				/************** Database ******************/				
+				String pin1 = franchiseDAO.setPin(d_id, pin);  
 				
 				/********* Set Json Data ****************/
 				
@@ -302,7 +316,7 @@ public class FranchiseServlet extends HttpServlet {
 				}
 				
 				/************** Database ******************/
-				String area1 = FranchiseDAO.getNewInstance().setArea(d_id, area);  
+				String area1 = franchiseDAO.setArea(d_id, area);  
 				
 				/********* Set Json Data ****************/
 				
@@ -360,7 +374,7 @@ public class FranchiseServlet extends HttpServlet {
 				
 				/************** Database ******************/
 				
-				double commission1 = FranchiseDAO.getNewInstance().setCommission(d_id, commission);  
+				double commission1 = franchiseDAO.setCommission(d_id, commission);  
 				
 				/********* Set Json Data ****************/
 				
@@ -426,8 +440,7 @@ public class FranchiseServlet extends HttpServlet {
 			double addtionalBalance = Double.parseDouble(addtionalBalance1);  
 			long id                 = Long.parseLong(id1);          
 		
-			/***************** DataBase ***********************/					
-			FranchiseDAO franchiseDAO = new FranchiseDAO();
+			/***************** DataBase ***********************/				
 			double balance = franchiseDAO.setAddtionalBalance(id, addtionalBalance);
 			
 			/***************  Send Response  *****************/

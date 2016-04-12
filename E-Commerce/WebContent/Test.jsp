@@ -1,51 +1,49 @@
+<%@page import="ecom.common.FrequentUse"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>j-Query Form Submit</title>
 
-<script type="text/javascript" src="test_Js/jQueryAjax.js"></script>
-<script src="js/jquery-1.11.3.js" type="text/javascript"></script>
 
-<script type="text/javascript">
+<script src="<%=FrequentUse.jQuery%>"></script>
+<script>
 
-$(function() {
-	$('#checkbox').change(function() {
-	
-	var display = $('#aux').css('display');  
-	
-	if (display == 'none')
-		$('#aux').css('display', 'block'); 
-	else
-		$('#aux').css('display', 'none'); 
-	})
-});
 
+function iframe1 () {
+$("#if2").hide();
+$("#if1").show();
+$("#if3").hide();
+}
+
+function iframe2 () {
+$("#if2").show();
+$("#if1").hide();
+$("#if3").hide();
+}
+
+
+function iframe3 () {
+$("#if2").hide();
+$("#if1").hide();
+$("#if3").show();
+}
+
+function iframe4 () {debugger;
+
+
+}
 </script>
 </head>
-
 <body>
+<input type="button" value="soffront" onclick="iframe1()">
+<input type="button" value="w3school" onclick="iframe2()">
+<input type="button" value="tutorialspoint" onclick="iframe3()">
+<input type="button" value="submit-3" onclick="iframe4()">
 
-<h1>j-Query Rules</h1>
-
-<form   method="post">
-
-First Name :<input type="text" name="first_name" id="first_name" /><br>
-
-<input type="checkbox" name="checkbox" id="checkbox"> <span > &nbsp; Click CheckBox1 If Last Name Is Difference </span><br>
-
-<div style="display:none;" id="aux">
-Last_Name :<input type ="text" name="last_name" id="last_name" /><br>
-</div>
-
-
-
-<input type="button" id="button" value="submit">
-
-</form>
-
+<iframe id="if1" src="http://www.soffront.com" name="if1"></iframe>
+<iframe id="if2" src="http://www.w3schools.com/" style="display:none;" name="if2"></iframe>
+<iframe id="if3" src="http://www.tutorialspoint.com/" style="display:none;" name="if3"></iframe>
 
 </body>
 </html>

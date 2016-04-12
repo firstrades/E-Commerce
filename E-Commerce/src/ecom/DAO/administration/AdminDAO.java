@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import ecom.beans.AdminServletHelper;
 import ecom.common.ConnectionFactory;
 import ecom.common.Conversions;
 import ecom.model.ExtractFranchiseDetails;
@@ -75,12 +76,10 @@ public class AdminDAO {
 				
 			} catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException sqlException) {			
 				sqlException.printStackTrace();
-			} finally {			
-				try {
-					resultSet.close();  
-				} catch (SQLException e) {				
-					e.printStackTrace();
-				}
+			} finally {		
+				productBeans = null;				
+				try { resultSet.close(); } catch (SQLException e)  { e.printStackTrace(); }
+				System.gc();
 			}	
 			
 			return null;
@@ -131,11 +130,10 @@ public class AdminDAO {
 			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 			e.printStackTrace();
 			
-		} finally {
-			
+		} finally {			
 			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
-			
+			System.gc();
 		}   
 			
 			return status;
@@ -203,11 +201,11 @@ public class AdminDAO {
 				try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 				e.printStackTrace();
 				
-			} finally {
+			} finally {				
 				try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
 				try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 				try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
-				
+				System.gc();
 			}  
 		
 			return null;
@@ -255,11 +253,10 @@ public class AdminDAO {
 				try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 				e.printStackTrace();
 				
-			} finally {
-				
+			} finally {				
 				try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 				try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
-				
+				System.gc();
 			}  
 			
 			return false;
@@ -298,11 +295,10 @@ public class AdminDAO {
 			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 			e.printStackTrace();
 			
-		} finally {
-			
+		} finally {			
 			try { preparedStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
-			
+			System.gc();
 		}   
 		
 		
@@ -343,11 +339,10 @@ public class AdminDAO {
 				try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 				e.printStackTrace();
 				
-			} finally {
-				
+			} finally {				
 				try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 				try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
-				
+				System.gc();
 			}   
 			
 			return balance;
@@ -359,7 +354,8 @@ public class AdminDAO {
 		
 		Connection connection = null; CallableStatement callableStatement = null; ResultSet resultSet = null;
         
-        List<OrderTable> list = new ArrayList<OrderTable>();
+        List<OrderTable> list     = new ArrayList<OrderTable>();
+        AdminServletHelper helper = new AdminServletHelper();
    
         
         try{
@@ -374,21 +370,61 @@ public class AdminDAO {
 		    	
 		    	OrderTable orderTable = new OrderTable();
 		    	
-		    	orderTable.setBookedDateTime(resultSet.getString("date_time"    ));
-		    	//orderTable.setDelivered     (resultSet.getString("delivered"    ));
 		    	orderTable.setId            (resultSet.getLong  ("id"           ));
-		    	orderTable.setOrderId       (resultSet.getString("order_id"     ));
-		    	orderTable.setOrderState    (resultSet.getString("order_state"  ));
+		    	orderTable.setCustomerId    (resultSet.getLong  ("customer_id"  ));
 		    	orderTable.setProductId     (resultSet.getLong  ("product_id"   ));
+		    	orderTable.setSellerId      (resultSet.getLong  ("seller_id"    ));
 		    	orderTable.setQty           (resultSet.getInt   ("qty"          ));
 		    	orderTable.setSellPrice     (resultSet.getDouble("sell_price"   ));
 		    	orderTable.setShippingCost  (resultSet.getDouble("shipping_cost"));
-		    	orderTable.setSize          (resultSet.getInt   ("size"         ));
-		    	orderTable.setStatus        (resultSet.getString("status"       ));
 		    	orderTable.setWarranty      (resultSet.getString("warranty"     ));
-		    	orderTable.setSellerId      (resultSet.getLong  ("seller_id"    ));
+		    	orderTable.setOrderId       (resultSet.getString("order_id"     ));		    	
+		    	orderTable.setBookedDateTime(resultSet.getString("date_time"    ));	
+		    	orderTable.setStatus        (resultSet.getString("status"       ));
+		    	orderTable.setSize          (resultSet.getInt   ("size"         ));		    	
+		    	orderTable.setOrderState    (resultSet.getString("order_state"  ));
+		    	orderTable.setPaymentType   (resultSet.getString("payment_type" ));
 		    	
+		    	orderTable.getDeliveryAddress().setContact (resultSet.getString("contact"   ));
+		    	orderTable.getDeliveryAddress().setAddress (resultSet.getString("address"   ));
+		    	orderTable.getDeliveryAddress().setAddress1(resultSet.getString("address1"  ));
+		    	orderTable.getDeliveryAddress().setCity    (resultSet.getString("city"      ));
+		    	orderTable.getDeliveryAddress().setState   (resultSet.getString("state"     ));
+		    	orderTable.getDeliveryAddress().setPin     (resultSet.getString("pin"       ));
+		    	orderTable.getDeliveryAddress().setfName   (resultSet.getString("first_name"));
+		    	orderTable.getDeliveryAddress().setlName   (resultSet.getString("last_name" ));
+		    	orderTable.getDeliveryAddress().setEmail   (resultSet.getString("email"     ));
+		    	orderTable.getDeliveryAddress().setCompany (resultSet.getString("company"   ));
+		    	orderTable.getDeliveryAddress().setCountry (resultSet.getString("country"   ));
+		    	
+		    	orderTable.getUser().getUserInfo().setId      (resultSet.getLong("uId"        ));
+		    	orderTable.getUser().getUserInfo().setUserType(Conversions.getEnumUserType(resultSet.getString( "user_type" )));
+		    	orderTable.getUser().getPerson().setFirstName (resultSet.getString("uFName"   ));
+		    	orderTable.getUser().getPerson().setLastName  (resultSet.getString("uLName"   ));		    	
+		    	orderTable.getUser().getUserInfo().setCompany (resultSet.getString("uCompany" ));
+		    	orderTable.getUser().getAddress().setAddress  (resultSet.getString("uAddress" ));
+		    	orderTable.getUser().getAddress().setAddress1 (resultSet.getString("uAddress1"));		    	
+		    	orderTable.getUser().getAddress().setPin      (resultSet.getString("uPin"     ));
+		    	orderTable.getUser().getAddress().setCity     (resultSet.getString("uCity"    ));
+		    	orderTable.getUser().getAddress().setState    (resultSet.getString("uState"   ));
+		    	orderTable.getUser().getAddress().setCountry  (resultSet.getString("uCountry" ));
+		    	orderTable.getUser().getPerson().setSex       (resultSet.getString("uSex"     ));
+		    	orderTable.getUser().getContact().setMobile1  (resultSet.getString("uMobile"  ));
+		    	orderTable.getUser().getContact().setEmail1   (resultSet.getString("uEmail"   ));
+		    	orderTable.getUser().getUserInfo().setBalance (resultSet.getDouble("balance"  ));
+		    	
+		    	/************** Increment 15 days ***************/		    	
+		    	String date = helper.getDateIncremented(resultSet.getString("delivered_date"));	    	
+		    	
+		    	orderTable.getOrderTableAccessories().setTrackNumber            (resultSet.getString("track_number"             ));
+		    	orderTable.getOrderTableAccessories().setDeliveredDate          (date                                            );
+		    	orderTable.getOrderTableAccessories().setPickedUpDate           (resultSet.getString("picked_up_date"           ));
+		    	orderTable.getOrderTableAccessories().setCancellationAfterBooked(resultSet.getInt   ("calcellation_after_booked"));
+		    	orderTable.getOrderTableAccessories().setCourier                (resultSet.getString("courier"                  ));
+		    			    	
 		    	list.add(orderTable);
+		    	
+		    	date = null;
 		    }
 		   
 		    System.out.println("SQL - getOrderTablesForAdmin Executed");
@@ -401,10 +437,13 @@ public class AdminDAO {
 			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
 			e.printStackTrace();
 			
-		} finally {
+		} finally {		
+			helper = null;
+			list   = null;			
 			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
 			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+			System.gc();
 			
 		}   
         
@@ -453,10 +492,11 @@ public class AdminDAO {
 			e.printStackTrace();
 			
 		} finally {
+			list = null;			
 			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
 			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
-			
+			System.gc();
 		}   
         
 		return null;
@@ -535,10 +575,11 @@ public class AdminDAO {
 			e.printStackTrace();
 			
 		} finally {
+			u = null;			
 			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
 			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
-			
+			System.gc();
 		}   
         
 		return null;
@@ -615,7 +656,7 @@ public class AdminDAO {
 			
 			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
-			
+			System.gc();
 		}  
 		
 		return status;
@@ -628,8 +669,7 @@ public class AdminDAO {
 	
 	/****************** Testing ********************/
 	
-	public static void main (String...args) {
-		
+	public static void main (String...args) {		
 		
 		List<ExtractFranchiseDetails> list = new AdminDAO().getFranchiseDetails();
 		
@@ -642,5 +682,8 @@ public class AdminDAO {
 			System.out.println(c.getFranchisePins().getPin4());
 			System.out.println(c.getFranchisePins().getPin5());
 		}
+		
+		list = null;
+		System.gc();
 	}
 }

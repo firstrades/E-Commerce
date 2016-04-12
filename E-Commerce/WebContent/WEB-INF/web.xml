@@ -52,6 +52,7 @@
     <url-pattern>/SetPickedUp</url-pattern>
     <url-pattern>/GetTrackingDetails</url-pattern>
     <url-pattern>/SetItemCancelled</url-pattern>
+    <url-pattern>/GeneratePDF</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>RetrieveImageServlet</servlet-name>
@@ -97,6 +98,7 @@
     <url-pattern>/OrderHistroy</url-pattern>
     <url-pattern>/CancelOrderFromCustomer</url-pattern>
     <url-pattern>/GetDeliveryAddressCustomer</url-pattern>
+    <url-pattern>/CheckPincode</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>OrderReviewAndSubmit</servlet-name>

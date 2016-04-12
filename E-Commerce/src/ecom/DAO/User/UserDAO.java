@@ -79,7 +79,7 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 		finally {
-			
+			user = null;
 			try {
 				resultSet.close();
 			} catch (SQLException e2) {			
@@ -97,6 +97,7 @@ public class UserDAO {
 			} catch (SQLException e) {				
 				e.printStackTrace();
 			}
+			System.gc();
 		}
 		
 		
@@ -160,6 +161,7 @@ public class UserDAO {
 			} catch (SQLException e) {				
 				e.printStackTrace();
 			}
+			System.gc();
 		}
 		
 		
@@ -219,7 +221,7 @@ public class UserDAO {
 		    connection.commit();
 		    return user;
 
-        }catch (InstantiationException | IllegalAccessException
+        } catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | SQLException e) {
 			try {
 				connection.rollback();
@@ -229,6 +231,7 @@ public class UserDAO {
 			e.printStackTrace();
 			
 		} finally {
+			user = null;
 			try {
 				callableStatement.close();
 			} catch (SQLException e) {			
@@ -239,6 +242,7 @@ public class UserDAO {
 			} catch (SQLException e) {			
 				e.printStackTrace();
 			}
+			System.gc();
 		}   
         
         return null;
@@ -286,6 +290,7 @@ public class UserDAO {
 			} catch (SQLException e) {			
 				e.printStackTrace();
 			}
+			System.gc();
 		}
 		
 		return msg;

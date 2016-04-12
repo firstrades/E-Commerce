@@ -40,7 +40,7 @@ public class BuyerServletHelper {
 		
 		String[] dateParts = deliveryDate.split("-");
 		Calendar deliveredDate = Calendar.getInstance();
-		deliveredDate.set(Integer.parseInt(dateParts[2]), Integer.parseInt(dateParts[0])-1, Integer.parseInt(dateParts[1]));
+		deliveredDate.set(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1])-1, Integer.parseInt(dateParts[2]));
 		deliveredDate.add(Calendar.DATE, calcellationAfterBooked);
 		
 		System.out.println(deliveredDate.get(Calendar.DATE) + " " + deliveredDate.get(Calendar.MONTH));

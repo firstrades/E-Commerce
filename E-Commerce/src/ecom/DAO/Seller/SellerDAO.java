@@ -49,7 +49,7 @@ public class SellerDAO {
 		    connection.commit();
 		    return picked;
 
-        }catch (InstantiationException | IllegalAccessException
+        } catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | SQLException e) {
 			try {
 				connection.rollback();
@@ -69,6 +69,7 @@ public class SellerDAO {
 			} catch (SQLException e) {			
 				e.printStackTrace();
 			}
+			System.gc();
 		}   
         
 		return picked;
@@ -140,6 +141,7 @@ public class SellerDAO {
 			e.printStackTrace();
 			
 		} finally {
+			list = null;
 			try {
 				callableStatement.close();
 			} catch (SQLException e) {			
@@ -150,6 +152,7 @@ public class SellerDAO {
 			} catch (SQLException e) {			
 				e.printStackTrace();
 			}
+			System.gc();
 		}   
         
 		return null;
@@ -187,11 +190,49 @@ public class SellerDAO {
 			
 			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
 			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
-			
+			System.gc();
 		}   
         
 		return status;
 	} //setItemCancelled
+	
+	
+	public String generatePDF(long orderTableId) {
+		
+		Connection connection = null; CallableStatement callableStatement = null;  
+		String base64 = null;
+        
+        try {
+        	connection = ConnectionFactory.getNewConnection();
+		    connection.setAutoCommit(false);
+		    
+		    callableStatement = connection.prepareCall("{call generatePDF(?,?)}");
+		    callableStatement.setLong   (1, orderTableId);
+		    callableStatement.registerOutParameter(2, Types.LONGVARCHAR);
+		    
+		    callableStatement.execute();
+		    
+		    base64 = callableStatement.getString(2);  
+		   
+		    System.out.println("SQL - generatePDF Executed");
+		    
+		    connection.commit();
+		    return base64;
+
+        } catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e) {
+			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
+			e.printStackTrace();
+			
+		} finally {
+			base64 = null;
+			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+			System.gc();
+		}   
+        
+		return null;
+	} //generatePDF
 	
 
 }

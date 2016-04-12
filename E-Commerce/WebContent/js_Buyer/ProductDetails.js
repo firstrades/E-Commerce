@@ -46,6 +46,39 @@ $(function() { //alert('jjjjjjjjj');
 		
 	});
 	
+	$('#location').click(function() {
+		
+		var pincode = $('#pincode').val();
+		$('#loader').css('display', 'block');
+		$('#right').css('display', 'none');
+		$('#cross').css('display', 'none');
+		$('#msgLocation').css('display', 'none');
+		
+		$.getJSON('CheckPincode', {pincode: pincode} , function(data) {	
+			
+			if(data.status) {				
+				$('#right').css('display', 'block');
+				$('#cross').css('display', 'none');
+				$('#loader').css('display', 'none');
+			} else {				
+				$('#cross').css('display', 'block');
+				$('#right').css('display', 'none');
+				$('#loader').css('display', 'none');
+			}
+			if (!data.notANumber) {
+				$('#msgLocation').css('display', 'block');
+			}
+		});
+		
+	});
+	
+	$('#pincode').keypress(function() {
+		
+		$('#right').css('display', 'none');
+		$('#cross').css('display', 'none');
+		$('#msgLocation').css('display', 'none');
+	});
+	
 });
 
 var application = angular.module('ProductDetailsApplication', []);
