@@ -1,6 +1,7 @@
 package ecom.Controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -170,6 +171,7 @@ public class Controller extends HttpServlet {
 		}
 		
 		
+	  //Soumya Servlet
 		else if (servletPath.equals("/SellerRegistrationPage")) {                 
 			
 			System.out.println("Entered SellerRegistrationPage");			
@@ -294,6 +296,7 @@ public class Controller extends HttpServlet {
 	} //SellerRegistrationPage
 		
 		
+		//Soumya Servlet
 		else if (servletPath.equals("/CustomerRegistrationPage")) {                 
 			
 			System.out.println("Entered CustomerRegistrationPage");			
@@ -368,6 +371,38 @@ public class Controller extends HttpServlet {
 			
 			
 		} //CustomerRegistrationPage
+		
+	  //Soumya Servlet
+		else if (servletPath.equals("/CheckCustomerUserIdFromDB")) {
+			
+			System.out.println("Enter CheckCustomerUserIdFromDB");
+			
+			PrintWriter out = response.getWriter();
+			
+			String User_Id = request.getParameter("userId").trim();
+			String msg = "";
+			
+			try {
+				
+				msg = CreateUserDAO.CheckCustomerUserIdFromDB(User_Id);
+				System.out.println(msg+"YYYYYYYY");
+				
+				if (msg != null) {
+					
+					if (msg.equalsIgnoreCase("User_Id Is Already exists")) {
+						
+						out.print("User_Id Is Already exists");
+					} else {
+						
+						out.print("User_Id Is Accepted");
+					}
+			} 
+				
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+		 }
 		
 	}
 }

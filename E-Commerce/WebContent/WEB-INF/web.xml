@@ -33,6 +33,7 @@
     <url-pattern>/RegisterSeller</url-pattern>
     <url-pattern>/CustomerRegistrationPage</url-pattern>
     <url-pattern>/RegisterCustomer</url-pattern>
+    <url-pattern>/CheckCustomerUserIdFromDB</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>SellerServlet</servlet-name>
