@@ -72,6 +72,13 @@ $(function() { //alert('jjjjjjjjj');
 		
 	});
 	
+	$('#pincode').keypress(function() {
+		
+		$('#right').css('display', 'none');
+		$('#cross').css('display', 'none');
+		$('#msgLocation').css('display', 'none');
+	});
+	
 });
 
 var application = angular.module('ProductDetailsApplication', []);
