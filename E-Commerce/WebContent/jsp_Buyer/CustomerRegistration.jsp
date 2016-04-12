@@ -8,7 +8,10 @@
 	<title>Customer Registration Page</title>
 	
 	<script type="text/javascript" src="<%=FrequentUse.jQuery %>"></script>
+	
 	<script type="text/javascript" src="js_Buyer/CustomerRegistration.js"></script>
+	<script type="text/javascript" src="js_Buyer/CheckCustomerUserIdFromDB.js"></script>
+	
 	<link href="<%=FrequentUse.style %>" rel='stylesheet' type='text/css' />
 	<link type="text/css" href="css/bootstrap.css" rel="stylesheet">
 	
@@ -57,7 +60,7 @@
 					<label> *User Id  </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="user_id" id="user_id" class="form-control"  placeholder="User Id" required value = "SoumyaEastBengal"/>
+					<input type="text" name="user_id" id="user_id" class="form-control"  placeholder="User Id" required onchange="CheckCustomerUserIdFromDB(this.value);"/><span id="CheckCustomerUserIdFromDB"></span>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label>	*Password </label>

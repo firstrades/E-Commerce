@@ -36,7 +36,7 @@ public class UserDAO {
 				user = new User();
 				
 				user.getLogin().setUserId            (resultSet.getString(  "user_id"       ));           
-				user.getLogin().setPassword          (resultSet.getString(  "password1"      ));
+				user.getLogin().setPassword          (resultSet.getString(  "password1"     ));
 				
 				user.getPerson().setFirstName        (resultSet.getString(  "first_name"    ));
 				user.getPerson().setLastName         (resultSet.getString(  "last_name"     ));
@@ -244,7 +244,7 @@ public class UserDAO {
         return null;
 	}//getUserByTranxId
 	
-	
+	//Soumya DAO - Not Used
 	public static String CheckUserId (String User_Id) {
 		
 		Connection connection = null;

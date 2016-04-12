@@ -2,6 +2,8 @@ package ecom.DAO.User;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
@@ -452,6 +454,54 @@ public class CreateUserDAO {
 			 return false;
 		}
 
+	//Soumya DAO 
+	public synchronized static String CheckCustomerUserIdFromDB (String User_Id) {
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		String sql = null;
+		String msg = "";
+		
+		try{
+			
+			connection = ConnectionFactory.getNewConnection();
+			sql = "Select * From user Where user_id = '"+User_Id+"'";
+			
+			preparedStatement = connection.prepareStatement(sql);
+			resultSet = preparedStatement.executeQuery();
+			
+			if (resultSet.next()) {
+				msg = "User_Id Is Already exists";
+			}else {
+					msg = "User_Id Is Not exists In Database";
+				}
+			}catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {				
+				e1.printStackTrace();
+			}
+			e.printStackTrace(); 
+		} finally {
+			     msg = null;
+			try {
+				preparedStatement.close();
+				resultSet.close();
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}
+			try {
+				connection.close();
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}
+			  System.gc();
+		}
+		
+		return msg;
+	 }
 	
 /*	public static void main(String[] args) {
 		// TODO Auto-generated method stub

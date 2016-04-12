@@ -466,7 +466,7 @@ public class BuyerServlet extends HttpServlet {
 		}
 		
 	
-		
+		//Soumya - Not Use The Servlet
 		else if (servletPath.equals("/CheckUserId")) {
 			
 			System.out.println("Enter CheckUserId");
