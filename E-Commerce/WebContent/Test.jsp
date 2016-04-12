@@ -29,21 +29,22 @@ $("#if1").hide();
 $("#if3").show();
 }
 
-function iframe4 () {debugger;
-
-
+function iframe4 () {
+	
+	debugger;
 }
 </script>
 </head>
 <body>
-<input type="button" value="soffront" onclick="iframe1()">
-<input type="button" value="w3school" onclick="iframe2()">
-<input type="button" value="tutorialspoint" onclick="iframe3()">
-<input type="button" value="submit-3" onclick="iframe4()">
 
-<iframe id="if1" src="http://www.soffront.com" name="if1"></iframe>
-<iframe id="if2" src="http://www.w3schools.com/" style="display:none;" name="if2"></iframe>
-<iframe id="if3" src="http://www.tutorialspoint.com/" style="display:none;" name="if3"></iframe>
+	<input type="button" value="soffront" onclick="iframe1()">
+	<input type="button" value="w3school" onclick="iframe2()">
+	<input type="button" value="tutorialspoint" onclick="iframe3()">
+	<input type="button" value="submit-3" onclick="iframe4()">
+	
+	<iframe id="if1" src="http://www.soffront.com" name="if1"></iframe>
+	<iframe id="if2" src="http://www.w3schools.com/" style="display:none;" name="if2"></iframe>
+	<iframe id="if3" src="http://www.tutorialspoint.com/" style="display:none;" name="if3"></iframe>
 
 </body>
 </html>

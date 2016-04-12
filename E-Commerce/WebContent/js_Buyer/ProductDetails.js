@@ -1,4 +1,4 @@
-$(function() { //alert('jjjjjjjjj');
+$(function() { 
 	
 	var stock1 = $('#stock').html();
 	var stock  = parseInt(stock1);
@@ -84,7 +84,6 @@ $(function() { //alert('jjjjjjjjj');
 var application = angular.module('ProductDetailsApplication', []);
 
 /********************** AdminPanel.js *********************************/
-
 application.controller('ProductDetailsController', function($scope, $http, $window) {   
 	
 	$scope.size = 0;

@@ -229,7 +229,7 @@ public class SearchLocationByPostal implements SearchLocationByPostalInterface {
 		boolean status = false;
 		
 		try {
-			searchLocationByPostal = SearchLocationByPostal.getNewInstance(700030);
+			searchLocationByPostal = SearchLocationByPostal.getNewInstance(174102);
 			
 			status = searchLocationByPostal.isLocationAvailable();		
 			
@@ -255,3 +255,6 @@ public class SearchLocationByPostal implements SearchLocationByPostalInterface {
 	}
 
 }
+
+//1.       122504—BHIWADI- Rajasthan(RJ)
+//2.       174102—SOLAN- Himachal Pradesh (HP)
