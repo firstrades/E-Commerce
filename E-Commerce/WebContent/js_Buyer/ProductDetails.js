@@ -54,15 +54,21 @@ $(function() {
 		$('#cross').css('display', 'none');
 		$('#msgLocation').css('display', 'none');
 		$('#noNet').css('display', 'none');
+		$('#error').css('display', 'none');
 		
 		$.getJSON('CheckPincode', {pincode: pincode} , function(data) {	
 			
-			if(data.status && !data.noNet) {				
+			if(data.status && !data.noNet && !data.error) {				
 				$('#right').css('display', 'block');
 				$('#cross').css('display', 'none');
 				$('#loader').css('display', 'none');
-			} else if (data.noNet) {				
+			} else if (data.noNet && !data.error) {				
 				$('#noNet').css('display', 'block');
+				$('#right').css('display', 'none');
+				$('#loader').css('display', 'none');
+				$('#cross').css('display', 'block');
+			} else if (data.error) {
+				$('#error').css('display', 'block');
 				$('#right').css('display', 'none');
 				$('#loader').css('display', 'none');
 				$('#cross').css('display', 'block');

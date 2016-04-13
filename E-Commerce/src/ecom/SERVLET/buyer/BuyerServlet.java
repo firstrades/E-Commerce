@@ -605,7 +605,7 @@ public class BuyerServlet extends HttpServlet {
 			
 			
 			JSONObject jsonObject = new JSONObject();
-			boolean status = false, notANumber = true, noNet = false;
+			boolean status = false, notANumber = true, noNet = false, error = false;
 			
 			try {
 			
@@ -620,17 +620,18 @@ public class BuyerServlet extends HttpServlet {
 						searchLocationByPostalInterface = SearchLocationByPostal.getNewInstance(pin);
 						status = searchLocationByPostalInterface.isLocationAvailable();
 						
-					} catch (SOAPException e1) {						
-						e1.printStackTrace();
+					} catch (SOAPException e) {						
+						e.printStackTrace();
+						System.out.println(e);
 						noNet = true;
 					} catch (ParserConfigurationException e1) {
-						// TODO Auto-generated catch block
+						error = true;
 						e1.printStackTrace();
 					} catch (SAXException e1) {
-						// TODO Auto-generated catch block
+						error = true;
 						e1.printStackTrace();
 					} catch (ParseException e1) {
-						// TODO Auto-generated catch block
+						error = true;
 						e1.printStackTrace();
 					}
 			
@@ -647,6 +648,7 @@ public class BuyerServlet extends HttpServlet {
 			try {
 				jsonObject.put("status", status);
 				jsonObject.put("noNet", noNet);
+				jsonObject.put("error", error);
 				
 				if (!notANumber)
 					jsonObject.put("notANumber", false);

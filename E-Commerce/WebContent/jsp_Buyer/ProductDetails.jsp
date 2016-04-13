@@ -463,6 +463,8 @@ float: left;
 	                        	<div class="btn_form">
 									<a id="location" style="padding:6px 20px;">CHECK</a>									
 								</div>
+								<span id="error" style="display: none;float: right;font-family: serif;
+    								color: blue;margin-top: 5px;margin-right: 56px;">Error! Try again.</span>
 								<span id="msgLocation" style="display: none;float: right;font-family: serif;
     								color: blue;margin-top: 5px;margin-right: 12px;">Enter a valid Postal Code</span>
     							<span id="noNet" style="display: none;float: right;font-family: serif;
