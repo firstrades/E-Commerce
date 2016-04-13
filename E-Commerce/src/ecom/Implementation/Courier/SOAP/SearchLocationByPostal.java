@@ -77,7 +77,6 @@ public class SearchLocationByPostal implements SearchLocationByPostalInterface {
 	/************************** Soap XML **********************************/	
 	
 	
-	@SuppressWarnings("unused")
 	private void isLocationAvailableXML() throws SOAPException, IOException, ParserConfigurationException, SAXException, ParseException {
 		
 		SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
@@ -87,8 +86,11 @@ public class SearchLocationByPostal implements SearchLocationByPostalInterface {
         String testURL       = "https://wsbeta.fedex.com:443/web-services";
         String productionURL = "https://ws.fedex.com:443/web-services";
         
-        soapResponse = soapConnection.call(soapMessage(), testURL);        
-        
+        if (FrequentUse.fedExAccountNumber.equals("604501202"))
+        	soapResponse = soapConnection.call(soapMessage(), testURL); 
+        else if (FrequentUse.fedExAccountNumber.equals("729620904"))
+        	soapResponse = soapConnection.call(soapMessage(), productionURL); 
+        	
         ByteArrayOutputStream baout = new ByteArrayOutputStream();
         soapResponse.writeTo(baout);
         soapConnection.close();

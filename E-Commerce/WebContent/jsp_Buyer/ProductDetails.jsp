@@ -463,16 +463,17 @@ float: left;
 	                        	<div class="btn_form">
 									<a id="location" style="padding:6px 20px;">CHECK</a>									
 								</div>
+								<!-- Error Handle -->
 								<span id="error" style="display: none;float: right;font-family: serif;
     								color: blue;margin-top: 5px;margin-right: 56px;">Error! Try again.</span>
 								<span id="msgLocation" style="display: none;float: right;font-family: serif;
     								color: blue;margin-top: 5px;margin-right: 12px;">Enter a valid Postal Code</span>
     							<span id="noNet" style="display: none;float: right;font-family: serif;
-    								color: red;margin-top: 5px;margin-right: 27px;">Check your Internet connection!</span>
+    								color: blue;margin-top: 5px;margin-right: 27px;">Check your Internet connection!</span>
 								<img id="loader" alt="loader" src="images/loader1.gif" style="width: 40px; height: 40px;display: none;" />
 								<img id="right" alt="" src="images/right.jpg" width="30" height="30" style="display: none;margin-left: 123px;" />
 								<img id="cross" alt="" src="images/cross.jpg" width="30" height="30" style="display: none;margin-left: 120px;" />
-								
+								<!-- End Error Handle -->
 							</div>
 	                        <div class="clearfix"></div>
 						 	<hr>

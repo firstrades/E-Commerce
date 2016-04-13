@@ -111,9 +111,12 @@ public class TrackingIdGeneration implements TrackingIdGenerationInterface {
         SOAPMessage soapResponse = null;
         
         String testURL       = "https://wsbeta.fedex.com:443/web-services";        
-		//String productionURL = "https://ws.fedex.com:443/web-services";
+		String productionURL = "https://ws.fedex.com:443/web-services";
         
-        soapResponse = soapConnection.call(soapMessage(), testURL);            
+		if (FrequentUse.fedExAccountNumber.equals("604501202"))
+        	soapResponse = soapConnection.call(soapMessage(), testURL); 
+        else if (FrequentUse.fedExAccountNumber.equals("729620904"))
+        	soapResponse = soapConnection.call(soapMessage(), productionURL);         
         
         ByteArrayOutputStream baout = new ByteArrayOutputStream();
         soapResponse.writeTo(baout);
