@@ -615,7 +615,13 @@
 
 <!-- ----------------------------------------------------BODY-------------------------------------------------------- -->
 
+<% 
 
+	if (request.getAttribute("errorMsg") != null) { System.out.println("Jewel 2");
+		String errorMsg = (String) request.getAttribute("errorMsg"); 
+		out.println("<div style=\"margin-left: 342px;color:red;\">"+errorMsg+"</div>");
+	}
+%>
 
 <div class="special">
 	<div class="container" id="append">		

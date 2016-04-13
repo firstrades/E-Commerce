@@ -16,7 +16,6 @@ public interface FrequentUse {
 	public static final String payUMoneyKey = "50Z4cW";  public static final String payUMoneySalt = "bpJeeV02";  public static final String payUMoneyServiceProvider = "payu_paisa";
 		
 		
-		
 	/************************** Fedex ******************************/	
 		
 	

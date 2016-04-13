@@ -81,9 +81,14 @@ public class BuyerServlet extends HttpServlet {
 			
 			/******************************************
 			 			*  Get Request  *
-			 ******************************************/			
-			String subCategory = request.getParameter("subCategory");         //System.out.println(subCategory);				
-						
+			 ******************************************/
+			String errorMsg = null;
+			
+			String subCategory = request.getParameter("subCategory");         //System.out.println(subCategory);
+			
+			if	(request.getParameter("errorMsg") != null)	{ System.out.println("Jewel");
+				errorMsg = (String) request.getParameter("errorMsg");
+			}
 			
 			/******************************************
 			 	* Database Search for product table *
@@ -117,6 +122,9 @@ public class BuyerServlet extends HttpServlet {
 			/******************************************
 			 			* Set Request *
 			 ******************************************/
+			if (errorMsg != null)
+				request.setAttribute("errorMsg", errorMsg);
+			
 			request.setAttribute("productBeanList", productBeanList);
 			request.setAttribute("MAX", MAX);
 			

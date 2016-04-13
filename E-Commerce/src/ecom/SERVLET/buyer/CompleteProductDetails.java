@@ -101,50 +101,64 @@ public class CompleteProductDetails extends HttpServlet {
 			/**
 			 * @API - @Rate @Delivery
 			 */			
+			boolean error = false;
 			EstimatedRateAndDelivery estimatedRateAndDelivery = null;
 			try {
 				estimatedRateAndDelivery = EstimatedRateAndDeliveryBean.getNewInstance(productId, user, 1);
+				
+				BigDecimal rate = estimatedRateAndDelivery.getRate();    
+				String delivery = estimatedRateAndDelivery.getDelivery();
+				
+				List<TwoObjects<BigDecimal, String>> apiDataList  = new ArrayList<>();
+				TwoObjects<BigDecimal, String> apiRateAndDelivery = new TwoObjects<>();
+				apiRateAndDelivery.setObj1(rate    );
+				apiRateAndDelivery.setObj2(delivery);
+				apiDataList.add(apiRateAndDelivery );
+				
+			/************** Set Session ***************/
+				session.setAttribute("apiDataList", apiDataList);			
+			
+			/******************************************
+			 			* Set Request *
+			 ******************************************/
+				request.setAttribute("productBean",   productBean);
+				request.setAttribute("featureMap",    featureMap);			
+				request.setAttribute("stock",         stock);
+				request.setAttribute("sizeGarment",   sizeGarment);
+				// API Data
+				request.setAttribute("rate",          rate);
+				request.setAttribute("delivery",      delivery);
+				
+				
 			} catch (SOAPException e) {
 				System.out.println("SOAPException");
 				e.printStackTrace();
+				error = true;				
 			} catch (ParserConfigurationException e) {
 				System.out.println("ParserConfigurationException");
 				e.printStackTrace();
+				error = true;	
 			} catch (SAXException e) {
 				System.out.println("SAXException");
 				e.printStackTrace();
+				error = true;	
 			} catch (ParseException e) {
 				System.out.println("ParseException");
 				e.printStackTrace();
+				error = true;	
 			}
 			
-			BigDecimal rate = estimatedRateAndDelivery.getRate();    
-			String delivery = estimatedRateAndDelivery.getDelivery();
 			
-			List<TwoObjects<BigDecimal, String>> apiDataList  = new ArrayList<>();
-			TwoObjects<BigDecimal, String> apiRateAndDelivery = new TwoObjects<>();
-			apiRateAndDelivery.setObj1(rate    );
-			apiRateAndDelivery.setObj2(delivery);
-			apiDataList.add(apiRateAndDelivery );
-			
-		/************** Set Session ***************/
-			session.setAttribute("apiDataList", apiDataList);			
-		
-		/******************************************
-		 			* Set Request *
-		 ******************************************/
-			request.setAttribute("productBean",   productBean);
-			request.setAttribute("featureMap",    featureMap);			
-			request.setAttribute("stock",         stock);
-			request.setAttribute("sizeGarment",   sizeGarment);
-			// API Data
-			request.setAttribute("rate",          rate);
-			request.setAttribute("delivery",      delivery);
 		
 		/******************************************
 		 			* Next Page *
 		 ******************************************/
-			request.getRequestDispatcher("jsp_Buyer/ProductDetails.jsp").forward(request, response);
+			if (error) {
+				String errorMsg = "Error! Please try again.";				
+				response.sendRedirect("SearchBySubCategory?subCategory="+subCategory+"&errorMsg="+errorMsg);
+			}
+			else
+				request.getRequestDispatcher("jsp_Buyer/ProductDetails.jsp").forward(request, response);
 		
 	}
 	

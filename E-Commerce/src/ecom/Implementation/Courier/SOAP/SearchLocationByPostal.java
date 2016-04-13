@@ -84,8 +84,8 @@ public class SearchLocationByPostal implements SearchLocationByPostalInterface {
 	private void isLocationAvailableXML() throws SOAPException, IOException, ParserConfigurationException, SAXException, ParseException, XMLStreamException, FactoryConfigurationError {
 		
 		SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
-        SOAPConnection soapConnection = soapConnectionFactory.createConnection();
-        SOAPMessage soapResponse = null;
+        SOAPConnection soapConnection               = soapConnectionFactory.createConnection();
+        SOAPMessage soapResponse                    = null;
         
         String testURL       = "https://wsbeta.fedex.com:443/web-services";
         String productionURL = "https://ws.fedex.com:443/web-services";
@@ -100,14 +100,14 @@ public class SearchLocationByPostal implements SearchLocationByPostalInterface {
         soapConnection.close();
         
         String responseString = new String(baout.toByteArray());                
-        responseString = responseString.replaceAll("&lt;", "<");
-        responseString = responseString.replaceAll("&gt;", ">");         
+        responseString        = responseString.replaceAll("&lt;", "<");
+        responseString        = responseString.replaceAll("&gt;", ">");         
         
         System.out.println(responseString);
         
-        parseSoapResponseMessageDOM(responseString);  
         
-       
+        //Parse
+        parseSoapResponseMessageDOM (responseString);        
 		parseSoapResponseMessageStAX(responseString);
 		
         
@@ -116,8 +116,8 @@ public class SearchLocationByPostal implements SearchLocationByPostalInterface {
 	private SOAPMessage soapMessage() throws SOAPException, IOException {
 		
 		MessageFactory messageFactory = MessageFactory.newInstance();
-        SOAPMessage soapMessage = messageFactory.createMessage();
-        SOAPPart soapPart = soapMessage.getSOAPPart();
+        SOAPMessage soapMessage       = messageFactory.createMessage();
+        SOAPPart soapPart             = soapMessage.getSOAPPart();
         
         String v3 = "v3";
         
@@ -126,7 +126,7 @@ public class SearchLocationByPostal implements SearchLocationByPostalInterface {
         //envelope.addNamespaceDeclaration("SOAP-ENC", "http://schemas.xmlsoap.org/soap/encoding/");
         //envelope.addNamespaceDeclaration("xsi",      "http://www.w3.org/2001/XMLSchema-instance");
         //envelope.addNamespaceDeclaration("xsd",      "http://www.w3.org/2001/XMLSchema");
-		envelope.addNamespaceDeclaration(v3,      "http://fedex.com/ws/locs/v3");		
+		envelope.addNamespaceDeclaration  (v3,         "http://fedex.com/ws/locs/v3");		
         
 		//Body
         SOAPBody soapBody = envelope.getBody(); 
@@ -204,9 +204,9 @@ public class SearchLocationByPostal implements SearchLocationByPostalInterface {
 	private void parseSoapResponseMessageDOM(String soapResponseMessage) throws ParserConfigurationException, SAXException, IOException, ParseException {		
 		
 		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-		InputSource inputSource = new InputSource(new StringReader(soapResponseMessage));
-		Document document = documentBuilder.parse(inputSource);		
+		DocumentBuilder documentBuilder               = documentBuilderFactory.newDocumentBuilder();
+		InputSource inputSource                       = new InputSource(new StringReader(soapResponseMessage));
+		Document document                             = documentBuilder.parse(inputSource);		
 		document.getDocumentElement().normalize();
 		
 		Element highestSeverity = (Element) document.getElementsByTagName("HighestSeverity").item(0);	
@@ -219,7 +219,7 @@ public class SearchLocationByPostal implements SearchLocationByPostalInterface {
 	
 	private void parseSoapResponseMessageStAX(String soapResponseMessage) throws XMLStreamException, FactoryConfigurationError {		
 		
-		InputStream inputStream = new ByteArrayInputStream(soapResponseMessage.getBytes());		
+		InputStream inputStream         = new ByteArrayInputStream(soapResponseMessage.getBytes());		
 		XMLStreamReader xmlStreamReader = XMLInputFactory.newInstance().createXMLStreamReader(inputStream);
 		
 		boolean isHighestSeverity = false, endLoop = true;		
