@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.soap.SOAPException;
+import javax.xml.stream.FactoryConfigurationError;
+import javax.xml.stream.XMLStreamException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -633,6 +635,12 @@ public class BuyerServlet extends HttpServlet {
 					} catch (ParseException e1) {
 						error = true;
 						e1.printStackTrace();
+					} catch (XMLStreamException e) {
+						error = true;
+						e.printStackTrace();
+					} catch (FactoryConfigurationError e) {
+						error = true;
+						e.printStackTrace();
 					}
 			
 			

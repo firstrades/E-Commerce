@@ -44,7 +44,7 @@ public class SearchLocationByPostal implements SearchLocationByPostalInterface {
 	
 	private SearchLocationByPostal() {}
 	
-	private SearchLocationByPostal(long pin) throws SOAPException, IOException, ParserConfigurationException, SAXException, ParseException {
+	private SearchLocationByPostal(long pin) throws SOAPException, IOException, ParserConfigurationException, SAXException, ParseException, XMLStreamException, FactoryConfigurationError {
 		this.pin = pin;
 		
 		isLocationAvailableXML();
@@ -67,17 +67,21 @@ public class SearchLocationByPostal implements SearchLocationByPostalInterface {
 	 * @throws SAXException 
 	 * @throws ParserConfigurationException 
 	 * @throws IOException 
-	 * @throws SOAPException ******************************************************************/
+	 * @throws SOAPException 
+	 * @throws FactoryConfigurationError 
+	 * @throws XMLStreamException ******************************************************************/
 
-	public static SearchLocationByPostal getNewInstance(long pin) throws SOAPException, IOException, ParserConfigurationException, SAXException, ParseException {		
+	public static SearchLocationByPostal getNewInstance(long pin) throws SOAPException, IOException, ParserConfigurationException, SAXException, ParseException, XMLStreamException, FactoryConfigurationError {		
 		return new SearchLocationByPostal(pin);
 	}
 	
 	
-	/************************** Soap XML **********************************/	
+	/************************** Soap XML 
+	 * @throws FactoryConfigurationError 
+	 * @throws XMLStreamException **********************************/	
 	
 	
-	private void isLocationAvailableXML() throws SOAPException, IOException, ParserConfigurationException, SAXException, ParseException {
+	private void isLocationAvailableXML() throws SOAPException, IOException, ParserConfigurationException, SAXException, ParseException, XMLStreamException, FactoryConfigurationError {
 		
 		SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
         SOAPConnection soapConnection = soapConnectionFactory.createConnection();
@@ -86,9 +90,9 @@ public class SearchLocationByPostal implements SearchLocationByPostalInterface {
         String testURL       = "https://wsbeta.fedex.com:443/web-services";
         String productionURL = "https://ws.fedex.com:443/web-services";
         
-        if (FrequentUse.fedExAccountNumber.equals("604501202"))
+        if (FrequentUse.fedExAccountNumber.equals(FrequentUse.TestAccountNumber))
         	soapResponse = soapConnection.call(soapMessage(), testURL); 
-        else if (FrequentUse.fedExAccountNumber.equals("729620904"))
+        else if (FrequentUse.fedExAccountNumber.equals(FrequentUse.ProductionAccountNumber))
         	soapResponse = soapConnection.call(soapMessage(), productionURL); 
         	
         ByteArrayOutputStream baout = new ByteArrayOutputStream();
@@ -103,12 +107,9 @@ public class SearchLocationByPostal implements SearchLocationByPostalInterface {
         
         parseSoapResponseMessageDOM(responseString);  
         
-        try {
-			parseSoapResponseMessageStAX(responseString);
-		} catch (XMLStreamException | FactoryConfigurationError e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+       
+		parseSoapResponseMessageStAX(responseString);
+		
         
 	}
 	
@@ -297,6 +298,12 @@ public class SearchLocationByPostal implements SearchLocationByPostalInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (XMLStreamException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FactoryConfigurationError e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
