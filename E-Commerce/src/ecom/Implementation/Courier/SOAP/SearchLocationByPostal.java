@@ -1,7 +1,9 @@
 package ecom.Implementation.Courier.SOAP;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.text.ParseException;
 
@@ -17,6 +19,11 @@ import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.soap.SOAPPart;
+import javax.xml.stream.FactoryConfigurationError;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -33,6 +40,7 @@ public class SearchLocationByPostal implements SearchLocationByPostalInterface {
 	
 	//Output
 	private String highestSeverity;
+	private String highestSeverityStAX;
 	
 	private SearchLocationByPostal() {}
 	
@@ -45,9 +53,9 @@ public class SearchLocationByPostal implements SearchLocationByPostalInterface {
 	@Override
 	public boolean isLocationAvailable() {
 		
-		if (this.highestSeverity.equals("SUCCESS"))
+		if (this.highestSeverityStAX.equals("SUCCESS"))
 			return true;
-		else if (this.highestSeverity.equals("ERROR"))
+		else if (this.highestSeverityStAX.equals("ERROR"))
 			return false;
 		else 
 			return false;
@@ -91,7 +99,14 @@ public class SearchLocationByPostal implements SearchLocationByPostalInterface {
         
         System.out.println(responseString);
         
-        parseSoapResponseMessage(responseString);       
+        parseSoapResponseMessageDOM(responseString);  
+        
+        try {
+			parseSoapResponseMessageStAX(responseString);
+		} catch (XMLStreamException | FactoryConfigurationError e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
 	}
 	
@@ -183,7 +198,7 @@ public class SearchLocationByPostal implements SearchLocationByPostalInterface {
 		return soapMessage;
 	}
 	
-	private void parseSoapResponseMessage(String soapResponseMessage) throws ParserConfigurationException, SAXException, IOException, ParseException {		
+	private void parseSoapResponseMessageDOM(String soapResponseMessage) throws ParserConfigurationException, SAXException, IOException, ParseException {		
 		
 		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -194,11 +209,45 @@ public class SearchLocationByPostal implements SearchLocationByPostalInterface {
 		Element highestSeverity = (Element) document.getElementsByTagName("HighestSeverity").item(0);	
 		
 		this.highestSeverity = highestSeverity.getTextContent();
+		System.out.println(this.highestSeverity);
 		
 	}
 	
 	
+	private void parseSoapResponseMessageStAX(String soapResponseMessage) throws XMLStreamException, FactoryConfigurationError {		
+		
+		InputStream inputStream = new ByteArrayInputStream(soapResponseMessage.getBytes());		
+		XMLStreamReader xmlStreamReader = XMLInputFactory.newInstance().createXMLStreamReader(inputStream);
+		
+		boolean isHighestSeverity = false, endLoop = true;		
+		
+		while (xmlStreamReader.hasNext() && endLoop == true) {
+			
+			switch (xmlStreamReader.next()) {				
+			
+				case XMLStreamConstants.START_ELEMENT  :
+					if (xmlStreamReader.getLocalName().equals("HighestSeverity")) {
+						isHighestSeverity = true;
+					}
+					break;
 	
+				case XMLStreamConstants.CHARACTERS     :
+					if (isHighestSeverity) {
+						this.highestSeverityStAX = xmlStreamReader.getText();    System.out.println(this.highestSeverityStAX);
+						endLoop = false;
+					}
+					break;					
+				
+			} // switch
+			
+			if (!endLoop) {
+				System.out.println("Out of Loop!");
+				//break;
+			}
+			
+		} // while
+		
+	}
 	
 	
 	
@@ -229,7 +278,7 @@ public class SearchLocationByPostal implements SearchLocationByPostalInterface {
 		boolean status = false;
 		
 		try {
-			searchLocationByPostal = SearchLocationByPostal.getNewInstance(174102);
+			searchLocationByPostal = SearchLocationByPostal.getNewInstance(700067);
 			
 			status = searchLocationByPostal.isLocationAvailable();		
 			

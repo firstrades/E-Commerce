@@ -53,13 +53,19 @@ $(function() {
 		$('#right').css('display', 'none');
 		$('#cross').css('display', 'none');
 		$('#msgLocation').css('display', 'none');
+		$('#noNet').css('display', 'none');
 		
 		$.getJSON('CheckPincode', {pincode: pincode} , function(data) {	
 			
-			if(data.status) {				
+			if(data.status && !data.noNet) {				
 				$('#right').css('display', 'block');
 				$('#cross').css('display', 'none');
 				$('#loader').css('display', 'none');
+			} else if (data.noNet) {				
+				$('#noNet').css('display', 'block');
+				$('#right').css('display', 'none');
+				$('#loader').css('display', 'none');
+				$('#cross').css('display', 'block');
 			} else {				
 				$('#cross').css('display', 'block');
 				$('#right').css('display', 'none');
@@ -72,11 +78,12 @@ $(function() {
 		
 	});
 	
-	$('#pincode').keypress(function() {
+	$('#pincode').keyup(function() {
 		
 		$('#right').css('display', 'none');
 		$('#cross').css('display', 'none');
 		$('#msgLocation').css('display', 'none');
+		$('#noNet').css('display', 'none');
 	});
 	
 });

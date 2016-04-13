@@ -20,7 +20,7 @@ $(function() {
 		  		else{
 		  			
 		  			 Last_name  = $.trim($("#first_name").val());
-
+ 
 		  		}
 		  		    
 		  		alert (" first_name "+First_name+" last_name "+Last_name);

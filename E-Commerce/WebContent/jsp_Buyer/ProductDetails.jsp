@@ -465,6 +465,8 @@ float: left;
 								</div>
 								<span id="msgLocation" style="display: none;float: right;font-family: serif;
     								color: blue;margin-top: 5px;margin-right: 12px;">Enter a valid Postal Code</span>
+    							<span id="noNet" style="display: none;float: right;font-family: serif;
+    								color: red;margin-top: 5px;margin-right: 27px;">Check your Internet connection!</span>
 								<img id="loader" alt="loader" src="images/loader1.gif" style="width: 40px; height: 40px;display: none;" />
 								<img id="right" alt="" src="images/right.jpg" width="30" height="30" style="display: none;margin-left: 123px;" />
 								<img id="cross" alt="" src="images/cross.jpg" width="30" height="30" style="display: none;margin-left: 120px;" />
