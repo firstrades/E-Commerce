@@ -6,6 +6,16 @@
     <welcome-file>SellerMainPanel-</welcome-file>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
+  <!-- Spring -->
+  <servlet>
+  	<servlet-name>spring-dispatcher</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>spring-dispatcher</servlet-name>
+  	<url-pattern>/spring/*</url-pattern>
+  </servlet-mapping>
+  <!-- End Spring -->
   <listener>
     <listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
   </listener>

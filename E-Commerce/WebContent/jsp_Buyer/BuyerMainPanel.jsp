@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@page import="ecom.model.User"%>
 <%@page import="ecom.beans.CartAttributesBean"%>
 <%@page import="ecom.model.ProductBean"%>
@@ -34,6 +35,10 @@
 
 <%
 	User user = (User) session.getAttribute("user");
+	@SuppressWarnings("all")
+	Map<String,ProductBean> map = (Map<String,ProductBean>) request.getAttribute("map");
+	
+	ProductBean productBean = null;
 %>
 
 
@@ -138,26 +143,38 @@
 
 <div class="special">
 	<div class="container">
-		<h3>Recommended For You</h3>
+		<h3>Electronic Products</h3>
 			<div class="specia-top">
 				<ul class="grid_2">
+					<% 
+						productBean = map.get("Mobile");
+					%>
 					<li>
-						<a href="#"><img src="images/electronic1.jpg" class="img-responsive" alt=""></a>
+						<a href="CompleteProductDetails?subCategory=<%=productBean.getSubCategory() %>&productId=<%=productBean.getProductId() %>">
+							<img src="IconImageFromProduct?productId=<%=productBean.getProductId() %>" class="img-responsive" alt="">
+						</a>
 						<div class="special-info grid_1 simpleCart_shelfItem">
-							<h5> <a href="#"> LAPTOP(ASUS) </a> </h5>
+							<h5> 
+								<a href="CompleteProductDetails?subCategory=<%=productBean.getSubCategory() %>&productId=<%=productBean.getProductId() %>"> <%=productBean.getProductName() %>  (<%=productBean.getCompanyName() %>)  </a> 
+							</h5>
 						
 	                    	<div class="div_key_feature">
 	                      		<ul>
-				                    <li> Key feature </li>
-				                    <li> Key feature1 </li>
-				                    <li> Key feature2 </li>
-				                    <li> Key feature3 </li>
+				                    <li> <%=productBean.getKeyFeatures().getKf1() %> </li>
+		                    		<li> <%=productBean.getKeyFeatures().getKf2() %> </li>
+		                    		<li> <%=productBean.getKeyFeatures().getKf3() %> </li>
+		                    		<li> <%=productBean.getKeyFeatures().getKf4() %> </li>
 	                    		</ul>
 	                    	</div>
-	                    	<div class="item_add"><h6><span class="item_price"><small class="over_flow"> Rs.18000 </small> &nbsp;  <strong>Rs 16500</strong> <small> (9% Off) </small></span></h6></div>
-							<div class="item_add"><span class="item_price"><a href="#">More Details</a></span></div>
+	                    	<div class="item_add"><h6><span class="item_price"> <small class="over_flow"> Rs.<%=productBean.getPrice().getListPrice() %> </small> &nbsp; <small class="item_price"> (<%=productBean.getPrice().getDiscount() %>% Off) </small> <br> <strong class="main_value">Rs <%=productBean.getPrice().getSalePriceCustomer() %></strong> </span></h6></div>
+							<div class="item_add">
+								<span class="item_price">
+									<a href="CompleteProductDetails?subCategory=<%=productBean.getSubCategory() %>&productId=<%=productBean.getProductId() %>">More Details</a>
+								</span>
+							</div>
 						</div>
 					</li>
+					
 					<li>
 						<a href="#"><img src="images/electronic2.jpg" class="img-responsive" alt=""></a>
 						<div class="special-info grid_1 simpleCart_shelfItem">
@@ -227,25 +244,38 @@
 				<div class="clearfix"> </div>
 			</div>
 		
-			<h3>Products To Bring You </h3>	
+			<h3>Women Section </h3>	
 				<div class="specia-top">
 					<ul class="grid_2">
+						<% 
+							productBean = map.get("Leggings"); 
+						%>
 						<li>
-							<a href="#"><img src="images/electronic6.jpg" class="img-responsive" alt=""></a>
+							<a href="CompleteProductDetails?subCategory=<%=productBean.getSubCategory() %>&productId=<%=productBean.getProductId() %>">
+								<img src="IconImageFromProduct?productId=<%=productBean.getProductId() %>" class="img-responsive" alt="">
+							</a>
 							<div class="special-info grid_1 simpleCart_shelfItem">
-								<h5><a href="#"> Oven Toaster Griller </a> </h5>
-                     				<div class="div_key_feature">
-                      					<ul>
-					                    	<li> Key feature </li>
-					                    	<li> Key feature1 </li>
-					                    	<li> Key feature2 </li>
-					                    	<li> Key feature3 </li>
-                    					</ul>
-                    				</div>
-									<div class="item_add"><h6><span class="item_price"> <small class="over_flow"> Rs.7495 </small> &nbsp; <strong>Rs 4497</strong> <small> (40% Off) </small></span></h6></div>
-									<div class="item_add"><span class="item_price"><a href="#">More Details</a></span></div>
+								<h5> 
+									<a href="CompleteProductDetails?subCategory=<%=productBean.getSubCategory() %>&productId=<%=productBean.getProductId() %>"> <%=productBean.getProductName() %>  (<%=productBean.getCompanyName() %>)  </a> 
+								</h5>
+							
+		                    	<div class="div_key_feature">
+		                      		<ul>
+					                    <li> <%=productBean.getKeyFeatures().getKf1() %> </li>
+			                    		<li> <%=productBean.getKeyFeatures().getKf2() %> </li>
+			                    		<li> <%=productBean.getKeyFeatures().getKf3() %> </li>
+			                    		<li> <%=productBean.getKeyFeatures().getKf4() %> </li>
+		                    		</ul>
+		                    	</div>
+		                    	<div class="item_add"><h6><span class="item_price"> <small class="over_flow"> Rs.<%=productBean.getPrice().getListPrice() %> </small> &nbsp; <small class="item_price"> (<%=productBean.getPrice().getDiscount() %>% Off) </small> <br> <strong class="main_value">Rs <%=productBean.getPrice().getSalePriceCustomer() %></strong> </span></h6></div>
+								<div class="item_add">
+									<span class="item_price">
+										<a href="CompleteProductDetails?subCategory=<%=productBean.getSubCategory() %>&productId=<%=productBean.getProductId() %>">More Details</a>
+									</span>
+								</div>
 							</div>
 						</li>
+						
 						<li>
 							<a href="#"><img src="images/electronic7.jpg" class="img-responsive" alt=""></a>
 							<div class="special-info grid_1 simpleCart_shelfItem">
@@ -964,6 +994,8 @@
 			<h3>Shop By Branded</h3>		
 	</div>
 </div>
+
+
 
 <!-- ------------------------------------------End Body----------------------------------------------- -->
 

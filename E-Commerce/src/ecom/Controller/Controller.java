@@ -2,6 +2,7 @@ package ecom.Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,23 +10,41 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import ecom.DAO.Buyer.BuyerSearchDAO;
 import ecom.DAO.User.CreateUserDAO;
 import ecom.DAO.User.UserDAO;
 import ecom.common.UserType;
+import ecom.model.ProductBean;
 import ecom.model.User;
 
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	protected UserDAO userDAO;
+	protected BuyerSearchDAO buyerSearchDAO;
   
+	@Override
+	public void destroy() {
+		System.out.println("Servlet Controller Destroyed.");
+	}
+
+	@Override
+	public void init() throws ServletException {
+		this.userDAO        = new UserDAO();
+		this.buyerSearchDAO = new BuyerSearchDAO();
+	}
+
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
 	}
 
-	public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		System.out.println("Entered Controller");
 		
@@ -42,9 +61,7 @@ public class Controller extends HttpServlet {
 				String userId   = request.getParameter("userId").trim();    
 				String password = request.getParameter("password").trim();   
 				
-				/********* Database Check ***********/
-				
-				UserDAO userDAO = new UserDAO();
+				/********* Database Check ***********/				
 				User user       = userDAO.getUser(userId, password);			
 				
 				
@@ -68,7 +85,12 @@ public class Controller extends HttpServlet {
 		}
 		else if (servletPath.equals("/BuyerMainPanel")) {            //  Customer View    //  I think no use, but not sure
 			
-				System.out.println("Entered BuyerMainPanel");			
+				System.out.println("Entered BuyerMainPanel");	
+				
+				/*********** Database **************/				
+				Map<String,ProductBean> map = buyerSearchDAO.getFirstPageProducts();
+				
+				request.setAttribute("map", map);
 				
 				/*****************************************
 				 			* Next Page *
@@ -84,9 +106,8 @@ public class Controller extends HttpServlet {
 				String userId   = request.getParameter("userId").trim();    
 				String password = request.getParameter("password").trim(); 			
 				
-				/********* Database Check ***********/
+				/********* Database Check ***********/			
 				
-				UserDAO userDAO = new UserDAO();
 				User user       = userDAO.getUser(userId, password);
 				
 				
@@ -135,9 +156,8 @@ public class Controller extends HttpServlet {
 			String userId   = request.getParameter("userId")  .trim();    
 			String password = request.getParameter("password").trim();   
 			
-			/********* Database Check ***********/
+			/********* Database Check ***********/			
 			
-			UserDAO userDAO = new UserDAO();
 			User user       = userDAO.getUser(userId, password);
 			
 			/************* Set Session *******************/
@@ -278,7 +298,7 @@ public class Controller extends HttpServlet {
         		 Address_Line4, City2, Pin2, State2, Country2, Email3);
         		
         
-        UserDAO userDAO = new UserDAO();
+        
 		User user       = userDAO.getUser(User_Id, Password);
 		
 		/******* Set Session **********/				
@@ -350,7 +370,7 @@ public class Controller extends HttpServlet {
        			    First_Name2, Last_Name2, Company2, Contact, Address_Line3, Address_Line4, City2, Pin2, State2, Country2, Email3);
        		
 			
-			UserDAO userDAO = new UserDAO();
+			
 			User user       = userDAO.getUser(User_Id, Password);
 			
 			

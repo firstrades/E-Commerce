@@ -7,7 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import ecom.common.ConnectionFactory;
 import ecom.model.CartWishlist;
 import ecom.model.CustomerOrderHistroy;
@@ -44,8 +47,8 @@ public class BuyerSearchDAO {
 			while (resultSet.next()) {
 				
 				ProductBean productBean = new ProductBean();
-				productBean.setKeyFeatures(new KeyFeatures());
-				productBean.setPrice(new Price());
+				//productBean.setKeyFeatures(new KeyFeatures());
+				//productBean.setPrice(new Price());
 				
 				productBean.setProductId                 (resultSet.getInt   ("product_id"));
 				productBean.setSellerId                  (resultSet.getLong  ("seller_id"));
@@ -1246,4 +1249,69 @@ public class BuyerSearchDAO {
 		
 		return null;
 	}//getDeliveryAddressCustomer
+	
+	public Map<String,ProductBean> getFirstPageProducts() {
+		
+		Connection connection = null; CallableStatement callableStatement = null; ResultSet resultSet = null;  
+	    
+		String sql = "{call getFirstPageProducts()}";	
+		
+		Map<String,ProductBean> map = new HashMap<>();	
+		
+		try {
+				connection = ConnectionFactory.getNewConnection();
+				connection.setAutoCommit(false);
+				
+				callableStatement = connection.prepareCall(sql);								
+										
+				resultSet = callableStatement.executeQuery();
+				
+				while(resultSet.next()) {
+					
+					ProductBean productBean = new ProductBean();					
+					
+					productBean.setProductId                 (resultSet.getInt   ("product_id"));
+					productBean.setSellerId                  (resultSet.getLong  ("seller_id"));
+					
+					productBean.setCategory                  (resultSet.getString("category"));
+					productBean.setSubCategory               (resultSet.getString("sub_category"));
+					productBean.setProductName               (resultSet.getString("product_name"));
+					productBean.setCompanyName               (resultSet.getString("company_name"));
+					
+					productBean.getPrice().setListPrice      (resultSet.getDouble("list_price"));
+					productBean.getPrice().setDiscount       (resultSet.getDouble("discount"));
+					productBean.getPrice().setSalePriceCustomer(resultSet.getDouble("salePriceCustomer"));				
+					productBean.getPrice().setMarkup         (resultSet.getDouble("markup"));
+					
+					productBean.getKeyFeatures().setKf1      (resultSet.getString("kf_1"));
+					productBean.getKeyFeatures().setKf2      (resultSet.getString("kf_2"));
+					productBean.getKeyFeatures().setKf3      (resultSet.getString("kf_3"));
+					productBean.getKeyFeatures().setKf4      (resultSet.getString("kf_4"));
+					
+					
+					map.put(productBean.getSubCategory(), productBean);
+				}
+				
+				connection.commit();
+				callableStatement.close();
+				
+				System.out.println("SQL - Select getFirstPageProducts() successfull.");
+				
+				return map;
+				
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e) {			
+			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
+			e.printStackTrace();
+			
+		} finally {	
+			map = null;
+			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
+			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+			System.gc();
+		}	
+		
+		return null;
+	}
 }
