@@ -5,17 +5,7 @@
     <welcome-file>BuyerMainPanel-</welcome-file>
     <welcome-file>SellerMainPanel-</welcome-file>
     <welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>
-  <!-- Spring -->
-  <servlet>
-  	<servlet-name>spring-dispatcher</servlet-name>
-  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>spring-dispatcher</servlet-name>
-  	<url-pattern>/spring/*</url-pattern>
-  </servlet-mapping>
-  <!-- End Spring -->
+  </welcome-file-list>  
   <listener>
     <listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
   </listener>
