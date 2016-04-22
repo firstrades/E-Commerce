@@ -89,7 +89,11 @@
     	<div class="container">
 		<!-- start header menu -->
 			<ul class="megamenu skyblue">
+				<% if (user == null) { %>
+				<li class="grid"><a class="color1" href="index.jsp">HOME</a>
+				<% } else { %>
 				<li class="grid"><a class="color1" href="BuyerMainPanel">HOME</a>
+				<% } %>
 				<% if (productBeanList.get(0).getCategory().equals("ELECTRONICS")) { %>
 				<li class="active grid"><a class="color1" href="index.jsp">ELECTRONICS</a>
 				<% } else { %> 
