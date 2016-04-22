@@ -91,9 +91,9 @@
 			<ul class="megamenu skyblue">
 				<li class="grid"><a class="color1" href="BuyerMainPanel">HOME</a>
 				<% if (productBeanList.get(0).getCategory().equals("ELECTRONICS")) { %>
-				<li class="active grid"><a class="color1" href="index.html">ELECTRONICS</a>
+				<li class="active grid"><a class="color1" href="index.jsp">ELECTRONICS</a>
 				<% } else { %> 
-				<li class="grid"><a class="color1" href="#">ELECTRONICS</a>
+				<li class="grid"><a class="color1" href="index.jsp">ELECTRONICS</a>
 				<% } %>
 					<div class="megapanel">
 						<div class="row">
@@ -102,7 +102,7 @@
 									<h4>Commons</h4>
 									<ul>										
 										<li><a href="SearchBySubCategory?subCategory=Mobile">Mobile</a></li>
-										<li><a href="#">Laptop</a></li>
+										<li><a href="SearchBySubCategory?subCategory=Laptop">Laptop</a></li>
 										<li><a href="#">Tablet</a></li>
 										<li><a href="#">Camera</a></li>
 										<li><a href="#">Kitchen Appliances</a></li>
@@ -192,7 +192,12 @@
 						</div>
     				</div>
 				</li>
-				<li><a class="color4" href="#">WOMEN</a>
+				<!-- <li><a class="color4" href="#">WOMEN</a> -->				
+				<% if (productBeanList.get(0).getCategory().equals("WOMEN")) { %>
+				<li class="active grid"><a class="color1" href="index.jsp">WOMEN</a>
+				<% } else { %> 
+				<li class="grid"><a class="color1" href="index.jsp">WOMEN</a>
+				<% } %>
 					<div class="megapanel">
 						<div class="row">
 							<div class="col1">
@@ -200,7 +205,7 @@
 									<h4>Clothing</h4>
 									<ul>
 										<li><a href="SearchBySubCategory?subCategory=Leggings">Leggings</a></li>
-										<li><a href="#">men</a></li>
+										<li><a href="SearchBySubCategory?subCategory=Top">Tops</a></li>
 										<li><a href="#">women</a></li>
 										<li><a href="#">accessories</a></li>
 										<li><a href="#">kids</a></li>

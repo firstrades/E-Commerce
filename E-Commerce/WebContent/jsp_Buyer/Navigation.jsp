@@ -17,7 +17,7 @@
 									<h4>Commons</h4>
 									<ul>										
 										<li><a href="SearchBySubCategory?subCategory=Mobile">Mobile</a></li>
-										<li><a href="#">Laptop</a></li>
+										<li><a href="SearchBySubCategory?subCategory=Laptop">Laptop</a></li>
 										<li><a href="#">Tablet</a></li>
 										<li><a href="#">Camera</a></li>
 										<li><a href="#">Kitchen Appliances</a></li>
@@ -115,7 +115,7 @@
 									<h4>Clothing</h4>
 									<ul>
 										<li><a href="SearchBySubCategory?subCategory=Leggings">Leggings</a></li>
-										<li><a href="#">men</a></li>
+										<li><a href="SearchBySubCategory?subCategory=Top">Tops</a></li>
 										<li><a href="#">women</a></li>
 										<li><a href="#">accessories</a></li>
 										<li><a href="#">kids</a></li>
