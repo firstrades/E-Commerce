@@ -58,8 +58,8 @@
 	session.invalidate();
 	
 	BuyerSearchDAO buyerSearchDAO = new BuyerSearchDAO();
-	Map<String,ProductBean> map = buyerSearchDAO.getFirstPageProducts();
-	ProductBean productBean = null;
+	Map<String,ProductBean> map   = buyerSearchDAO.getFirstPageProducts();
+	ProductBean productBean       = null;
 %>
 
 <!-- Header -->

@@ -168,15 +168,17 @@ public class CompleteProductDetails extends HttpServlet {
 	
 		Map<String,String> map = null;
 		
-		if (subCategory.equals("Mobile")) {   
-			
-			map = dao.getMobileFeatures(productId);  
+		switch (subCategory) {
+		//Electronics
+		case "Mobile"     : map = dao.getMobileFeatures   (productId);    break;
+		case "Laptop"     : map = dao.getLaptopFeatures   (productId);    break;
+		//Women
+		case "Leggings"   : map = dao.getLeggingsFeatures (productId);    break;
+		case "Top"        : map = dao.getTopFeatures      (productId);    break;
+		//Men
+		case "MenTshirt"  : map = dao.getMenTshirtFeatures(productId);    break;
 		}		
 		
-		else if (subCategory.equals("Leggings")) {   
-			
-			map = dao.getLeggingsFeatures(productId);  
-		}
 		
 		return map;
 	}

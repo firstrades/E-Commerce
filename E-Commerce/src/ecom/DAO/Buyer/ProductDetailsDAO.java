@@ -11,7 +11,48 @@ import ecom.common.ConnectionFactory;
 import ecom.model.TwoObjects;
 
 public class ProductDetailsDAO {
+	
+	public static TwoObjects<Double, String> getSellPriceAndWarranty(long productId) {		
+		
+		String sql            = null;			
+		
+		TwoObjects<Double, String> twoObjects = new TwoObjects<>();
+		
+		sql = "SELECT salePriceCustomer, warranty FROM product WHERE product_id = ?";
+		
+		try (Connection connection = ConnectionFactory.getNewConnection();
+			 PreparedStatement preparedStatement = connection.prepareStatement(sql)) {					
+							
+				preparedStatement.setLong(1, productId);	
+				
+						try (ResultSet resultSet = preparedStatement.executeQuery()) {					
+						
+							if (resultSet.next()) {											
+								
+								twoObjects.setObj1(resultSet.getDouble("salePriceCustomer"));
+								twoObjects.setObj2(resultSet.getString("warranty"  ));					
+							}	
+							
+						} catch(SQLException e1) {
+							e1.printStackTrace();
+						}
+				
+				System.out.println("SQL getSellPriceAndWarranty(long productId) Executed");
+				return twoObjects;
+				
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e) {				
+			e.printStackTrace();				
+		} finally {
+			twoObjects = null;
+			System.gc();
+		}
+		
+		return null;
+	}
 
+	/********** Electronics - Mobile ************/
+	
 	public Map<String,String> getMobileFeatures(long productId) {		
 		
 		Connection connection = null;
@@ -59,71 +100,86 @@ public class ProductDetailsDAO {
 			
 			
 		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException | SQLException e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {				
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
+				| ClassNotFoundException | SQLException e1) {
+			try { connection.rollback();     } catch (SQLException e) { e.printStackTrace(); }
+			e1.printStackTrace();
 		} finally {
 			map = null;
-			try {
-				preparedStatement.close();
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
-			try {
-				connection.close();
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
+			try { preparedStatement.close(); } catch (SQLException e) { e.printStackTrace(); }
+			try { connection.close();        } catch (SQLException e) { e.printStackTrace(); }
 			System.gc();
 		}
 		
 		
 		return null;
-	}
+	} //getMobileFeatures
 	
-	public static TwoObjects<Double, String> getSellPriceAndWarranty(long productId) {		
-					
-			String sql            = null;			
+	/********** Electronics - Laptop ************/
+	
+	public Map<String,String> getLaptopFeatures(long productId) {		
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String sql = null;
+		ResultSet resultSet = null;		
+		Map<String,String> map = new HashMap<>();
+		
+		try {
+			connection = ConnectionFactory.getNewConnection();
+			connection.setAutoCommit(false);
 			
-			TwoObjects<Double, String> twoObjects = new TwoObjects<>();
+			sql = "SELECT * FROM p_laptop_spec WHERE product_id = ?";
+				
+			preparedStatement = connection.prepareStatement(sql);			
+			preparedStatement.setLong (1,  productId);			
+		
+			resultSet = preparedStatement.executeQuery();	
 			
-			sql = "SELECT salePriceCustomer, warranty FROM product WHERE product_id = ?";
-			
-			try (Connection connection = ConnectionFactory.getNewConnection();
-				 PreparedStatement preparedStatement = connection.prepareStatement(sql)) {					
-								
-					preparedStatement.setLong(1, productId);	
-					
-							try (ResultSet resultSet = preparedStatement.executeQuery()) {					
-							
-								if (resultSet.next()) {											
-									
-									twoObjects.setObj1(resultSet.getDouble("salePriceCustomer"));
-									twoObjects.setObj2(resultSet.getString("warranty"  ));					
-								}	
-								
-							} catch(SQLException e1) {
-								e1.printStackTrace();
-							}
-					
-					System.out.println("SQL getSellPriceAndWarranty(long productId) Executed");
-					return twoObjects;
-					
-			} catch (InstantiationException | IllegalAccessException
-					| ClassNotFoundException | SQLException e) {				
-				e.printStackTrace();				
-			} finally {
-				twoObjects = null;
-				System.gc();
+			if (resultSet.next()) {				
+				
+				map.put("Battery Cell",      resultSet.getString("batteryCell"     ));
+				map.put("Graphic Processor", resultSet.getString("graphicProcessor"));
+				map.put("HDD Capacity",      resultSet.getString("hddCapacity"     ));
+				map.put("O.S.",              resultSet.getString("OS"              ));
+				map.put("Power Supply",      resultSet.getString("powerSupply"     ));
+				map.put("Processor",         resultSet.getString("processor"       ));
+				map.put("Screen Size",       resultSet.getString("screenSize"      ));
+				map.put("Web Camera",        resultSet.getString("webCamera"       ));
+				
+				
+			} else {
+				
+				connection.commit();
+				
+				System.out.println("SQL getLaptopFeatures Executed and ResultSet is empty...");
+				
+				return null;
 			}
 			
-			return null;
-	}
+			connection.commit();
+			
+			System.out.println("SQL getLaptopFeatures Executed");
+			
+			return map;
+			
+			
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e1) {
+			try { connection.rollback();     } catch (SQLException e) { e.printStackTrace(); }
+			e1.printStackTrace();
+		} finally {
+			map = null;
+			try { preparedStatement.close(); } catch (SQLException e) { e.printStackTrace(); }
+			try { connection.close();        } catch (SQLException e) { e.printStackTrace(); }
+			System.gc();
+		}
+		
+		
+		return null;
+	} //getLaptopFeatures
 	
+	
+	/************ Women - Leggings **************/
 	
 	public Map<String,String> getLeggingsFeatures(long productId) {		
 		
@@ -170,29 +226,139 @@ public class ProductDetailsDAO {
 			
 			
 		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException | SQLException e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {				
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
+				| ClassNotFoundException | SQLException e1) {
+			try { connection.rollback();     } catch (SQLException e) { e.printStackTrace(); }
+			e1.printStackTrace();
 		} finally {
 			map = null;
-			try {
-				preparedStatement.close();
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
-			try {
-				connection.close();
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
+			try { preparedStatement.close(); } catch (SQLException e) { e.printStackTrace(); }
+			try { connection.close();        } catch (SQLException e) { e.printStackTrace(); }
 			System.gc();
 		}
 		
 		
 		return null;
-	}
+	} //getLeggingsFeatures
+	
+	/************ Women - Top **************/
+	
+	public Map<String,String> getTopFeatures(long productId) {		
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String sql = null;
+		ResultSet resultSet = null;		
+		Map<String,String> map = new HashMap<>();
+		
+		try {
+			connection = ConnectionFactory.getNewConnection();
+			connection.setAutoCommit(false);
+			
+			sql = "SELECT * FROM p_top_spec WHERE product_id = ?";
+				
+			preparedStatement = connection.prepareStatement(sql);			
+			preparedStatement.setLong (1,  productId);			
+		
+			resultSet = preparedStatement.executeQuery();	
+			
+			if (resultSet.next()) {				
+				
+				map.put("Pattern",  resultSet.getString("pattern" ));
+				map.put("Fabric",   resultSet.getString("fabric"  ));
+				map.put("Neck",     resultSet.getString("neck"    ));
+				map.put("Occasion", resultSet.getString("occasion"));
+				map.put("Sleeve",   resultSet.getString("sleeve"  ));
+				
+				
+			} else {
+				
+				connection.commit();
+				
+				System.out.println("SQL getTopFeatures Executed and ResultSet is empty...");
+				
+				return null;
+			}
+			
+			connection.commit();
+			
+			System.out.println("SQL getTopFeatures Executed");
+			
+			return map;
+			
+			
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e1) {
+			try { connection.rollback();     } catch (SQLException e) { e.printStackTrace(); }
+			e1.printStackTrace();
+		} finally {
+			map = null;
+			try { preparedStatement.close(); } catch (SQLException e) { e.printStackTrace(); }
+			try { connection.close();        } catch (SQLException e) { e.printStackTrace(); }
+			System.gc();
+		}
+		
+		
+		return null;
+	} //getTopFeatures
+	
+	/************ Men - T-Shirt **************/
+	
+	public Map<String,String> getMenTshirtFeatures(long productId) {		
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String sql = null;
+		ResultSet resultSet = null;		
+		Map<String,String> map = new HashMap<>();
+		
+		try {
+			connection = ConnectionFactory.getNewConnection();
+			connection.setAutoCommit(false);
+			
+			sql = "SELECT * FROM p_men-tshirt_spec WHERE product_id = ?";
+				
+			preparedStatement = connection.prepareStatement(sql);			
+			preparedStatement.setLong (1,  productId);			
+		
+			resultSet = preparedStatement.executeQuery();	
+			
+			if (resultSet.next()) {				
+				
+				map.put("Pattern", resultSet.getString("pattern" ));
+				map.put("Fabric",  resultSet.getString("fabric"  ));
+				map.put("Design",  resultSet.getString("design"  ));
+				map.put("Fit",     resultSet.getString("fit"     ));
+				map.put("Sleeve",  resultSet.getString("sleeve"  ));
+				
+				
+			} else {
+				
+				connection.commit();
+				
+				System.out.println("SQL getMenTshirtFeatures Executed and ResultSet is empty...");
+				
+				return null;
+			}
+			
+			connection.commit();
+			
+			System.out.println("SQL getMenTshirtFeatures Executed");
+			
+			return map;
+			
+			
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e1) {
+			try { connection.rollback();     } catch (SQLException e) { e.printStackTrace(); }
+			e1.printStackTrace();
+		} finally {
+			map = null;
+			try { preparedStatement.close(); } catch (SQLException e) { e.printStackTrace(); }
+			try { connection.close();        } catch (SQLException e) { e.printStackTrace(); }
+			System.gc();
+		}
+		
+		
+		return null;
+	} //getMenTshirtFeatures
 }
