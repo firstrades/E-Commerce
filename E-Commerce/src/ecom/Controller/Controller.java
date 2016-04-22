@@ -128,9 +128,20 @@ public class Controller extends HttpServlet {
 				}
 			
 		}
-		else if (servletPath.equals("/SellerLoginPage")) {                  //  Buyer Entry
+		
+		else if (servletPath.equals("/SellerLoginPage")) {                  //  Seller Entry
 			
 				System.out.println("Entered SellerLoginPage");
+			
+			//--------- Test Code -------------
+			int a = 2; int b = 7;			
+			try { 
+				if (a < b) throw new AssertionError();
+			} catch (AssertionError e) {
+				System.out.println("Assert : " + e);
+			}			
+			//--------- End Test Code -------------			
+				
 				
 				/********** Next Page **************/
 				
@@ -138,7 +149,7 @@ public class Controller extends HttpServlet {
 				
 		} //SellerLoginPage
 		
-		else if (servletPath.equals("/InitialDashBoard")) {                  //  Buyer Entry
+		else if (servletPath.equals("/InitialDashBoard")) {                  
 			
 			System.out.println("Entered InitialDashBoard");
 			
