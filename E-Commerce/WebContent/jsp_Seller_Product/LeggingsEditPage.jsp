@@ -50,7 +50,7 @@ margin: 0px;
 
 <%
 	LeggingsFeatures leggingsFeatures = (LeggingsFeatures) request.getAttribute("leggingsFeatures");
-	Size size                         = (Size)             request.getAttribute("size"            );
+	//Size size                         = (Size)             request.getAttribute("size"            );
 %>
 
 <%@ include file="BasicFeatures.jsp" %>
@@ -189,10 +189,21 @@ margin: 0px;
 </section>
 
 
-<!-- ----------------------     Size          ---------------------------------------------------------------------- -->
+<!-- ----  Size  ------- -->
+<%@ include file="Size.jsp" %>
+<!-- ----  End Size  ------- -->
 
 
-<section id="3">	
+
+
+
+
+
+
+
+
+
+<%-- <section id="3">	
 	
 	<div id="invisible2" style="display:none;">
 	
@@ -372,7 +383,7 @@ margin: 0px;
 		</div>
 	</div>	
 
-</section>
+</section> --%>
 
 
 
