@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mysql.jdbc.PacketTooBigException;
+
 import ecom.model.KeyFeatures;
 import ecom.model.Price;
 import ecom.model.ProductBean;
@@ -19,7 +21,7 @@ import ecom.common.Conversions;
 public class ProductDAO {
 
 	public static synchronized boolean addProduct(User user, InputStream inputStream1, InputStream inputStream2, InputStream inputStream3, 
-			ProductBean productBean) {		
+			ProductBean productBean) throws PacketTooBigException {		
 		
 		Connection connection = null; CallableStatement callableStatement = null;	
 		
@@ -73,6 +75,8 @@ public class ProductDAO {
 			return status;
 			
 			
+		} catch (PacketTooBigException e) {
+			throw e;
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | SQLException e) {
 			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }

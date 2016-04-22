@@ -1,5 +1,7 @@
 $(function() {	
 	
+	/*********** Basic Features ************/
+	
 	$('form#form1').submit(function(event) {
 		
 		event.preventDefault();
@@ -52,6 +54,61 @@ $(function() {
 				    error: function() {
 				  		$('#msg1').empty();
 				  		$('#msg1').append('Basic Features Not Updated');
+				  	}
+				});
+		
+		} // if close
+		
+		
+		return false;
+	});
+	
+	/*********** Size ************/
+	
+	$('form#form4').submit(function(event) {  
+		
+		event.preventDefault();
+		
+		$('#msg1').empty();
+		
+		var r = confirm("Alert: Do You Really Want To Edit This Advanced Product!");
+		
+		if (r == true) { 
+		
+				var formData = new FormData($(this)[0]);
+				
+				$.ajax({
+					url: 'EditSizeFeatures',
+					type: 'POST',
+					data: formData,
+					async: false,
+				    cache: false,
+				    contentType: false,
+				    processData: false,
+				    dataType: 'json',
+				    success: function (array) {
+				    	
+				    	$("input[name=size26]").val(array[0] );
+				    	$("input[name=size28]").val(array[1] );
+				    	$("input[name=size30]").val(array[2] );
+				    	$("input[name=size32]").val(array[3] );
+				    	$("input[name=size34]").val(array[4] );
+				    	$("input[name=size36]").val(array[5] );
+				    	$("input[name=size38]").val(array[6] );
+				    	$("input[name=size40]").val(array[7] );
+				    	$("input[name=size42]").val(array[8] );
+				    	$("input[name=size44]").val(array[9] );
+				    	$("input[name=size46]").val(array[10]);
+				    	$("input[name=size48]").val(array[11]);
+				    	
+				    	
+				    	
+				    	$('#msg1').empty();
+				    	$('#msg1').append('Size Updated');
+				    },
+				    error: function() {
+				  		$('#msg1').empty();
+				  		$('#msg1').append('Size Not Updated');
 				  	}
 				});
 		
@@ -157,7 +214,9 @@ $(function() {
 	});
 	
 	
-	$('form#form4').submit(function(event) {  
+	/***************** Top *******************/
+	
+	$('form#form5').submit(function(event) {  
 		
 		event.preventDefault();
 		
@@ -170,7 +229,7 @@ $(function() {
 				var formData = new FormData($(this)[0]);
 				
 				$.ajax({
-					url: 'EditSizeFeatures',
+					url: 'EditTopAdvanceFeatures',
 					type: 'POST',
 					data: formData,
 					async: false,
@@ -179,20 +238,11 @@ $(function() {
 				    processData: false,
 				    dataType: 'json',
 				    success: function (array) {
-				    	
-				    	$("input[name=size26]").val(array[0] );
-				    	$("input[name=size28]").val(array[1] );
-				    	$("input[name=size30]").val(array[2] );
-				    	$("input[name=size32]").val(array[3] );
-				    	$("input[name=size34]").val(array[4] );
-				    	$("input[name=size36]").val(array[5] );
-				    	$("input[name=size38]").val(array[6] );
-				    	$("input[name=size40]").val(array[7] );
-				    	$("input[name=size42]").val(array[8] );
-				    	$("input[name=size44]").val(array[9] );
-				    	$("input[name=size46]").val(array[10]);
-				    	$("input[name=size48]").val(array[11]);
-				    	
+				    	$("input[name=sleeve]")  .val(array[0]);
+				    	$("input[name=fabric]")  .val(array[1]);
+				    	$("input[name=neck]")    .val(array[2]);
+				    	$("input[name=pattern]") .val(array[3]);
+				    	$("input[name=occasion]").val(array[4]);
 				    	
 				    	
 				    	$('#msg1').empty();
@@ -209,5 +259,57 @@ $(function() {
 		
 		return false;
 	});
+	
+	/***************** Laptop *******************/
+	
+	$('form#form6').submit(function(event) {  
+		
+		event.preventDefault();
+		
+		$('#msg1').empty();
+		
+		var r = confirm("Alert: Do You Really Want To Edit This Advanced Product!");
+		
+		if (r == true) { 
+		
+				var formData = new FormData($(this)[0]);
+				
+				$.ajax({
+					url: 'EditLaptopAdvanceFeatures',
+					type: 'POST',
+					data: formData,
+					async: false,
+				    cache: false,
+				    contentType: false,
+				    processData: false,
+				    dataType: 'json',
+				    success: function (array) {
+				    	$("input[name=webCamera]")       .val(array[0]);
+				    	$("input[name=powerSupply]")     .val(array[1]);
+				    	$("input[name=batteryCell]")     .val(array[2]);
+				    	$("input[name=screenSize]")      .val(array[3]);
+				    	$("input[name=hddCapacity]")     .val(array[4]);
+				    	$("input[name=graphicProcessor]").val(array[5]);
+				    	$("input[name=os]")              .val(array[6]);
+				    	$("input[name=processor]")       .val(array[7]);
+				    	
+				    	
+				    	$('#msg1').empty();
+				    	$('#msg1').append('Advance Features Updated');
+				    },
+				    error: function() {
+				  		$('#msg1').empty();
+				  		$('#msg1').append('Advance Features Not Updated');
+				  	}
+				});
+		
+		} // if close
+		
+		
+		return false;
+	});
+	
+	
+	
 	
 });

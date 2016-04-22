@@ -1,4 +1,4 @@
-<%@page import="ecom.model.MobileFeatures"%>
+<%@page import="ecom.model.product.features.MobileFeatures"%>
 <%@page import="ecom.model.ProductBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -252,7 +252,8 @@
 						<input type="file" name="image2" required /> <br>
 						<input type="hidden" name="productId" value="<%=productId%>" />
 						<input type="hidden" name="sellerId" value="<%=sellerId%>" />
-						<input type="submit" value="Change" />		 <br>		
+						<input type="submit" value="Change" />		 
+						<br>		
 						<div id="img6" style="margin-top: 10px;">
 							<img alt="image" src="Image2FromProduct?productId=<%=productBean.getProductId() %>" width="70" height="70" id="showImage2"/>
 						</div>				

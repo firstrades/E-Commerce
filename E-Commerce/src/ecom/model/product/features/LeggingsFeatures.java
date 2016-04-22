@@ -1,4 +1,4 @@
-package ecom.model;
+package ecom.model.product.features;
 
 import java.io.Serializable;
 

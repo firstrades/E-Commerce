@@ -15,10 +15,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import ecom.DAO.Seller.EditProductDAO;
-import ecom.model.LeggingsFeatures;
-import ecom.model.MobileFeatures;
 import ecom.model.ProductBean;
 import ecom.model.Size;
+import ecom.model.product.features.LeggingsFeatures;
+import ecom.model.product.features.MobileFeatures;
+import ecom.model.product.features._LaptopFeatures;
+import ecom.model.product.features._TopFeatures;
 
 @MultipartConfig
 public class EditProductServlet extends HttpServlet {
@@ -490,5 +492,223 @@ public class EditProductServlet extends HttpServlet {
 			
 		
 		} //EditSizeFeatures
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/************ Laptop ************/
+		
+		else if (servletPath.equals("/LaptopEdit")) {
+			
+			System.out.println("Entered LaptopEdit");
+			
+			long productId = 0L;
+			
+			if(request.getParameter("productId") != null) {
+			
+				/************** Get Request *****************/				
+				productId = Long.parseLong(request.getParameter("productId"));
+				
+				/************** Set Session *****************/				
+				session.setAttribute("productId", productId);
+				
+			} else {
+				
+				/************** Get Session *****************/
+				productId = (Long) session.getAttribute("productId");				
+			}
+			
+			/********** Database - Get product table & p_leggings_spec table ***************/			
+			ProductBean productBean        = editProductDAO.getBasicFeatures(productId);
+			_LaptopFeatures laptopFeatures = editProductDAO.getLaptopFeatures(productId);
+			
+			
+			/*****************************************
+			 			* Set Request *
+			 *****************************************/
+			
+			request.setAttribute("productBean",      productBean     );
+			request.setAttribute("laptopFeatures",   laptopFeatures);
+			
+			
+			/*********************************************
+			 				* Next Page *
+			 *********************************************/
+			
+			request.getRequestDispatcher("jsp_Seller_Product/LaptopEditPage.jsp").forward(request, response);
+		} //LaptopEdit
+		
+		else if (servletPath.equals("/EditLaptopAdvanceFeatures")) {
+			
+			System.out.println("Entered EditLaptopAdvanceFeatures");
+			
+			/*********************************************
+						* Get Request *
+			*********************************************/
+			
+			String productId1 = request.getParameter("productId");  
+			long productId = Long.parseLong(productId1);
+			
+			String sellerId1 = request.getParameter("sellerId");
+			long   sellerId  = Long.parseLong(sellerId1);
+			
+			String webCamera         = request.getParameter("webCamera")       .trim();                  
+			String powerSupply       = request.getParameter("powerSupply")     .trim(); 
+			String batteryCell       = request.getParameter("batteryCell")     .trim(); 
+			String screenSize        = request.getParameter("screenSize")      .trim();			
+			String hddCapacity       = request.getParameter("hddCapacity")     .trim(); 
+			String graphicProcessor  = request.getParameter("graphicProcessor").trim();
+			String os                = request.getParameter("os")              .trim();
+			String processor         = request.getParameter("processor")       .trim();			
+					
+			
+			
+			/*******************************************************
+				*  Database - Edit Product Table  *
+			*******************************************************/
+			_LaptopFeatures laptopFeatures = editProductDAO.editLaptopFeatures(productId, sellerId, webCamera,
+					powerSupply, batteryCell, screenSize, hddCapacity, graphicProcessor, os, processor);
+			
+			/*********************************************
+						* JSON Response *
+			*********************************************/
+			
+			JSONArray jsonArray = new JSONArray();
+			
+			jsonArray.put(laptopFeatures.getId());
+			jsonArray.put(laptopFeatures.getProductId()       );
+			jsonArray.put(laptopFeatures.getSellerId()        );
+			jsonArray.put(laptopFeatures.getWebCamera()       );
+			jsonArray.put(laptopFeatures.getPowerSupply()     );
+			jsonArray.put(laptopFeatures.getBatteryCell()     );					
+			jsonArray.put(laptopFeatures.getScreenSize()      );
+			jsonArray.put(laptopFeatures.getHddCapacity()     );
+			jsonArray.put(laptopFeatures.getGraphicProcessor());
+			jsonArray.put(laptopFeatures.getOs()              );
+			jsonArray.put(laptopFeatures.getProcessor()       );  
+			
+			/*********************************************
+						* Next Page *
+			*********************************************/
+			
+			response.setContentType("application/json");
+			response.getWriter().write(jsonArray.toString());			
+			
+		
+		} //EditLaptopAdvanceFeatures 
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/************* TOP ************/
+		
+		else if (servletPath.equals("/TopEdit")) {
+			
+			System.out.println("Entered TopEdit");
+			
+			long productId = 0L;
+			
+			if(request.getParameter("productId") != null) {
+			
+				/************** Get Request *****************/				
+				productId = Long.parseLong(request.getParameter("productId"));
+				
+				/************** Set Session *****************/				
+				session.setAttribute("productId", productId);
+				
+			} else {
+				
+				/************** Get Session *****************/
+				productId = (Long) session.getAttribute("productId");				
+			}
+			
+			/********** Database - Get product table & p_leggings_spec table ***************/			
+			ProductBean productBean  = editProductDAO.getBasicFeatures(productId);
+			_TopFeatures topFeatures = editProductDAO.getTopFeatures(productId);
+			Size size                = editProductDAO.getSizes(productId);
+			
+			/*****************************************
+			 			* Set Request *
+			 *****************************************/
+			
+			request.setAttribute("productBean", productBean);
+			request.setAttribute("topFeatures", topFeatures);
+			request.setAttribute("size",        size       );
+			
+			/*********************************************
+			 				* Next Page *
+			 *********************************************/
+			
+			request.getRequestDispatcher("jsp_Seller_Product/TopEditPage.jsp").forward(request, response);
+		} // TopEdit
+		
+		else if (servletPath.equals("/EditTopAdvanceFeatures")) {
+			
+			System.out.println("Entered EditTopAdvanceFeatures");
+			
+			/*********************************************
+						* Get Request *
+			*********************************************/
+			
+			String productId1 = request.getParameter("productId");  
+			long productId = Long.parseLong(productId1);
+			
+			String sellerId1 = request.getParameter("sellerId");
+			long   sellerId  = Long.parseLong(sellerId1);
+			
+			String sleeve    = request.getParameter("sleeve")  .trim();                  
+			String fabric    = request.getParameter("fabric")  .trim(); 
+			String neck      = request.getParameter("neck")    .trim(); 
+			String pattern   = request.getParameter("pattern") .trim();			
+			String occasion  = request.getParameter("occasion").trim(); 
+					
+			
+			
+			/*******************************************************
+				*  Database - Edit Product Table  *
+			*******************************************************/
+			_TopFeatures topFeatures = editProductDAO.editTopFeatures(productId, sellerId, sleeve,
+					fabric, neck, pattern, occasion);
+			
+			/*********************************************
+						* JSON Response *
+			*********************************************/
+			
+			JSONArray jsonArray = new JSONArray();
+			
+			jsonArray.put(topFeatures.getId        ());
+			jsonArray.put(topFeatures.getProductId ());
+			jsonArray.put(topFeatures.getSellerId  ());
+			jsonArray.put(topFeatures.getSleeve    ());
+			jsonArray.put(topFeatures.getFabric    ());
+			jsonArray.put(topFeatures.getNeck      ());
+			jsonArray.put(topFeatures.getPattern   ());
+			jsonArray.put(topFeatures.getOccasion  ());
+			
+			/*********************************************
+						* Next Page *
+			*********************************************/
+			
+			response.setContentType("application/json");
+			response.getWriter().write(jsonArray.toString());			
+			
+		
+		} //EditTopAdvanceFeatures
 	}
 }

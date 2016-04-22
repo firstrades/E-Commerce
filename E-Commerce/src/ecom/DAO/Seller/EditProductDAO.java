@@ -8,10 +8,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import ecom.common.ConnectionFactory;
-import ecom.model.LeggingsFeatures;
-import ecom.model.MobileFeatures;
 import ecom.model.ProductBean;
 import ecom.model.Size;
+import ecom.model.product.features.LeggingsFeatures;
+import ecom.model.product.features.MobileFeatures;
+import ecom.model.product.features._LaptopFeatures;
+import ecom.model.product.features._TopFeatures;
 
 public class EditProductDAO {
 
@@ -328,7 +330,102 @@ public class EditProductDAO {
 		}
 		
 		return null;
-	}
+	} //getSizes
+	
+
+	
+	public Size editSizes(long productId, long sellerId, int size26, int size28, int size30, int size32, int size34, int size36, int size38,
+			int size40, int size42, int size44, int size46, int size48) {
+		
+		Connection connection   = null;
+		CallableStatement callableStatement = null;
+		ResultSet resultSet = null;
+		
+		String sql = "{call editSizes(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";	
+		
+		Size size = new Size();
+		
+		
+		try {
+				connection = ConnectionFactory.getNewConnection();
+				connection.setAutoCommit(false);
+				
+				callableStatement = connection.prepareCall(sql);
+				
+				callableStatement.setLong(1,  productId);
+				callableStatement.setLong(2,  sellerId );
+				callableStatement.setInt (3,  size26);
+				callableStatement.setInt (4,  size28);
+				callableStatement.setInt (5,  size30);
+				callableStatement.setInt (6,  size32);
+				callableStatement.setInt (7,  size34);
+				callableStatement.setInt (8,  size36);
+				callableStatement.setInt (9,  size38);
+				callableStatement.setInt (10, size40);
+				callableStatement.setInt (11, size42);
+				callableStatement.setInt (12, size44);
+				callableStatement.setInt (13, size46);
+				callableStatement.setInt (14, size48);
+				
+				 			
+				resultSet = callableStatement.executeQuery();			
+					
+				if (resultSet.next()) {
+					
+					size.setQtyOfSize26(resultSet.getInt("s26"));
+					size.setQtyOfSize28(resultSet.getInt("s28"));
+					size.setQtyOfSize30(resultSet.getInt("s30"));
+					size.setQtyOfSize32(resultSet.getInt("s32"));
+					size.setQtyOfSize34(resultSet.getInt("s34"));
+					size.setQtyOfSize36(resultSet.getInt("s36"));
+					size.setQtyOfSize38(resultSet.getInt("s38"));
+					size.setQtyOfSize40(resultSet.getInt("s40"));
+					size.setQtyOfSize42(resultSet.getInt("s42"));
+					size.setQtyOfSize44(resultSet.getInt("s44"));
+					size.setQtyOfSize46(resultSet.getInt("s46"));
+					size.setQtyOfSize48(resultSet.getInt("s48"));
+				}
+				
+				connection.commit();
+				callableStatement.close();
+				
+				System.out.println("SQL - Select editSizes() successfull.");
+				
+				return size;
+				
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e) {	
+			
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {					
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {	
+			
+			try {
+				callableStatement.close();
+			} catch (SQLException e1) {			
+				e1.printStackTrace();
+			}
+			try {
+				connection.close();
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}
+			System.gc();
+		}	
+		
+		return null;
+	} //editSizes
+	
+	
+	
+	
+	
+	
 	
 	/**************** ELECTRONICS - MOBILE ************************/
 	
@@ -514,6 +611,178 @@ public class EditProductDAO {
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**************** ELECTRONICS - Laptop ************************/
+	
+	public _LaptopFeatures getLaptopFeatures(long productId) {		
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String sql = null;
+		ResultSet resultSet = null;		
+		_LaptopFeatures laptopFeatures = new _LaptopFeatures();
+		
+		try {
+			connection = ConnectionFactory.getNewConnection();
+			connection.setAutoCommit(false);
+			
+			sql = "SELECT * FROM p_laptop_spec WHERE product_id = ?";
+				
+			preparedStatement = connection.prepareStatement(sql);			
+			preparedStatement.setLong (1,  productId);			
+		
+			resultSet = preparedStatement.executeQuery();	
+			
+			if (resultSet.next()) {
+				
+				laptopFeatures.setId              (resultSet.getLong("id"                ));
+				laptopFeatures.setProductId       (resultSet.getLong("product_id"        ));
+				laptopFeatures.setSellerId        (resultSet.getLong("seller_id"         ));				
+				laptopFeatures.setBatteryCell     (resultSet.getString("batteryCell"     ));
+				laptopFeatures.setGraphicProcessor(resultSet.getString("graphicProcessor"));
+				laptopFeatures.setHddCapacity     (resultSet.getString("hddCapacity"     ));
+				laptopFeatures.setOs              (resultSet.getString("OS"              ));
+				laptopFeatures.setPowerSupply     (resultSet.getString("powerSupply"     ));
+				laptopFeatures.setProcessor       (resultSet.getString("processor"       ));
+				laptopFeatures.setScreenSize      (resultSet.getString("screenSize"      ));
+				laptopFeatures.setWebCamera       (resultSet.getString("webCamera"       ));
+				
+			} else {
+				
+				connection.commit();
+				
+				System.out.println("SQL getLaptopFeatures Executed and ResultSet is empty...");
+				
+				return null;
+			}
+			
+			connection.commit();
+			
+			System.out.println("SQL getLaptopFeatures Executed");
+			
+			return laptopFeatures;
+			
+			
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {				
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {
+			laptopFeatures = null;
+			try {
+				preparedStatement.close();
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}
+			try {
+				connection.close();
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}
+			System.gc();
+		}
+		
+		
+		return null;
+	} //getLaptopFeatures
+	
+	
+	
+	public _LaptopFeatures editLaptopFeatures(long productId, long sellerId, String webCamera, String powerSupply, 
+			String batteryCell, String screenSize, String hddCapacity, String graphicProcessor, String os, 
+			String processor) {		
+		
+		Connection        connection        = null;
+		CallableStatement callableStatement = null;
+		ResultSet         resultSet         = null;
+		
+		String sql = "{call editLaptopFeatures(?,?,?,?,?,?,?,?,?,?)}";	
+		
+		_LaptopFeatures laptopFeatures = new _LaptopFeatures();
+		
+		
+		try {
+				connection = ConnectionFactory.getNewConnection();
+				connection.setAutoCommit(false);
+				
+				callableStatement = connection.prepareCall(sql);
+				callableStatement.setLong  (1,  productId);
+				callableStatement.setLong  (2,  sellerId);
+				callableStatement.setString(3,  webCamera);
+				callableStatement.setString(4,  powerSupply);
+				callableStatement.setString(5,  batteryCell);
+				callableStatement.setString(6,  screenSize);
+				callableStatement.setString(7,  hddCapacity);
+				callableStatement.setString(8,  graphicProcessor);
+				callableStatement.setString(9,  os);
+				callableStatement.setString(10, processor);
+				 			
+				resultSet = callableStatement.executeQuery();			
+					
+				if (resultSet.next()) {
+					
+					laptopFeatures.setId               (resultSet.getLong  ("id"              ));
+					laptopFeatures.setProductId        (resultSet.getLong  ("product_id"      ));
+					laptopFeatures.setSellerId         (resultSet.getLong  ("seller_id"       ));
+					laptopFeatures.setWebCamera        (resultSet.getString("webCamera"       ));
+					laptopFeatures.setPowerSupply      (resultSet.getString("powerSupply"     ));
+					laptopFeatures.setBatteryCell      (resultSet.getString("batteryCell"     ));					
+					laptopFeatures.setScreenSize       (resultSet.getString("screenSize"      ));
+					laptopFeatures.setHddCapacity      (resultSet.getString("hddCapacity"     ));
+					laptopFeatures.setGraphicProcessor (resultSet.getString("graphicProcessor"));
+					laptopFeatures.setOs               (resultSet.getString("OS"              ));
+					laptopFeatures.setProcessor        (resultSet.getString("processor"       ));
+				}
+				
+				connection.commit();
+				callableStatement.close();
+				
+				System.out.println("SQL - Select editLaptopFeatures() successfull.");
+				
+				return laptopFeatures;
+				
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e) {	
+			
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {					
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {	
+			laptopFeatures = null;
+			try {
+				callableStatement.close();
+			} catch (SQLException e1) {			
+				e1.printStackTrace();
+			}
+			try {
+				connection.close();
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}
+			System.gc();
+		}		
+		
+		return null;
+	} //editLaptopFeatures
+	
+	
 	/********************* WOMEN - LEGGINGS ***********************/
 	
 	public LeggingsFeatures getLeggingsFeatures(long productId) {		
@@ -668,16 +937,97 @@ public class EditProductDAO {
 	} //editLeggingsFeatures
 	
 	
-	public Size editSizes(long productId, long sellerId, int size26, int size28, int size30, int size32, int size34, int size36, int size38,
-			int size40, int size42, int size44, int size46, int size48) {
+	
+	
+	/********************* WOMEN - Top ***********************/
+	
+	public _TopFeatures getTopFeatures(long productId) {		
 		
-		Connection connection   = null;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String sql            = null;
+		ResultSet resultSet   = null;		
+		
+		_TopFeatures topFeatures = new _TopFeatures();
+		
+		try {
+			connection = ConnectionFactory.getNewConnection();
+			connection.setAutoCommit(false);
+			
+			sql = "SELECT * FROM p_top_spec WHERE product_id = ?";
+				
+			preparedStatement = connection.prepareStatement(sql);			
+			preparedStatement.setLong (1,  productId);			
+		
+			resultSet = preparedStatement.executeQuery();	
+			
+			if (resultSet.next()) {
+				
+				topFeatures.setId         (resultSet.getLong("id"         ));
+				topFeatures.setProductId  (resultSet.getLong("product_id" ));
+				topFeatures.setSellerId   (resultSet.getLong("seller_id"  ));
+				
+				topFeatures.setFabric     (resultSet.getString("fabric"   ));
+				topFeatures.setPattern    (resultSet.getString("pattern"  ));
+				topFeatures.setNeck       (resultSet.getString("neck"     ));
+				topFeatures.setOccasion   (resultSet.getString("occasion" ));
+				topFeatures.setSleeve     (resultSet.getString("sleeve"   ));
+				
+				
+			} else {
+				
+				connection.commit();
+				
+				System.out.println("SQL getTopFeatures Executed and ResultSet is empty...");
+				
+				return null;
+			}
+			
+			connection.commit();
+			
+			System.out.println("SQL getTopFeatures Executed");
+			
+			return topFeatures;
+			
+			
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {				
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			topFeatures = null;
+			try {
+				preparedStatement.close();
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}
+			try {
+				connection.close();
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}
+			System.gc();
+		}
+		
+		
+		return null;
+	} //getTopFeatures
+	
+	
+	public _TopFeatures editTopFeatures(long productId, long sellerId, String sleeve, String fabric, String neck, 
+			String pattern, String occasion) {		
+		
+		Connection        connection        = null;
 		CallableStatement callableStatement = null;
-		ResultSet resultSet = null;
+		ResultSet         resultSet         = null;
 		
-		String sql = "{call editSizes(?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";	
+		String sql = "{call editTopFeatures(?,?,?,?,?,?,?)}";	
 		
-		Size size = new Size();
+		_TopFeatures topFeatures = new _TopFeatures();
 		
 		
 		try {
@@ -685,47 +1035,34 @@ public class EditProductDAO {
 				connection.setAutoCommit(false);
 				
 				callableStatement = connection.prepareCall(sql);
-				
-				callableStatement.setLong(1,  productId);
-				callableStatement.setLong(2,  sellerId );
-				callableStatement.setInt (3,  size26);
-				callableStatement.setInt (4,  size28);
-				callableStatement.setInt (5,  size30);
-				callableStatement.setInt (6,  size32);
-				callableStatement.setInt (7,  size34);
-				callableStatement.setInt (8,  size36);
-				callableStatement.setInt (9,  size38);
-				callableStatement.setInt (10, size40);
-				callableStatement.setInt (11, size42);
-				callableStatement.setInt (12, size44);
-				callableStatement.setInt (13, size46);
-				callableStatement.setInt (14, size48);
-				
+				callableStatement.setLong  (1, productId);
+				callableStatement.setLong  (2, sellerId);
+				callableStatement.setString(3, sleeve);
+				callableStatement.setString(4, fabric);
+				callableStatement.setString(5, neck);
+				callableStatement.setString(6, pattern);
+				callableStatement.setString(7, occasion);
 				 			
 				resultSet = callableStatement.executeQuery();			
 					
 				if (resultSet.next()) {
 					
-					size.setQtyOfSize26(resultSet.getInt("s26"));
-					size.setQtyOfSize28(resultSet.getInt("s28"));
-					size.setQtyOfSize30(resultSet.getInt("s30"));
-					size.setQtyOfSize32(resultSet.getInt("s32"));
-					size.setQtyOfSize34(resultSet.getInt("s34"));
-					size.setQtyOfSize36(resultSet.getInt("s36"));
-					size.setQtyOfSize38(resultSet.getInt("s38"));
-					size.setQtyOfSize40(resultSet.getInt("s40"));
-					size.setQtyOfSize42(resultSet.getInt("s42"));
-					size.setQtyOfSize44(resultSet.getInt("s44"));
-					size.setQtyOfSize46(resultSet.getInt("s46"));
-					size.setQtyOfSize48(resultSet.getInt("s48"));
+					topFeatures.setId        (resultSet.getLong  ("id"        ));
+					topFeatures.setProductId (resultSet.getLong  ("product_id"));
+					topFeatures.setSellerId  (resultSet.getLong  ("seller_id" ));
+					topFeatures.setSleeve    (resultSet.getString("sleeve"    ));
+					topFeatures.setFabric    (resultSet.getString("fabric"    ));
+					topFeatures.setNeck      (resultSet.getString("neck"      ));
+					topFeatures.setPattern   (resultSet.getString("pattern"   ));
+					topFeatures.setOccasion  (resultSet.getString("occasion"  ));
 				}
 				
 				connection.commit();
 				callableStatement.close();
 				
-				System.out.println("SQL - Select editSizes() successfull.");
+				System.out.println("SQL - Select editTopFeatures() successfull.");
 				
-				return size;
+				return topFeatures;
 				
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException | SQLException e) {	
@@ -738,7 +1075,7 @@ public class EditProductDAO {
 			e.printStackTrace();
 			
 		} finally {	
-			
+			topFeatures = null;
 			try {
 				callableStatement.close();
 			} catch (SQLException e1) {			
@@ -750,9 +1087,14 @@ public class EditProductDAO {
 				e.printStackTrace();
 			}
 			System.gc();
-		}	
+		}		
 		
 		return null;
-	}
+	} //editTopFeatures
+	
+	
+	
+	
+	
 
 }

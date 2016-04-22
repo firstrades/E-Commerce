@@ -69,13 +69,13 @@ hr {
 					<label><span style="color:red;">*</span> Company Name </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="company" class="form-control" required placeholder="Samsung" value="Samsung" />
+					<input type="text" name="company" class="form-control" required placeholder="Samsung" value="HP" />
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label>	<span style="color:red;">*</span> Product Name </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="product" class="form-control" required placeholder="Galaxy S4" value="Galaxy S4" />
+					<input type="text" name="product" class="form-control" required placeholder="Galaxy S4" value="Velo S4" />
 				</div>
 			</div>	
 			
@@ -86,13 +86,13 @@ hr {
 					<label>	Key Feature 1 </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="kf1" class="form-control" placeholder="Key Feature" value="Key Feature" />
+					<input type="text" name="kf1" class="form-control" placeholder="Key Feature" value="HP TrueVision HD Webcam" />
 				</div>	
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label> Key Feature 2 </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="kf2" class="form-control" placeholder="Key Feature" value="Key Feature" />
+					<input type="text" name="kf2" class="form-control" placeholder="Key Feature" value="65 W AC Adapter" />
 				</div>			
 			</div>	
 					
@@ -101,12 +101,12 @@ hr {
 					<label> Key Feature 3  </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12"> 
-					<input type="text" name="kf3" class="form-control" placeholder="Key Feature" value="Key Feature" /></div>			
+					<input type="text" name="kf3" class="form-control" placeholder="Key Feature" value="HDD 1 TB" /></div>			
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label> Key Feature 4 </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="kf4" class="form-control" placeholder="Key Feature" value="Key Feature" />
+					<input type="text" name="kf4" class="form-control" placeholder="Key Feature" value="OS: Windows 10" />
 				</div>			
 			</div>			
 			
@@ -117,7 +117,7 @@ hr {
 					<label>	<span style="color:red;">*</span> Manufacturing Cost </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="manufacturingCost" id="manufacturingCost" class="form-control" required value="100" />
+					<input type="text" name="manufacturingCost" id="manufacturingCost" class="form-control" required value="1700" />
 				</div>
 				
 				<div class="col-md-3 col-sm-6 col-xs-12">
@@ -169,13 +169,13 @@ hr {
 					<label><span style="color:red;">*</span> Stock </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="stock" class="form-control" required placeholder="50" value="50"/>
+					<input type="text" name="stock" class="form-control" required placeholder="50" value="100"/>
 				</div> 
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label><span style="color:red;">*</span> Weight In KG</label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="weight" class="form-control" required placeholder="0.2" value="0.2" />
+					<input type="text" name="weight" class="form-control" required placeholder="0.2" value="2.0" />
 				</div> 
 			</div>			
 						
@@ -184,7 +184,7 @@ hr {
 					<label>	<span style="color:red;">*</span> Warranty </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="warranty" class="form-control" required placeholder="1 year warranty" value="1 year warranty"/>
+					<input type="text" name="warranty" class="form-control" required placeholder="1 year warranty is applicable" value="1 year warranty is applicable"/>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label>	<span style="color:red;">*</span> Cancellation Period In DAYS</label>

@@ -54,11 +54,11 @@ public class ProductCategoryList extends HttpServlet {
 		else if (value.equals("ELECTRONICS")) {
 			
 			options = "<option value=\"Mobile\">Mobile</option>"
-					+"<option value=\"Tablets\">Tablets</option>"
-					+"<option value=\"Laptops\">Laptops</option>"
-					+"<option value=\"Television\">Television</option>"
-					+"<option value=\"KitchenAppliences\">Kitchen Appliences</option>"
-					+"<option value=\"Cameras\">Cameras</option>"
+					//+"<option value=\"Tablets\">Tablets</option>"
+					+"<option value=\"Laptop\">Laptop</option>"
+					//+"<option value=\"Television\">Television</option>"
+					//+"<option value=\"KitchenAppliences\">Kitchen Appliences</option>"
+					//+"<option value=\"Cameras\">Cameras</option>"
 					+"";
 		}	
 		else if (value.equals("MEN")) {
@@ -75,12 +75,12 @@ public class ProductCategoryList extends HttpServlet {
 		else if (value.equals("WOMEN")) {
 			
 			options = "<option value=\"Leggings\">Leggings</option>"
-					+"<option value=\"Clothing\">Clothing</option>"
-					+"<option value=\"Watches\">Watches</option>"
-					+"<option value=\"Bags\">Bags</option>"
-					+"<option value=\"Belts\">Belts</option>"
-					+"<option value=\"Wallets\">Wallets</option>"
-					+"<option value=\"Sunglasses\">Sunglasses</option>"
+					+"<option value=\"Top\">Top</option>"
+					//+"<option value=\"Watches\">Watches</option>"
+					//+"<option value=\"Bags\">Bags</option>"
+					//+"<option value=\"Belts\">Belts</option>"
+					//+"<option value=\"Wallets\">Wallets</option>"
+					//+"<option value=\"Sunglasses\">Sunglasses</option>"
 					+"";
 		}
 		

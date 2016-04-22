@@ -24,6 +24,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.xml.sax.SAXException;
 
+import com.mysql.jdbc.PacketTooBigException;
+
 import ecom.DAO.Seller.ProductDAO;
 import ecom.DAO.Seller.SellerDAO;
 import ecom.Implementation.Courier.SOAP.TrackByNumber;
@@ -123,7 +125,13 @@ public class SellerServlet extends HttpServlet {
 			/*******************************************************
 			 	*  Database - Insert & Generate Product Code  *
 			*******************************************************/			
-			boolean status = ProductDAO.addProduct(user, inputStream1, inputStream2, inputStream3, productBean);
+			boolean status = false, isPacketTooBig = false;
+			try {
+				status = ProductDAO.addProduct(user, inputStream1, inputStream2, inputStream3, productBean);
+			} catch (PacketTooBigException e) {
+				isPacketTooBig = true;
+				e.printStackTrace();
+			}
 			
 			if (status == true)
 				System.out.println("Database Updated");
@@ -134,8 +142,10 @@ public class SellerServlet extends HttpServlet {
 			/*******************************************************
 							*  Send Response  *
 			*******************************************************/
-			
-			response.getWriter().write("Product Sent For Approval.");
+			if (isPacketTooBig)
+				response.getWriter().write("Decrease Image Size.");
+			else
+				response.getWriter().write("Product Sent For Approval.");
 			
 		}		
 		
@@ -153,7 +163,7 @@ public class SellerServlet extends HttpServlet {
 			/*******************************************************
 							*  Get Request  *
 			*******************************************************/			
-			String category = request.getParameter("category");           
+			String category    = request.getParameter("category");           
 			String subCategory = request.getParameter("subCategory");     
 			
 			/*******************************************************
@@ -582,15 +592,14 @@ public class SellerServlet extends HttpServlet {
 		
 		String editPage = null;  
 		
-		if (subCategory.equals("Mobile")) {
-		
-			editPage = "MobileEdit";
-		}
-		
-		else if (subCategory.equals("Leggings")) {
-			
-			editPage = "LeggingsEdit";
-		}
+		switch (subCategory) {
+		//Electronics
+		case "Mobile"   : editPage = "MobileEdit";   break;
+		case "Laptop"   : editPage = "LaptopEdit";   break;
+		//Women
+		case "Leggings" : editPage = "LeggingsEdit"; break;
+		case "Top"      : editPage = "TopEdit";      break;
+		}		
 		
 		return editPage;
 	}

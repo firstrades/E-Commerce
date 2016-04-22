@@ -79,6 +79,10 @@
     <url-pattern>/LeggingsEdit</url-pattern>
     <url-pattern>/EditLeggingsAdvanceFeatures</url-pattern>
     <url-pattern>/EditSizeFeatures</url-pattern>
+    <url-pattern>/LaptopEdit</url-pattern>
+    <url-pattern>/EditLaptopAdvanceFeatures</url-pattern>
+    <url-pattern>/TopEdit</url-pattern>
+    <url-pattern>/EditTopAdvanceFeatures</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>BuyerServlet</servlet-name>

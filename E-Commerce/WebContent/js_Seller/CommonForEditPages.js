@@ -42,7 +42,7 @@ $(function() {
 	
 	/*************************** Images ****************************/
 	
-	$("form#iconImage").submit(function(event) {  	 
+	$("form#iconImage").submit(function(event) {  	
 		
 		event.preventDefault();  
 
@@ -56,10 +56,11 @@ $(function() {
 			cache: false,
 			contentType: false,
 			processData: false,
-			success: function(data) {
+			success: function(data) { 
 				$('#showIconImage').removeAttr('src');
 				var productId = $('#img1').val(); 
-				window.setTimeout(function() {
+				window.setTimeout(function() {  
+					window.location.reload(true);
 					$('#showIconImage').attr('src', 'IconImageFromProduct?productId='+productId);
 				}, 0);
 			}			
@@ -86,6 +87,7 @@ $(function() {
 				$('#showImage1').removeAttr('src');
 				var productId = $('#img3').val(); 
 				window.setTimeout(function() {
+					window.location.reload(true);
 					$('#showImage1').attr('src', 'Image1FromProduct?productId='+productId);
 				}, 0);
 			}			
@@ -112,6 +114,7 @@ $(function() {
 				$('#showImage2').removeAttr('src');
 				var productId = $('#img5').val(); 
 				window.setTimeout(function() {
+					window.location.reload(true);
 					$('#showImage2').attr('src', 'Image2FromProduct?productId='+productId);
 				}, 0);
 			}			

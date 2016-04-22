@@ -102,23 +102,11 @@
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> ELECTRONICS<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">                            	
                                 <li>
-                                	<a href="ViewProductList?category=ELECTRONICS&subCategory=Mobile" target="iframe">MOBILES</a>
+                                	<a href="ViewProductList?category=ELECTRONICS&subCategory=Mobile" target="iframe">Mobiles</a>
                                 </li>
                                 <li>
-                                    <a href="#">Laptop</a>
-                                </li>
-                                <li>
-                                    <a href="#">Tablet</a>
-                                </li>
-                                <li>
-                                    <a href="#">Camera</a>
-                                </li>
-                                <li>
-                                    <a href="#">Television</a>
-                                </li>
-                                <li>
-                                    <a href="#">Kitchen Appliance</a>
-                                </li>
+                                    <a href="ViewProductList?category=ELECTRONICS&subCategory=Laptop" target="iframe">Laptops</a>
+                                </li>                                
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -129,20 +117,8 @@
                                 	<a href="ViewProductList?category=WOMEN&subCategory=Leggings" target="iframe">Leggings</a>
                                 </li>
                                 <li>
-                                    <a href="#">LLLLLLL</a>
-                                </li>
-                                <li>
-                                    <a href="#">Tablet</a>
-                                </li>
-                                <li>
-                                    <a href="#">Camera</a>
-                                </li>
-                                <li>
-                                    <a href="#">Television</a>
-                                </li>
-                                <li>
-                                    <a href="#">Kitchen Appliance</a>
-                                </li>
+                                    <a href="ViewProductList?category=WOMEN&subCategory=Top" target="iframe">Tops</a>
+                                </li>                                
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
