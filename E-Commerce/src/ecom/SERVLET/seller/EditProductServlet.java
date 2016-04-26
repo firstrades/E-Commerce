@@ -101,7 +101,7 @@ public class EditProductServlet extends HttpServlet {
 			 				* Next Page *
 			 *********************************************/
 			
-			request.getRequestDispatcher("jsp_Seller_Product/MobileEditPage.jsp").forward(request, response);
+			request.getRequestDispatcher("jsp_Seller_Product/Electronics/MobileEditPage.jsp").forward(request, response);
 		}
 		else if (servletPath.equals("/EditBasicProduct")) {
 			
@@ -360,7 +360,7 @@ public class EditProductServlet extends HttpServlet {
 			 				* Next Page *
 			 *********************************************/
 			
-			request.getRequestDispatcher("jsp_Seller_Product/LeggingsEditPage.jsp").forward(request, response);
+			request.getRequestDispatcher("jsp_Seller_Product/Women/LeggingsEditPage.jsp").forward(request, response);
 		}
 		
 		else if (servletPath.equals("/EditLeggingsAdvanceFeatures")) {
@@ -523,7 +523,7 @@ public class EditProductServlet extends HttpServlet {
 			 				* Next Page *
 			 *********************************************/
 			
-			request.getRequestDispatcher("jsp_Seller_Product/LaptopEditPage.jsp").forward(request, response);
+			request.getRequestDispatcher("jsp_Seller_Product/Electronics/LaptopEditPage.jsp").forward(request, response);
 		} //LaptopEdit
 		
 		else if (servletPath.equals("/EditLaptopAdvanceFeatures")) {
@@ -634,7 +634,7 @@ public class EditProductServlet extends HttpServlet {
 			 				* Next Page *
 			 *********************************************/
 			
-			request.getRequestDispatcher("jsp_Seller_Product/TopEditPage.jsp").forward(request, response);
+			request.getRequestDispatcher("jsp_Seller_Product/Women/TopEditPage.jsp").forward(request, response);
 		} // TopEdit
 		
 		else if (servletPath.equals("/EditTopAdvanceFeatures")) {

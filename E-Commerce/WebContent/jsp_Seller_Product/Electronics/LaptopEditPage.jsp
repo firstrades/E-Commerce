@@ -52,7 +52,7 @@ margin: 0px;
 	_LaptopFeatures laptopFeatures = (_LaptopFeatures) request.getAttribute("laptopFeatures");
 %>
 
-<%@ include file="BasicFeatures.jsp" %>
+<%@ include file="../BasicFeatures.jsp" %>
 
 <section id="2">	
 	

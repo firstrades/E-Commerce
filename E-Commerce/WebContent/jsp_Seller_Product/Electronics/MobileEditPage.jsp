@@ -49,7 +49,7 @@ margin: 0px;
 	MobileFeatures mobileFeatures = (MobileFeatures) request.getAttribute("mobileFeatures");
 %>
 
-<%@ include file="BasicFeatures.jsp" %>
+<%@ include file="../BasicFeatures.jsp" %>
 
 <section id="2">	
 	
