@@ -83,6 +83,8 @@
     <url-pattern>/EditLaptopAdvanceFeatures</url-pattern>
     <url-pattern>/TopEdit</url-pattern>
     <url-pattern>/EditTopAdvanceFeatures</url-pattern>
+    <url-pattern>/MenTshirtEdit</url-pattern>
+    <url-pattern>/EditMenTshirtAdvanceFeatures</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>BuyerServlet</servlet-name>

@@ -67,8 +67,8 @@
 								<div class="h_nav">
 									<h4>Clothing</h4>
 									<ul>
-										<li><a href="#">new arrivals</a></li>
-										<li><a href="#">men</a></li>
+										<li><a href="SearchBySubCategory?subCategory=MenTshirt">T-Shirt</a></li>
+										<li><a href="#">Shirt</a></li>
 										<li><a href="#">women</a></li>
 										<li><a href="#">accessories</a></li>
 										<li><a href="#">kids</a></li>

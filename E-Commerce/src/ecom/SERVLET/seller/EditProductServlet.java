@@ -20,6 +20,7 @@ import ecom.model.Size;
 import ecom.model.product.features.LeggingsFeatures;
 import ecom.model.product.features.MobileFeatures;
 import ecom.model.product.features._LaptopFeatures;
+import ecom.model.product.features._MenTshirtFeatures;
 import ecom.model.product.features._TopFeatures;
 
 @MultipartConfig
@@ -108,29 +109,6 @@ public class EditProductServlet extends HttpServlet {
 			/*********************************************
 							* Get Request *
 			*********************************************/
-			
-			/*String productId1 = request.getParameter("productId");  
-			long productId = Long.parseLong(productId1);
-			
-			String sellerId1 = request.getParameter("sellerId");
-			long   sellerId   = Long.parseLong(sellerId1);
-			
-			String category         = request.getParameter("category").trim();                  
-			String subCategory      = request.getParameter("subCategory").trim(); 
-			String company          = request.getParameter("company").trim(); 
-			String product          = request.getParameter("product").trim();
-			
-			String kf1              = request.getParameter("kf1").trim(); 
-			String kf2              = request.getParameter("kf2").trim();
-			String kf3              = request.getParameter("kf3").trim();
-			String kf4              = request.getParameter("kf4").trim();			
-			
-			Double listPrice        = Double.parseDouble  (request.getParameter("listPrice").trim()); 
-			Double discount         = Double.parseDouble  (request.getParameter("discount").trim()); 
-			Double salePrice        = Double.parseDouble  (request.getParameter("salePrice").trim()); 	
-			
-			int stock                = Integer.parseInt    (request.getParameter("stock").trim());
-			String warranty          = request.getParameter("warranty").trim();*/
 			
 			ProductBean productBean = new ProductBean();
 			
@@ -616,7 +594,7 @@ public class EditProductServlet extends HttpServlet {
 		
 		
 		
-		/************* TOP ************/
+		/************* Women - TOP ************/
 		
 		else if (servletPath.equals("/TopEdit")) {
 			
@@ -710,5 +688,112 @@ public class EditProductServlet extends HttpServlet {
 			
 		
 		} //EditTopAdvanceFeatures
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/************* Men - T-Shirt ************/
+		
+		else if (servletPath.equals("/MenTshirtEdit")) {
+			
+			System.out.println("Entered MenTshirtEdit");
+			
+			long productId = 0L;
+			
+			if(request.getParameter("productId") != null) {
+			
+				/************** Get Request *****************/				
+				productId = Long.parseLong(request.getParameter("productId"));
+				
+				/************** Set Session *****************/				
+				session.setAttribute("productId", productId);
+				
+			} else {
+				
+				/************** Get Session *****************/
+				productId = (Long) session.getAttribute("productId");				
+			}
+			
+			/********** Database - Get product table & p_leggings_spec table ***************/			
+			ProductBean        productBean       = editProductDAO.getBasicFeatures(productId);
+			_MenTshirtFeatures menTshirtFeatures = editProductDAO.getMenTshirtFeatures(productId);
+			Size               size              = editProductDAO.getSizes(productId);
+			
+			/*****************************************
+			 			* Set Request *
+			 *****************************************/
+			
+			request.setAttribute("productBean", productBean);
+			request.setAttribute("menTshirtFeatures", menTshirtFeatures);
+			request.setAttribute("size",        size       );
+			
+			/*********************************************
+			 				* Next Page *
+			 *********************************************/
+			
+			request.getRequestDispatcher("jsp_Seller_Product/Men/MenTshirtEditPage.jsp").forward(request, response);
+		} // TopEdit
+		
+		else if (servletPath.equals("/EditMenTshirtAdvanceFeatures")) {
+			
+			System.out.println("Entered EditMenTshirtAdvanceFeatures");
+			
+			/*********************************************
+						* Get Request *
+			*********************************************/
+			
+			String productId1 = request.getParameter("productId");  
+			long productId = Long.parseLong(productId1);
+			
+			String sellerId1 = request.getParameter("sellerId");
+			long   sellerId  = Long.parseLong(sellerId1);
+			
+			String sleeve    = request.getParameter("sleeve")  .trim();                  
+			String fabric    = request.getParameter("fabric")  .trim(); 
+			String type      = request.getParameter("type")    .trim(); 
+			String pattern   = request.getParameter("pattern") .trim();			
+			String fit       = request.getParameter("fit")     .trim(); 
+					
+			
+			
+			/*******************************************************
+				*  Database - Edit Product Table  *
+			*******************************************************/
+			_MenTshirtFeatures menTshirtFeatures = editProductDAO.editMenTshirtFeatures(productId, sellerId, sleeve,
+					fabric, type, pattern, fit);
+			
+			/*********************************************
+						* JSON Response *
+			*********************************************/
+			
+			JSONArray jsonArray = new JSONArray();
+			
+			jsonArray.put(menTshirtFeatures.getId        ());
+			jsonArray.put(menTshirtFeatures.getProductId ());
+			jsonArray.put(menTshirtFeatures.getSellerId  ());
+			
+			jsonArray.put(menTshirtFeatures.getSleeve    ());
+			jsonArray.put(menTshirtFeatures.getFabric    ());
+			jsonArray.put(menTshirtFeatures.getType      ());
+			jsonArray.put(menTshirtFeatures.getPattern   ());
+			jsonArray.put(menTshirtFeatures.getFit       ());
+			
+			/*********************************************
+						* Next Page *
+			*********************************************/
+			
+			response.setContentType("application/json");
+			response.getWriter().write(jsonArray.toString());			
+			
+		
+		} //EditMenTshirtAdvanceFeatures
 	}
 }

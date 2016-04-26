@@ -122,6 +122,18 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        <li>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> MEN<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">                            	
+                                <li>
+                                	<a href="ViewProductList?category=MEN&subCategory=MenTshirt" target="iframe">T-Shirt</a>
+                                </li>
+                                <li>
+                                    <a href="#" target="iframe">Shirt</a>
+                                </li>                                
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
                         
                         <li>
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>

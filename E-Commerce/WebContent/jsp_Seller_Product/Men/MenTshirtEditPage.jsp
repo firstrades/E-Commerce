@@ -48,7 +48,7 @@ margin: 0px;
 <body>
 
 <%
-	LeggingsFeatures leggingsFeatures = (LeggingsFeatures) request.getAttribute("leggingsFeatures");	
+	_MenTshirtFeatures menTshirtFeatures = (_MenTshirtFeatures) request.getAttribute("menTshirtFeatures");	
 %>
 
 <!-- Basic Features -->
@@ -63,35 +63,36 @@ margin: 0px;
 	<div id="invisible" style="display:none;">
 		<div id="advanceFeatures" style="width:100%;">
 		
-			<form method="post" enctype="multipart/form-data" id="form3"> 
+			<form method="post" enctype="multipart/form-data" id="form7"> 
 			
 				<input type="hidden" name="productId" value="<%=productId%>" />
-				<input type="hidden" name="sellerId" value="<%=sellerId%>" />
+				<input type="hidden" name="sellerId"  value="<%=sellerId%>" />
+				
 				<h3>Advance Features</h3>
 					<div class="row">					
 						<div class="col-md-3 col-sm-6 col-xs-12">
 							<label> Pattern </label>
 						</div>
-						<% if (leggingsFeatures == null) { %>
+						<% if (menTshirtFeatures == null) { %>
 						<div class="col-md-3 col-sm-6 col-xs-12">
-							<input type="text" name="pattern" class="form-control" required placeholder="Solid" />
+							<input type="text" name="pattern" class="form-control" required placeholder="Printed" />
 						</div>
 						<% } else { %>
 						<div class="col-md-3 col-sm-6 col-xs-12">
-							<input type="text" name="pattern" class="form-control" required value="<%=leggingsFeatures.getPattern() %>" />
+							<input type="text" name="pattern" class="form-control" required value="<%=menTshirtFeatures.getPattern() %>" />
 						</div>
 						<% } %>
 
 						<div class="col-md-3 col-sm-6 col-xs-12">
 						<label> Fabric </label>
 						</div>
-						<% if (leggingsFeatures == null) { %>
+						<% if (menTshirtFeatures == null) { %>
 						<div class="col-md-3 col-sm-6 col-xs-12">
-							<input type="text" name="fabric" class="form-control" required placeholder="Blue" />
+							<input type="text" name="fabric" class="form-control" required placeholder="Cotton" />
 						</div>
 						<% } else { %>
 						<div class="col-md-3 col-sm-6 col-xs-12">
-							<input type="text" name="fabric" class="form-control" required value="<%=leggingsFeatures.getFabric() %>" />
+							<input type="text" name="fabric" class="form-control" required value="<%=menTshirtFeatures.getFabric() %>" />
 						</div>
 						<% } %>							
 					</div>
@@ -99,38 +100,40 @@ margin: 0px;
 					
 					<div class="row">	
 						<div class="col-md-3 col-sm-6 col-xs-12">
-							<label> Style </label>
+							<label> Type </label>
 						</div>
-						<% if (leggingsFeatures == null) { %>
+						<% if (menTshirtFeatures == null) { %>
 						<div class="col-md-3 col-sm-6 col-xs-12">
-							<input type="text" class="form-control" name="style" required placeholder="Long"/> </div>
+							<input type="text" class="form-control" name="type" required placeholder="Round Neck"/> </div>
 						<% } else { %>
-						<div class="col-md-3 col-sm-6 col-xs-12"><input type="text" class="form-control" name="style" required value="<%=leggingsFeatures.getStyle() %>" /></div>
+						<div class="col-md-3 col-sm-6 col-xs-12">
+							<input type="text" class="form-control" name="type" required value="<%=menTshirtFeatures.getType() %>" />
+						</div>
 						<% } %>								
 						
 						<div class="col-md-3 col-sm-6 col-xs-12">
-							<label> Season </label>
+							<label> Fit </label>
 						</div>
-						<% if (leggingsFeatures == null) { %>
+						<% if (menTshirtFeatures == null) { %>
 						<div class="col-md-3 col-sm-6 col-xs-12">
-							<input type="text" name="season" class="form-control" required placeholder="Summer"/> </div>
+							<input type="text" name="fit" class="form-control" required placeholder="Slim Fit"/> </div>
 						<% } else { %>
 						<div class="col-md-3 col-sm-6 col-xs-12">
-							<input type="text" name="season" class="form-control" required value="<%=leggingsFeatures.getSeason() %>" /> </div>
+							<input type="text" name="fit" class="form-control" required value="<%=menTshirtFeatures.getFit() %>" /> </div>
 						<% } %>	
 					</div>							
 						
 						
 					<div class="row">
 						<div class="col-md-3 col-sm-6 col-xs-12">	
-							<label> Waistband </label>
+							<label> Sleeve </label>
 						</div>
-						<% if (leggingsFeatures == null) { %>
+						<% if (menTshirtFeatures == null) { %>
 						<div class="col-md-3 col-sm-6 col-xs-12">
-							<input type="text" name="waistband" class="form-control" required placeholder="Thin" /> </div>
+							<input type="text" name="sleeve" class="form-control" required placeholder="Half Sleeve" /> </div>
 						<% } else { %>
 						<div class="col-md-3 col-sm-6 col-xs-12">
-							<input type="text" name="waistband" class="form-control" required value="<%=leggingsFeatures.getWaistband() %>" /> </div>
+							<input type="text" name="sleeve" class="form-control" required value="<%=menTshirtFeatures.getSleeve() %>" /> </div>
 						<% } %>								
 						
 						<div class="col-md-3 col-sm-6 col-xs-12"> 

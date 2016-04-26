@@ -594,11 +594,13 @@ public class SellerServlet extends HttpServlet {
 		
 		switch (subCategory) {
 		//Electronics
-		case "Mobile"   : editPage = "MobileEdit";   break;
-		case "Laptop"   : editPage = "LaptopEdit";   break;
+		case "Mobile"            : editPage = "MobileEdit";                      break;
+		case "Laptop"            : editPage = "LaptopEdit";                      break;
 		//Women
-		case "Leggings" : editPage = "LeggingsEdit"; break;
-		case "Top"      : editPage = "TopEdit";      break;
+		case "Leggings"          : editPage = "LeggingsEdit";                    break;
+		case "Top"               : editPage = "TopEdit";                         break;
+		//Men
+		case "MenTshirt"         : editPage = "MenTshirtEdit";                   break;
 		}		
 		
 		return editPage;

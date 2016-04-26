@@ -315,7 +315,7 @@ public class ProductDetailsDAO {
 			connection = ConnectionFactory.getNewConnection();
 			connection.setAutoCommit(false);
 			
-			sql = "SELECT * FROM p_men-tshirt_spec WHERE product_id = ?";
+			sql = "SELECT * FROM p_men_tshirt_spec WHERE product_id = ?";
 				
 			preparedStatement = connection.prepareStatement(sql);			
 			preparedStatement.setLong (1,  productId);			
@@ -326,7 +326,7 @@ public class ProductDetailsDAO {
 				
 				map.put("Pattern", resultSet.getString("pattern" ));
 				map.put("Fabric",  resultSet.getString("fabric"  ));
-				map.put("Design",  resultSet.getString("design"  ));
+				map.put("Type",    resultSet.getString("type"  ));
 				map.put("Fit",     resultSet.getString("fit"     ));
 				map.put("Sleeve",  resultSet.getString("sleeve"  ));
 				

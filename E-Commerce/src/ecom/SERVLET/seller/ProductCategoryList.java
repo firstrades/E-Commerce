@@ -63,13 +63,13 @@ public class ProductCategoryList extends HttpServlet {
 		}	
 		else if (value.equals("MEN")) {
 			
-			options = "<option value=\"Footwear\">Footwear</option>"
-					+"<option value=\"Clothing\">Clothing</option>"
-					+"<option value=\"Watches\">Watches</option>"
-					+"<option value=\"Bags\">Bags</option>"
-					+"<option value=\"Belts\">Belts</option>"
-					+"<option value=\"Wallets\">Wallets</option>"
-					+"<option value=\"Sunglasses\">Sunglasses</option>"
+			options = "<option value=\"MenTshirt\">MenTshirt</option>"
+					//+"<option value=\"Clothing\">Clothing</option>"
+					//+"<option value=\"Watches\">Watches</option>"
+					//+"<option value=\"Bags\">Bags</option>"
+					//+"<option value=\"Belts\">Belts</option>"
+					//+"<option value=\"Wallets\">Wallets</option>"
+					//+"<option value=\"Sunglasses\">Sunglasses</option>"
 					+"";
 		}
 		else if (value.equals("WOMEN")) {

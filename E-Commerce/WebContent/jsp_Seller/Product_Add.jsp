@@ -69,13 +69,13 @@ hr {
 					<label><span style="color:red;">*</span> Company Name </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="company" class="form-control" required placeholder="Samsung" value="HP" />
+					<input type="text" name="company" class="form-control" required placeholder="Samsung" value="Westsite" />
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label>	<span style="color:red;">*</span> Product Name </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="product" class="form-control" required placeholder="Galaxy S4" value="Velo S4" />
+					<input type="text" name="product" class="form-control" required placeholder="Galaxy S4" value="Pinacal" />
 				</div>
 			</div>	
 			
@@ -86,13 +86,13 @@ hr {
 					<label>	Key Feature 1 </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="kf1" class="form-control" placeholder="Key Feature" value="HP TrueVision HD Webcam" />
+					<input type="text" name="kf1" class="form-control" placeholder="Key Feature" value="Half Sleeve" />
 				</div>	
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label> Key Feature 2 </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="kf2" class="form-control" placeholder="Key Feature" value="65 W AC Adapter" />
+					<input type="text" name="kf2" class="form-control" placeholder="Key Feature" value="Cotton" />
 				</div>			
 			</div>	
 					
@@ -101,12 +101,12 @@ hr {
 					<label> Key Feature 3  </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12"> 
-					<input type="text" name="kf3" class="form-control" placeholder="Key Feature" value="HDD 1 TB" /></div>			
+					<input type="text" name="kf3" class="form-control" placeholder="Key Feature" value="Round Neck" /></div>			
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label> Key Feature 4 </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="kf4" class="form-control" placeholder="Key Feature" value="OS: Windows 10" />
+					<input type="text" name="kf4" class="form-control" placeholder="Key Feature" value="Slim Fit" />
 				</div>			
 			</div>			
 			

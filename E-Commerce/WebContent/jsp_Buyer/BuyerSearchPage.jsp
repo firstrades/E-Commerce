@@ -149,15 +149,19 @@
 						</div>
     				</div>
 				</li>
-				<li class="grid"><a class="color2" href="#">MEN</a>
+				<% if (productBeanList.get(0).getCategory().equals("MEN")) { %>
+				<li class="active grid"><a class="color1" href="index.jsp">MEN</a>
+				<% } else { %> 
+				<li class="grid"><a class="color1" href="index.jsp">MEN</a>
+				<% } %>
 					<div class="megapanel">
 						<div class="row">
 							<div class="col1">
 								<div class="h_nav">
 									<h4>Clothing</h4>
 									<ul>
-										<li><a href="#">new arrivals</a></li>
-										<li><a href="#">men</a></li>
+										<li><a href="SearchBySubCategory?subCategory=MenTshirt">T-Shirt</a></li>
+										<li><a href="#">Shirt</a></li>
 										<li><a href="#">women</a></li>
 										<li><a href="#">accessories</a></li>
 										<li><a href="#">kids</a></li>
@@ -195,8 +199,7 @@
 							<div class="col1"></div>
 						</div>
     				</div>
-				</li>
-				<!-- <li><a class="color4" href="#">WOMEN</a> -->				
+				</li>								
 				<% if (productBeanList.get(0).getCategory().equals("WOMEN")) { %>
 				<li class="active grid"><a class="color1" href="index.jsp">WOMEN</a>
 				<% } else { %> 
