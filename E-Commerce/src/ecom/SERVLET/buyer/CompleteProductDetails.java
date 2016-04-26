@@ -177,6 +177,7 @@ public class CompleteProductDetails extends HttpServlet {
 		case "Top"        : map = dao.getTopFeatures      (productId);    break;
 		//Men
 		case "MenTshirt"  : map = dao.getMenTshirtFeatures(productId);    break;
+		case "Jeans"      : map = dao.getMenJeansFeatures (productId);    break;
 		}		
 		
 		

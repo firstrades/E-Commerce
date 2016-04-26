@@ -301,6 +301,10 @@ public class ProductDetailsDAO {
 		return null;
 	} //getTopFeatures
 	
+	/*****************************************************************************************************************/
+	/************************************************     MEN     ****************************************************/
+	/*****************************************************************************************************************/
+	
 	/************ Men - T-Shirt **************/
 	
 	public Map<String,String> getMenTshirtFeatures(long productId) {		
@@ -361,4 +365,78 @@ public class ProductDetailsDAO {
 		
 		return null;
 	} //getMenTshirtFeatures
+	
+	/************ Men - Jeans **************/
+	public Map<String,String> getMenJeansFeatures(long productId) {		
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String sql = null;
+		ResultSet resultSet = null;		
+		Map<String,String> map = new HashMap<>();
+		
+		try {
+			connection = ConnectionFactory.getNewConnection();
+			connection.setAutoCommit(false);
+			
+			sql = "SELECT * FROM p_men_jeans_spec WHERE product_id = ?";
+				
+			preparedStatement = connection.prepareStatement(sql);			
+			preparedStatement.setLong (1,  productId);			
+		
+			resultSet = preparedStatement.executeQuery();	
+			
+			if (resultSet.next()) {				
+				
+				map.put("Fabric",    resultSet.getString("fabric"    ));
+				map.put("BrandFit",  resultSet.getString("brand_fit" ));
+				map.put("Pattern",   resultSet.getString("pattern"   ));
+				map.put("Pockets",   resultSet.getString("pockets"   ));
+				map.put("BeltLoops", resultSet.getString("belt_loops"));
+				map.put("Occasion",  resultSet.getString("occasion"  ));
+				
+				
+			} else {
+				
+				connection.commit();
+				
+				System.out.println("SQL getMenJeansFeatures Executed and ResultSet is empty...");
+				
+				return null;
+			}
+			
+			connection.commit();
+			
+			System.out.println("SQL getMenJeansFeatures Executed");
+			
+			return map;
+			
+			
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {				
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			map = null;
+			try {
+				preparedStatement.close();
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}
+			try {
+				connection.close();
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}
+			System.gc();
+		}
+		
+		
+		return null;
+	}
+
 }

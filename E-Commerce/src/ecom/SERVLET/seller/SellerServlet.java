@@ -601,6 +601,7 @@ public class SellerServlet extends HttpServlet {
 		case "Top"               : editPage = "TopEdit";                         break;
 		//Men
 		case "MenTshirt"         : editPage = "MenTshirtEdit";                   break;
+		case "Jeans"             : editPage = "MenJeansEdit";                    break;
 		}		
 		
 		return editPage;

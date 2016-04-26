@@ -64,7 +64,7 @@ public class ProductCategoryList extends HttpServlet {
 		else if (value.equals("MEN")) {
 			
 			options = "<option value=\"MenTshirt\">MenTshirt</option>"
-					//+"<option value=\"Clothing\">Clothing</option>"
+					+"<option value=\"Jeans\">Jeans</option>"
 					//+"<option value=\"Watches\">Watches</option>"
 					//+"<option value=\"Bags\">Bags</option>"
 					//+"<option value=\"Belts\">Belts</option>"

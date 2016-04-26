@@ -129,7 +129,7 @@
                                 	<a href="ViewProductList?category=MEN&subCategory=MenTshirt" target="iframe">T-Shirt</a>
                                 </li>
                                 <li>
-                                    <a href="#" target="iframe">Shirt</a>
+                                    <a href="ViewProductList?category=MEN&subCategory=Jeans" target="iframe">Jeans</a>
                                 </li>                                
                             </ul>
                             <!-- /.nav-second-level -->

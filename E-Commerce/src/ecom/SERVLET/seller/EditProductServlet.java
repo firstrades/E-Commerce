@@ -20,6 +20,7 @@ import ecom.model.Size;
 import ecom.model.product.features.LeggingsFeatures;
 import ecom.model.product.features.MobileFeatures;
 import ecom.model.product.features._LaptopFeatures;
+import ecom.model.product.features._MenJeansFeatures;
 import ecom.model.product.features._MenTshirtFeatures;
 import ecom.model.product.features._TopFeatures;
 
@@ -795,5 +796,100 @@ public class EditProductServlet extends HttpServlet {
 			
 		
 		} //EditMenTshirtAdvanceFeatures
+		
+		
+		
+		/************* Men - Jeans ************/
+		else if (servletPath.equals("/MenJeansEdit")) {
+			
+			System.out.println("Entered MenJeansEdit");
+			
+			long productId = 0L;
+			
+			if(request.getParameter("productId") != null) {
+			
+				/************** Get Request *****************/				
+				productId = Long.parseLong(request.getParameter("productId"));
+				
+				/************** Set Session *****************/				
+				session.setAttribute("productId", productId);
+				
+			} else {
+				
+				/************** Get Session *****************/
+				productId = (Long) session.getAttribute("productId");				
+			}
+			
+			/********** Database - Get product table & p_men_jeans_spec table ***************/			
+			ProductBean productBean           = editProductDAO.getBasicFeatures(productId);
+		   _MenJeansFeatures menJeansFeatures = editProductDAO.getMenJeansFeatures(productId);
+			Size size                         = editProductDAO.getSizes(productId);
+			
+			/*****************************************
+			 			* Set Request *
+			 *****************************************/
+			
+			request.setAttribute("productBean",      productBean     );
+			request.setAttribute("menJeansFeatures", menJeansFeatures);
+			request.setAttribute("size",             size            );
+			
+			/*********************************************
+			 				* Next Page *
+			 *********************************************/
+			
+			request.getRequestDispatcher("jsp_Seller_Product/Men/MenJeansEditPage.jsp").forward(request, response);
+		}
+		
+		else if (servletPath.equals("/EditMenJeansAdvanceFeatures")) {
+			
+			System.out.println("Entered EditLeggingsAdvanceFeatures");
+			
+			/*********************************************
+						* Get Request *
+			*********************************************/
+			
+			String productId1 = request.getParameter("productId");  
+			long productId = Long.parseLong(productId1);
+			
+			String sellerId1 = request.getParameter("sellerId");
+			long   sellerId  = Long.parseLong(sellerId1);
+			
+			String fabric     = request.getParameter("fabric"   ) .trim(); 
+			String brandFit   = request.getParameter("brandFit" ) .trim();
+			String pattern    = request.getParameter("pattern"  ) .trim();
+			String pockets    = request.getParameter("pockets"  ) .trim(); 
+			String beltLoops  = request.getParameter("beltLoops") .trim();			
+			String occasion   = request.getParameter("occasion" ) .trim(); 
+					
+			
+			
+			/*******************************************************
+				*  Database - Edit Product Table  *
+			*******************************************************/
+			_MenJeansFeatures menJeansFeatures = editProductDAO.editMenJeansFeatures (productId, sellerId, 
+					                                            fabric, brandFit, pattern, pockets, beltLoops, occasion);
+			
+			/*********************************************
+						* JSON Response *
+			*********************************************/
+			
+			JSONArray jsonArray = new JSONArray();
+			
+			jsonArray.put(menJeansFeatures.getFabric()   );
+			jsonArray.put(menJeansFeatures.getBrandFit() );
+			jsonArray.put(menJeansFeatures.getPattern()  );
+			jsonArray.put(menJeansFeatures.getPockets()  );
+			jsonArray.put(menJeansFeatures.getBeltLoops());	
+			jsonArray.put(menJeansFeatures.getOccasion() );
+			
+			/*********************************************
+						* Next Page *
+			*********************************************/
+			
+			response.setContentType("application/json");
+			response.getWriter().write(jsonArray.toString());			
+			
+		
+		} //EditMenJeansAdvanceFeatures
 	}
 }

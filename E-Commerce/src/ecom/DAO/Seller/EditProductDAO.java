@@ -13,6 +13,7 @@ import ecom.model.Size;
 import ecom.model.product.features.LeggingsFeatures;
 import ecom.model.product.features.MobileFeatures;
 import ecom.model.product.features._LaptopFeatures;
+import ecom.model.product.features._MenJeansFeatures;
 import ecom.model.product.features._MenTshirtFeatures;
 import ecom.model.product.features._TopFeatures;
 
@@ -1227,5 +1228,160 @@ public class EditProductDAO {
 	} //editMenTshirtFeatures
 	
 	
+	
+	/********************* MEN - Jeans ***********************/
+	public _MenJeansFeatures getMenJeansFeatures(long productId) {		
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String sql            = null;
+		ResultSet resultSet   = null;		
+		
+		_MenJeansFeatures menJeansFeatures = new _MenJeansFeatures();
+		
+		try {
+			connection = ConnectionFactory.getNewConnection();
+			connection.setAutoCommit(false);
+			
+			sql = "SELECT * FROM p_men_jeans_spec WHERE product_id = ?";
+				
+			preparedStatement = connection.prepareStatement(sql);			
+			preparedStatement.setLong (1,  productId);			
+		
+			resultSet = preparedStatement.executeQuery();	
+			
+			if (resultSet.next()) {
+				
+				menJeansFeatures.setId         (resultSet.getLong("id"         ));
+				menJeansFeatures.setProductId  (resultSet.getLong("product_id" ));
+				menJeansFeatures.setSellerId   (resultSet.getLong("seller_id"  ));
+				
+				menJeansFeatures.setFabric     (resultSet.getString("fabric"    ));
+				menJeansFeatures.setBrandFit   (resultSet.getString("brand_fit" ));
+				menJeansFeatures.setPattern    (resultSet.getString("pattern"   ));
+				menJeansFeatures.setPockets    (resultSet.getString("pockets"   ));
+				menJeansFeatures.setBeltLoops  (resultSet.getString("belt_loops"));
+				menJeansFeatures.setOccasion   (resultSet.getString("occasion"  ));
+				
+				
+			} else {
+				
+				connection.commit();
+				
+				System.out.println("SQL getMenJeansFeatures Executed and ResultSet is empty...");
+				
+				return null;
+			}
+			
+			connection.commit();
+			
+			System.out.println("SQL getMenJeansFeatures Executed");
+			
+			return menJeansFeatures;
+			
+			
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {				
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			menJeansFeatures = null;
+			try {
+				preparedStatement.close();
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}
+			try {
+				connection.close();
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}
+			System.gc();
+		}
+		
+		
+		return null;
+	} //getMenJeansFeatures
+	
+	
+	public _MenJeansFeatures editMenJeansFeatures (long productId, long sellerId, String fabric, String brandFit, String pattern, 
+			String pockets, String beltLoops, String occasion) {		
+		
+		Connection connection   = null;
+		CallableStatement callableStatement = null;
+		ResultSet resultSet = null;
+		
+		String sql = "{call editMenJeansFeatures(?,?,?,?,?,?,?,?)}";	
+		
+		_MenJeansFeatures menJeansFeatures = new _MenJeansFeatures();
+		
+		
+		try {
+				connection = ConnectionFactory.getNewConnection();
+				connection.setAutoCommit(false);
+				
+				callableStatement = connection.prepareCall(sql);
+				callableStatement.setLong  (1, productId);
+				callableStatement.setLong  (2, sellerId );
+				callableStatement.setString(3, fabric   );
+				callableStatement.setString(4, brandFit );
+				callableStatement.setString(5, pattern  );
+				callableStatement.setString(6, pockets  );
+				callableStatement.setString(7, beltLoops);
+				callableStatement.setString(8, occasion );
+				 			
+				resultSet = callableStatement.executeQuery();			
+					
+				if (resultSet.next()) {
+					
+					menJeansFeatures.setId       (resultSet.getLong  ("id"        ));
+					menJeansFeatures.setProductId(resultSet.getLong  ("product_id"));
+					menJeansFeatures.setSellerId (resultSet.getLong  ("seller_id" ));
+					menJeansFeatures.setFabric   (resultSet.getString("fabric"    ));
+					menJeansFeatures.setBrandFit (resultSet.getString("brand_fit" ));
+					menJeansFeatures.setPattern  (resultSet.getString("pattern"   ));
+					menJeansFeatures.setPockets  (resultSet.getString("pockets"   ));
+					menJeansFeatures.setBeltLoops(resultSet.getString("belt_loops"));
+					menJeansFeatures.setOccasion (resultSet.getString("occasion"  ));
+				}
+				
+				connection.commit();
+				callableStatement.close();
+				
+				System.out.println("SQL - Select editMenJeansFeatures() successfull.");
+				
+				return menJeansFeatures;
+				
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e) {	
+			
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {					
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+			
+		} finally {	
+			menJeansFeatures = null;
+			try {
+				callableStatement.close();
+			} catch (SQLException e1) {			
+				e1.printStackTrace();
+			}
+			try {
+				connection.close();
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}
+			System.gc();
+		}		
+		
+		return null;
+	} //editMenJeansFeatures
 
 }

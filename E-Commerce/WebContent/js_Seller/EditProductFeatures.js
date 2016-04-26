@@ -355,7 +355,52 @@ $(function() {
 		return false;
 	});
 	
+	/***************** Men - Jeans *******************/
 	
+	$('form#form8').submit(function(event) {  
+		
+		event.preventDefault();
+		
+		$('#msg1').empty();
+		
+		var r = confirm("Alert: Do You Really Want To Edit This Advanced Product!");
+		
+		if (r == true) { 
+		
+				var formData = new FormData($(this)[0]);
+				
+				$.ajax({
+					url: 'EditMenJeansAdvanceFeatures',
+					type: 'POST',
+					data: formData,
+					async: false,
+				    cache: false,
+				    contentType: false,
+				    processData: false,
+				    dataType: 'json',
+				    success: function (array) {
+				    	$("input[name=fabric]")   .val(array[0]);
+				    	$("input[name=brandFit]") .val(array[1]);
+				    	$("input[name=pattern]")  .val(array[2]);
+				    	$("input[name=pockets]")  .val(array[3]);
+				    	$("input[name=beltLoops]").val(array[4]);
+				    	$("input[name=occasion]") .val(array[5]);
+				    	
+				    	
+				    	$('#msg1').empty();
+				    	$('#msg1').append('Advance Features Updated');
+				    },
+				    error: function() {
+				  		$('#msg1').empty();
+				  		$('#msg1').append('Advance Features Not Updated');
+				  	}
+				});
+		
+		} // if close
+		
+		
+		return false;
+	});
 	
 	
 });
