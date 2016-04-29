@@ -91,6 +91,7 @@ public class EditProductDAO {
 				productBean.setCancellationAfterBooked   (resultSet.getInt   ("calcellation_after_booked"));
 			}
 			
+			
 			connection.commit();					
 			System.out.println("SQL - editProduct executed");
 			

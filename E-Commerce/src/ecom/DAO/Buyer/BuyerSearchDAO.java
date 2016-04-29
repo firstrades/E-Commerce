@@ -210,8 +210,8 @@ public class BuyerSearchDAO {
 							if (resultSet.next()) {
 							
 									productBean = new ProductBean();
-									//productBean.setKeyFeatures(new KeyFeatures());
-									//productBean.setPrice(new Price());
+								  //productBean.setKeyFeatures(new KeyFeatures());
+								  //productBean.setPrice(new Price());
 									
 									TwoObjects<ProductBean, CartWishlist> twoObjects2 = new TwoObjects<>();
 									

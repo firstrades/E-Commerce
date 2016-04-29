@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class ConnectionFactory {	
 
 	private final String PROTOCOL        = "jdbc:mysql://localhost:3306/";   
-	//private final String PROTOCOL        = "jdbc:mysql://104.254.98.163:3306/";
+ // private final String PROTOCOL        = "jdbc:mysql://104.254.98.163:3306/";
 	
 	private final String RemoteDATABASE  = "firstrad_shopingdb?noAccessToProcedureBodies=true";
 	private final String RemoteUSER      = "firstrad_shoroot";
