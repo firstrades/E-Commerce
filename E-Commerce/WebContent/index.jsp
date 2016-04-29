@@ -1113,7 +1113,7 @@
 <!-- -------------------------------------End Footer-------------------------------------------------- -->
 
 
-	<script type="text/javascript" src="js/bxslider.min.js"></script>
+	<script type="text/javascript" src="js/bxslider.min.js" ></script>
 	<script type="text/javascript" src="js/script.slider.js"></script>
 </body>
 

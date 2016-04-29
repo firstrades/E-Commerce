@@ -6,7 +6,8 @@
     <welcome-file>SellerMainPanel-</welcome-file>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>  
-  <listener>
+  <!-- JAX -->
+  <!-- <listener>
     <listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
   </listener>
   <servlet>
@@ -16,7 +17,8 @@
   <servlet-mapping>
     <servlet-name>jaxws</servlet-name>
     <url-pattern>/jaxrs/*</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
+  <!-- End JAX -->
   <servlet>
     <servlet-name>Controller</servlet-name>
     <servlet-class>ecom.Controller.Controller</servlet-class>
