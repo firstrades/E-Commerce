@@ -189,7 +189,7 @@ a.tooltip span b {
 						<span>Shipping Cost : Rs <%=orderTable.getShippingCost() %></span>
 						<hr>
 						<span>Quantity : <%=orderTable.getQty() %></span>
-						<% if (orderTable.getSize() != 0) { %>
+						<% if (!orderTable.getSize().equals("0")) { %>
 						<span style="margin-left: 74px;">Size : <%=orderTable.getSize() %></span>
 						<% } %>
 						<hr>

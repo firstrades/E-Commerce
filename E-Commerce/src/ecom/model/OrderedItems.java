@@ -8,7 +8,7 @@ public class OrderedItems implements Serializable {
 	private int    id;
 	private long   productId;
 	private int    qty;
-	private int    size;
+	private String size;
 	private double sellPriceWithShipping;
 	private String sellerCompany;
 	private String productName;
@@ -35,10 +35,10 @@ public class OrderedItems implements Serializable {
 	public void setQty(int qty) {
 		this.qty = qty;
 	}
-	public int getSize() {
+	public String getSize() {
 		return size;
 	}
-	public void setSize(int size) {
+	public void setSize(String size) {
 		this.size = size;
 	}
 	public double getSellPriceWithShipping() {

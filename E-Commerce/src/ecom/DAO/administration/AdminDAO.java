@@ -381,7 +381,7 @@ public class AdminDAO {
 		    	orderTable.setOrderId       (resultSet.getString("order_id"     ));		    	
 		    	orderTable.setBookedDateTime(resultSet.getString("date_time"    ));	
 		    	orderTable.setStatus        (resultSet.getString("status"       ));
-		    	orderTable.setSize          (resultSet.getInt   ("size"         ));		    	
+		    	orderTable.setSize          (resultSet.getString("size"         ));		    	
 		    	orderTable.setOrderState    (resultSet.getString("order_state"  ));
 		    	orderTable.setPaymentType   (resultSet.getString("payment_type" ));
 		    	

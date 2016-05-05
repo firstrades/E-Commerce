@@ -81,6 +81,7 @@
     <url-pattern>/LeggingsEdit</url-pattern>
     <url-pattern>/EditLeggingsAdvanceFeatures</url-pattern>
     <url-pattern>/EditSizeFeatures</url-pattern>
+    <url-pattern>/EditSizeKidsYearsFeatures</url-pattern>
     <url-pattern>/LaptopEdit</url-pattern>
     <url-pattern>/EditLaptopAdvanceFeatures</url-pattern>
     <url-pattern>/TopEdit</url-pattern>
@@ -89,6 +90,8 @@
     <url-pattern>/EditMenTshirtAdvanceFeatures</url-pattern>
     <url-pattern>/MenJeansEdit</url-pattern>
     <url-pattern>/EditMenJeansAdvanceFeatures</url-pattern>
+    <url-pattern>/Boys_ShirtEdit</url-pattern>
+    <url-pattern>/EditBoys_ShirtAdvanceFeatures</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>BuyerServlet</servlet-name>

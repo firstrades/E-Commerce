@@ -536,7 +536,7 @@ public class OrderImpl implements OrderInterface {
 		    	orderedItems.setQty                  (resultSet.getInt   ("qty"                  ));
 		    	orderedItems.setSellerCompany        (resultSet.getString("sellerCompany"        ));
 		    	orderedItems.setSellPriceWithShipping(resultSet.getDouble("sellPriceWithShipping"));
-		    	orderedItems.setSize                 (resultSet.getInt   ("size"                 ));
+		    	orderedItems.setSize                 (resultSet.getString("size"                 ));
 		    	orderedItems.setTranxId              (resultSet.getString("transactionId"        ));
 		    	
 		    	list.add(orderedItems);

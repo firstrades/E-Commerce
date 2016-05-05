@@ -133,7 +133,7 @@ float: left;
  							</a>
  							<span class="fk-bold"><%=sellerCompany %></span><br>
  							<span class="fk-bold">Product ID: <%=productBeanAndQty.getObj1().getProductId() %></span>
- 							<% if (productBeanAndQty.getObj2().getSize() != 0) { %>
+ 							<% if (!productBeanAndQty.getObj2().getSize().equals("0")) { %>
  							<br><span class="fk-bold">Item Size: <%=productBeanAndQty.getObj2().getSize() %></span>
  							<% } %>
  							<% if (stock == 0) { %>

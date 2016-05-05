@@ -83,6 +83,12 @@ public class ProductCategoryList extends HttpServlet {
 					//+"<option value=\"Sunglasses\">Sunglasses</option>"
 					+"";
 		}
+		else if (value.equals("KIDS")) {
+			
+			options = "<option value=\"Boys_Shirt\">Boy's Shirt</option>"
+					+"<option value=\"Boys_Pant\">Boy's Pant</option>"					
+					+"";
+		}
 		
 		
 		return options;

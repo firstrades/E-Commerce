@@ -15,10 +15,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import ecom.DAO.Seller.EditProductDAO;
+import ecom.model.Clothings;
 import ecom.model.ProductBean;
 import ecom.model.Size;
 import ecom.model.product.features.LeggingsFeatures;
 import ecom.model.product.features.MobileFeatures;
+import ecom.model.product.features._KidsBoysShirt;
 import ecom.model.product.features._LaptopFeatures;
 import ecom.model.product.features._MenJeansFeatures;
 import ecom.model.product.features._MenTshirtFeatures;
@@ -413,6 +415,8 @@ public class EditProductServlet extends HttpServlet {
 		
 		} //EditLeggingsAdvanceFeatures
 		
+		/****************** Edit Size ******************/
+		
 		else if (servletPath.equals("/EditSizeFeatures")) {
 			
 			System.out.println("Entered EditSizeFeatures");
@@ -462,19 +466,88 @@ public class EditProductServlet extends HttpServlet {
 			jsonArray.put(size.getQtyOfSize46());
 			jsonArray.put(size.getQtyOfSize48());
 			
+			
+			String json = jsonArray.toString();
+			
+			/******** Clean Up ************/
+			jsonArray = null;
+			
 			/*********************************************
 						* Next Page *
 			*********************************************/
 			
 			response.setContentType("application/json");
-			response.getWriter().write(jsonArray.toString());			
+			response.getWriter().write(json);			
 			
 		
-		} //EditSizeFeatures
+		} //EditSizeFeatures	
 		
 		
 		
 		
+		
+		
+		/****************** Edit Size Kids Years ******************/
+		
+		else if (servletPath.equals("/EditSizeKidsYearsFeatures")) {
+			
+			System.out.println("Entered EditSizeKidsYearsFeatures");
+			
+			/************ Get Request *****************/		
+			
+			Clothings sizeInfo = new Clothings();
+			
+			sizeInfo.setProductId(Long.parseLong(request.getParameter("productId")));
+			sizeInfo.setSellerId (Long.parseLong(request.getParameter("sellerId")) );
+			
+			sizeInfo.setStockOfSIZE_1_2  (Integer.parseInt(request.getParameter("year_1_2")  .trim()));
+			sizeInfo.setStockOfSIZE_2_3  (Integer.parseInt(request.getParameter("year_2_3")  .trim()));
+			sizeInfo.setStockOfSIZE_3_4  (Integer.parseInt(request.getParameter("year_3_4")  .trim()));
+			sizeInfo.setStockOfSIZE_4_5  (Integer.parseInt(request.getParameter("year_4_5")  .trim()));
+			sizeInfo.setStockOfSIZE_5_6  (Integer.parseInt(request.getParameter("year_5_6")  .trim()));
+			sizeInfo.setStockOfSIZE_6_7  (Integer.parseInt(request.getParameter("year_6_7")  .trim()));
+			sizeInfo.setStockOfSIZE_7_8  (Integer.parseInt(request.getParameter("year_7_8")  .trim()));
+			sizeInfo.setStockOfSIZE_8_9  (Integer.parseInt(request.getParameter("year_8_9")  .trim()));
+			sizeInfo.setStockOfSIZE_9_10 (Integer.parseInt(request.getParameter("year_9_10") .trim()));
+			sizeInfo.setStockOfSIZE_10_11(Integer.parseInt(request.getParameter("year_10_11").trim()));
+			sizeInfo.setStockOfSIZE_11_12(Integer.parseInt(request.getParameter("year_11_12").trim()));				
+			
+			
+			/*************  Database - Edit Product Table  *************/			
+			sizeInfo = editProductDAO.editSizeKidsYear(sizeInfo);
+			
+			
+			/*************** JSON Response ***********/		
+			
+			JSONArray jsonArray = new JSONArray();
+			
+			jsonArray.put(sizeInfo.getStockOfSIZE_1_2());
+			jsonArray.put(sizeInfo.getStockOfSIZE_2_3());
+			jsonArray.put(sizeInfo.getStockOfSIZE_3_4());
+			jsonArray.put(sizeInfo.getStockOfSIZE_4_5());
+			jsonArray.put(sizeInfo.getStockOfSIZE_5_6());
+			jsonArray.put(sizeInfo.getStockOfSIZE_6_7());
+			jsonArray.put(sizeInfo.getStockOfSIZE_7_8());
+			jsonArray.put(sizeInfo.getStockOfSIZE_8_9());
+			jsonArray.put(sizeInfo.getStockOfSIZE_9_10());
+			jsonArray.put(sizeInfo.getStockOfSIZE_10_11());
+			jsonArray.put(sizeInfo.getStockOfSIZE_11_12());		
+			
+			
+			String json = jsonArray.toString();
+			
+			/******** Clean Up ************/
+			sizeInfo = null; jsonArray = null;
+			
+			/*********************************************
+						* Next Page *
+			*********************************************/
+			
+			response.setContentType("application/json");
+			response.getWriter().write(json);			
+			
+		
+		} //EditSizeKidsYearsFeatures
 		
 		
 		
@@ -891,5 +964,125 @@ public class EditProductServlet extends HttpServlet {
 			
 		
 		} //EditMenJeansAdvanceFeatures
+		
+		
+		
+		
+		
+		
+		
+		/************************** Kids *******************************/
+		
+		/************* Boys - Shirt ************/
+		
+		
+		else if (servletPath.equals("/Boys_ShirtEdit")) {
+			
+			System.out.println("Entered Boys_ShirtEdit");
+			
+			long productId = 0L;
+			
+			if(request.getParameter("productId") != null) {
+			
+				/************** Get Request *****************/				
+				productId = Long.parseLong(request.getParameter("productId"));
+				
+				/************** Set Session *****************/				
+				session.setAttribute("productId", productId);
+				
+			} else {
+				
+				/************** Get Session *****************/
+				productId = (Long) session.getAttribute("productId");				
+			}
+			
+			/********** Database - Get product table & p_men_jeans_spec table ***************/			
+			ProductBean productBean      = editProductDAO.getBasicFeatures(productId);
+		    _KidsBoysShirt kidsBoysShirt = editProductDAO.getKidsBoysShirt(productId);	
+		    
+		    
+		    
+		    int sizeStyle = kidsBoysShirt.getSizeStyle();    System.out.println("SizeStyle: " + sizeStyle);
+		    Clothings sizeInfo = null;
+		    if (sizeStyle == kidsBoysShirt.KIDS_YEAR_STYLE)
+		    	sizeInfo = editProductDAO.getKidsYearSizes(kidsBoysShirt);    
+		    
+			
+			/*****************************************
+			 			* Set Request *
+			 *****************************************/			
+			request.setAttribute("productBean",      productBean     );
+			request.setAttribute("kidsBoysShirt",    kidsBoysShirt   );		
+			request.setAttribute("sizeInfo",         sizeInfo   );	
+			
+			/********** Clean Up **************/
+			productBean = null; kidsBoysShirt = null;
+			
+			/*********************************************
+			 				* Next Page *
+			 *********************************************/
+			
+			request.getRequestDispatcher("jsp_Seller_Product/Kids/Boys/Boys_ShirtEditPage.jsp").forward(request, response);
+			
+		} //Boys_ShirtEdit
+		
+		else if (servletPath.equals("/EditBoys_ShirtAdvanceFeatures")) {
+			
+			System.out.println("Entered EditBoys_ShirtAdvanceFeatures");
+			
+			/*********************************************
+						* Get Request *
+			*********************************************/
+			
+			String productId1 = request.getParameter("productId");  
+			long productId = Long.parseLong(productId1);
+			
+			String sellerId1 = request.getParameter("sellerId");
+			long   sellerId  = Long.parseLong(sellerId1);			
+			
+			_KidsBoysShirt kidsBoysShirt = new _KidsBoysShirt();
+			
+			kidsBoysShirt.setProductId(productId);
+			kidsBoysShirt.setSellerId(sellerId  );
+			
+			kidsBoysShirt.setSleeve (request.getParameter("sleeve") .trim());
+			kidsBoysShirt.setFabric (request.getParameter("fabric") .trim());
+			kidsBoysShirt.setType   (request.getParameter("type")   .trim());
+			kidsBoysShirt.setFit    (request.getParameter("fit")    .trim());
+			kidsBoysShirt.setPattern(request.getParameter("pattern").trim());				
+			
+			
+			/*******************************************************
+				*  Database - Edit Product Table  *
+			*******************************************************/
+			kidsBoysShirt = editProductDAO.editKidsBoysShirtFeatures(kidsBoysShirt);
+			
+			/*********************************************
+						* JSON Response *
+			*********************************************/
+			
+			JSONArray jsonArray = new JSONArray();
+			
+			jsonArray.put(kidsBoysShirt.getSleeve() );
+			jsonArray.put(kidsBoysShirt.getFabric() );
+			jsonArray.put(kidsBoysShirt.getType()   );
+			jsonArray.put(kidsBoysShirt.getFit()    );
+			jsonArray.put(kidsBoysShirt.getPattern());	
+			
+			/*********************************************
+						* Next Page *
+			*********************************************/
+			
+			String json = jsonArray.toString();
+			
+			/********* Clean Up **********/
+			kidsBoysShirt = null; jsonArray = null;
+			
+			response.setContentType("application/json");
+			response.getWriter().write(json);			
+			
+		
+		} //EditBoys_ShirtAdvanceFeatures
+		
 	}
 }

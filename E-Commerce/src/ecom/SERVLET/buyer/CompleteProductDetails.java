@@ -26,6 +26,7 @@ import ecom.Interface.Courier.EstimatedRateAndDelivery;
 import ecom.beans.TransientData;
 import ecom.model.ProductBean;
 import ecom.model.SizeGarment;
+import ecom.model.SizeInYears;
 import ecom.model.TwoObjects;
 import ecom.model.User;
 
@@ -98,6 +99,9 @@ public class CompleteProductDetails extends HttpServlet {
 			SizeGarment sizeGarment = new SizeGarment();
 			sizeGarment = buyerSearchDAO.getSizeGarmentModel(productId, sizeGarment);	
 			
+			SizeInYears sizeInYears = new SizeInYears();
+			sizeInYears = buyerSearchDAO.getSizeInYears(productId, sizeInYears);
+			
 			/**
 			 * @API - @Rate @Delivery
 			 */			
@@ -125,6 +129,7 @@ public class CompleteProductDetails extends HttpServlet {
 				request.setAttribute("featureMap",    featureMap);			
 				request.setAttribute("stock",         stock);
 				request.setAttribute("sizeGarment",   sizeGarment);
+				request.setAttribute("sizeInYears",   sizeInYears);
 				// API Data
 				request.setAttribute("rate",          rate);
 				request.setAttribute("delivery",      delivery);
@@ -149,6 +154,9 @@ public class CompleteProductDetails extends HttpServlet {
 			}
 			
 			
+		/******** Clear Up **********/
+			sizeGarment = null;  estimatedRateAndDelivery = null; sizeInYears = null;
+			
 		
 		/******************************************
 		 			* Next Page *
@@ -170,14 +178,16 @@ public class CompleteProductDetails extends HttpServlet {
 		
 		switch (subCategory) {
 		//Electronics
-		case "Mobile"     : map = dao.getMobileFeatures   (productId);    break;
-		case "Laptop"     : map = dao.getLaptopFeatures   (productId);    break;
+		case "Mobile"     : map = dao.getMobileFeatures     (productId);    break;
+		case "Laptop"     : map = dao.getLaptopFeatures     (productId);    break;
 		//Women
-		case "Leggings"   : map = dao.getLeggingsFeatures (productId);    break;
-		case "Top"        : map = dao.getTopFeatures      (productId);    break;
+		case "Leggings"   : map = dao.getLeggingsFeatures   (productId);    break;
+		case "Top"        : map = dao.getTopFeatures        (productId);    break;
 		//Men
-		case "MenTshirt"  : map = dao.getMenTshirtFeatures(productId);    break;
-		case "Jeans"      : map = dao.getMenJeansFeatures (productId);    break;
+		case "MenTshirt"  : map = dao.getMenTshirtFeatures  (productId);    break;
+		case "Jeans"      : map = dao.getMenJeansFeatures   (productId);    break;
+		//Kids
+		case "Boys_Shirt" : map = dao.getBoysShirtsFeatures (productId);    break;
 		}		
 		
 		

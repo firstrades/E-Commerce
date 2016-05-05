@@ -17,7 +17,7 @@ public class OrderTable implements Serializable {
 	private String orderId;
 	private String bookedDateTime;
 	private String status;
-	private int    size;
+	private String size;
 	private String orderState;
 	private String delivered;
 	private String paymentType;	
@@ -112,10 +112,10 @@ public class OrderTable implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public int getSize() {
+	public String getSize() {
 		return size;
 	}
-	public void setSize(int size) {
+	public void setSize(String size) {
 		this.size = size;
 	}
 	public static long getSerialversionuid() {

@@ -52,6 +52,7 @@ hr {
 						<option value="ELECTRONICS">ELECTRONICS</option>
 						<option value="MEN">MEN</option>
 						<option value="WOMEN">WOMEN</option>
+						<option value="KIDS">KIDS</option>
 					</select>
 				</div>				
 				<div class="col-md-3 col-sm-6 col-xs-12">
@@ -69,13 +70,13 @@ hr {
 					<label><span style="color:red;">*</span> Company Name </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="company" class="form-control" required placeholder="Samsung" value="Westsite" />
+					<input type="text" name="company" class="form-control" required placeholder="Samsung" value="Pantaloons" />
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label>	<span style="color:red;">*</span> Product Name </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="product" class="form-control" required placeholder="Galaxy S4" value="Pinacal" />
+					<input type="text" name="product" class="form-control" required placeholder="Galaxy S4" value="Naughty Ninos Printed Boy's Polo Neck T-Shirt" />
 				</div>
 			</div>	
 			
@@ -101,12 +102,12 @@ hr {
 					<label> Key Feature 3  </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12"> 
-					<input type="text" name="kf3" class="form-control" placeholder="Key Feature" value="Round Neck" /></div>			
+					<input type="text" name="kf3" class="form-control" placeholder="Key Feature" value="Polo Neck" /></div>			
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label> Key Feature 4 </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="kf4" class="form-control" placeholder="Key Feature" value="Slim Fit" />
+					<input type="text" name="kf4" class="form-control" placeholder="Key Feature" value="Printed" />
 				</div>			
 			</div>			
 			
@@ -169,13 +170,13 @@ hr {
 					<label><span style="color:red;">*</span> Stock </label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="stock" class="form-control" required placeholder="50" value="100"/>
+					<input type="text" name="stock" class="form-control" required placeholder="50" value="500"/>
 				</div> 
 				<div class="col-md-3 col-sm-6 col-xs-12">
 					<label><span style="color:red;">*</span> Weight In KG</label>
 				</div>
 				<div class="col-md-3 col-sm-6 col-xs-12">
-					<input type="text" name="weight" class="form-control" required placeholder="0.2" value="2.0" />
+					<input type="text" name="weight" class="form-control" required placeholder="0.2" value="0.3" />
 				</div> 
 			</div>			
 						

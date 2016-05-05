@@ -11,7 +11,7 @@ public class CartWishlist implements Serializable {
 	private long   userId;
 	private String cartOrWishlist;
 	private int    qty;
-	private int    size;
+	private String size;
 	
 	
 	public long getId() {
@@ -44,10 +44,10 @@ public class CartWishlist implements Serializable {
 	public void setQty(int qty) {
 		this.qty = qty;
 	}
-	public int getSize() {
+	public String getSize() {
 		return size;
 	}
-	public void setSize(int size) {
+	public void setSize(String size) {
 		this.size = size;
 	}
 	

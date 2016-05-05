@@ -20,6 +20,7 @@ import ecom.model.Order;
 import ecom.model.Price;
 import ecom.model.ProductBean;
 import ecom.model.SizeGarment;
+import ecom.model.SizeInYears;
 import ecom.model.TwoObjects;
 import ecom.model.User;
 
@@ -97,7 +98,8 @@ public class BuyerSearchDAO {
 		
 	}
 	
-	public List<TwoObjects<ProductBean, CartWishlist>> addToCartOrWishList(long productId, long userId, String cartOrWishlist, int size) {		
+	public List<TwoObjects<ProductBean, CartWishlist>> addToCartOrWishList(long productId, long userId, 
+			String cartOrWishlist, String size) {		
 			
 			Connection connection   = null;
 			PreparedStatement preparedStatement = null;
@@ -124,7 +126,7 @@ public class BuyerSearchDAO {
 								preparedStatement.setLong   (1, productId);   
 								preparedStatement.setString (2, cartOrWishlist); 
 								preparedStatement.setLong   (3, userId);
-								preparedStatement.setInt    (4, size);
+								preparedStatement.setString (4, size);
 								 			
 								resultSet = preparedStatement.executeQuery();			
 								 																								
@@ -147,7 +149,7 @@ public class BuyerSearchDAO {
 										preparedStatement.setLong   (1, productId);
 										preparedStatement.setLong   (2, userId);
 										preparedStatement.setString (3, cartOrWishlist); 
-										preparedStatement.setInt    (4, size);
+										preparedStatement.setString (4, size);
 										 			
 										int result = preparedStatement.executeUpdate();
 										
@@ -183,7 +185,7 @@ public class BuyerSearchDAO {
 						cartWishlist.setId            (resultSet.getLong  ("id"           ));
 						cartWishlist.setProductId     (resultSet.getLong  ("product_id"   ));
 						cartWishlist.setQty           (resultSet.getInt   ("qty"          ));
-						cartWishlist.setSize          (resultSet.getInt   ("size"         ));
+						cartWishlist.setSize          (resultSet.getString("size"         ));
 						cartWishlist.setUserId        (resultSet.getLong  ("user_id"      ));
 						
 						twoObjects.setObj2 (cartWishlist);  
@@ -312,7 +314,7 @@ public class BuyerSearchDAO {
 	
 	
 	public List<TwoObjects<ProductBean, CartWishlist>> moveToCartOrWishList(long productId, long userId, String cartOrWishlist,
-			int qty, int size) {  //wish		
+			int qty, String size) {  //wish		
 				
 				Connection connection   = null;
 				PreparedStatement preparedStatement = null;
@@ -345,7 +347,7 @@ public class BuyerSearchDAO {
 						preparedStatement.setLong   (1, productId);   
 						preparedStatement.setString (2, toggle);  
 						preparedStatement.setLong   (3, userId);
-						preparedStatement.setInt    (4, size);
+						preparedStatement.setString (4, size);
 						 			
 						resultSet = preparedStatement.executeQuery();			
 						 																								
@@ -360,7 +362,7 @@ public class BuyerSearchDAO {
 								preparedStatement.setLong  (1, productId);
 								preparedStatement.setLong  (2, userId);
 								preparedStatement.setString(3, cartOrWishlist);
-								preparedStatement.setInt    (4, size);
+								preparedStatement.setString(4, size);
 								
 								int result = preparedStatement.executeUpdate();
 								
@@ -381,7 +383,7 @@ public class BuyerSearchDAO {
 								preparedStatement.setLong   (3, productId);
 								preparedStatement.setLong   (4, userId); 
 								preparedStatement.setString (5, cartOrWishlist);
-								preparedStatement.setInt    (6, size);
+								preparedStatement.setString (6, size);
 								 			
 								int result = preparedStatement.executeUpdate();
 								
@@ -414,7 +416,7 @@ public class BuyerSearchDAO {
 							cartWishlist.setId            (resultSet.getLong  ("id"           ));
 							cartWishlist.setProductId     (resultSet.getLong  ("product_id"   ));
 							cartWishlist.setQty           (resultSet.getInt   ("qty"          ));
-							cartWishlist.setSize          (resultSet.getInt   ("size"         ));
+							cartWishlist.setSize          (resultSet.getString("size"         ));
 							cartWishlist.setUserId        (resultSet.getLong  ("user_id"      ));
 							
 							twoObjects.setObj2 (cartWishlist);  
@@ -550,7 +552,7 @@ public class BuyerSearchDAO {
 	} // insertQtyOfRow
 	
 	
-	public static List<CartWishlist> getCartWishlist(Long productId, int qty, String cart, long userId, int size) {			
+	public static List<CartWishlist> getCartWishlist(Long productId, int qty, String cart, long userId, String size) {			
 		
 		Connection connection   = null;
 		PreparedStatement preparedStatement = null;
@@ -594,7 +596,7 @@ public class BuyerSearchDAO {
 						preparedStatement.setLong  (2, userId);
 						preparedStatement.setString(3, cart);
 						preparedStatement.setInt   (4, qty);
-						preparedStatement.setInt   (5, size);
+						preparedStatement.setString(5, size);
 						result = preparedStatement.executeUpdate();
 						preparedStatement.close();
 						
@@ -622,8 +624,8 @@ public class BuyerSearchDAO {
 				if (resultSet.next()) {
 					
 					cartWishlist.setProductId(resultSet.getLong("product_id"));
-					cartWishlist.setQty      (resultSet.getInt ("qty"));
-					cartWishlist.setSize     (resultSet.getInt ("size"));
+					cartWishlist.setQty      (resultSet.getInt   ("qty"));
+					cartWishlist.setSize     (resultSet.getString("size"));
 					
 					list.add(cartWishlist);
 				}							
@@ -675,8 +677,8 @@ public class BuyerSearchDAO {
 					
 					
 					cartWishlist.setProductId(resultSet.getLong("product_id"));
-					cartWishlist.setQty      (resultSet.getInt ("qty"       ));
-					cartWishlist.setSize     (resultSet.getInt ("size"      ));
+					cartWishlist.setQty      (resultSet.getInt   ("qty"       ));
+					cartWishlist.setSize     (resultSet.getString("size"      ));
 			
 					list.add(cartWishlist);	
 				}
@@ -965,6 +967,9 @@ public class BuyerSearchDAO {
 	} // getProductBean
 	
 	
+	/**********************  Get All Sizes  ************************/
+	
+	
 	public SizeGarment getSizeGarmentModel(long productId, SizeGarment sizeGarment) {
 		
 		Connection connection = null; CallableStatement callableStatement = null; ResultSet resultSet = null;
@@ -1026,6 +1031,85 @@ public class BuyerSearchDAO {
 		
 	} //getSizeGarmentModel
 	
+	
+	public SizeInYears getSizeInYears(long productId, SizeInYears sizeInYears) {
+		
+		Connection connection = null; CallableStatement callableStatement = null; ResultSet resultSet = null;
+		
+		String sql = "{call getSizeInYears(?)}";		
+		
+		try {
+				connection = ConnectionFactory.getNewConnection();
+				connection.setAutoCommit(false);
+				
+				callableStatement = connection.prepareCall(sql);
+				
+				callableStatement.setLong(1, productId);							
+				 			
+				resultSet = callableStatement.executeQuery();						
+				
+				if (resultSet.next()) {
+					//if exists
+					sizeInYears.setProductIdExists(true);
+					
+					sizeInYears.setId       (resultSet.getLong("id"));
+					sizeInYears.setProductId(resultSet.getLong("product_id"));
+					
+					sizeInYears.setStockOfSIZE_1_2  (resultSet.getInt("y_1_2"  ));  
+					sizeInYears.setStockOfSIZE_2_3  (resultSet.getInt("y_2_3"  ));
+					sizeInYears.setStockOfSIZE_3_4  (resultSet.getInt("y_3_4"  ));
+					sizeInYears.setStockOfSIZE_4_5  (resultSet.getInt("y_4_5"  ));
+					sizeInYears.setStockOfSIZE_5_6  (resultSet.getInt("y_5_6"  ));
+					sizeInYears.setStockOfSIZE_6_7  (resultSet.getInt("y_6_7"  ));
+					sizeInYears.setStockOfSIZE_7_8  (resultSet.getInt("y_7_8"  ));
+					sizeInYears.setStockOfSIZE_8_9  (resultSet.getInt("y_8_9"  ));
+					sizeInYears.setStockOfSIZE_9_10 (resultSet.getInt("y_9_10" ));
+					sizeInYears.setStockOfSIZE_10_11(resultSet.getInt("y_10_11"));
+					sizeInYears.setStockOfSIZE_11_12(resultSet.getInt("y_11_12"));
+					
+				}
+				
+				connection.commit();
+				callableStatement.close();
+				
+				System.out.println("SQL - Select getSizeGarmentModel() successfull.");
+				
+				return sizeInYears;
+				
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e) {			
+			try { connection.rollback();     } catch (SQLException e1) { e1.printStackTrace(); }
+			e.printStackTrace();
+			
+		} finally {				
+			try { resultSet.close();         } catch (SQLException e)  { e.printStackTrace();  }
+			try { callableStatement.close(); } catch (SQLException e)  { e.printStackTrace();  }
+			try { connection.close();        } catch (SQLException e)  { e.printStackTrace();  }
+			System.gc();
+		}		
+		
+		return null;
+		
+	} //getSizeInYears
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//Soumya
 	public List<CustomerOrderHistroy> getCustomerOrderHistroy(User user) {
 		
@@ -1063,7 +1147,7 @@ public class BuyerSearchDAO {
 					customerOrderHistroy.setSellerCompany          (resultSet.getString("sellerCompany"          ));
 					customerOrderHistroy.setSellPrice              (resultSet.getDouble("sellPrice"              ));
 					customerOrderHistroy.setShippingCost           (resultSet.getDouble("shippingCost"           ));
-					customerOrderHistroy.setSize                   (resultSet.getInt   ("size"                   ));
+					customerOrderHistroy.setSize                   (resultSet.getString("size"                   ));
 					customerOrderHistroy.setStatus                 (resultSet.getString("status"                 ));
 					customerOrderHistroy.setWarranty               (resultSet.getString("warranty"               ));
 					customerOrderHistroy.setOrderBookedDate        (resultSet.getString("orderBookedDate"        ));             

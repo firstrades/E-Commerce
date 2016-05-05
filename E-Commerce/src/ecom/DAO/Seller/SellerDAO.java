@@ -107,7 +107,7 @@ public class SellerDAO {
 		    	orderTable.setQty           (resultSet.getInt   ("qty"          ));
 		    	orderTable.setSellPrice     (resultSet.getDouble("sell_price"   ));
 		    	orderTable.setShippingCost  (resultSet.getDouble("shipping_cost"));
-		    	orderTable.setSize          (resultSet.getInt   ("size"         ));
+		    	orderTable.setSize          (resultSet.getString("size"         ));
 		    	orderTable.setStatus        (resultSet.getString("status"       ));
 		    	orderTable.setWarranty      (resultSet.getString("warranty"     ));
 		    	orderTable.setSellerId      (resultSet.getLong  ("seller_id"    ));

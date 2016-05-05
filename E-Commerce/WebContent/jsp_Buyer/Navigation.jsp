@@ -201,25 +201,21 @@
 						</div>
 	    			</div>
 				</li>
-				<li><a class="color6" href="#">BABY&KIDS</a>
+				<li><a class="color6" href="#">BABY&amp;KIDS</a>
 					<div class="megapanel">
 						<div class="row">
 							<div class="col1">
 								<div class="h_nav">
-									<h4>Clothing</h4>
+									<h4>Boys</h4>
 									<ul>
-										<li><a href="#">new arrivals</a></li>
-										<li><a href="#">men</a></li>
-										<li><a href="#">women</a></li>
-										<li><a href="#">accessories</a></li>
-										<li><a href="#">kids</a></li>
-										<li><a href="#">brands</a></li>
+										<li><a href="SearchBySubCategory?subCategory=Boys_Shirt">Shirts</a></li>
+										<li><a href="#">Pants</a></li>										
 									</ul>	
 								</div>							
 							</div>
 							<div class="col1">
 								<div class="h_nav">
-									<h4>kids</h4>
+									<h4>Girls</h4>
 									<ul>
 										<li><a href="#">Pools&#38;Tees</a></li>
 										<li><a href="#">shirts</a></li>

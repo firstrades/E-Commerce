@@ -438,5 +438,81 @@ public class ProductDetailsDAO {
 		
 		return null;
 	}
+	
+	
+	/********************* Kids **************************/
+	
+	/***************** Boys - Shirts *******************/
+	
+	public Map<String,String> getBoysShirtsFeatures(long productId) {		
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String sql = null;
+		ResultSet resultSet = null;		
+		Map<String,String> map = new HashMap<>();
+		
+		try {
+			connection = ConnectionFactory.getNewConnection();
+			connection.setAutoCommit(false);
+			
+			sql = "SELECT * FROM p_boys_shirt_spec WHERE product_id = ?";
+				
+			preparedStatement = connection.prepareStatement(sql);			
+			preparedStatement.setLong (1,  productId);			
+		
+			resultSet = preparedStatement.executeQuery();	
+			
+			if (resultSet.next()) {				
+				
+				map.put("Sleeve",  resultSet.getString("sleeve" ));
+				map.put("Fabric",  resultSet.getString("fabric" ));
+				map.put("Type",    resultSet.getString("type"   ));
+				map.put("Fit",     resultSet.getString("fit"    ));
+				map.put("Pattern", resultSet.getString("pattern"));
+				
+				
+			} else {
+				
+				connection.commit();
+				
+				System.out.println("SQL getBoysShirtsFeatures Executed and ResultSet is empty...");
+				
+				return null;
+			}
+			
+			connection.commit();
+			
+			System.out.println("SQL getBoysShirtsFeatures Executed");
+			
+			return map;
+			
+			
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {				
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			map = null;
+			try {
+				preparedStatement.close();
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}
+			try {
+				connection.close();
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}
+			System.gc();
+		}
+		
+		
+		return null;
+	} //getBoysShirtsFeatures
 
 }

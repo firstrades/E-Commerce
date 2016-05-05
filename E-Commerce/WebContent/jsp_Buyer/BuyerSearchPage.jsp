@@ -95,9 +95,9 @@
 				<li class="grid"><a class="color1" href="BuyerMainPanel">HOME</a>
 				<% } %>
 				<% if (productBeanList.get(0).getCategory().equals("ELECTRONICS")) { %>
-				<li class="active grid"><a class="color1" href="index.jsp">ELECTRONICS</a>
+				<li class="active grid"><a class="color1" href="#">ELECTRONICS</a>
 				<% } else { %> 
-				<li class="grid"><a class="color1" href="index.jsp">ELECTRONICS</a>
+				<li class="grid"><a class="color1" href="#">ELECTRONICS</a>
 				<% } %>
 					<div class="megapanel">
 						<div class="row">
@@ -150,9 +150,9 @@
     				</div>
 				</li>
 				<% if (productBeanList.get(0).getCategory().equals("MEN")) { %>
-				<li class="active grid"><a class="color1" href="index.jsp">MEN</a>
+				<li class="active grid"><a class="color1" href="#">MEN</a>
 				<% } else { %> 
-				<li class="grid"><a class="color1" href="index.jsp">MEN</a>
+				<li class="grid"><a class="color1" href="#">MEN</a>
 				<% } %>
 					<div class="megapanel">
 						<div class="row">
@@ -201,9 +201,9 @@
     				</div>
 				</li>								
 				<% if (productBeanList.get(0).getCategory().equals("WOMEN")) { %>
-				<li class="active grid"><a class="color1" href="index.jsp">WOMEN</a>
+				<li class="active grid"><a class="color1" href="#">WOMEN</a>
 				<% } else { %> 
-				<li class="grid"><a class="color1" href="index.jsp">WOMEN</a>
+				<li class="grid"><a class="color1" href="#">WOMEN</a>
 				<% } %>
 					<div class="megapanel">
 						<div class="row">
@@ -298,25 +298,25 @@
 						</div>
 	    			</div>
 				</li>
-				<li><a class="color6" href="#">BABY&KIDS</a>
+				<% if (productBeanList.get(0).getCategory().equals("KIDS")) { %>
+				<li class="active grid"><a class="color1" href="#">BABY&amp;KIDS</a>
+				<% } else { %> 
+				<li class="grid"><a class="color1" href="#">BABY&amp;KIDS</a>
+				<% } %>
 					<div class="megapanel">
 						<div class="row">
 							<div class="col1">
 								<div class="h_nav">
-									<h4>Clothing</h4>
+									<h4>Boys</h4>
 									<ul>
-										<li><a href="#">new arrivals</a></li>
-										<li><a href="#">men</a></li>
-										<li><a href="#">women</a></li>
-										<li><a href="#">accessories</a></li>
-										<li><a href="#">kids</a></li>
-										<li><a href="#">brands</a></li>
+										<li><a href="SearchBySubCategory?subCategory=Boys_Shirt">Shirts</a></li>
+										<li><a href="#">Pants</a></li>										
 									</ul>	
 								</div>							
 							</div>
 							<div class="col1">
 								<div class="h_nav">
-									<h4>kids</h4>
+									<h4>Girls</h4>
 									<ul>
 										<li><a href="#">Pools&#38;Tees</a></li>
 										<li><a href="#">shirts</a></li>

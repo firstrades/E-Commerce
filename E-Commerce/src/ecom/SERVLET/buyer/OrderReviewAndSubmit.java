@@ -66,7 +66,7 @@ public class OrderReviewAndSubmit extends HttpServlet {
 			System.out.println("Entered OrderReview_ProductDetails");
 			
 			/************ Get Request **************/
-			String size1          = (String) request.getParameter("size");  
+			String size          = (String) request.getParameter("size");  
 			String productId111   = request.getParameter("productId");
 			String cartOrWishlist = request.getParameter("cartOrWishlist");
 			
@@ -79,7 +79,7 @@ public class OrderReviewAndSubmit extends HttpServlet {
 			int    qty       = 1;
 			String cart      = cartOrWishlist;
 			long   userId    = user.getUserInfo().getId();
-			int    size      = Integer.parseInt(size1);
+			//int    size      = Integer.parseInt(size1);
 			
 			/************ Database *****************/
 			// Get ProductId and Quantity
@@ -235,7 +235,7 @@ public class OrderReviewAndSubmit extends HttpServlet {
 				
 						bookedProduct.setProductId             (cartWishlist.getProductId() );
 						bookedProduct.setQty                   (cartWishlist.getQty()       );
-						bookedProduct.getGarmentOrder().setSize(cartWishlist.getSize()      );
+						bookedProduct.getGarmentOrder().setSize(cartWishlist.getSize()      );  System.out.println(bookedProduct.getGarmentOrder().getSize());
 						bookedProduct.setRate                  (apiRateAndDelivery.getObj1());
 						bookedProduct.setDelivery              (apiRateAndDelivery.getObj2());
 				//----------------------------------

@@ -7,26 +7,26 @@ import ecom.common.Status;
 public class ProductBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private long        productId;
-	private long        sellerId;
-	private String      sellerCompany;  
+	protected long        productId;
+	protected long        sellerId;
+	protected String      sellerCompany;  
 	
-	private String      category;
-	private String      subCategory;
-	private String      productName;
-	private String      companyName;
+	protected String      category;
+	protected String      subCategory;
+	protected String      productName;
+	protected String      companyName;
 	
-	private KeyFeatures keyFeatures;
-	private Price       price;
+	protected KeyFeatures keyFeatures;                    
+	protected Price       price;
 	
-	private int         stock;
-	private double      weight;
-	private String      warranty;	
-	private int         cancellationAfterBooked;
+	protected int         stock;
+	protected double      weight;
+	protected String      warranty;	
+	protected int         cancellationAfterBooked;
 	
-	private Status      status;	                         // Enum
-	private Commission  commission;
-	private String      productAdditionDate;
+	protected Status      status;	                         // Enum
+	protected Commission  commission;
+	protected String      productAdditionDate;
 	
 	
 	public ProductBean() {

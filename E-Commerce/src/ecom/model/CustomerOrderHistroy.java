@@ -14,7 +14,7 @@ import java.io.Serializable;
 	private String warranty;
 	private String orderId;
 	private String status;
-	private int    size;
+	private String size;
 	private String orderState;
 	private String paymentType;
 	private String deliveredDate;
@@ -88,10 +88,10 @@ import java.io.Serializable;
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public int getSize() {
+	public String getSize() {
 		return size;
 	}
-	public void setSize(int size) {
+	public void setSize(String size) {
 		this.size = size;
 	}
 	public String getOrderState() {

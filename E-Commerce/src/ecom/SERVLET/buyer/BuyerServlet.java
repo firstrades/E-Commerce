@@ -248,7 +248,7 @@ public class BuyerServlet extends HttpServlet {
 				
 				/*************** Get Request **************/
 				
-					String size1            = (String) request.getParameter("size");  
+					String size            = (String) request.getParameter("size");  
 					//  for add to cart/wishlist
 					String move             = (String) request.getParameter("move");  				
 					String productId111     = (String) request.getParameter("productId");
@@ -268,7 +268,7 @@ public class BuyerServlet extends HttpServlet {
 						qty = (stock == 0) ? 0 : 1; 
 					}
 					
-					int size = Integer.parseInt(size1);  
+					//int size = Integer.parseInt(size1);  
 					
 				/*************** Database *****************/
 				

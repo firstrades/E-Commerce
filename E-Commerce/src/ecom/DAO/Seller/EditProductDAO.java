@@ -8,10 +8,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import ecom.common.ConnectionFactory;
+import ecom.model.Clothings;
 import ecom.model.ProductBean;
 import ecom.model.Size;
 import ecom.model.product.features.LeggingsFeatures;
 import ecom.model.product.features.MobileFeatures;
+import ecom.model.product.features._KidsBoysShirt;
 import ecom.model.product.features._LaptopFeatures;
 import ecom.model.product.features._MenJeansFeatures;
 import ecom.model.product.features._MenTshirtFeatures;
@@ -311,31 +313,20 @@ public class EditProductDAO {
 			
 			
 		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException | SQLException e) {
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {				
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
-		} finally {
-			try {
-				preparedStatement.close();
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
-			try {
-				connection.close();
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
+				| ClassNotFoundException | SQLException e1) {
+			try { connection.rollback();     } catch (SQLException e) { e.printStackTrace(); }
+			e1.printStackTrace();
+		} finally {			
+			try { preparedStatement.close(); } catch (SQLException e) { e.printStackTrace(); }
+			try { connection.close();        } catch (SQLException e) { e.printStackTrace(); }
 			System.gc();
 		}
 		
 		return null;
 	} //getSizes
 	
-
+	
+	/**********************   Edit Size Group *********************/
 	
 	public Size editSizes(long productId, long sellerId, int size26, int size28, int size30, int size32, int size34, int size36, int size38,
 			int size40, int size42, int size44, int size46, int size48) {
@@ -397,37 +388,154 @@ public class EditProductDAO {
 				return size;
 				
 		} catch (InstantiationException | IllegalAccessException
-				| ClassNotFoundException | SQLException e) {	
-			
-			try {
-				connection.rollback();
-			} catch (SQLException e1) {					
-				e1.printStackTrace();
-			}
-			e.printStackTrace();
-			
-		} finally {	
-			
-			try {
-				callableStatement.close();
-			} catch (SQLException e1) {			
-				e1.printStackTrace();
-			}
-			try {
-				connection.close();
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
+				| ClassNotFoundException | SQLException e1) {
+			try { connection.rollback();     } catch (SQLException e) { e.printStackTrace(); }
+			e1.printStackTrace();
+		} finally {			
+			try { callableStatement.close(); } catch (SQLException e) { e.printStackTrace(); }
+			try { connection.close();        } catch (SQLException e) { e.printStackTrace(); }
 			System.gc();
-		}	
+		}
 		
 		return null;
 	} //editSizes
 	
 	
+	public Clothings editSizeKidsYear(Clothings sizeInfo) {
+		
+		Connection connection   = null;
+		CallableStatement callableStatement = null;
+		ResultSet resultSet = null;
+		
+		String sql = "{call editSizeKidsYear(?,?,?,?,?,?,?,?,?,?,?,?,?)}";	
+		
+		
+		try {
+				connection = ConnectionFactory.getNewConnection();
+				connection.setAutoCommit(false);
+				
+				callableStatement = connection.prepareCall(sql);
+				
+				callableStatement.setLong(1,  sizeInfo.getProductId());
+				callableStatement.setLong(2,  sizeInfo.getSellerId() );
+				callableStatement.setInt (3,  sizeInfo.getStockOfSIZE_1_2());
+				callableStatement.setInt (4,  sizeInfo.getStockOfSIZE_2_3());
+				callableStatement.setInt (5,  sizeInfo.getStockOfSIZE_3_4());
+				callableStatement.setInt (6,  sizeInfo.getStockOfSIZE_4_5());
+				callableStatement.setInt (7,  sizeInfo.getStockOfSIZE_5_6());
+				callableStatement.setInt (8,  sizeInfo.getStockOfSIZE_6_7());
+				callableStatement.setInt (9,  sizeInfo.getStockOfSIZE_7_8());
+				callableStatement.setInt (10, sizeInfo.getStockOfSIZE_8_9());
+				callableStatement.setInt (11, sizeInfo.getStockOfSIZE_9_10());
+				callableStatement.setInt (12, sizeInfo.getStockOfSIZE_10_11());
+				callableStatement.setInt (13, sizeInfo.getStockOfSIZE_11_12());				
+				
+				 			
+				resultSet = callableStatement.executeQuery();			
+					
+				if (resultSet.next()) {
+					
+					sizeInfo.setStockOfSIZE_1_2  (resultSet.getInt("y_1_2"  ));
+					sizeInfo.setStockOfSIZE_2_3  (resultSet.getInt("y_2_3"  ));
+					sizeInfo.setStockOfSIZE_3_4  (resultSet.getInt("y_3_4"  ));
+					sizeInfo.setStockOfSIZE_4_5  (resultSet.getInt("y_4_5"  ));
+					sizeInfo.setStockOfSIZE_5_6  (resultSet.getInt("y_5_6"  ));
+					sizeInfo.setStockOfSIZE_6_7  (resultSet.getInt("y_6_7"  ));
+					sizeInfo.setStockOfSIZE_7_8  (resultSet.getInt("y_7_8"  ));
+					sizeInfo.setStockOfSIZE_8_9  (resultSet.getInt("y_8_9"  ));
+					sizeInfo.setStockOfSIZE_9_10 (resultSet.getInt("y_9_10" ));
+					sizeInfo.setStockOfSIZE_10_11(resultSet.getInt("y_10_11"));
+					sizeInfo.setStockOfSIZE_11_12(resultSet.getInt("y_11_12"));
+					
+				}
+				
+				connection.commit();
+				callableStatement.close();
+				
+				System.out.println("SQL - Select editSizeKidsYear() successfull.");
+				
+				return sizeInfo;
+				
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e1) {
+			try { connection.rollback();     } catch (SQLException e) { e.printStackTrace(); }
+			e1.printStackTrace();
+		} finally {			
+			try { callableStatement.close(); } catch (SQLException e) { e.printStackTrace(); }
+			try { connection.close();        } catch (SQLException e) { e.printStackTrace(); }
+			System.gc();
+		}
+		
+		return null;
+	} //editSizeKidsYear
 	
 	
+	/****************** Kid - Year - Size *******************/
 	
+	public _KidsBoysShirt getKidsYearSizes(_KidsBoysShirt kidsBoysShirt) {
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String sql            = null;
+		ResultSet resultSet   = null;			
+		
+		try {
+			connection = ConnectionFactory.getNewConnection();
+			connection.setAutoCommit(false);
+			
+			sql = "SELECT * FROM size_in_years WHERE product_id = ?";
+				
+			preparedStatement = connection.prepareStatement(sql);			
+			preparedStatement.setLong (1,  kidsBoysShirt.getProductId());			
+		
+			resultSet = preparedStatement.executeQuery();	
+			
+			if (resultSet.next()) {
+				
+				kidsBoysShirt.setStockOfSIZE_1_2  (resultSet.getInt("y_1_2"  ));
+				kidsBoysShirt.setStockOfSIZE_2_3  (resultSet.getInt("y_2_3"  ));
+				kidsBoysShirt.setStockOfSIZE_3_4  (resultSet.getInt("y_3_4"  ));
+				kidsBoysShirt.setStockOfSIZE_4_5  (resultSet.getInt("y_4_5"  ));
+				kidsBoysShirt.setStockOfSIZE_5_6  (resultSet.getInt("y_5_6"  ));
+				kidsBoysShirt.setStockOfSIZE_6_7  (resultSet.getInt("y_6_7"  ));
+				kidsBoysShirt.setStockOfSIZE_7_8  (resultSet.getInt("y_7_8"  ));
+				kidsBoysShirt.setStockOfSIZE_8_9  (resultSet.getInt("y_8_9"  ));
+				kidsBoysShirt.setStockOfSIZE_9_10 (resultSet.getInt("y_9_10" ));
+				kidsBoysShirt.setStockOfSIZE_10_11(resultSet.getInt("y_10_11"));
+				kidsBoysShirt.setStockOfSIZE_11_12(resultSet.getInt("y_11_12"));
+				
+				
+			} else {
+				
+				connection.commit();
+				
+				System.out.println("SQL getKidsYearSizes Executed and ResultSet is empty...");
+				
+				return null;
+			}
+			
+			connection.commit();
+			
+			System.out.println("SQL getKidsYearSizes Executed");
+			
+			return kidsBoysShirt;
+			
+			
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e1) {
+			try { connection.rollback();     } catch (SQLException e) { e.printStackTrace(); }
+			e1.printStackTrace();
+		} finally {
+			kidsBoysShirt = null;
+			try { preparedStatement.close(); } catch (SQLException e) { e.printStackTrace(); }
+			try { connection.close();        } catch (SQLException e) { e.printStackTrace(); }
+			System.gc();
+		}
+		
+		return null;
+		
+		
+	} //getKidsYearSizes	
 	
 	
 	/**************** ELECTRONICS - MOBILE ************************/
@@ -1384,5 +1492,133 @@ public class EditProductDAO {
 		
 		return null;
 	} //editMenJeansFeatures
+	
+	
+	/************************** Kids ******************************/
+	
+	/********************* Boys - Shirts ***********************/
+	public _KidsBoysShirt getKidsBoysShirt(long productId) {		
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String sql            = null;
+		ResultSet resultSet   = null;		
+		
+		_KidsBoysShirt kidsBoysShirt = new _KidsBoysShirt();
+		
+		try {
+			connection = ConnectionFactory.getNewConnection();
+			connection.setAutoCommit(false);
+			
+			sql = "SELECT * FROM p_boys_shirt_spec WHERE product_id = ?";
+				
+			preparedStatement = connection.prepareStatement(sql);			
+			preparedStatement.setLong (1,  productId);			
+		
+			resultSet = preparedStatement.executeQuery();	
+			
+			if (resultSet.next()) {
+				
+				kidsBoysShirt.setId         (resultSet.getLong("id"         ));
+				kidsBoysShirt.setProductId  (resultSet.getLong("product_id" ));
+				kidsBoysShirt.setSellerId   (resultSet.getLong("seller_id"  ));
+				
+				kidsBoysShirt.setSleeve  (resultSet.getString("sleeve" ));
+				kidsBoysShirt.setFabric  (resultSet.getString("fabric" ));
+				kidsBoysShirt.setType    (resultSet.getString("type"   ));
+				kidsBoysShirt.setFit     (resultSet.getString("fit"    ));
+				kidsBoysShirt.setPattern (resultSet.getString("pattern"));
+				
+				
+				
+			} else {
+				
+				connection.commit();
+				
+				System.out.println("SQL getKidsBoysShirt Executed and ResultSet is empty...");
+				
+				return null;
+			}
+			
+			connection.commit();
+			
+			System.out.println("SQL getKidsBoysShirt Executed");
+			
+			return kidsBoysShirt;
+			
+			
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e1) {
+			try { connection.rollback();     } catch (SQLException e) { e.printStackTrace(); }
+			e1.printStackTrace();
+		} finally {
+			kidsBoysShirt = null;
+			try { preparedStatement.close(); } catch (SQLException e) { e.printStackTrace(); }
+			try { connection.close();        } catch (SQLException e) { e.printStackTrace(); }
+			System.gc();
+		}
+		
+		
+		return null;
+	} //getKidsBoysShirt
+	
+	
+	public _KidsBoysShirt editKidsBoysShirtFeatures(_KidsBoysShirt kidsBoysShirt) {		
+		
+		Connection connection   = null;
+		CallableStatement callableStatement = null;
+		ResultSet resultSet = null;
+		
+		String sql = "{call _editKidsBoysShirtFeatures(?,?,?,?,?,?,?)}";			
+		
+		
+		try {
+				connection = ConnectionFactory.getNewConnection();
+				connection.setAutoCommit(false);
+				
+				callableStatement = connection.prepareCall(sql);
+				callableStatement.setLong  (1, kidsBoysShirt.getProductId());
+				callableStatement.setLong  (2, kidsBoysShirt.getSellerId() );
+				callableStatement.setString(3, kidsBoysShirt.getSleeve()   );
+				callableStatement.setString(4, kidsBoysShirt.getFabric()   );
+				callableStatement.setString(5, kidsBoysShirt.getType()     );
+				callableStatement.setString(6, kidsBoysShirt.getFit()      );
+				callableStatement.setString(7, kidsBoysShirt.getPattern()  );				
+				 			
+				resultSet = callableStatement.executeQuery();			
+					
+				if (resultSet.next()) {
+					
+					kidsBoysShirt.setId         (resultSet.getLong("id"         ));
+					kidsBoysShirt.setProductId  (resultSet.getLong("product_id" ));
+					kidsBoysShirt.setSellerId   (resultSet.getLong("seller_id"  ));
+					
+					kidsBoysShirt.setSleeve  (resultSet.getString("sleeve" ));
+					kidsBoysShirt.setFabric  (resultSet.getString("fabric" ));
+					kidsBoysShirt.setType    (resultSet.getString("type"   ));
+					kidsBoysShirt.setFit     (resultSet.getString("fit"    ));
+					kidsBoysShirt.setPattern (resultSet.getString("pattern"));
+				}
+				
+				connection.commit();
+				callableStatement.close();
+				
+				System.out.println("SQL - Select editKidsBoysShirtFeatures() successful.");
+				
+				return kidsBoysShirt;
+				
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException | SQLException e1) {
+			try { connection.rollback();     } catch (SQLException e) { e.printStackTrace(); }
+			e1.printStackTrace();
+		} finally {
+			kidsBoysShirt = null;
+			try { callableStatement.close(); } catch (SQLException e) { e.printStackTrace(); }
+			try { connection.close();        } catch (SQLException e) { e.printStackTrace(); }
+			System.gc();
+		}
+		
+		return null;
+	} //editKidsBoysShirtFeatures
 
 }

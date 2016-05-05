@@ -5,13 +5,13 @@ import java.io.Serializable;
 public class GarmentOrder implements Serializable {
 	private static final long serialVersionUID = 1L;	
 
-	private int size;
+	private String size;
 
-	public int getSize() {
+	public String getSize() {
 		return size;
 	}
 
-	public void setSize(int size) {
+	public void setSize(String size) {
 		this.size = size;
 	}
 	

@@ -118,6 +118,61 @@ $(function() {
 		return false;
 	});
 	
+	
+	/*********** Size Kids Years ************/
+	
+	$('form#form11').submit(function(event) { 
+		
+		event.preventDefault();
+		
+		$('#msg1').empty();
+		
+		var r = confirm("Alert: Do You Really Want To Edit This Advanced Product!");
+		
+		if (r == true) { 
+		
+				var formData = new FormData($(this)[0]);
+				
+				$.ajax({
+					url: 'EditSizeKidsYearsFeatures',
+					type: 'POST',
+					data: formData,
+					async: false,
+				    cache: false,
+				    contentType: false,
+				    processData: false,
+				    dataType: 'json',
+				    success: function (array) {
+				    	
+				    	$("input[name=year_1_2]")  .val(array[0] );
+				    	$("input[name=year_2_3]")  .val(array[1] );
+				    	$("input[name=year_3_4]")  .val(array[2] );
+				    	$("input[name=year_4_5]")  .val(array[3] );
+				    	$("input[name=year_5_6]")  .val(array[4] );
+				    	$("input[name=year_6_7]")  .val(array[5] );
+				    	$("input[name=year_7_8]")  .val(array[6] );
+				    	$("input[name=year_8_9]")  .val(array[7] );
+				    	$("input[name=year_9_10]") .val(array[8] );
+				    	$("input[name=year_10_11]").val(array[9] );
+				    	$("input[name=year_11_12]").val(array[10]);				    	
+				    	
+				    	
+				    	
+				    	$('#msg1').empty();
+				    	$('#msg1').append('Size Updated');
+				    },
+				    error: function() {
+				  		$('#msg1').empty();
+				  		$('#msg1').append('Size Not Updated');
+				  	}
+				});
+		
+		} // if close
+		
+		
+		return false;
+	});
+	
 	/***************** Mobile *******************/
 	
 	$('form#form2').submit(function(event) {
@@ -385,6 +440,54 @@ $(function() {
 				    	$("input[name=pockets]")  .val(array[3]);
 				    	$("input[name=beltLoops]").val(array[4]);
 				    	$("input[name=occasion]") .val(array[5]);
+				    	
+				    	
+				    	$('#msg1').empty();
+				    	$('#msg1').append('Advance Features Updated');
+				    },
+				    error: function() {
+				  		$('#msg1').empty();
+				  		$('#msg1').append('Advance Features Not Updated');
+				  	}
+				});
+		
+		} // if close
+		
+		
+		return false;
+	});
+	
+	/*********************** Kids *********************/
+	
+	/***************** Boys - Shirt *******************/
+	
+	$('form#form10').submit(function(event) { 
+		
+		event.preventDefault();
+		
+		$('#msg1').empty();
+		
+		var r = confirm("Alert: Do You Really Want To Edit This Advanced Product!");
+		
+		if (r == true) { 
+		
+				var formData = new FormData($(this)[0]);
+				
+				$.ajax({
+					url: 'EditBoys_ShirtAdvanceFeatures',
+					type: 'POST',
+					data: formData,
+					async: false,
+				    cache: false,
+				    contentType: false,
+				    processData: false,
+				    dataType: 'json',
+				    success: function (array) {
+				    	$("input[name=sleeve]") .val(array[0]);
+				    	$("input[name=fabric]") .val(array[1]);
+				    	$("input[name=type]")   .val(array[2]);
+				    	$("input[name=fit]")    .val(array[3]);
+				    	$("input[name=pattern]").val(array[4]);				    	
 				    	
 				    	
 				    	$('#msg1').empty();
