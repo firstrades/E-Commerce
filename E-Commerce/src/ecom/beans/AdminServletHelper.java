@@ -15,7 +15,7 @@ public class AdminServletHelper {
 			deliveredDate.set(Integer.parseInt(dateParts[0]), Integer.parseInt(dateParts[1])-1, Integer.parseInt(dateParts[2]));
 			deliveredDate.add(Calendar.DATE, 15);
 			SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-			formatted = format1.format(deliveredDate.getTime());  
+			formatted = format1.format(deliveredDate.getTime());   
     	}
     	
 		return formatted;
